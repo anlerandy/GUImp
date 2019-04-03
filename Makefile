@@ -6,11 +6,11 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:59:51 by alerandy          #+#    #+#              #
-#    Updated: 2019/04/03 21:30:17 by alerandy         ###   ########.fr        #
+#    Updated: 2019/04/03 21:38:56 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# PROGRESS BAR | Made by Cpirlot
+# PROGRESS BAR | Original author Cpirlot
 T = $(words $(OBJ))
 N = 0
 C = $(words $N)$(eval N := x $N)
