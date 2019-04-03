@@ -6,9 +6,30 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:59:51 by alerandy          #+#    #+#              #
-#    Updated: 2019/04/03 21:47:04 by alerandy         ###   ########.fr        #
+#    Updated: 2019/04/03 23:09:37 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+# Get all dependances
+include includes.dep
+
+# Intisialize the main files
+INCLUDES += ./ 
+SRCS += src/main.c 
+INCLUDES := $(addprefix -I, $(INCLUDES))
+FRAMWEWORK = -F SDL2.franework -rpath $(SDL2)
+
+# Deal with Cross-Platform
+ifeq ($(shell uname -s), Darwin)
+    libgl = -framework OpenGL -framework GLUT
+else
+    libgl = -lGL -lglut -framework
+endif
+
+# Insert les .o dans un seul dossier obj/
+OBJS=$(SRCS:%.c=%.o)
+OPATH= obj/
+PATH_OBJ=$(addprefix $(OPATH), $(OBJS))
 
 # PROGRESS BAR | Original author Cpirlot
 T = $(words $(OBJ))
@@ -23,7 +44,9 @@ $(SDL2):
 	@curl https://www.libsdl.org/release/SDL2-2.0.9.tar.gz > SDL2.tar.gz
 	@tar -xf SDL2.tar.gz
 	@rm -rf SDL2.tar.gz
-	@printf '\033[K\033[1A\033[K\033[1A\033[K\033[1A\033[K\033[1A\r'
+	@printf '\033[K\033[1A\033[K\033[1A\033[K\033[1A\033[K\033[1A'
+	@mkdir SDLbuild && cd SDLbuild && sh ../$(SDL2)/autogen.sh && sh ../$(SDL2)/configure
+	@make -C SDLbuild
 	@echo 'SDL2 Ready      '
 
 libs:
