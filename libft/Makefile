@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alerandy <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/08 12:38:11 by alerandy          #+#    #+#              #
-#    Updated: 2018/02/13 14:59:58 by alerandy         ###   ########.fr        #
+#    Updated: 2019/04/03 21:43:00 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ all : $(NAME)
 $(NAME) :  $(OBJ)
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
-	@printf "\r\033[K""\r\033[K""\033[32mCompilation terminee !\033[0m\n"
+	@printf "\r\033[K""\r\033[K""\033[32mLIBFT Ready.\033[0m\n"
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@printf "\033[42m \033[0m"

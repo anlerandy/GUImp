@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:59:51 by alerandy          #+#    #+#              #
-#    Updated: 2019/04/03 21:38:56 by alerandy         ###   ########.fr        #
+#    Updated: 2019/04/03 21:47:04 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,16 +23,21 @@ $(SDL2):
 	@curl https://www.libsdl.org/release/SDL2-2.0.9.tar.gz > SDL2.tar.gz
 	@tar -xf SDL2.tar.gz
 	@rm -rf SDL2.tar.gz
-	@printf '\033[2K\033[1A\033[2K\033[1A\033[2K\033[1A\033[2K\033[1A'
-	@echo 'SDL2 Ready'
+	@printf '\033[K\033[1A\033[K\033[1A\033[K\033[1A\033[K\033[1A\r'
+	@echo 'SDL2 Ready      '
 
-all: $(SDL2)
+libs:
+	@make -C libft -j
+
+all: $(SDL2) libs
 
 clean:
 	@rm -rf $(NAME)
+	@make -C libft clean
 
 fclean: clean
 	@rm -rf obj
 	@rm -rf $(SDL2)
+	@rm -rf libft/libft.a
 
 re: fclean all
