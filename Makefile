@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:59:51 by alerandy          #+#    #+#              #
-#    Updated: 2019/04/04 14:23:02 by alerandy         ###   ########.fr        #
+#    Updated: 2019/04/04 14:49:13 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,7 @@ $(NAME): $(OBJS) $(HEADERS)
 %.o: %.c $(HEADERS)
 	@mkdir -p $(OPATH)
 	@printf "%-60b\r" "$(ECHO) Compiling $@"
-	@$(COMPILE) $(INCLUDES) -c $< -o $(OPATH)$@ $(LIBS)
+	@$(COMPILE) $(INCLUDES) -c $< -o $(OPATH)$@
 
 libs:
 	@make -C libft -j
