@@ -2,3 +2,5 @@ SDL2-2.0.9
 libft/objects/
 libft/libft.a
 SDL
+.vscode
+obj

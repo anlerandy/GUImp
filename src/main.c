@@ -12,9 +12,9 @@ int init_window(size_t w, size_t h, char *title, t_win *win)
 
 int main()
 {
-	t_win win;
+	t_win     win;
 	SDL_Event e;
-	int flag;
+	int       flag;
 
 	if (init_window(500, 500, "coucou", &win))
 		return(-1);
@@ -24,18 +24,15 @@ int main()
 		flag = 1;
 		while (flag || SDL_PollEvent(&e))
 		{
-			state = (Uint8*)SDL_GetKeyboardState(NULL);
 			if (e.type == SDL_QUIT || (e.type == SDL_KEYDOWN &&
 				e.key.keysym.sym == SDLK_ESCAPE))
 				exit(1);
-			if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_RETURN && win->ed)
+			if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_RETURN)
 				exit(1);
 			flag = 0;
 		}
-		ft_memset(win->s->pixels, 0xb0,
-			(sizeof(int) * win->s->w * win->s->h) / 2);
-		ft_memset(&(win->s->pixels[(sizeof(int) * win->s->w * win->s->h)
-			/ 2]), 0x00, (sizeof(int) * win->s->w * win->s->h) / 2);
-		SDL_UpdateWindowSurface(win->w);
+		ft_memset(win.s->pixels, 0xfff,
+			(sizeof(int) * win.s->w * win.s->h));
+		SDL_UpdateWindowSurface(win.w);
 	}
 }

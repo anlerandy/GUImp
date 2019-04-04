@@ -1,7 +1,8 @@
 #ifndef GUIMP_H
 # define GUIMP_H
 
-#include <SDL2.h>
+#include "SDL.h"
+#include "libft.h"
 
 typedef struct	s_win
 {
