@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/08 12:38:11 by alerandy          #+#    #+#              #
-#    Updated: 2019/04/05 08:58:50 by alerandy         ###   ########.fr        #
+#    Updated: 2019/04/05 22:44:14 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,10 +46,13 @@ $(NAME) :  $(OBJ)
 	@ranlib $(NAME)
 	@printf "\r\033[K""\r\033[K""\033[32m[LIBFT]\033[0m Ready\n"
 
+so : $(OBJ)
+	@$(CC) -shared -o libft.so $(OBJ)
+
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@printf "%-60b\r" "\033[32m[LIBFT] $(ECHO)\033[0m Compiling $@"
 	@mkdir -p $(OBJ_PATH)
-	@$(CC) -I./includes -o $@ -c $<
+	@$(CC) -fpic -I./includes -o $@ -c $<
 
 clean :
 	@rm -rf $(OBJ_PATH)

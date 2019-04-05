@@ -3,3 +3,4 @@ SDL
 .vscode
 obj
 libui.a
+libft-unit-test

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alerandy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 15:08:26 by alerandy          #+#    #+#             */
-/*   Updated: 2018/01/15 23:07:46 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/04/05 22:37:00 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,21 @@
 
 int		ft_atoi(const char *str)
 {
-	size_t	i;
 	int		nb;
 	size_t	sign;
 
-	i = 0;
 	sign = 0;
 	nb = 0;
-	while (ft_isspace(str[i]) == 1)
-		i++;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		str[i] == '-' ? sign++ : sign;
-		i++;
-	}
-	while ((str[i] >= '0' && str[i] <= '9') && str[i])
+	while (ft_isspace(*str) == 1)
+		str++;
+	*str == '-' ? --sign : ++sign;
+	if (*str == '-' || *str == '+')
+    ++str;
+	while (*str && *str >= '0' && *str <= '9')
 	{
 		nb *= 10;
-		nb += (str[i++] - 48);
+		nb += (*str - 48);
+    ++str;
 	}
-	if (sign > 0)
-		return (-nb);
-	return (nb);
+	return (nb * sign);
 }
