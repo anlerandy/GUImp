@@ -6,23 +6,30 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 15:11:25 by alerandy          #+#    #+#              #
-#    Updated: 2019/04/05 17:20:28 by alerandy         ###   ########.fr        #
+#    Updated: 2019/04/05 17:38:07 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libui.a
 CFLAGS = -Wall -Werror -Wextra
-CC = clang
+CC = gcc
 COMPILE=$(CC) -g3 $(CFLAGS)
 
 # Get all dependances
 include includes.dep
 
+# Deal with Cross-Platform
+ifeq ($(shell uname -s), Darwin)
+    linksdl = -Wl,-rpath,./SDL/build/.libs
+else
+    linksdl = -Wl,-rpath,./SDL/build/.libs
+endif
+
 # Intisialize the main files
 SDLINK = https://www.libsdl.org/release/SDL2-2.0.9.tar.gz
 SDL2 = SDL2-2.0.9
 INCLUDES += ./includes $(SDL2)/include libft/includes
-LIBS = -L./libft -lft -L./SDL/build/.libs -lSDL2 -Wl,-rpath,./SDL/build/.libs
+LIBS = -L./libft -lft -L./SDL/build/.libs -lSDL2 $(linksdl)
 SRCS += ui_new_window.c 
 INCLUDES:=$(addprefix -I, $(INCLUDES))
 

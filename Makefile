@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:59:51 by alerandy          #+#    #+#              #
-#    Updated: 2019/04/05 17:21:27 by alerandy         ###   ########.fr        #
+#    Updated: 2019/04/05 17:42:47 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,10 +18,17 @@ COMPILE=$(CC) -g3 $(CFLAGS)
 # Get all dependances
 include includes.dep
 
+# Deal with Cross-Platform
+ifeq ($(shell uname -s), Darwin)
+    linksdl = -Wl,-rpath,./libui/SDL/build/.libs
+else
+    linksdl = -Wl,-rpath,./libui/SDL/build/.libs
+endif
+
 # Intisialize the main files
 SDL2 = SDL2-2.0.9
 INCLUDES += ./includes ./libui/$(SDL2)/include ./libui/libft/includes ./libui/includes
-LIBS = -L./libui -lui -L./libui/libft -lft -L./libui/SDL/build/.libs -lSDL2 -Wl,-rpath,./libui/SDL/build/.libs
+LIBS = -L./libui -lui -L./libui/libft -lft -L./libui/SDL/build/.libs -lSDL2 $(linksdl)
 SRCS += main.c 
 INCLUDES:=$(addprefix -I, $(INCLUDES))
 
@@ -46,6 +53,7 @@ $(NAME): $(OBJS) $(HEADERS)
 	@printf "\033[1A\r\033[K""\r\033[K""\033[32m[GUI] \033[0m""Ready""\n"
 
 %.o: %.c $(HEADERS)
+	@echo $(linksdl) $(LIBS)
 	@mkdir -p $(OPATH)
 	@printf "%-60b\r" "\033[32m[GUI] $(ECHO)\033[0 mCompiling $@"
 	@$(COMPILE) $(INCLUDES) -c $< -o $(OPATH)$@
