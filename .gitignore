@@ -5,3 +5,5 @@ SDL
 .vscode
 obj
 guimp
+*.dSYM
+*.swp
