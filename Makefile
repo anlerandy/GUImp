@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:59:51 by alerandy          #+#    #+#              #
-#    Updated: 2019/04/05 08:51:46 by alerandy         ###   ########.fr        #
+#    Updated: 2019/04/05 08:59:10 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,6 @@ OBJS = $(SRCS:%.c=%.o)
 OPATH = obj/
 PATH_OBJ = $(addprefix $(OPATH), $(OBJS))
 
-# PROGRESS BAR | Original author Cpirlot
 T = $(words $(PATH_OBJ))
 N = 0
 C = $(words $N)$(eval N := x $N)
@@ -53,13 +52,13 @@ $(SDL2):
 	@printf "\033[1A\r\033[K""\r\033[K""\033[32m[SDL2] \033[0m""Ready""\n"
 
 $(NAME): $(OBJS) $(HEADERS)
-	@printf "\r\033[K""\r\033[K""\033[32m[GUI] \033[0m""Compilation""\n"
+	@printf "\r\033[K""\r\033[K""\033[32m[GUI] \033[0m""Compiling""\n"
 	@$(COMPILE) $(INCLUDES) $(PATH_OBJ) -o $(NAME) $(LIBS)
 	@printf "\033[1A\r\033[K""\r\033[K""\033[32m[GUI] \033[0m""Ready""\n"
 
 %.o: %.c $(HEADERS)
 	@mkdir -p $(OPATH)
-	@printf "%-60b\r" "$(ECHO) Compiling $@"
+	@printf "%-60b\r" "\033[32m[GUI] $(ECHO)\033[0mCompiling $@"
 	@$(COMPILE) $(INCLUDES) -c $< -o $(OPATH)$@
 
 libs:
