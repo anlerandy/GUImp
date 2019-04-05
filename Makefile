@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:59:51 by alerandy          #+#    #+#              #
-#    Updated: 2019/04/05 08:59:10 by alerandy         ###   ########.fr        #
+#    Updated: 2019/04/05 09:06:55 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ $(NAME): $(OBJS) $(HEADERS)
 
 %.o: %.c $(HEADERS)
 	@mkdir -p $(OPATH)
-	@printf "%-60b\r" "\033[32m[GUI] $(ECHO)\033[0mCompiling $@"
+	@printf "%-60b\r" "\033[32m[GUI] $(ECHO)\033[0 mCompiling $@"
 	@$(COMPILE) $(INCLUDES) -c $< -o $(OPATH)$@
 
 libs:
