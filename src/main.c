@@ -1,25 +1,13 @@
 #include "guimp.h"
 
-int init_window(size_t w, size_t h, char *title, t_win *win)
-{
-	if (SDL_Init(SDL_INIT_VIDEO) || !(win->w = SDL_CreateWindow(title,
-		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, w, h,
-		SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE)))
-		return (-1);
-	win->s = SDL_GetWindowSurface(win->w);
-	return (0);
-}
-
 int main()
 {
-	t_win     win;
+	t_win     *win;
 	SDL_Event e;
 	int       flag;
 
-	if (init_window(500, 500, "coucou", &win))
-		return(-1);
-
-	while(1)
+  win = ui_new_window();
+  while(1)
 	{
 		flag = 1;
 		while (flag || SDL_PollEvent(&e))
@@ -31,8 +19,8 @@ int main()
 				exit(1);
 			flag = 0;
 		}
-		ft_memset(win.s->pixels, 0xfff,
-			(sizeof(int) * win.s->w * win.s->h));
-		SDL_UpdateWindowSurface(win.w);
+		ft_memset(win->s->pixels, 0xfff,
+			(sizeof(int) * win->s->w * win->s->h));
+		SDL_UpdateWindowSurface(win->w);
 	}
 }

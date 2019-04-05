@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/08 12:38:11 by alerandy          #+#    #+#              #
-#    Updated: 2019/04/04 14:09:12 by alerandy         ###   ########.fr        #
+#    Updated: 2019/04/05 08:58:50 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,12 @@ CC = clang $(FLAG)
 SRC = $(addprefix $(SRC_PATH),$(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH),$(OBJ_NAME))
 
+# PROGRESS BAR | Original author Cpirlot
+T = $(words $(OBJ))
+N = 0
+C = $(words $N)$(eval N := x $N)
+ECHO = "[`expr $C  '*' 100 / $T`%]"
+
 all : $(NAME)
 
 $(NAME) :  $(OBJ)
@@ -41,20 +47,16 @@ $(NAME) :  $(OBJ)
 	@printf "\r\033[K""\r\033[K""\033[32m[LIBFT]\033[0m Ready\n"
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
-	@printf "\033[42m \033[0m"
+	@printf "%-60b\r" "\033[32m[LIBFT] $(ECHO)\033[0m Compiling $@"
 	@mkdir -p $(OBJ_PATH)
 	@$(CC) -I./includes -o $@ -c $<
 
-loading :
-	@printf "Compilation en cours...\n"
-
 clean :
 	@rm -rf $(OBJ_PATH)
-	@echo "\033[1;30mFichier .o supprime.\033[0m"
 
 fclean : clean
 	@rm -f $(NAME)
-	@echo "\033[1;37mLibrairie detruite.\033[0m"
+	@echo "\033[1;37mLIBFT destroyed\033[0m"
 
 re : fclean $(NAME)
 
