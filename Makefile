@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:59:51 by alerandy          #+#    #+#              #
-#    Updated: 2019/04/04 14:49:13 by alerandy         ###   ########.fr        #
+#    Updated: 2019/04/05 08:51:46 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,8 +48,7 @@ $(SDL2):
 	@rm -rf SDL2.tar.gz
 	@printf '\033[K\033[1A\033[K\033[1A\033[K\033[1A\033[K\033[1A'
 	@printf "\r\033[K""\r\033[K""\033[32m[SDL2] \033[0m""Installing""\n"
-	@mkdir SDL && cd SDL && sh ../$(SDL2)/configure > /dev/null 2> /dev/null \
-	&& sh ../$(SDL2)/autogen.sh > /dev/null 2> /dev/null
+	@mkdir SDL && cd SDL && sh ../$(SDL2)/configure > /dev/null 2> /dev/null
 	@make -C SDL -j > /dev/null 2> /dev/null
 	@printf "\033[1A\r\033[K""\r\033[K""\033[32m[SDL2] \033[0m""Ready""\n"
 
