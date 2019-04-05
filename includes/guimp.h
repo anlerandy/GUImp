@@ -3,11 +3,6 @@
 
 #include "SDL.h"
 #include "libft.h"
-
-typedef struct	s_win
-{
-	SDL_Surface *s;
-	SDL_Window	*w;
-}				t_win;
+#include "libui.h"
 
 #endif
