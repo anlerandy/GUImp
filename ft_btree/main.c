@@ -14,6 +14,11 @@ int		cmp_char(void *char_a, void *char_b)
 	return (*(char *)char_a - *(char *)char_b);
 }
 
+int		search_char(void *char_a, void *char_b)
+{
+	return (*(char *)char_a > *(char *)char_b);
+}
+
 int		main(void)
 {
 	t_btree		*tree;
@@ -38,6 +43,7 @@ int		main(void)
 	btree_apply_suffix(tree, btree_print_node);
 	printf("\nParcours infix:\n");
 	btree_apply_infix(tree, btree_print_node);
+	printf("node found:\t%c\n", *(char *)btree_search_infix(tree, dataset + 1, &search_char));
 	free(dataset);
 	free(tree->right);
 	free(tree->left);
