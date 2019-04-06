@@ -9,6 +9,11 @@ void	btree_print_node(void *data)
 	printf("node:\t%c\n", *(char *)data);
 }
 
+int		cmp_char(void *char_a, void *char_b)
+{
+	return (*(char *)char_a - *(char *)char_b);
+}
+
 int		main(void)
 {
 	t_btree		*tree;
@@ -16,17 +21,17 @@ int		main(void)
 
 	if (!(dataset = (char *)malloc(sizeof(char) * 4)))
 		return (1);
-	dataset[0] = 'B';
-	dataset[1] = 'A';
+	dataset[0] = 'A';
+	dataset[1] = 'B';
 	dataset[2] = 'C';
 	dataset[3] = 0;
-	if (!(tree = btree_new_node(dataset)))
-	{
-		free(dataset);
-		return (1);
-	}
-	tree->left = btree_new_node(dataset + 1);
-	tree->right = btree_new_node(dataset + 2);
+	tree = NULL;
+	btree_insert_data(&tree, dataset, &cmp_char);
+	btree_insert_data(&tree, dataset + 1, &cmp_char);
+	btree_insert_data(&tree, dataset + 2, &cmp_char);
+	btree_insert_data(&tree, dataset, &cmp_char);
+	btree_insert_data(&tree, dataset + 1, &cmp_char);
+	btree_insert_data(&tree, dataset + 2, &cmp_char);
 	printf("Parcours prefix:\n");
 	btree_apply_prefix(tree, btree_print_node);
 	printf("\nParcours suffix:\n");
