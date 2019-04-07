@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/08 12:38:11 by alerandy          #+#    #+#              #
-#    Updated: 2019/04/07 11:09:41 by alerandy         ###   ########.fr        #
+#    Updated: 2019/04/07 11:48:52 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,9 +27,9 @@ SRC_NAME = ft_putchar.c ft_putstr.c ft_putcharerr.c ft_putstrerr.c ft_memset.c \
 		   ft_lstdel.c ft_lstadd.c ft_hidenp.c ft_strcapitalize.c ft_strndup.c \
 		   get_next_line.c
 NAME = libft.a
-FLAG = -Wall -Wextra -Werror -O2 -O3 -Ofast
+FLAG = -Wall -Wextra -Werror -finline-functions
 OBJ_NAME = $(SRC_NAME:.c=.o)
-CC = clang $(FLAG)
+CC = gcc $(FLAG)
 SRC = $(addprefix $(SRC_PATH),$(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH),$(OBJ_NAME))
 
