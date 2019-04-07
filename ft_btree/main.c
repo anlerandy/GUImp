@@ -14,28 +14,30 @@ int		cmp_char(void *char_a, void *char_b)
 	return (*(char *)char_a - *(char *)char_b);
 }
 
-int		search_char(void *char_a, void *char_b)
+void	print_lvl(void *item, int curr_lvl, int first_elem)
 {
-	return (*(char *)char_a > *(char *)char_b);
+	if (!item)
+		return ;
+	printf("node:\t%c\tlevel:\t%d\tfirst:\t%d\n", *(char*)item, curr_lvl, first_elem);
 }
 
 int		main(void)
 {
 	t_btree		*tree;
-	char		*dataset;
+	char		dataset[6];
 
-	if (!(dataset = (char *)malloc(sizeof(char) * 4)))
-		return (1);
 	dataset[0] = 'A';
 	dataset[1] = 'B';
 	dataset[2] = 'C';
-	dataset[3] = 0;
+	dataset[3] = 'D';
+	dataset[4] = 'E';
+	dataset[5] = 'F';
 	tree = NULL;
-	btree_insert_data(&tree, dataset, &cmp_char);
+	btree_insert_data(&tree, dataset + 4, &cmp_char);
+	btree_insert_data(&tree, dataset + 3, &cmp_char);
+	btree_insert_data(&tree, dataset + 5, &cmp_char);
 	btree_insert_data(&tree, dataset + 1, &cmp_char);
-	btree_insert_data(&tree, dataset + 2, &cmp_char);
-	btree_insert_data(&tree, dataset, &cmp_char);
-	btree_insert_data(&tree, dataset + 1, &cmp_char);
+	btree_insert_data(&tree, dataset + 0, &cmp_char);
 	btree_insert_data(&tree, dataset + 2, &cmp_char);
 	printf("Parcours prefix:\n");
 	btree_apply_prefix(tree, btree_print_node);
@@ -43,8 +45,8 @@ int		main(void)
 	btree_apply_suffix(tree, btree_print_node);
 	printf("\nParcours infix:\n");
 	btree_apply_infix(tree, btree_print_node);
-	printf("node found:\t%c\n", *(char *)btree_search_infix(tree, dataset + 1, &search_char));
-	free(dataset);
+	printf("\nParcours apply by level:\n");
+	btree_apply_by_level(tree, print_lvl);
 	free(tree->right);
 	free(tree->left);
 	free(tree);

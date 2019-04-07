@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 17:53:09 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/06 18:23:36 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/04/07 13:19:35 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ t_btree			*btree_new_node(void *data)
 
 	if (!(new_node = (t_btree *)malloc(sizeof(t_btree))))
 		return (NULL);
-	new_node->parent = NULL;
 	new_node->right = NULL;
 	new_node->left = NULL;
 	new_node->data = data;
