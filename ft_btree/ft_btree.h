@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 17:12:23 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/06 21:52:09 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/04/07 17:40:10 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ typedef	struct	s_btree
 	struct s_btree		*right;
 	void				*data;
 }				t_btree;
+
+void			btree_print(t_btree *root);
 
 /*
 ** fonctions du sujet de la piscine C (good old times...)

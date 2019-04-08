@@ -6,14 +6,14 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 15:06:43 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/07 15:17:55 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/04/08 19:31:39 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "ft_btree_rb.h"
 
-t_rb_node	*grand_father(t_rb_node *node)
+t_rb_node	*rb_grand_father(t_rb_node *node)
 {
 	t_rb_node	*father;
 
@@ -23,7 +23,7 @@ t_rb_node	*grand_father(t_rb_node *node)
 	return (father->parent);
 }
 
-t_rb_node	*brother(t_rb_node *node)
+t_rb_node	*rb_brother(t_rb_node *node)
 {
 	t_rb_node	*father;
 
@@ -35,14 +35,21 @@ t_rb_node	*brother(t_rb_node *node)
 	return (father->left);
 }
 
-t_rb_node	*uncle(t_rb_node *node)
+t_rb_node	*rb_uncle(t_rb_node *node)
 {
 	t_rb_node	*father;
-	t_rb_node	*gra_father;
+	t_rb_node	*grand_father;
 
 	father = node->parent;
-	gra_father = grand_father(node);
-	if (!gra_father)
+	grand_father = rb_grand_father(node);
+	if (!grand_father)
 		return (NULL);
-	return (brother(father));
+	return (rb_brother(father));
+}
+
+t_rb_node	*rb_get_root(t_rb_node *node)
+{
+	while (node && node->parent)
+		node = node->parent;
+	return (node);
 }

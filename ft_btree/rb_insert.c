@@ -6,10 +6,11 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 13:51:11 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/07 15:02:52 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/04/08 19:56:03 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include "ft_btree_rb.h"
 
@@ -50,10 +51,65 @@ static t_rb_node	*rb_insert_data(t_rb_node **root, void *item, \
 	}
 }
 
+static t_rb_node	*rotate_parents(t_rb_node *node)
+{
+	t_rb_node	*father;
+	t_rb_node	*grand_father;
+
+	father = node->parent;
+	grand_father = rb_grand_father(node);
+	if (grand_father->left && node == grand_father->left->right)
+	{
+		rb_rotation_left(grand_father->left);
+		node = node->left;
+	}
+	else if (grand_father->right && node == grand_father->right->left)
+	{
+		rb_rotation_right(grand_father->right);
+		node = node->right;
+	}
+	if (node == node->parent->left)
+		rb_rotation_right(grand_father);
+	else
+		rb_rotation_left(grand_father);
+	father->color = RB_BLACK;
+	grand_father->color = RB_RED;
+	return (rb_get_root(node));
+}
+
+static t_rb_node	*fix_tree(t_rb_node *node)
+{
+	t_rb_node	*father;
+	t_rb_node	*uncle;
+	t_rb_node	*grand_father;
+
+	if (!node)
+		return (NULL);
+	if (!(node->parent))
+		node->color = RB_BLACK;
+	if (!(node->parent) || node->parent->color == RB_BLACK)
+		return (rb_get_root(node));
+	grand_father = rb_grand_father(node);
+	father = node->parent;
+	uncle = rb_uncle(node);
+	if (uncle && uncle->color == RB_RED)
+	{
+		father->color = RB_BLACK;
+		uncle->color = RB_BLACK;
+		grand_father->color = RB_RED;
+		return (fix_tree(grand_father));
+	}
+	else
+		return (rotate_parents(node));
+}
+
 void				rb_insert(t_rb_node **root, void *data, \
 						int (*cmpf)(void *, void *))
 {
 	t_rb_node	*new_n;
 
+	if (!root)
+		return ;
 	new_n = rb_insert_data(root, data, cmpf);
+	*root = fix_tree(new_n);
 }
