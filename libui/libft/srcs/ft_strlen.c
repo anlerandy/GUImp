@@ -6,7 +6,7 @@
 /*   By: alerandy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 10:35:47 by alerandy          #+#    #+#             */
-/*   Updated: 2017/11/09 18:49:20 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/04/08 18:05:59 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,7 @@
 
 size_t	ft_strlen(const char *s)
 {
-	unsigned int	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
+	if (!*s)
+		return (0);
+	return (!!*s + ft_strlen(s + 1));
 }
