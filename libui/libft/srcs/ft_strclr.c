@@ -6,7 +6,7 @@
 /*   By: alerandy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 20:49:05 by alerandy          #+#    #+#             */
-/*   Updated: 2017/11/15 20:36:29 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/04/08 13:05:51 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,7 @@
 
 void	ft_strclr(char *s)
 {
-	size_t		i;
-	size_t		a;
-
-	if (s)
-	{
-		a = ft_strlen(s);
-		i = 0;
-		while (i < a)
-			s[i++] = '\0';
-		s[i] = '\0';
-	}
+	if (!s)
+		return ;
+	ft_bzero(s, ft_strlen(s));
 }

@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/08 12:38:11 by alerandy          #+#    #+#              #
-#    Updated: 2019/04/07 11:48:52 by alerandy         ###   ########.fr        #
+#    Updated: 2019/04/08 13:01:37 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,9 +25,9 @@ SRC_NAME = ft_putchar.c ft_putstr.c ft_putcharerr.c ft_putstrerr.c ft_memset.c \
 		   ft_putendl_fd.c ft_putstr_fd.c ft_putchar_fd.c ft_strsplit.c \
 		   ft_itoa.c ft_lstnew.c ft_lstmap.c ft_lstiter.c ft_lstdelone.c \
 		   ft_lstdel.c ft_lstadd.c ft_hidenp.c ft_strcapitalize.c ft_strndup.c \
-		   get_next_line.c
+		   ft_isupper.c get_next_line.c
 NAME = libft.a
-FLAG = -Wall -Wextra -Werror -finline-functions
+FLAG = -Wall -Wextra -Werror -finline-functions -O2 -funroll-loops
 OBJ_NAME = $(SRC_NAME:.c=.o)
 CC = gcc $(FLAG)
 SRC = $(addprefix $(SRC_PATH),$(SRC_NAME))

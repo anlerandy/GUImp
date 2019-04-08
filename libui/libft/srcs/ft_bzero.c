@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 16:50:07 by alerandy          #+#    #+#             */
-/*   Updated: 2019/04/07 11:38:24 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/04/08 12:22:38 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,5 @@
 
 void	ft_bzero(void *s, size_t n)
 {
-	unsigned char	*ptr;
-
-	ptr = (unsigned char*)s;
-	while (n)
-		ptr[n-- - 1] = 0;
+	ft_memset(s, 0, n);
 }

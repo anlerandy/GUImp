@@ -6,7 +6,7 @@
 /*   By: alerandy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 20:41:11 by alerandy          #+#    #+#             */
-/*   Updated: 2017/11/15 17:02:41 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/04/08 13:04:56 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,7 @@ char	*ft_strnew(size_t size)
 {
 	char	*str;
 
-	str = ft_memalloc(size + 1);
-	if (!str)
+	if (!(str = ft_memalloc(size + 1)))
 		return (NULL);
-	while (size > 0)
-		str[size--] = '\0';
-	str[0] = '\0';
 	return (str);
 }
