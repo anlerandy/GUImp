@@ -6,7 +6,7 @@
 /*   By: alerandy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 14:36:23 by alerandy          #+#    #+#             */
-/*   Updated: 2017/11/10 17:44:14 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/04/08 15:21:43 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ char	*ft_strstr(const char *haystack, const char *needle)
 	if (!haystack[i])
 		return (NULL);
 	while (haystack[i] == needle[i] && haystack[i] && needle[i])
-	{
-		i++;
-		if (!needle[i])
+		if (!needle[++i])
 			return ((char*)haystack);
-	}
 	return (ft_strstr(haystack + 1, needle));
 }

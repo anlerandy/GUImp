@@ -6,14 +6,11 @@
 /*   By: alerandy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 15:28:09 by alerandy          #+#    #+#             */
-/*   Updated: 2019/04/08 13:58:08 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/04/08 14:14:36 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-#include "libft.h"
-#define OP_SIZE sizeof(long)
 
 static inline void	ft_memfill(unsigned long *dstp, unsigned long c, size_t len)
 {

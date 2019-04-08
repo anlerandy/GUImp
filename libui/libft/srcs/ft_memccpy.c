@@ -6,7 +6,7 @@
 /*   By: alerandy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 17:42:37 by alerandy          #+#    #+#             */
-/*   Updated: 2017/11/10 10:52:42 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/04/08 15:20:01 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,9 @@ void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 {
 	unsigned char	*ptrs;
 	unsigned char	*ptrd;
-	unsigned char	*ptr;
 	unsigned char	ch;
 	size_t			i;
 
-	ptr = NULL;
 	i = 0;
 	ch = c;
 	ptrs = ((unsigned char*)src);
@@ -33,7 +31,7 @@ void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 			ptrd[i] = ptrs[i];
 			return (dst + i + 1);
 		}
-		i++;
+		++i;
 	}
-	return (ptr);
+	return (NULL);
 }
