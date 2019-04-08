@@ -6,7 +6,7 @@
 /*   By: alerandy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 13:34:41 by alerandy          #+#    #+#             */
-/*   Updated: 2017/11/09 13:39:01 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/04/08 19:32:27 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,11 @@
 char	*ft_strcat(char *s1, const char *s2)
 {
 	size_t	i;
-	size_t	a;
+	size_t	y;
 
-	a = 0;
 	i = ft_strlen(s1);
-	while (s2[a])
-		s1[i++] = s2[a++];
-	s1[i] = '\0';
+	y = ft_strlen(s2);
+	ft_memcpy(s1 + i, s2, y);
+	s1[i + y] = '\0';
 	return (s1);
 }

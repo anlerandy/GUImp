@@ -6,7 +6,7 @@
 /*   By: alerandy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 14:57:37 by alerandy          #+#    #+#             */
-/*   Updated: 2017/11/11 21:02:37 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/04/08 19:27:49 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,5 @@
 
 void	ft_putstrerr(char *str)
 {
-	int		i;
-
-	i = 0;
-	while (str[i])
-		ft_putcharerr(str[i++]);
+	ft_putstr_fd(str, 2);
 }
