@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 13:51:11 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/08 19:56:03 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/04/08 20:59:22 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,16 @@ static t_rb_node	*rotate_parents(t_rb_node *node)
 	grand_father = rb_grand_father(node);
 	if (grand_father->left && node == grand_father->left->right)
 	{
-		rb_rotation_left(grand_father->left);
+		rb_rotation_left(father);
 		node = node->left;
 	}
 	else if (grand_father->right && node == grand_father->right->left)
 	{
-		rb_rotation_right(grand_father->right);
+		rb_rotation_right(father);
 		node = node->right;
 	}
+	father = node->parent;
+	grand_father = rb_grand_father(node);
 	if (node == node->parent->left)
 		rb_rotation_right(grand_father);
 	else
@@ -86,8 +88,11 @@ static t_rb_node	*fix_tree(t_rb_node *node)
 	if (!node)
 		return (NULL);
 	if (!(node->parent))
+	{
 		node->color = RB_BLACK;
-	if (!(node->parent) || node->parent->color == RB_BLACK)
+		return (rb_get_root(node));
+	}
+	if (node->parent->color == RB_BLACK)
 		return (rb_get_root(node));
 	grand_father = rb_grand_father(node);
 	father = node->parent;
