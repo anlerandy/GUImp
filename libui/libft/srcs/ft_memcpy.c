@@ -6,13 +6,14 @@
 /*   By: alerandy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 17:16:38 by alerandy          #+#    #+#             */
-/*   Updated: 2019/04/08 14:27:14 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/04/10 19:30:30 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static inline void	ft_memfill(unsigned long *dstp, unsigned long *srcp, size_t len)
+static inline void	ft_memfill(unsigned long *dstp, unsigned long *srcp, \
+		size_t len)
 {
 	unsigned long	*source;
 	unsigned long	*destination;

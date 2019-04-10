@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 15:08:26 by alerandy          #+#    #+#             */
-/*   Updated: 2019/04/05 22:37:00 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/04/10 19:31:45 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ int		ft_atoi(const char *str)
 		str++;
 	*str == '-' ? --sign : ++sign;
 	if (*str == '-' || *str == '+')
-    ++str;
+		++str;
 	while (*str && *str >= '0' && *str <= '9')
 	{
 		nb *= 10;
 		nb += (*str - 48);
-    ++str;
+		++str;
 	}
 	return (nb * sign);
 }
