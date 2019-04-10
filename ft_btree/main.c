@@ -3,6 +3,12 @@
 
 #include "ft_btree_rb.h"
 
+void	free_char(void *c)
+{
+	(void)c;
+	return ;
+}
+
 int		cmp_char(void *char_a, void *char_b)
 {
 	return (*(char *)char_a - *(char *)char_b);
@@ -10,36 +16,25 @@ int		cmp_char(void *char_a, void *char_b)
 
 int		main(void)
 {
+	int			i;
 	t_rb_node	*tree;
 	char		*dataset;
 
 	dataset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	tree = NULL;
-	rb_insert(&tree, dataset + 3, &cmp_char);
-	rb_insert(&tree, dataset + 4, &cmp_char);
-	rb_insert(&tree, dataset + 5, &cmp_char);
-	rb_insert(&tree, dataset + 1, &cmp_char);
-	rb_insert(&tree, dataset + 0, &cmp_char);
-	rb_insert(&tree, dataset + 2, &cmp_char);
-	rb_insert(&tree, dataset + 10, &cmp_char);
-	rb_insert(&tree, dataset + 7, &cmp_char);
-	rb_insert(&tree, dataset + 11, &cmp_char);
-	rb_insert(&tree, dataset + 12, &cmp_char);
-	rb_insert(&tree, dataset + 13, &cmp_char);
-	rb_insert(&tree, dataset + 14, &cmp_char);
-	rb_insert(&tree, dataset + 15, &cmp_char);
-	rb_insert(&tree, dataset + 16, &cmp_char);
-	rb_insert(&tree, dataset + 17, &cmp_char);
-	rb_insert(&tree, dataset + 18, &cmp_char);
-	rb_insert(&tree, dataset + 19, &cmp_char);
-	rb_insert(&tree, dataset + 20, &cmp_char);
-	rb_insert(&tree, dataset + 21, &cmp_char);
-	rb_insert(&tree, dataset + 22, &cmp_char);
-	rb_insert(&tree, dataset + 23, &cmp_char);
-	rb_insert(&tree, dataset + 24, &cmp_char);
-	rb_insert(&tree, dataset + 25, &cmp_char);
-	printf("\nrb print:\n");
-	rb_print(tree);
+	i = -1;
+	while (++i < 26)
+	{
+		rb_insert(&tree, (void *)(dataset + i), &cmp_char);
+		//printf("\nadding %c:\n", dataset[i]);
+		//rb_print(tree);
+	}
+	while (--i < 26)
+	{
+		rb_remove(&tree, (void *)(dataset + i), &cmp_char, &free_char);
+		printf("\nremoving %c:\n", dataset[i]);
+		rb_print(tree);
+	}
 	return (0);
 }
 
