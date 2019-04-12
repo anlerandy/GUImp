@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 13:30:40 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/11 22:15:06 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/04/12 18:39:11 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ void			rb_insert(t_rb_node **root, void *data, \
 void			rb_remove(t_rb_node **root, void *data, \
 					int (*cmpf)(void *, void *), void (*freef)(void *));
 void			rb_fix_removal(t_rb_node *node);
+void			rb_clear_tree(t_rb_node **root, void (*freef)(void *));
 
 #endif
