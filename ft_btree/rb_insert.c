@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 13:51:11 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/08 20:59:22 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/04/12 17:43:49 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,98 +14,107 @@
 #include <stdlib.h>
 #include "ft_btree_rb.h"
 
-static t_rb_node	*rb_new_node(void *data, t_rb_node *parent, t_rb_color col)
+static t_rb_node	*rb_insert_data(t_rb_node **root, t_rb_node *parent, \
+						void *item, int (*cmp_funct)(void *, void *))
 {
-	t_rb_node	*new_node;
+	t_rb_node	*node;
+	t_rb_node	**next_node;
 
-	if (!(new_node = (t_rb_node *)malloc(sizeof(t_rb_node))))
-		return (NULL);
-	new_node->parent = parent;
-	new_node->right = NULL;
-	new_node->left = NULL;
-	new_node->data = data;
-	new_node->color = col;
-	return (new_node);
-}
-
-static t_rb_node	*rb_insert_data(t_rb_node **root, void *item, \
-						int (*cmp_funct)(void *, void *))
-{
-	if (!root)
-		return (NULL);
-	if (!(*root))
-		return ((*root = rb_new_node(item, NULL, RB_BLACK)));
-	else if (cmp_funct((*root)->data, item) > 0)
+	node = *root;
+	if (!node)
 	{
-		if ((*root)->left)
-			return (rb_insert_data(&((*root)->left), item, cmp_funct));
-		else
-			return (((*root)->left = rb_new_node(item, *root, RB_RED)));
+		if (!(node = (t_rb_node *)malloc(sizeof(t_rb_node))))
+			return (NULL);
+		node->parent = parent;
+		node->right = NULL;
+		node->left = NULL;
+		node->data = item;
+		node->color = RB_RED;
+		*root = node;
+		return (node);
 	}
+	if (cmp_funct(node->data, item) > 0)
+		next_node = &(node->left);
 	else
-	{
-		if ((*root)->right)
-			return (rb_insert_data(&((*root)->right), item, cmp_funct));
-		else
-			return (((*root)->right = rb_new_node(item, *root, RB_RED)));
-	}
+		next_node = &(node->right);
+	return (rb_insert_data(next_node, node, item, cmp_funct));
 }
 
-static t_rb_node	*rotate_parents(t_rb_node *node)
+static t_rb_node	*rotate_gr_parent(t_rb_node **root, t_rb_node *node)
 {
 	t_rb_node	*father;
-	t_rb_node	*grand_father;
+	t_rb_node	*gr_father;
+	t_rb_node	*gr_gr_father;
+	t_rb_node	**rot_node;
 
+	rot_node = root;
 	father = node->parent;
-	grand_father = rb_grand_father(node);
-	if (grand_father->left && node == grand_father->left->right)
+	gr_father = rb_grand_father(node);
+	if ((gr_gr_father = gr_father->parent))
 	{
-		rb_rotation_left(father);
-		node = node->left;
+		if (gr_father == gr_gr_father->left)
+			rot_node = &(gr_gr_father->left);
+		else
+			rot_node = &(gr_gr_father->right);
 	}
-	else if (grand_father->right && node == grand_father->right->left)
-	{
-		rb_rotation_right(father);
-		node = node->right;
-	}
-	father = node->parent;
-	grand_father = rb_grand_father(node);
-	if (node == node->parent->left)
-		rb_rotation_right(grand_father);
+	if (node == father->left)
+		rb_rotation_right(rot_node);
 	else
-		rb_rotation_left(grand_father);
+		rb_rotation_left(rot_node);
 	father->color = RB_BLACK;
-	grand_father->color = RB_RED;
-	return (rb_get_root(node));
+	gr_father->color = RB_RED;
+	return (rb_get_root(father));
 }
 
-static t_rb_node	*fix_tree(t_rb_node *node)
+static t_rb_node	*rotate_parent(t_rb_node **root, t_rb_node *node)
+{
+	t_rb_node	*father;
+	t_rb_node	*grd_father;
+	t_rb_node	*grd_grd_father;
+	t_rb_node	**rot_node;
+
+	father = node->parent;
+	grd_father = rb_grand_father(node);
+	if (grd_father->left && node == grd_father->left->right)
+	{
+		rb_rotation_left(&(grd_father->left));
+		node = node->left;
+	}
+	else if (grd_father->right && node == grd_father->right->left)
+	{
+		rb_rotation_right(&(grd_father->right));
+		node = node->right;
+	}
+	return (rotate_gr_parent(root, node));
+}
+
+static t_rb_node	*fix_tree(t_rb_node **root, t_rb_node *node)
 {
 	t_rb_node	*father;
 	t_rb_node	*uncle;
 	t_rb_node	*grand_father;
 
-	if (!node)
-		return (NULL);
-	if (!(node->parent))
+	if (!(father = node->parent))
 	{
 		node->color = RB_BLACK;
-		return (rb_get_root(node));
+		return (*root);
 	}
-	if (node->parent->color == RB_BLACK)
-		return (rb_get_root(node));
-	grand_father = rb_grand_father(node);
-	father = node->parent;
-	uncle = rb_uncle(node);
-	if (uncle && uncle->color == RB_RED)
+	if (father->color == RB_BLACK)
+		return (*root);
+	if (!(grand_father = rb_grand_father(node)))
+	{
+		father->color = RB_BLACK;
+		return (*root);
+	}
+	if ((uncle = rb_uncle(node)) && uncle->color == RB_RED)
 	{
 		father->color = RB_BLACK;
 		uncle->color = RB_BLACK;
 		grand_father->color = RB_RED;
-		return (fix_tree(grand_father));
+		return (fix_tree(root, grand_father));
 	}
 	else
-		return (rotate_parents(node));
+		return (rotate_parent(root, node));
 }
 
 void				rb_insert(t_rb_node **root, void *data, \
@@ -115,6 +124,10 @@ void				rb_insert(t_rb_node **root, void *data, \
 
 	if (!root)
 		return ;
-	new_n = rb_insert_data(root, data, cmpf);
-	*root = fix_tree(new_n);
+	if (!(new_n = rb_insert_data(root, NULL, data, cmpf)))
+	{
+		printf("Malloc Error !");
+		exit(1);
+	}
+	*root = fix_tree(root, new_n);
 }

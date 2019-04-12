@@ -20,21 +20,25 @@ int		main(void)
 	t_rb_node	*tree;
 	char		*dataset;
 
-	dataset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	dataset = "0123456789ABCDEFFEDCBA9876543210";
 	tree = NULL;
 	i = -1;
-	while (++i < 26)
+	while (++i < 32)
 	{
 		rb_insert(&tree, (void *)(dataset + i), &cmp_char);
-		//printf("\nadding %c:\n", dataset[i]);
-		//rb_print(tree);
-	}
-	while (--i < 26)
-	{
-		rb_remove(&tree, (void *)(dataset + i), &cmp_char, &free_char);
-		printf("\nremoving %c:\n", dataset[i]);
+		printf("\nfull tree:\n");
 		rb_print(tree);
 	}
+	//rb_rotation_left(tree->right->right);
+	//printf("\nfull tree:\n");
+	//rb_print(tree);
+	//rb_rotation_right(tree->right->right);
+	//printf("\nfull tree:\n");
+	//rb_print(tree);
+	//i = 0;
+	//rb_remove(&tree, (void *)(dataset + i), &cmp_char, &free_char);
+	//printf("\nremoving %c:\n", dataset[i]);
+	//rb_print(tree);
 	return (0);
 }
 
