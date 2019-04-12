@@ -6,13 +6,13 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 15:44:24 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/12 20:22:11 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/04/12 21:33:20 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_btree_rb.h"
 
-static t_rb_node	**rb_rot_node(t_rb_node **root, t_rb_node *node)
+t_rb_node			**rb_rot_node(t_rb_node **root, t_rb_node *node)
 {
 	t_rb_node	**rot_node;
 	t_rb_node	*father;

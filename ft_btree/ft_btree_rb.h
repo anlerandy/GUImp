@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 13:30:40 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/12 20:23:10 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/04/12 21:42:13 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,14 @@ t_rb_node		*rb_grand_father(t_rb_node *node);
 t_rb_node		*rb_brother(t_rb_node *node);
 t_rb_node		*rb_uncle(t_rb_node *node);
 t_rb_node		*rb_get_root(t_rb_node *node);
+t_rb_node		**rb_rot_node(t_rb_node **root, t_rb_node *node);
 void			rb_rotation_left(t_rb_node **root, t_rb_node *node);
 void			rb_rotation_right(t_rb_node **root, t_rb_node *node);
 void			rb_insert(t_rb_node **root, void *data, \
 					int (*cmpf)(void *, void *));
 void			rb_remove(t_rb_node **root, void *data, \
 					int (*cmpf)(void *, void *), void (*freef)(void *));
-void			rb_fix_removal(t_rb_node *node);
+void			rb_fix_black_node(t_rb_node **root, t_rb_node *old_node);
 void			rb_clear_tree(t_rb_node **root, void (*freef)(void *));
 
 #endif
