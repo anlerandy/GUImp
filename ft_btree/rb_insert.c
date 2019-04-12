@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 13:51:11 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/12 17:43:49 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/04/12 20:28:07 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,23 +44,13 @@ static t_rb_node	*rotate_gr_parent(t_rb_node **root, t_rb_node *node)
 {
 	t_rb_node	*father;
 	t_rb_node	*gr_father;
-	t_rb_node	*gr_gr_father;
-	t_rb_node	**rot_node;
 
-	rot_node = root;
 	father = node->parent;
 	gr_father = rb_grand_father(node);
-	if ((gr_gr_father = gr_father->parent))
-	{
-		if (gr_father == gr_gr_father->left)
-			rot_node = &(gr_gr_father->left);
-		else
-			rot_node = &(gr_gr_father->right);
-	}
 	if (node == father->left)
-		rb_rotation_right(rot_node);
+		rb_rotation_right(root, gr_father);
 	else
-		rb_rotation_left(rot_node);
+		rb_rotation_left(root, gr_father);
 	father->color = RB_BLACK;
 	gr_father->color = RB_RED;
 	return (rb_get_root(father));
@@ -70,19 +60,17 @@ static t_rb_node	*rotate_parent(t_rb_node **root, t_rb_node *node)
 {
 	t_rb_node	*father;
 	t_rb_node	*grd_father;
-	t_rb_node	*grd_grd_father;
-	t_rb_node	**rot_node;
 
 	father = node->parent;
 	grd_father = rb_grand_father(node);
 	if (grd_father->left && node == grd_father->left->right)
 	{
-		rb_rotation_left(&(grd_father->left));
+		rb_rotation_left(root, father);
 		node = node->left;
 	}
 	else if (grd_father->right && node == grd_father->right->left)
 	{
-		rb_rotation_right(&(grd_father->right));
+		rb_rotation_right(root, father);
 		node = node->right;
 	}
 	return (rotate_gr_parent(root, node));

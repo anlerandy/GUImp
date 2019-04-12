@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 18:36:23 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/12 18:55:19 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/04/12 20:29:03 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,6 @@ static void		recurs_clear_tree(t_rb_node *node, void (*freef)(void *))
 
 void			rb_clear_tree(t_rb_node **root, void (*freef)(void *))
 {
-	t_rb_node	*node;
-	t_rb_node	**next_node;
-
 	if (!root || !(*root))
 		return ;
 	recurs_clear_tree(*root, freef);

@@ -29,13 +29,13 @@ int		main(void)
 		printf("\nfull tree:\n");
 		rb_print(tree);
 	}
-	printf("clearing ...\n");
-	rb_clear_tree(&tree, &free_char);
-	printf("cleared ! %p\n", tree);
-	while (1);
 	//i = 0;
 	//rb_remove(&tree, (void *)(dataset + i), &cmp_char, &free_char);
 	//printf("\nremoving %c:\n", dataset[i]);
 	//rb_print(tree);
+	printf("clearing ...\n");
+	rb_clear_tree(&tree, &free_char);
+	printf("cleared ! %p\n", tree);
+	while (1);
 	return (0);
 }
