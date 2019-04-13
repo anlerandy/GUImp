@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 21:35:32 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/12 21:43:07 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/04/13 22:00:04 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,9 @@ void				rb_remove(t_rb_node **root, void *data, \
 	if (!(node = locate_node(*root, data, cmpf)))
 		return ;
 	freef(node->data);
-	if (node->left || node->right)
-		node = swap_node_data(node, &(node->data), (node->left ? 1 : 0));
+	if (node->left)
+		node = swap_node_data(node->left, &(node->data), 1);
+	else if (node->right)
+		node = swap_node_data(node->right, &(node->data), 0);
 	free_node(root, node);
 }
