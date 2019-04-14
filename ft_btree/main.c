@@ -17,6 +17,7 @@ int		cmp_char(void *char_a, void *char_b)
 int		main(void)
 {
 	int			i;
+	int			witness;
 	t_rb_node	*tree;
 	char		*dataset;
 
@@ -28,17 +29,41 @@ int		main(void)
 		rb_insert(&tree, (void *)(dataset + i), &cmp_char);
 		printf("\nfull tree:\n");
 		rb_print(tree);
+		witness = rb_validate_tree(tree);
+		if (witness)
+			printf("valid tree\n");
+		else
+			printf("INCORRECT tree\n");
 	}
+	tree->left->right->color = RB_RED;
+	printf("\nIncorrect tree:\n");
+	rb_print(tree);
+	witness = rb_validate_tree(tree);
+	if (witness)
+		printf("valid tree\n");
+	else
+		printf("INCORRECT tree\n");
+	tree->left->right->color = RB_BLACK;
 	i = 16;
 	while (--i > -1)
 	{
 		rb_remove(&tree, (void *)(dataset + i), &cmp_char, &free_char);
 		printf("\nremoving %c:\n", dataset[i]);
 		rb_print(tree);
+		witness = rb_validate_tree(tree);
+		if (witness)
+			printf("valid tree\n");
+		else
+			printf("INCORRECT tree\n");
 	}
 	printf("clearing ...\n");
 	rb_clear_tree(&tree, &free_char);
 	printf("cleared ! %p\n", tree);
+	witness = rb_validate_tree(tree);
+	if (witness)
+		printf("valid tree\n");
+	else
+		printf("INCORRECT tree\n");
 	while (1);
 	return (0);
 }

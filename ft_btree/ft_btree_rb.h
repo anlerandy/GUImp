@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 13:30:40 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/14 19:47:16 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/04/14 20:06:06 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void			rb_remove(t_rb_node **root, void *data, \
 void			rb_fix_black_node(t_rb_node **root, t_rb_node *old_node);
 void			rb_clear_tree(t_rb_node **root, void (*freef)(void *));
 
-
 void			rb_apply_by_level(t_rb_node *root, void (*applyf)(void *item, \
 						int current_level, int is_first_elem));
 void			rb_apply_infix(t_rb_node *root, void (*node_funct)(void *));
@@ -52,4 +51,6 @@ void			rb_apply_suffix(t_rb_node *root, void (*node_funct)(void *));
 int				rb_level_count(t_rb_node *root);
 void			*rb_search_infix(t_rb_node *root, void *data_ref, \
 					int (*cmp_funct)(void *, void *));
+
+int				rb_validate_tree(t_rb_node *root);
 #endif
