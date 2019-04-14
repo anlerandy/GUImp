@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 21:35:32 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/13 22:00:04 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/04/14 19:27:18 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,23 @@ static void			free_node(t_rb_node **root, t_rb_node *old_node)
 {
 	t_rb_node	*new_node;
 
-	new_node = old_node->left ? old_node->left : old_node->right;
-	if (old_node->color == RB_BLACK)
+	if (old_node->color == RB_RED)
 	{
-		if (new_node && new_node->color == RB_RED)
-			new_node->color = RB_BLACK;
-		else
-			rb_fix_black_node(root, old_node);
+		*rb_rot_node(root, old_node) = NULL;
+		free(old_node);
+		return ;
 	}
-	*rb_rot_node(root, old_node) = new_node;
+	new_node = old_node->left ? old_node->left : old_node->right;
 	if (new_node)
 	{
+		new_node->color = RB_BLACK;
+		*rb_rot_node(root, old_node) = new_node;
 		new_node->parent = old_node->parent;
-		*rb_rot_node(root, new_node) = NULL;
+		free(old_node);
+		return ;
 	}
+	rb_fix_black_node(root, old_node);
+	*rb_rot_node(root, old_node) = NULL;
 	free(old_node);
 }
 
@@ -68,11 +71,9 @@ static t_rb_node	*locate_node(t_rb_node *node, void *data, \
 void				rb_remove(t_rb_node **root, void *data, \
 						int (*cmpf)(void *, void *), void (*freef)(void *))
 {
-	int			cmp;
 	t_rb_node	*node;
-	t_rb_node	**next_node;
 
-	if (!root || !(*root))
+	if (!root || !(*root) || (*root)->parent)
 		return ;
 	if (!(node = locate_node(*root, data, cmpf)))
 		return ;

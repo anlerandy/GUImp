@@ -29,8 +29,8 @@ int		main(void)
 		printf("\nfull tree:\n");
 		rb_print(tree);
 	}
-	i = -1;
-	while (++i < 16)
+	i = 16;
+	while (--i > -1)
 	{
 		rb_remove(&tree, (void *)(dataset + i), &cmp_char, &free_char);
 		printf("\nremoving %c:\n", dataset[i]);
