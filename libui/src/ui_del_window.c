@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libui.h                                            :+:      :+:    :+:   */
+/*   ui_del_window.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/15 11:53:34 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/15 14:53:01 by gsmith           ###   ########.fr       */
+/*   Created: 2019/04/15 13:40:12 by gsmith            #+#    #+#             */
+/*   Updated: 2019/04/15 13:53:17 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBUI_H
-# define LIBUI_H
+#include "libui.h"
 
-# include "SDL.h"
-# include "libft.h"
-
-typedef struct	s_ui_win
+void		ui_del_window(t_ui_win **win_ptr)
 {
-	int				id;
-	char			*title;
-	Uint32			options;
-	SDL_Surface		*surf;
-	SDL_Window		*handle;
-}				t_ui_win;
+	t_ui_win	*win;
 
-int				ui_init(void);
-void			ui_quit(int exit_code);
-t_ui_win		*ui_new_window(char *title, int coord[2], int dim[2], \
-					Uint32 options);
-void			ui_del_window(t_ui_win **win_ptr);
-
-#endif
+	if (!win_ptr)
+		return ;
+	win = *win_ptr;
+	SDL_DestroyWindow(win->handle);
+	ft_memdel((void **)(win_ptr));
+}
