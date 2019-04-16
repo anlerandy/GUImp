@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 13:14:54 by alerandy          #+#    #+#             */
-/*   Updated: 2019/04/11 15:09:33 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/04/16 11:47:01 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,14 @@ int		ft_memcmp(const void *s1, const void *s2, size_t n)
 	ptr2 = (unsigned long int*)s2;
 	while (--len)
 	{
-		src = *ptr1++;
-		dst = *ptr2++;
+		src = *ptr1;
+		dst = *ptr2;
+		ptr1++;
+		ptr2++;
 		if (src != dst)
 		{
-			tmp1 = (unsigned char*)(src);
-			tmp2 = (unsigned char*)(dst);
+			tmp1 = (unsigned char*)(&src);
+			tmp2 = (unsigned char*)(&dst);
 			if (*tmp1 != *tmp2)
 				return (*tmp1 - *tmp2);
 			if (tmp1[1] != tmp2[1])
@@ -59,5 +61,5 @@ int		ft_memcmp(const void *s1, const void *s2, size_t n)
 		++tmp1;
 		++tmp2;
 	}
-	return (tmp1 - tmp2);
+	return (*tmp1 - *tmp2);
 }
