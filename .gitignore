@@ -11,3 +11,6 @@ obj
 # temporary file from IDE and TE
 .vscode
 *.swp
+
+# debug dir
+*.dSYM
