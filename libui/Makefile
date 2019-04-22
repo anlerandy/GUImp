@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 15:11:25 by alerandy          #+#    #+#              #
-#    Updated: 2019/04/08 17:39:36 by alerandy         ###   ########.fr        #
+#    Updated: 2019/04/22 12:09:05 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SDLINK = https://www.libsdl.org/release/SDL2-2.0.9.tar.gz
 SDL2 = SDL2-2.0.9
 INCLUDES += ./includes $(SDL2)/include libft/includes
 LIBS = -L./libft -lft -L./SDL/build/.libs -lSDL2 $(linksdl)
-SRCS += ui_new_window.c 
+SRCS += ui_new_window.c
 INCLUDES:=$(addprefix -I, $(INCLUDES))
 
 # Updating the VPATH
@@ -49,7 +49,7 @@ ECHO = "[`expr $C  '*' 100 / $T`%]"
 all: $(SDL2) libs $(NAME)
 
 $(SDL2):
-	@printf "\033[1A\r\033[K""\r\033[K""\033[32m[SDL2] \033[0m""Downloading""\n"
+	@printf "\r\033[K""\033[32m[SDL2] \033[0m""Downloading""\n"
 	@curl $(SDLINK) > SDL2.tar.gz
 	@tar -xf SDL2.tar.gz
 	@rm -rf SDL2.tar.gz
