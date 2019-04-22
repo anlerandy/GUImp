@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:59:51 by alerandy          #+#    #+#              #
-#    Updated: 2019/04/22 12:06:28 by alerandy         ###   ########.fr        #
+#    Updated: 2019/04/22 13:08:22 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ $(NAME): $(OBJS) $(HEADERS)
 	@$(COMPILE) $(INCLUDES) -c $< -o $(OPATH)$@
 
 libs:
-	@make -s -C libui -j
+	@make -s -C libui
 
 clean:
 	@rm -rf $(NAME)
@@ -64,8 +64,12 @@ clean:
 fclean: clean
 	@rm -rf obj
 
-hardre:
-	@make -s -C libui hardre
-	@make -s all
-
 re: fclean all
+
+hardclean: fclean
+	@make -s -C libui hardclean
+
+hardre: hardclean all
+
+.PHONY: re libs fclean hardre hardclean clean all
+

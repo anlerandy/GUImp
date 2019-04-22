@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/08 12:38:11 by alerandy          #+#    #+#              #
-#    Updated: 2019/04/22 03:40:14 by alerandy         ###   ########.fr        #
+#    Updated: 2019/04/22 13:08:51 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,3 +75,5 @@ norm :
 
 header :
 	cp includes/libft.h ./
+
+.PHONY: re fclean clean all so

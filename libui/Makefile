@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 15:11:25 by alerandy          #+#    #+#              #
-#    Updated: 2019/04/22 12:09:05 by alerandy         ###   ########.fr        #
+#    Updated: 2019/04/22 13:08:30 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,9 +80,13 @@ fclean: clean
 	@rm -rf obj
 	@rm -rf libft/libft.a
 
-hardre:
+hardclean: fclean
 	@rm -rf $(SDL2)
 	@rm -rf SDL
-	@make re
+
+hardre: hardclean
+	@make all
 
 re: fclean all
+
+.PHONY: re libs fclean hardre hardclean clean all
