@@ -1,1 +1,2 @@
 # Include the sub-folder files
+include src/ui_bmp/make.dep
