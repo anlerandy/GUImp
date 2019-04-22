@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 15:11:25 by alerandy          #+#    #+#              #
-#    Updated: 2019/04/22 03:47:58 by alerandy         ###   ########.fr        #
+#    Updated: 2019/04/22 03:48:35 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ N = 0
 C = $(words $N)$(eval N := x $N)
 ECHO = "[`expr $C  '*' 100 / $T`%]"
 
-all: libs $(SDL2) $(NAME)
+all: $(SDL2) libs $(NAME)
 
 $(SDL2):
 	@printf "\033[1A\r\033[K""\r\033[K""\033[32m[SDL2] \033[0m""Downloading""\n"
