@@ -1,7 +1,16 @@
+# lib files and directories
 SDL2-2.0.9
 libft/objects/
 libft/libft.a
 SDL
-.vscode
-obj
 guimp
+
+# build files directories
+obj
+
+# temporary file from IDE and TE
+.vscode
+*.swp
+
+# debug dir
+*.dSYM
