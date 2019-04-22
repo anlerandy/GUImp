@@ -6,14 +6,14 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 15:11:25 by alerandy          #+#    #+#              #
-#    Updated: 2019/04/15 14:53:19 by gsmith           ###   ########.fr        #
+#    Updated: 2019/04/22 03:47:58 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libui.a
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g3
 CC = gcc
-COMPILE=$(CC) -g3 $(CFLAGS)
+COMPILE=$(CC) $(CFLAGS)
 
 # Get all dependances
 include includes.dep
@@ -30,10 +30,7 @@ SDLINK = https://www.libsdl.org/release/SDL2-2.0.9.tar.gz
 SDL2 = SDL2-2.0.9
 INCLUDES += ./includes $(SDL2)/include libft/includes
 LIBS = -L./libft -lft -L./SDL/build/.libs -lSDL2 $(linksdl)
-SRCS += ui_init.c 
-SRCS += ui_quit.c 
-SRCS += ui_new_window.c 
-SRCS += ui_del_window.c 
+SRCS += ui_init.c ui_quit.c ui_new_window.c ui_del_window.c
 INCLUDES:=$(addprefix -I, $(INCLUDES))
 
 # Updating the VPATH
