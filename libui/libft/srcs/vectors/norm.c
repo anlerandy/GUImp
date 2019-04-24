@@ -1,7 +1,6 @@
 #include "vectors.h"
 
-
-double norme_v2(t_vec2 a)
+double	norme_v2(t_vec2 a)
 {
 	return (sqrt(a.x * a.x + a.y * a.y));
 }
@@ -16,7 +15,7 @@ t_vec2	normalize_v2(t_vec2 a)
 	return (scale_v2(1 / norm, a));
 }
 
-double norme_v3(t_vec3 a)
+double	norme_v3(t_vec3 a)
 {
 	return (sqrt(a.x * a.x + a.y * a.y + a.z * a.z));
 }

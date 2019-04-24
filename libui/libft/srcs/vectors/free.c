@@ -1,11 +1,11 @@
 #include "vectors.h"
 
-void free_v(t_vec *a)
+void	free_v(t_vec *a)
 {
-	ft_memdel((void **) a->vec);
+	ft_memdel((void **)a->vec);
 }
 
-void free_mat(t_mat *a)
+void	free_mat(t_mat *a)
 {
 	int j;
 
@@ -15,7 +15,7 @@ void free_mat(t_mat *a)
 	ft_memdel((void**)a->mat);
 }
 
-t_mat free_mat_err(t_mat *mat, int i)
+t_mat	free_mat_err(t_mat *mat, int i)
 {
 	int j;
 

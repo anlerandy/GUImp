@@ -19,7 +19,7 @@ t_vec3	sub_v3(t_vec3 a, t_vec3 b)
 	return (c);
 }
 
-t_mat sub_mat(t_mat a, t_mat b)
+t_mat	sub_mat(t_mat a, t_mat b)
 {
 	int			i;
 	int			j;
@@ -31,14 +31,14 @@ t_mat sub_mat(t_mat a, t_mat b)
 	i = -1;
 	while (++i < a.w && (j = -1))
 		while (++j < b.h && (k = -1))
-				c.mat[i][j] = a.mat[i][j] - b.mat[i][j];
+			c.mat[i][j] = a.mat[i][j] - b.mat[i][j];
 	return (c);
 }
 
-t_vec sub_v(t_vec a, t_vec b)
+t_vec	sub_v(t_vec a, t_vec b)
 {
-	t_vec c;
-	int i;
+	t_vec	c;
+	int		i;
 
 	if ((a.size != b.size) || (!(c = init_v(a.size)).vec))
 		return ((t_vec){-1, NULL});

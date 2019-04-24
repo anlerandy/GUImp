@@ -20,9 +20,10 @@ t_vec3	rot_vec3_z(t_vec3 v, double theta)
 	return (mult_mat_v3(v, rot_mat(init_v3(0, 0, 1), theta)));
 }
 
-t_vec2 rot_vec2(t_vec2 v, double theta)
+t_vec2	rot_vec2(t_vec2 v, double theta)
 {
 	double tmp;
+
 	tmp = sin(theta) * v.x + cos(theta) * v.y;
 	v.x = cos(theta) * v.x - sin(theta) * v.y;
 	v.y = tmp;

@@ -19,7 +19,7 @@ t_vec3	mult_v3(t_vec3 a, t_vec3 b)
 	return (c);
 }
 
-t_mat mult_mat(t_mat a, t_mat b)
+t_mat	mult_mat(t_mat a, t_mat b)
 {
 	int			i;
 	int			j;
@@ -36,10 +36,10 @@ t_mat mult_mat(t_mat a, t_mat b)
 	return (c);
 }
 
-t_vec mult_v(t_vec a, t_vec b)
+t_vec	mult_v(t_vec a, t_vec b)
 {
-	t_vec c;
-	int i;
+	t_vec	c;
+	int		i;
 
 	if ((a.size != b.size) || (!(c = init_v(a.size)).vec))
 		return ((t_vec){-1, NULL});

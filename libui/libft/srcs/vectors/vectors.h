@@ -21,7 +21,7 @@ typedef struct	s_vec3
 typedef struct	s_vec
 {
 	int		size;
-	double *vec;
+	double	*vec;
 }				t_vec;
 
 typedef struct	s_mat
@@ -30,7 +30,6 @@ typedef struct	s_mat
 	int		h;
 	double	**mat;
 }				t_mat;
-
 
 t_vec2			init_v2(double x, double y);
 t_vec3			init_v3(double x, double y, double z);
@@ -64,9 +63,9 @@ t_vec2			scale_v2(double a, t_vec2 b);
 t_vec3			scale_v3(double a, t_vec3 b);
 
 t_vec2			normalize_v2(t_vec2 a);
-double 			norme_v2(t_vec2 a);
+double			norme_v2(t_vec2 a);
 t_vec3			normalize_v3(t_vec3 a);
-double 			norme_v3(t_vec3 a);
+double			norme_v3(t_vec3 a);
 
 t_vec2			rot_vec2(t_vec2 v, double theta);
 t_vec3			rot_vec3(t_vec3 v, double theta, t_vec3 axis);

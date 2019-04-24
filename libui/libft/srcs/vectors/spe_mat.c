@@ -1,9 +1,9 @@
 #include "vectors.h"
 
-t_mat init_id_mat(int w)
+t_mat	init_id_mat(int w)
 {
-	t_mat mat;
-	int i;
+	t_mat	mat;
+	int		i;
 
 	if (w <= 0)
 		return ((t_mat){-1, -1, NULL});
