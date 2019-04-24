@@ -1,2 +1,2 @@
 all :
-	gcc *.c vectors.h ../../libft.a
+	gcc -I../../includes *.c ../../libft.a -lm
