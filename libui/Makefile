@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 15:11:25 by alerandy          #+#    #+#              #
-#    Updated: 2019/04/26 16:01:31 by alerandy         ###   ########.fr        #
+#    Updated: 2019/04/26 16:10:12 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,7 +77,7 @@ fclean: clean
 	@rm -rf $(NAME)
 	@echo "\033[0;31m[LIBUI]\033[0m Deleted"
 
-hardclean: fclean
+hardclean:
 	@rm -rf $(SDL2)
 	@rm -rf SDL
 	@echo "\033[0;31m[SDL2]\033[0m Deleted"
