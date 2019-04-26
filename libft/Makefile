@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/08 12:38:11 by alerandy          #+#    #+#              #
-#    Updated: 2019/04/24 18:31:15 by alerandy         ###   ########.fr        #
+#    Updated: 2019/04/26 15:59:37 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ ECHO = "[`expr $C  '*' 100 / $T`%]"
 
 all : $(NAME)
 
-$(NAME) :  $(OBJ)
+$(NAME) : $(OBJ)
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
 	@printf "\r\033[K""\r\033[K""\033[32m[LIBFT]\033[0m Ready\n"
@@ -65,10 +65,11 @@ $(OBJ_PATH)%.o: %.c
 
 clean :
 	@rm -rf $(OBJ_PATH)
+	@echo "\033[1;30m[LIBFT]\033[0m\033[0;37m Binaries cleaned\033[0m"
 
 fclean : clean
 	@rm -f $(NAME)
-	@echo "\033[1;37mLIBFT destroyed\033[0m"
+	@echo "\033[0;31m[LIBFT]\033[0m Deleted"
 
 re : fclean $(NAME)
 
