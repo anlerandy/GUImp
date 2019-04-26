@@ -6,14 +6,13 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:45:39 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/26 16:08:37 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/04/26 16:55:38 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "error.h"
 #include "libft.h"
 #include "libui.h"
-#include "SDL.h"
 
 t_ui_univers	*ui_init(void)
 {

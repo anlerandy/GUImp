@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 11:53:34 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/26 16:24:36 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/04/26 16:52:59 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBUI_H
 
 # include "ft_btree_rb.h"
+# include "SDL.h"
 
 typedef struct	s_ui_win_param
 {
@@ -39,7 +40,7 @@ typedef struct	s_ui_win
 	SDL_Surface		*surf;
 	SDL_Window		*sdl_ptr;
 	t_rb_node		*elem;
-	t_ui_them		*theme;
+	t_ui_theme		*theme;
 }				t_ui_win;
 
 typedef struct	s_ui_univers
