@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:59:51 by alerandy          #+#    #+#              #
-#    Updated: 2019/04/05 20:09:27 by alerandy         ###   ########.fr        #
+#    Updated: 2019/04/22 13:08:22 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ INCLUDES += ./includes ./libui/$(SDL2)/include ./libui/libft/includes \
 LIBS = -L./libui -lui -L./libui/libft -lft -L./libui/SDL/build/.libs -lSDL2 \
 	   -Wl,-rpath,./libui/SDL/build/.libs
 
-SRCS += main.c 
+SRCS += main.c
 INCLUDES:=$(addprefix -I, $(INCLUDES))
 
 # Updating the VPATH
@@ -55,17 +55,21 @@ $(NAME): $(OBJS) $(HEADERS)
 	@$(COMPILE) $(INCLUDES) -c $< -o $(OPATH)$@
 
 libs:
-	@make -C libui -j
+	@make -s -C libui
 
 clean:
 	@rm -rf $(NAME)
-	@make -C libui fclean
+	@make -s -C libui fclean
 
 fclean: clean
 	@rm -rf obj
 
-hardre:
-	@make -C libui hardre
-	@make all
-
 re: fclean all
+
+hardclean: fclean
+	@make -s -C libui hardclean
+
+hardre: hardclean all
+
+.PHONY: re libs fclean hardre hardclean clean all
+

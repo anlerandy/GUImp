@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 15:11:25 by alerandy          #+#    #+#              #
-#    Updated: 2019/04/22 03:48:35 by alerandy         ###   ########.fr        #
+#    Updated: 2019/04/26 16:31:21 by gsmith           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SDLINK = https://www.libsdl.org/release/SDL2-2.0.9.tar.gz
 SDL2 = SDL2-2.0.9
 INCLUDES += ./includes $(SDL2)/include libft/includes
 LIBS = -L./libft -lft -L./SDL/build/.libs -lSDL2 $(linksdl)
-SRCS += ui_init.c ui_quit.c ui_new_window.c ui_del_window.c
+SRCS += ui_init_univers.c ui_quit_univers.c ui_new_window.c ui_del_window.c
 INCLUDES:=$(addprefix -I, $(INCLUDES))
 
 # Updating the VPATH
@@ -49,7 +49,7 @@ ECHO = "[`expr $C  '*' 100 / $T`%]"
 all: $(SDL2) libs $(NAME)
 
 $(SDL2):
-	@printf "\033[1A\r\033[K""\r\033[K""\033[32m[SDL2] \033[0m""Downloading""\n"
+	@printf "\r\033[K""\033[32m[SDL2] \033[0m""Downloading""\n"
 	@curl $(SDLINK) > SDL2.tar.gz
 	@tar -xf SDL2.tar.gz
 	@rm -rf SDL2.tar.gz
@@ -80,9 +80,13 @@ fclean: clean
 	@rm -rf obj
 	@rm -rf libft/libft.a
 
-hardre:
+hardclean: fclean
 	@rm -rf $(SDL2)
 	@rm -rf SDL
-	@make re
+
+hardre: hardclean
+	@make all
 
 re: fclean all
+
+.PHONY: re libs fclean hardre hardclean clean all

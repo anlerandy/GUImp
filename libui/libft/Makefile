@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/08 12:38:11 by alerandy          #+#    #+#              #
-#    Updated: 2019/04/22 03:40:14 by alerandy         ###   ########.fr        #
+#    Updated: 2019/04/24 18:31:15 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,9 @@ SRC_NAME = ft_putchar.c ft_putstr.c ft_putcharerr.c ft_putstrerr.c ft_memset.c \
 		   rb_apply_by_level.c rb_apply_infix.c rb_apply_prefix.c \
 		   rb_apply_suffix.c rb_clear_tree.c rb_fix_black_node.c rb_insert.c \
 		   rb_level_count.c rb_parenting.c rb_remove.c rb_rotation.c \
-		   rb_search_infix.c rb_validate_tree.c
+		   rb_search_infix.c rb_validate_tree.c \
+		   vec_add.c vec_rot.c vec_init.c vec_mult_mat.c vec_mult.c vec_norm.c \
+		   vec_print.c vec_free.c vec_scale.c vec_spe_mat.c vec_sub.c
 NAME = libft.a
 FLAG = -Wall -Wextra -Werror -O2 -funroll-loops
 OBJ_NAME = $(SRC_NAME:.c=.o)
@@ -75,3 +77,5 @@ norm :
 
 header :
 	cp includes/libft.h ./
+
+.PHONY: re fclean clean all so
