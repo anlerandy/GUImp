@@ -1,1 +1,1 @@
-INCLUDES += $(shell pwd)/src/ui_bmp/includes/
+INCLUDES += $(shell pwd)/includes/
