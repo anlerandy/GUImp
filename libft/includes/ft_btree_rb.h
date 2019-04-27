@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 13:30:40 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/14 20:06:06 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/04/27 18:47:28 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef struct	s_rb_node
 	t_rb_color			color;
 }				t_rb_node;
 
-void			rb_print(t_rb_node *root);
 t_rb_node		*rb_grand_father(t_rb_node *node);
 t_rb_node		*rb_brother(t_rb_node *node);
 t_rb_node		*rb_uncle(t_rb_node *node);
