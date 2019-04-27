@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_del_window.c                                    :+:      :+:    :+:   */
+/*   ui_free_window.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/15 13:40:12 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/27 15:41:07 by gsmith           ###   ########.fr       */
+/*   Created: 2019/04/27 15:38:38 by gsmith            #+#    #+#             */
+/*   Updated: 2019/04/27 15:43:00 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,14 @@
 #include "libui.h"
 #include "libui_tools.h"
 
-void		ui_del_window(t_ui_univers *univers, int win_id)
+void	ui_free_window(void *win_ptr)
 {
-	if (!univers)
+	t_ui_win	*win;
+
+	if (!win_ptr)
 		return ;
-	rb_remove(&(univers->windows), (void *)&win_id, &ui_cmp_window_id, \
-		&ui_free_window);
+	win = *(t_ui_win **)win_ptr;
+	SDL_DestroyWindow(win->sdl_ptr);
+	rb_clear_tree(&(win->elem), &ui_free_elem);
+	ft_memdel(win_ptr);
 }

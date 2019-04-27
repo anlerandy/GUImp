@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 11:53:34 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/26 16:52:59 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/04/27 15:28:45 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 
 typedef struct	s_ui_win_param
 {
-	char			*title;
 	int				coord[2];
 	int				dim[2];
 	Uint32			options;
@@ -56,10 +55,11 @@ t_ui_univers	*ui_init_univers(void);
 void			ui_quit_univers(t_ui_univers **univers, int exit_code, \
 					char *msg);
 
-t_ui_win		*ui_new_window(t_ui_univers *univers, t_ui_win_param param);
+t_ui_win		*ui_new_window(t_ui_univers *univers, t_ui_win_param param, \
+					char *title);
 t_ui_win		*ui_get_window_by_id(t_ui_univers *univers, int win_id);
 t_ui_win		*ui_get_focused_window(t_ui_univers *univers);
-int				ui_del_window(t_ui_univers *univers, int win_id);
+void			ui_del_window(t_ui_univers *univers, int win_id);
 int				ui_clear_all_windows(t_ui_univers *univers);
 
 t_ui_theme		*ui_new_theme(t_ui_univers *univers, char *file_path);

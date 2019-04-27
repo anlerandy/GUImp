@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 15:11:25 by alerandy          #+#    #+#              #
-#    Updated: 2019/04/26 16:31:21 by gsmith           ###   ########.fr        #
+#    Updated: 2019/04/27 15:39:54 by gsmith           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ SDLINK = https://www.libsdl.org/release/SDL2-2.0.9.tar.gz
 SDL2 = SDL2-2.0.9
 INCLUDES += ./includes $(SDL2)/include libft/includes
 LIBS = -L./libft -lft -L./SDL/build/.libs -lSDL2 $(linksdl)
-SRCS += ui_init_univers.c ui_quit_univers.c ui_new_window.c ui_del_window.c
+SRCS += ui_init_univers.c ui_quit_univers.c ui_new_window.c ui_del_window.c \
+		ui_cmp_window.c ui_cmp_window_id.c ui_free_window.c
 INCLUDES:=$(addprefix -I, $(INCLUDES))
 
 # Updating the VPATH

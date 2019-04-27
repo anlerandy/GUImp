@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_del_window.c                                    :+:      :+:    :+:   */
+/*   ui_cmp_window_id.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/15 13:40:12 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/27 15:41:07 by gsmith           ###   ########.fr       */
+/*   Created: 2019/04/27 15:17:50 by gsmith            #+#    #+#             */
+/*   Updated: 2019/04/27 15:31:53 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "libui.h"
-#include "libui_tools.h"
 
-void		ui_del_window(t_ui_univers *univers, int win_id)
+int		ui_cmp_window_id(void *ptr_win, void *ptr_id)
 {
-	if (!univers)
-		return ;
-	rb_remove(&(univers->windows), (void *)&win_id, &ui_cmp_window_id, \
-		&ui_free_window);
+	int			id;
+	t_ui_win	*win;
+
+	if (!ptr_win && !ptr_id)
+		return (0);
+	if (!ptr_win)
+		return (-1);
+	if (!ptr_id)
+		return (1);
+	win = (t_ui_win *)ptr_win;
+	id = *(int *)ptr_id;
+	return (win->id - id);
 }
