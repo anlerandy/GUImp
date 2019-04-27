@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 13:31:11 by alerandy          #+#    #+#             */
-/*   Updated: 2019/04/27 13:18:53 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/04/27 13:27:32 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@
 #include "libft.h"
 
 typedef struct __attribute__((__packed__))	s_bmp_file {
-	unsigned char	bfType1;
-	unsigned char	bfType2;
+	unsigned char	bfType[2];
 	unsigned int	bfSize;
 	unsigned short	bfReserved1;
 	unsigned short	bfReserved2;
@@ -44,5 +43,13 @@ typedef struct								s_ui_bmp {
 	t_bmp_file	header;
 	t_bmp_image	bmp;
 }											t_ui_bmp;
+
+
+
+typedef struct __attribute__((__packed__))	s_bmp_24 {
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+}											t_bmp_24;
 
 #endif
