@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 15:11:25 by alerandy          #+#    #+#              #
-#    Updated: 2019/04/27 15:39:54 by gsmith           ###   ########.fr        #
+#    Updated: 2019/04/27 15:51:26 by gsmith           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,8 +28,8 @@ endif
 # Intisialize the main files
 SDLINK = https://www.libsdl.org/release/SDL2-2.0.9.tar.gz
 SDL2 = SDL2-2.0.9
-INCLUDES += ./includes $(SDL2)/include libft/includes
-LIBS = -L./libft -lft -L./SDL/build/.libs -lSDL2 $(linksdl)
+INCLUDES += ./includes $(SDL2)/include ../libft/includes
+LIBS = -L../libft -lft -L./SDL/build/.libs -lSDL2 $(linksdl)
 SRCS += ui_init_univers.c ui_quit_univers.c ui_new_window.c ui_del_window.c \
 		ui_cmp_window.c ui_cmp_window_id.c ui_free_window.c
 INCLUDES:=$(addprefix -I, $(INCLUDES))
@@ -47,7 +47,7 @@ N = 0
 C = $(words $N)$(eval N := x $N)
 ECHO = "[`expr $C  '*' 100 / $T`%]"
 
-all: $(SDL2) libs $(NAME)
+all: $(SDL2) $(NAME)
 
 $(SDL2):
 	@printf "\r\033[K""\033[32m[SDL2] \033[0m""Downloading""\n"
@@ -70,24 +70,22 @@ $(NAME): $(OBJS) $(HEADERS)
 	@printf "%-60b\r" "\033[32m[LIBUI] $(ECHO)\033[0m Compiling $@"
 	@$(COMPILE) $(INCLUDES) -c $< -o $(OPATH)$@
 
-libs:
-	@make -C libft -j
-
 clean:
-	@rm -rf $(NAME)
-	@make -C libft clean
+	@rm -rf obj
+	@echo "\033[1;30m[LIBUI]\033[0m\033[0;37m Binaries cleaned\033[0m"
 
 fclean: clean
-	@rm -rf obj
-	@rm -rf libft/libft.a
+	@rm -rf $(NAME)
+	@echo "\033[0;31m[LIBUI]\033[0m Deleted"
 
 hardclean: fclean
 	@rm -rf $(SDL2)
 	@rm -rf SDL
+	@echo "\033[0;31m[SDL2]\033[0m Deleted"
 
 hardre: hardclean
 	@make all
 
 re: fclean all
 
-.PHONY: re libs fclean hardre hardclean clean all
+.PHONY: re fclean hardre hardclean clean all

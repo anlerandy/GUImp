@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:59:51 by alerandy          #+#    #+#              #
-#    Updated: 2019/04/22 13:08:22 by alerandy         ###   ########.fr        #
+#    Updated: 2019/04/26 15:48:02 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,9 +20,9 @@ include includes.dep
 
 # Intisialize the main files
 SDL2 = SDL2-2.0.9
-INCLUDES += ./includes ./libui/$(SDL2)/include ./libui/libft/includes \
+INCLUDES += ./includes ./libui/$(SDL2)/include ./libft/includes \
 			./libui/includes
-LIBS = -L./libui -lui -L./libui/libft -lft -L./libui/SDL/build/.libs -lSDL2 \
+LIBS = -L./libui -lui -L./libft -lft -L./libui/SDL/build/.libs -lSDL2 \
 	   -Wl,-rpath,./libui/SDL/build/.libs
 
 SRCS += main.c
@@ -43,26 +43,28 @@ ECHO = "[`expr $C  '*' 100 / $T`%]"
 
 all: libs $(NAME)
 
-$(NAME): $(OBJS) $(HEADERS)
+$(NAME): $(OBJS)
 	@printf "\r\033[K""\r\033[K""\033[32m[GUI] \033[0m""Compiling""\n"
 	@$(COMPILE) $(PATH_OBJ) -o $(NAME) $(INCLUDES) $(LIBS)
 	@sh updateLinker.sh
 	@printf "\033[1A\r\033[K""\r\033[K""\033[32m[GUI] \033[0m""Ready""\n"
 
-%.o: %.c $(HEADERS)
+%.o: %.c
 	@mkdir -p $(OPATH)
 	@printf "%-60b\r" "\033[32m[GUI] $(ECHO)\033[0 mCompiling $@"
 	@$(COMPILE) $(INCLUDES) -c $< -o $(OPATH)$@
 
 libs:
+	@make -s -C libft -j3
 	@make -s -C libui
 
 clean:
-	@rm -rf $(NAME)
+	@rm -rf obj
+	@make -s -C libft fclean
 	@make -s -C libui fclean
 
 fclean: clean
-	@rm -rf obj
+	@rm -rf $(NAME)
 
 re: fclean all
 
