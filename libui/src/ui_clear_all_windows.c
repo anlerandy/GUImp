@@ -1,30 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_free_window.c                                   :+:      :+:    :+:   */
+/*   ui_clear_all_windows.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/27 15:38:38 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/27 19:10:56 by gsmith           ###   ########.fr       */
+/*   Created: 2019/04/27 19:15:13 by gsmith            #+#    #+#             */
+/*   Updated: 2019/04/27 19:22:06 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "libui.h"
 #include "libui_tools.h"
 
-void	ui_free_window(void *win_ptr)
+void		ui_clear_all_windows(t_ui_univers *univers)
 {
-	t_ui_win	*win;
-
-	if (!win_ptr)
-		return ;
-	win = (t_ui_win *)win_ptr;
-	SDL_DestroyWindow(win->sdl_ptr);
-/*
-** TODO
-** 	rb_clear_tree(&(win->elem), &ui_free_elem);
-*/
-ft_memdel(win_ptr);
+	rb_clear_tree(&(univers->windows), &ui_free_window);
 }

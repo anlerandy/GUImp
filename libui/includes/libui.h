@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 11:53:34 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/27 15:28:45 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/04/27 19:16:39 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_ui_win		*ui_new_window(t_ui_univers *univers, t_ui_win_param param, \
 t_ui_win		*ui_get_window_by_id(t_ui_univers *univers, int win_id);
 t_ui_win		*ui_get_focused_window(t_ui_univers *univers);
 void			ui_del_window(t_ui_univers *univers, int win_id);
-int				ui_clear_all_windows(t_ui_univers *univers);
+void			ui_clear_all_windows(t_ui_univers *univers);
 
 t_ui_theme		*ui_new_theme(t_ui_univers *univers, char *file_path);
 t_ui_theme		*ui_get_theme_by_id(t_ui_univers *univers, int theme_id);

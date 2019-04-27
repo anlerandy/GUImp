@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:45:39 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/26 16:55:38 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/04/27 18:11:52 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include "libui.h"
 
-t_ui_univers	*ui_init(void)
+t_ui_univers	*ui_init_univers(void)
 {
 	t_ui_univers	*univers;
 
