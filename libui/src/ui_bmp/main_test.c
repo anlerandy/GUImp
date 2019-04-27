@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 13:31:00 by alerandy          #+#    #+#             */
-/*   Updated: 2019/04/26 18:39:52 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/04/27 13:13:27 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int		main(void)
 		ft_putendl("Le fichier n'existe pas.");
 	ft_putnbr(fd);
 	ft_bzero(&bmp, sizeof(bmp));
-	read(fd, &bmp.header, sizeof(bmp));
+	read(fd, &bmp.header, sizeof(bmp.header));
+	read(fd, &bmp.bmp, sizeof(bmp.bmp));
 	ft_putstr("FD.\nLa structure BMP fait: ");
 	ft_putnbr(sizeof(bmp));
 	ft_putendl("bytes.");
@@ -35,6 +36,12 @@ int		main(void)
 	ft_putnbr(bmp.header.bfSize);
 	ft_putstr("\nbfOffBits: ");
 	ft_putnbr(bmp.header.bfOffBits);
-	ft_putendl("");
+	ft_putstr("\nwidth: ");
+	ft_putnbr(bmp.bmp.width);
+	ft_putstr("\nheight: ");
+	ft_putnbr(bmp.bmp.height);
+	ft_putstr("\nUp to: ");
+	ft_putnbr(bmp.bmp.biBitCount);
+	ft_putendl("bits per pixel.");
 	return (0);
 }
