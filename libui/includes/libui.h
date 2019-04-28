@@ -11,6 +11,6 @@ typedef struct	s_win
 	SDL_Window	  *w;
 }               t_win;
 
-t_win           *ui_new_window();
+t_win           *ui_new_window(int w, int h);
 
 #endif
