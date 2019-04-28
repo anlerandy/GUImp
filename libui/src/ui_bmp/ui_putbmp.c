@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/28 03:16:49 by alerandy          #+#    #+#             */
-/*   Updated: 2019/04/28 13:35:14 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/04/28 14:59:45 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,5 @@ void	ui_putbmp(t_bmp_header header, t_bmp_file bmp)
 	ft_putnbr(bmp.biClrUsed);
 	ft_putstr("\nBMP Version: ");
 	ft_putnbr(header.bfOffBits / 1000000);
+	ft_putstr("\n");
 }
