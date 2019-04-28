@@ -15,6 +15,7 @@
 
 int main()
 {
+<<<<<<< HEAD
 	t_ui_univers	*univ;
 	t_ui_win_param	param[3];
 	t_ui_win		*win;
@@ -48,6 +49,15 @@ int main()
 	}
 	flag = -1;
 	old = ui_get_focused_window(univ);
+=======
+	t_win		*win;
+	SDL_Event	e;
+	int 		flag;
+	t_bmp		bmpfile;
+
+	bmpfile = ui_getbmp("/home/woap-unix/GUImp/libui/src/ui_bmp/test.bmp");
+	win = ui_new_window(bmpfile.info.width, bmpfile.info.height);
+>>>>>>> Updated: Main.c uses bmpParser.
 	while(1)
 	{
 		flag = 1;
@@ -67,5 +77,11 @@ int main()
 				old = win;
 			}
 		}
+<<<<<<< HEAD
+=======
+		ft_memcpy(win->s->pixels, bmpfile.pixels,
+				(sizeof(int) * win->s->w * win->s->h));
+		SDL_UpdateWindowSurface(win->w);
+>>>>>>> Updated: Main.c uses bmpParser.
 	}
 }
