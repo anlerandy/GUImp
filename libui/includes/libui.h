@@ -15,6 +15,8 @@
 
 # include "ft_btree_rb.h"
 # include "SDL.h"
+#include "libft.h"
+#include "bmp_parser.h"
 
 typedef struct	s_ui_win_param
 {
@@ -27,6 +29,7 @@ typedef struct	s_ui_input
 {
 	int				id;
 }				t_ui_input;
+
 
 typedef struct	s_ui_theme
 {
