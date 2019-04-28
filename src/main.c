@@ -7,7 +7,7 @@ int main()
 	int 		flag;
 	t_bmp		bmpfile;
 
-	bmpfile = ui_getbmp("/home/woap-unix/GUImp/libui/src/ui_bmp/test.bmp");
+	bmpfile = ui_getbmp("/home/woap-unix/GUImp/libui/src/ui_bmp/24bit.bmp");
 	win = ui_new_window(bmpfile.info.width, bmpfile.info.height);
 	while(1)
 	{

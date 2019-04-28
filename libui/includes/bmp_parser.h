@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 13:31:11 by alerandy          #+#    #+#             */
-/*   Updated: 2019/04/28 04:18:05 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/04/28 14:13:47 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ typedef struct __attribute__((__packed__))	s_bmp {
 }											t_bmp;
 
 typedef struct __attribute__((__packed__))	s_bmp_24 {
-	unsigned char	r;
-	unsigned char	g;
 	unsigned char	b;
+	unsigned char	g;
+	unsigned char	r;
 }											t_bmp_24;
 
 void		ui_putbmp(t_bmp_header header, t_bmp_file bmp);
