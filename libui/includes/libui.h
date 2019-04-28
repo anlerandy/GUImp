@@ -3,6 +3,7 @@
 
 #include "SDL.h"
 #include "libft.h"
+#include "bmp_parser.h"
 
 typedef struct	s_win
 {

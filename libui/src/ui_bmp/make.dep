@@ -1,1 +1,2 @@
-INCLUDES += $(shell pwd)/includes/
+INCLUDES += $(shell pwd)/src/ui_bmp/includes/ $(shell pwd)/../../includes/
+SRCS += ui_putbmp.c ui_getbmp.c ui_pixtohex.c
