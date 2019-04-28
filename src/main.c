@@ -2,11 +2,13 @@
 
 int main()
 {
-	t_win     *win;
-	SDL_Event e;
-	int       flag;
+	t_win		*win;
+	SDL_Event	e;
+	int 		flag;
+	t_bmp		bmpfile;
 
-	win = ui_new_window();
+	bmpfile = ui_getbmp("/home/woap-unix/GUImp/libui/src/ui_bmp/test.bmp");
+	win = ui_new_window(bmpfile.info.width, bmpfile.info.height);
 	while(1)
 	{
 		flag = 1;
@@ -19,7 +21,7 @@ int main()
 				exit(1);
 			flag = 0;
 		}
-		ft_memset(win->s->pixels, 0xfff,
+		ft_memcpy(win->s->pixels, bmpfile.pixels,
 				(sizeof(int) * win->s->w * win->s->h));
 		SDL_UpdateWindowSurface(win->w);
 	}
