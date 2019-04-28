@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/26 16:21:42 by alerandy          #+#    #+#              #
-#    Updated: 2019/04/26 16:57:08 by alerandy         ###   ########.fr        #
+#    Updated: 2019/04/28 04:53:48 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = bmp_parser
 include ./make.dep
 
 SRCS += main_test.c
-INCLUDES += ../../../libft/includes/
+INCLUDES += ../../../libft/includes/ ../../includes/ ../../SDL2-2.0.9/include/
 INCLUDES:=$(addprefix -I, $(INCLUDES))
 LIBS = -L../../../libft/ -lft
 
