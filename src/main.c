@@ -55,7 +55,7 @@ int main()
 	int 		flag;
 	t_bmp		bmpfile;
 
-	bmpfile = ui_getbmp("/home/woap-unix/GUImp/libui/src/ui_bmp/24bit.bmp");
+	bmpfile = ui_getbmp("/home/woap-unix/GUImp/libui/src/ui_bmp//800_600/24bit.bmp");
 	win = ui_new_window(bmpfile.info.width, bmpfile.info.height);
 >>>>>>> Updated: Main.c uses bmpParser.
 	while(1)
@@ -80,7 +80,7 @@ int main()
 <<<<<<< HEAD
 =======
 		ft_memcpy(win->s->pixels, bmpfile.pixels,
-				(sizeof(int) * win->s->w * win->s->h));
+				(sizeof(unsigned) * bmpfile.pixel_count));
 		SDL_UpdateWindowSurface(win->w);
 >>>>>>> Updated: Main.c uses bmpParser.
 	}
