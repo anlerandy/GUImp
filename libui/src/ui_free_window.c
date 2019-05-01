@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:38:38 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/27 19:10:56 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/04/30 14:09:01 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@ void	ui_free_window(void *win_ptr)
 ** TODO
 ** 	rb_clear_tree(&(win->elem), &ui_free_elem);
 */
-ft_memdel(win_ptr);
+ft_memdel(&win_ptr);
 }
