@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 12:02:48 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/27 18:55:27 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/05/02 17:00:02 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,8 @@ static t_ui_win	*abort_new_window(char *err_msg, void **win_ptr, \
 t_ui_win		*ui_new_window(t_ui_univers *univers, t_ui_win_param param, \
 					char *title)
 {
-	static int	new_id = 0;
 	t_ui_win	*win;
 
-	if (new_id == INT_MAX)
-		return (abort_new_window(ERR_WINDOW_ID, NULL, NULL));
 	if (!(win = ft_memalloc(sizeof(t_ui_win))))
 		return (abort_new_window(ERR_MALLOC, NULL, NULL));
 	if (!(win->sdl_ptr = \
@@ -43,7 +40,7 @@ t_ui_win		*ui_new_window(t_ui_univers *univers, t_ui_win_param param, \
 		return (abort_new_window(ERR_SDL_WIN, (void **)&win, NULL));
 	if (!(win->surf = SDL_GetWindowSurface(win->sdl_ptr)))
 		return (abort_new_window(ERR_SDL_SURF, (void **)&win, win->sdl_ptr));
-	win->id = new_id++;
+	win->id = SDL_GetWindowID(win->sdl_ptr);
 	ft_memset(win->surf->pixels, 0, sizeof(int) * win->surf->h * win->surf->h);
 	rb_insert(&(univers->windows), (void *)win, &ui_cmp_window);
 	return (win);
