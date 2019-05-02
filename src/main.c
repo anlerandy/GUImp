@@ -1,4 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
+/*   Updated: 2019/05/02 21:06:35 by alerandy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "guimp.h"
+#include <stdio.h>
 
 int main()
 {
@@ -46,8 +59,9 @@ int main()
 			if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_RETURN)
 				ui_quit_univers(&univ, 0, "bye bye");
 			flag = 0;
-			win = ui_get_focused_window(univ);
-			if (win != old)
+			if (!(win = ui_get_focused_window(univ)))
+				ft_putendl("Window introuvable.");
+			else if (win != old)
 			{
 				printf("\nfocus: %d, %p\n", win->id, win);
 				old = win;
