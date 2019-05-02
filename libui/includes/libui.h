@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 11:53:34 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/27 19:16:39 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/05/02 18:51:34 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct	s_ui_theme
 
 typedef struct	s_ui_win
 {
-	int				id;
+	Uint32			id;
 	SDL_Surface		*surf;
 	SDL_Window		*sdl_ptr;
 	t_rb_node		*elem;
