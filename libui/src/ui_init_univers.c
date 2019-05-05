@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rb_search_infix.c                                  :+:      :+:    :+:   */
+/*   ui_init_univers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/08 21:58:25 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/30 10:20:17 by gsmith           ###   ########.fr       */
+/*   Created: 2019/04/26 15:45:39 by gsmith            #+#    #+#             */
+/*   Updated: 2019/04/27 18:11:52 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "ft_btree_rb.h"
+#include "error.h"
+#include "libft.h"
+#include "libui.h"
 
-void	*rb_search_infix(t_rb_node *root, void *data_ref, \
-			int (*cmp_funct)(void *, void *))
+t_ui_univers	*ui_init_univers(void)
 {
-	t_rb_node		*left_res;
+	t_ui_univers	*univers;
 
-	if (!root)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO))
+	{
+		ft_putendl_fd(ERR_SDL_INIT, STDERR_FILENO);
 		return (NULL);
-	if (!cmp_funct(root->data, data_ref))
-		return (root->data);
-	left_res = rb_search_infix(root->left, data_ref, cmp_funct);
-	if (left_res)
-		return (left_res);
-	return (rb_search_infix(root->right, data_ref, cmp_funct));
+	}
+	if (!(univers = ft_memalloc(sizeof(t_ui_univers))))
+	{
+		SDL_Quit();
+		ft_putendl_fd(ERR_MALLOC, STDERR_FILENO);
+		return (NULL);
+	}
+	return (univers);
 }

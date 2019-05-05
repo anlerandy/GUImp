@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rb_search_infix.c                                  :+:      :+:    :+:   */
+/*   ui_get_window_by_id.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/08 21:58:25 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/30 10:20:17 by gsmith           ###   ########.fr       */
+/*   Created: 2019/04/30 10:09:20 by gsmith            #+#    #+#             */
+/*   Updated: 2019/04/30 10:24:41 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "ft_btree_rb.h"
+#include "libui_tools.h"
 
-void	*rb_search_infix(t_rb_node *root, void *data_ref, \
-			int (*cmp_funct)(void *, void *))
+t_ui_win	*ui_get_window_by_id(t_ui_univers *univers, int win_id)
 {
-	t_rb_node		*left_res;
+	void	*search_res;
 
-	if (!root)
+	if (!univers)
 		return (NULL);
-	if (!cmp_funct(root->data, data_ref))
-		return (root->data);
-	left_res = rb_search_infix(root->left, data_ref, cmp_funct);
-	if (left_res)
-		return (left_res);
-	return (rb_search_infix(root->right, data_ref, cmp_funct));
+	search_res = rb_search_infix(univers->windows, (void *)&win_id, \
+			&ui_cmp_window_id);
+	if (!search_res)
+		return (NULL);
+	return ((t_ui_win *)search_res);
 }
