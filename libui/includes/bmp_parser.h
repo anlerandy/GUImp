@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 13:31:11 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/05 17:15:20 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/05 21:26:29 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,33 @@ typedef struct __attribute__((__packed__))	s_bmp_file {
 	unsigned int	biClrImportant;
 }											t_bmp_file;
 
-typedef struct __attribute__((__packed__))	s_bmp {
-	t_bmp_header	header;
-	t_bmp_file		info;
-	char			*palette;
-	unsigned		*pixels;
-	unsigned		pixel_count;
-}											t_bmp;
-
 typedef struct __attribute__((__packed__))	s_bmp_24 {
 	unsigned char	b;
 	unsigned char	g;
 	unsigned char	r;
 }											t_bmp_24;
+
+typedef struct __attribute__((__packed__))	s_bmp_32 {
+	unsigned char	a;
+	unsigned char	b;
+	unsigned char	g;
+	unsigned char	r;
+}											t_bmp_32;
+
+typedef struct __attribute__((__packed__))	s_bmp {
+	t_bmp_header	header;
+	t_bmp_file		info;
+	t_bmp_24		*palette;
+	unsigned		*pixels;
+	unsigned		pixel_count;
+}											t_bmp;
+
 void		ui_putbmp(t_bmp_header header, t_bmp_file bmp);
 unsigned	bit24_pixel_to_hex(t_bmp_24 pixel);
+unsigned	bit32_pixel_to_hex(t_bmp_32 pixel);
 t_bmp		ui_getbmp(char *path);
 
-void		fill_pixels_32(unsigned *bmp_pixels, unsigned *pixels, \
+void		fill_pixels_32(unsigned *bmp_pixels, t_bmp_32 *pixels, \
 							int width, int height);
 void		fill_pixels_24(unsigned *bmp_pixels, t_bmp_24 *pixels, \
 							int width, int height);
