@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/28 03:54:28 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/02 20:25:37 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/05 14:24:10 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int		get_read_offset(unsigned short bit)
 void	read_bmp(int fd, t_bmp *bmpfile)
 {
 	void	*pixels;
-	int			offset;
-	int			width;
-	int			height;
+	int		offset;
+	int		width;
+	int		height;
 
 	offset = get_read_offset(bmpfile->info.biBitCount);
 	width = bmpfile->info.width;
