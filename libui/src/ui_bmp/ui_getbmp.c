@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/28 03:54:28 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/05 16:38:59 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/05 17:27:57 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int		get_read_offset(unsigned short bit)
 {
 	if (bit == (unsigned short)1)
 		return (sizeof(char));
+	if (bit == (unsigned short)16)
+		return (sizeof(unsigned short));
 	if (bit == (unsigned short)32)
 		return (sizeof(unsigned));
 	return (sizeof(t_bmp_24));
@@ -41,6 +43,9 @@ void	read_bmp(int fd, t_bmp *bmpfile)
 	}
 	if (bit == 1)
 		return fill_pixels_1(bmpfile->pixels, (char*)pixels, width, height);
+	if (bit == 16)
+		return fill_pixels_16(bmpfile->pixels, (unsigned short*)pixels, \
+								width, height);
 	if (bit == 32)
 		return fill_pixels_32(bmpfile->pixels, (unsigned*)pixels, width, height);
 	return (fill_pixels_24(bmpfile->pixels, (t_bmp_24*)pixels, width, height));

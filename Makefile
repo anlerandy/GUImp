@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:59:51 by alerandy          #+#    #+#              #
-#    Updated: 2019/04/26 15:48:02 by alerandy         ###   ########.fr        #
+#    Updated: 2019/05/05 17:32:06 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,10 @@ OBJS = $(SRCS:%.c=%.o)
 OPATH = obj/
 PATH_OBJ = $(addprefix $(OPATH), $(OBJS))
 
+# Conditions
+LIBUI = libui/libui.a
+LIBFT = libft/libft.a
+
 T = $(words $(PATH_OBJ))
 N = 0
 C = $(words $N)$(eval N := x $N)
@@ -43,7 +47,7 @@ ECHO = "[`expr $C  '*' 100 / $T`%]"
 
 all: libs $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(LIBFT) $(LIBUI) $(OBJS)
 	@printf "\r\033[K""\r\033[K""\033[32m[GUI] \033[0m""Compiling""\n"
 	@$(COMPILE) $(PATH_OBJ) -o $(NAME) $(INCLUDES) $(LIBS)
 	@sh updateLinker.sh
