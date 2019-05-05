@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 11:53:34 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/05 20:11:51 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/05/05 20:19:45 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_ui_win		*ui_get_focused_window(t_ui_univers *univers);
 void			ui_del_window(t_ui_univers *univers, int win_id);
 void			ui_clear_all_windows(t_ui_univers *univers);
 
-void			ui_new_event(t_ui_univers *univers, unsigned int event_id, \
+int				ui_new_event(t_ui_univers *univers, unsigned int event_id, \
 						void (*callback)(t_ui_univers *, void *, int), \
 						void *config_callback);
 void			ui_del_event(t_ui_univers *univers, unsigned int event_id);
