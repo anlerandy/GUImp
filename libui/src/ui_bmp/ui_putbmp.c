@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/28 03:16:49 by alerandy          #+#    #+#             */
-/*   Updated: 2019/04/28 14:59:45 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/05 16:39:36 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ void	putCompression(unsigned compression)
 
 void	ui_putbmp(t_bmp_header header, t_bmp_file bmp)
 {
-	ft_putstr("Type de fichier: ");
+	ft_putstr("Taille du Header: ");
+	ft_putnbr(sizeof(t_bmp_header) + sizeof(t_bmp_file));
+	ft_putstr("\nType de fichier: ");
 	ft_putchar(header.bfType[0]);
 	ft_putchar(header.bfType[1]);
 	ft_putstr("\nTaille du fichier: ");

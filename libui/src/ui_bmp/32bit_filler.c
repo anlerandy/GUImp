@@ -6,25 +6,25 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 14:46:11 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/05 14:55:50 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/05 16:29:23 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bmp_parser.h"
 
-void	fill_pixels_32(unsigned *bmp_pixels, int *pixels, int width, \
+void	fill_pixels_32(unsigned *bmp_pixels, unsigned *pixels, int width, \
 						int height)
 {
 	int		x;
 	int		y;
 	int		i;
 
-	y = -1;
+	y = 0;
 	i = 0;
-	while (++y < height)
+	while (++y <= height)
 	{
 		x =-1;
 		while (++x < width)
-			bmp_pixels[i++] = pixels[x + (height - y - 1) * width];
+			bmp_pixels[i++] = pixels[x + (height - y) * width];
 	}
 }

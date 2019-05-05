@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 13:31:11 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/05 14:57:14 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/05 16:35:59 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct __attribute__((__packed__))	s_bmp_file {
 typedef struct __attribute__((__packed__))	s_bmp {
 	t_bmp_header	header;
 	t_bmp_file		info;
+	char			*palette;
 	unsigned		*pixels;
 	unsigned		pixel_count;
 }											t_bmp;
@@ -56,7 +57,7 @@ void		ui_putbmp(t_bmp_header header, t_bmp_file bmp);
 unsigned	bit24_pixel_to_hex(t_bmp_24 pixel);
 t_bmp		ui_getbmp(char *path);
 
-void		fill_pixels_32(unsigned *bmp_pixels, int *pixels, \
+void		fill_pixels_32(unsigned *bmp_pixels, unsigned *pixels, \
 							int width, int height);
 void		fill_pixels_24(unsigned *bmp_pixels, t_bmp_24 *pixels, \
 							int width, int height);
