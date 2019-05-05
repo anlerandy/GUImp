@@ -55,7 +55,7 @@ int main()
 	int 		flag;
 	t_bmp		bmpfile;
 
-	bmpfile = ui_getbmp("/home/woap-unix/GUImp/libui/src/ui_bmp/800_600/1bit.bmp");
+	bmpfile = ui_getbmp("/home/woap-unix/GUImp/libui/src/ui_bmp/800_600/24bit.bmp");
 	win = ui_new_window(bmpfile.info.width, bmpfile.info.height);
 >>>>>>> Updated: Main.c uses bmpParser.
 	while(1)

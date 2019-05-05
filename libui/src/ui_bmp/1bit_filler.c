@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:24:48 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/02 20:25:24 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/05 14:26:18 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ void	fill_buffer(t_bmp_24 *buff, char c)
 	white = (t_bmp_24){255, 255, 255};
 	black = (t_bmp_24){0, 0, 0};
 	a = 1;
-	buff[0] = c & a ? black : white;
-	buff[1] = c & a << 1 ? black : white;
-	buff[2] = c & a << 2 ? black : white;
-	buff[3] = c & a << 3 ? black : white;
-	buff[4] = c & a << 4 ? black : white;
-	buff[5] = c & a << 5 ? black : white;
-	buff[6] = c & a << 6 ? black : white;
-	buff[7] = c & a << 7 ? black : white;
+	buff[0] = c & a << 7 ? black : white;
+	buff[1] = c & a << 6 ? black : white;
+	buff[2] = c & a << 5 ? black : white;
+	buff[3] = c & a << 4 ? black : white;
+	buff[4] = c & a << 3 ? black : white;
+	buff[5] = c & a << 2 ? black : white;
+	buff[6] = c & a << 1 ? black : white;
+	buff[7] = c & a ? black : white;
 }
 
 void	fill_pixels_1(unsigned *bmp_pixels, char *pixels, int width, \
