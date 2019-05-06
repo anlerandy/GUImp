@@ -15,8 +15,9 @@
 
 # include "ft_btree_rb.h"
 # include "SDL.h"
-#include "libft.h"
-#include "bmp_parser.h"
+# include "libft.h"
+# include "bmp_parser.h"
+# include "vectors.h"
 
 typedef struct	s_ui_win_param
 {

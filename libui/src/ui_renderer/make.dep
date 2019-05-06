@@ -1,0 +1,2 @@
+INCLUDES += $(shell pwd)/src/ui_renderer/includes/
+SRCS += surf_to_window.c 
