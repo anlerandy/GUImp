@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 15:11:25 by alerandy          #+#    #+#              #
-#    Updated: 2019/05/02 17:42:10 by gsmith           ###   ########.fr        #
+#    Updated: 2019/05/06 14:19:20 by gsmith           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,8 +32,10 @@ INCLUDES += ./includes $(SDL2)/include ../libft/includes
 LIBS = -L../libft -lft -L./SDL/build/.libs -lSDL2 $(linksdl)
 SRCS += ui_init_univers.c ui_quit_univers.c ui_new_window.c ui_del_window.c \
 		ui_clear_all_windows.c ui_get_window_by_id.c ui_get_focused_window.c \
+		ui_new_event.c ui_del_event.c \
 		ui_cmp_window.c ui_cmp_window_id.c ui_cmp_window_flag.c \
-		ui_free_window.c
+		ui_cmp_event.c ui_cmp_event_id.c \
+		ui_free_window.c ui_free_event.c
 INCLUDES:=$(addprefix -I, $(INCLUDES))
 
 # Updating the VPATH
