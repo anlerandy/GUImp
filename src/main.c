@@ -15,14 +15,20 @@
 
 int main()
 {
-<<<<<<< HEAD
 	t_ui_univers	*univ;
 	t_ui_win_param	param[3];
 	t_ui_win		*win;
 	t_ui_win		*old;
 	int				flag;
 	SDL_Event		e;
+	SDL_Surface		*test;
 
+	test = SDL_CreateRGBSurface(0, 20, 30, 32,
+                                   0x000000ff, 0x0000ff00, 0x00ff0000, 0xff000000);
+    if (test == NULL) {
+        SDL_Log("SDL_CreateRGBSurface() failed: %s", SDL_GetError());
+        exit(1);
+    }
 	param[0].coord[0] = 0;
 	param[0].coord[1] = 500;
 	param[0].dim[0] = 500;
@@ -47,17 +53,19 @@ int main()
 			ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
 		printf("win: %d, %p, %p\n", win->id, win, win->sdl_ptr);
 	}
+	int i = 0;
+	int j = 0;
+	int *surf;
+	surf = test->pixels;
+
+	while (i++ < 10 && !(j = 0))
+		while (j++ < 15)
+			surf[i * test->w + j] = 0x00ffffff;
+	test->pixels = surf;
+	ui_surf_to_window(test, win, (t_ipos){10, 10});
 	flag = -1;
 	old = ui_get_focused_window(univ);
-=======
-	t_win		*win;
-	SDL_Event	e;
-	int 		flag;
-	t_bmp		bmpfile;
-
-	bmpfile = ui_getbmp("/home/woap-unix/GUImp/libui/src/ui_bmp/800_600/16bit.bmp");
-	win = ui_new_window(bmpfile.info.width, bmpfile.info.height);
->>>>>>> Updated: Main.c uses bmpParser.
+	SDL_UpdateWindowSurface(win->sdl_ptr);
 	while(1)
 	{
 		flag = 1;
@@ -77,11 +85,5 @@ int main()
 				old = win;
 			}
 		}
-<<<<<<< HEAD
-=======
-		ft_memcpy(win->s->pixels, bmpfile.pixels,
-				(sizeof(unsigned) * bmpfile.pixel_count));
-		SDL_UpdateWindowSurface(win->w);
->>>>>>> Updated: Main.c uses bmpParser.
 	}
 }

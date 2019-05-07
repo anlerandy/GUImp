@@ -74,5 +74,7 @@ int				ui_set_default_theme(t_ui_univers *univers, int theme_id);
 int				ui_del_theme(t_ui_univers *univers, int theme_id);
 int				ui_clear_all_themes(t_ui_univers *univers);
 
+void			ui_surf_to_window(SDL_Surface *surf, t_ui_win *win, t_size pos);
+
 
 #endif
