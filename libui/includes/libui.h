@@ -6,13 +6,14 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 11:53:34 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/06 13:14:57 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/05/07 17:51:03 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBUI_H
 # define LIBUI_H
 
+# include "events.h"
 # include "ft_btree_rb.h"
 # include "SDL.h"
 
@@ -22,6 +23,23 @@ typedef struct	s_ui_win_param
 	int				dim[2];
 	unsigned int	options;
 }				t_ui_win_param;
+
+typedef struct	s_ui_event_data
+{
+	unsigned int	event_id[2];
+	unsigned int	timestamp;
+	unsigned int	win_id;
+	unsigned int	state;
+	unsigned int	repeat;
+	unsigned int	keycode;
+	unsigned int	keymod;
+	int				x;
+	int				y;
+	int				xrel;
+	int				yrel;
+	unsigned int	click;
+	char			*file;
+}				t_ui_event_data;
 
 typedef struct	s_ui_theme
 {
@@ -48,8 +66,8 @@ typedef struct	s_ui_univers
 
 typedef struct	s_ui_event
 {
-	int				id;
-	void			(*callback)(t_ui_univers *, void *, int);
+	unsigned int	id[2];
+	void			(*callback)(t_ui_univers **, void *, t_ui_event_data);
 	void			*config;
 }				t_ui_event;
 
@@ -64,13 +82,13 @@ t_ui_win		*ui_get_focused_window(t_ui_univers *univers);
 void			ui_del_window(t_ui_univers *univers, int win_id);
 void			ui_clear_all_windows(t_ui_univers *univers);
 
-int				ui_new_event(t_ui_univers *univers, unsigned int event_id, \
-						void (*callback)(t_ui_univers *, void *, int), \
-						void *config_callback);
-void			ui_del_event(t_ui_univers *univers, unsigned int event_id);
+int				ui_new_event(t_ui_univers *univers, unsigned int event_id[2], \
+						void (*callback)(t_ui_univers **, void *, \
+							t_ui_event_data), void *config_callback);
+void			ui_del_event(t_ui_univers *univers, unsigned int event_id[2]);
 void			ui_clear_events(t_ui_univers *univers);
-void			ui_watch_events(t_ui_univers *univers);
-void			ui_wait_event(t_ui_univers *univers);
+void			ui_watch_events(t_ui_univers **univers);
+int				ui_wait_event(t_ui_univers **univers);
 
 t_ui_theme		*ui_new_theme(t_ui_univers *univers, char *file_path);
 t_ui_theme		*ui_get_theme_by_id(t_ui_univers *univers, int theme_id);

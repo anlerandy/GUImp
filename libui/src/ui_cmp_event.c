@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 13:45:25 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/06 13:49:55 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/05/07 18:04:02 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int			ui_cmp_event(void *ptr_a, void *ptr_b)
 {
-	t_ui_event	*eve_a;
-	t_ui_event	*eve_b;
+	unsigned int	id_a[2];
+	unsigned int	id_b[2];
 
 	if (!ptr_a && !ptr_b)
 		return (0);
@@ -23,7 +23,9 @@ int			ui_cmp_event(void *ptr_a, void *ptr_b)
 		return (-1);
 	if (!ptr_b)
 		return (1);
-	eve_a = (t_ui_event *)ptr_a;
-	eve_b = (t_ui_event *)ptr_b;
-	return (eve_a->id - eve_b->id);
+	id_a = ((t_ui_event *)ptr_a)->id;
+	id_b = ((t_ui_event *)ptr_b)->id;
+	if (id_a[0] == id_b[0])
+		return (id_a[1] - id_b[1]);
+	return (id_a[0] - id_b[0]);
 }

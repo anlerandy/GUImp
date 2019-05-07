@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 13:15:11 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/06 14:05:06 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/05/07 17:48:10 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 #include "libft.h"
 #include "libui_tools.h"
 
-int				ui_new_event(t_ui_univers *univers, unsigned int event_id, \
-						void (*callback)(t_ui_univers *, void *, int), \
-						void *config_callback)
+int				ui_new_event(t_ui_univers *univers, unsigned int event_id[2], \
+						void (*callback)(t_ui_univers **, void *, \
+							t_ui_event_data), void *config_callback)
 {
 	t_ui_event	*eve;
 

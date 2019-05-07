@@ -14,3 +14,6 @@ obj
 
 # debug dir
 *.dSYM
+
+# editor file
+.clang_complete
