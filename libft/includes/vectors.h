@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   vectors.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 17:56:46 by esuits            #+#    #+#             */
-/*   Updated: 2019/04/24 18:19:33 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/04/24 17:56:48 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTORS_H
 # define VECTORS_H
 
-# include "libft.h"
+# include "../../includes/libft.h"
 # include <math.h>
 # include <stdio.h>
 
@@ -22,6 +22,20 @@ typedef struct	s_vec2
 	double	x;
 	double	y;
 }				t_vec2;
+
+typedef struct	s_ivec2
+{
+	int		x;
+	int		y;
+}				t_ivec2;
+
+typedef t_vec2	t_size;
+
+typedef t_vec2	t_pos;
+
+typedef t_ivec2	t_isize;
+
+typedef t_vec2	t_ipos;
 
 typedef struct	s_vec3
 {
