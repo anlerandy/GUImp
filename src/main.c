@@ -9,7 +9,7 @@ int main()
 
 	bmpfile = ui_getbmp("/home/woap-unix/GUImp/libui/src/ui_bmp/800_600/16bit.bmp");
 	win = ui_new_window(bmpfile.info.width, bmpfile.info.height);
-	while(1)
+	while(bmpfile.pixels)
 	{
 		flag = 1;
 		while (flag || SDL_PollEvent(&e))
