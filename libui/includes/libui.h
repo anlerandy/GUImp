@@ -6,14 +6,13 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 11:53:34 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/07 17:51:03 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/05/07 18:27:50 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBUI_H
 # define LIBUI_H
 
-# include "events.h"
 # include "ft_btree_rb.h"
 # include "SDL.h"
 
