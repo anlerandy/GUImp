@@ -13,7 +13,7 @@
 #ifndef VECTORS_H
 # define VECTORS_H
 
-# include "../../includes/libft.h"
+# include "libft.h"
 # include <math.h>
 # include <stdio.h>
 
