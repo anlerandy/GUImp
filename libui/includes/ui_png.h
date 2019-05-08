@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 18:23:59 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/08 22:23:21 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/08 22:43:02 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@
 #include <fcntl.h>
 
 /* Chunk Types */
-# define IHDR 1380206665
+# define PNGIHDR 1380206665
 // # define PLTE
-# define IDAT 1413563465
-# define IEND 1145980233
-# define ICCP 1346585449
-# define ZTXT 1951945850
+# define PNGPHYS 1935231088
+# define PNGTIME 1162692980
+# define PNGIDAT 1413563465
+# define PNGIEND 1145980233
+# define PNGICCP 1346585449
+# define PNGZTXT 1951945850
 
 typedef enum                                e_cformat
 {
