@@ -1,2 +1,2 @@
 INCLUDES += $(shell pwd)/src/ui_bmp/includes/
-SRCS += ui_putpng.c ui_getpng.c ui_validatepng.c 
+SRCS += ui_putpng.c ui_getpng.c ui_validatepng.c ui_pngchunk.c
