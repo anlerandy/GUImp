@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 18:23:59 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/08 22:43:02 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/09 01:30:25 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,13 @@
 # define PNGICCP 1346585449
 # define PNGZTXT 1951945850
 
-typedef enum                                e_cformat
-{
-	GRAY,
-    NONE1,
-    RGB,
-    INDEX,
-    GRAYA,
-    AGRAY,
-    RGBA,
-	ARGB
-}                                           t_cformat;
+# define PNGGRAY 0
+# define PNGRGB 2
+# define PNGINDEX 3
+# define PNGGRAYA 4
+# define PNGAGRAY 5
+# define PNGRGBA 6
+# define PNGARGB 7
 
 typedef struct __attribute__((__packed__))	s_png_header
 {
@@ -52,15 +48,14 @@ typedef struct __attribute__((__packed__))	s_png_header
 	char		interlace;
 }											t_png_header;
 
-typedef struct __attribute__((__packed__))  s_png
+typedef struct __attribute__((__packed__))	s_png
 {
     unsigned char	signature[9];
 	t_png_header	header;
     unsigned		*pixels;
-}                                           t_png;
+}											t_png;
 
-t_png                                       ui_getpng(char *path);
-void                                       	ui_putpng(t_png png);
-int                                         validate_png(t_png png);
+t_png										ui_getpng(char *path);
+void										ui_putpng(t_png png);
 
 #endif

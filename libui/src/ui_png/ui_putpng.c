@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/28 03:16:49 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/08 23:58:43 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/09 01:32:33 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,53 @@ void	put_signature(unsigned char *signature)
 	ft_putendl("");
 }
 
+void	put_color(unsigned char color)
+{
+	ft_putstr("Color format: ");
+	if (color == PNGGRAY)
+		ft_putendl("GRAY");
+	else if (color == PNGRGB)
+		ft_putendl("RGB");
+	else if (color == PNGINDEX)
+		ft_putendl("INDEX");
+	else if (color == PNGGRAYA)
+		ft_putendl("GRAYA");
+	else if (color == PNGAGRAY)
+		ft_putendl("AGRAY");
+	else if (color == PNGRGBA)
+		ft_putendl("RGBA");
+	else if (color == PNGARGB)
+		ft_putendl("ARGB");
+}
+
+void	put_filter(unsigned char filter)
+{
+	ft_putstr("Filter: ");
+	if (!filter)
+		ft_putendl("None");
+	else if (filter == 1)
+		ft_putendl("Sub");
+	else if (filter == 2)
+		ft_putendl("Up");
+	else if (filter == 3)
+		ft_putendl("Average");
+	else if (filter == 4)
+		ft_putendl("Paeth");
+}
+
 void	ui_putpng(t_png png)
 {
 	put_signature(png.signature);
 	ft_putstr("Width: ");
 	ft_putnbr(png.header.width);
-	ft_putstr("\nheight: ");
+	ft_putstr("\nHeight: ");
 	ft_putnbr(png.header.height);
+	ft_putstr("\nBit depth: ");
+	ft_putnbr(png.header.bit);
 	ft_putchar('\n');
+	put_color(png.header.color);
+	ft_putstr("Compression: ");
+	ft_putendl(png.header.compression ? "Deflate (zlib)" : "None");
+	put_filter(png.header.filter);
+	ft_putendl(png.header.interlace ? "Interlaced (Adam7)" : "No interlace");
 }

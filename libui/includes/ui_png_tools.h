@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:33:47 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/08 23:50:35 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/09 01:06:13 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void										put_chunk(t_png *png, \
 												t_png_chunk chunk);
 void										write_header(t_png *png, \
 												t_png_chunk chunk);
+int                                         validate_png(t_png png);
 
 
 #endif
