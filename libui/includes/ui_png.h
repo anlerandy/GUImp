@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 18:23:59 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/09 05:21:23 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/09 07:38:53 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct __attribute__((__packed__))	s_png_header
 	char		interlace;
 }											t_png_header;
 
-typedef struct								s_png
+typedef struct __attribute__((__packed__))	s_png
 {
 	unsigned char	signature[9];
 	t_png_header	header;
@@ -77,5 +77,6 @@ t_png										ui_getpng(char *path);
 void										ui_putpng(t_png png);
 
 unsigned									bit24_pixel_to_hex(t_rgb pixel);
+unsigned									bit32_pixel_to_hex(t_rgba pixel);
 
 #endif

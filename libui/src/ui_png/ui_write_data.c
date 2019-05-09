@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 01:34:34 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/09 02:29:31 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/09 07:31:45 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,27 @@ void	write_data(t_png *png, t_png_chunk chunk)
 
 	if (!png->raw_data)
 	{
-		png->raw_data = ft_memalloc(chunk.length);
+		if (!(png->raw_data = ft_memalloc(chunk.length)))
+		{
+			ft_putendl_fd("Echec d'allocations de memoire.", 2);
+			return ;
+		}
 		ft_memcpy(png->raw_data, chunk.data, chunk.length);
 		png->raw_size = chunk.length;
-		ft_memdel(&chunk.data);
+		free(chunk.data);
+		chunk.data = NULL;
 		return ;
 	}
 	tmp = png->raw_data;
-	png->raw_data = ft_memalloc(png->raw_size + chunk.length);
+	if (!(png->raw_data = ft_memalloc(chunk.length)))
+	{
+		ft_putendl_fd("Echec d'allocations de memoire.", 2);
+		return ;
+	}
 	ft_memcpy(png->raw_data, tmp, png->raw_size);
 	ft_memcpy(png->raw_data + png->raw_size, chunk.data, chunk.length);
 	png->raw_size += chunk.length;
-	ft_memdel(&chunk.data);
+	free(chunk.data);
+	chunk.data = NULL;
 	ft_memdel(&tmp);
 }

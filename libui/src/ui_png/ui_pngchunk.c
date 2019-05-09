@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:32:45 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/09 02:28:11 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/09 06:54:14 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ t_png_chunk	getChunk(int fd)
 	ft_bzero(&chunk, sizeof(t_png_chunk));
 	if (!read(fd, &chunk, sizeof(unsigned) * 2))
 		return (chunk);
-	swap_integer(&chunk.length);
+	chunk.length = swap_integer(chunk.length);
 	chunk.data = ft_memalloc(chunk.length);
 	read(fd, chunk.data, chunk.length);
 	read(fd, &chunk.crc, sizeof(unsigned));
-	swap_integer(&chunk.crc);
+	chunk.crc = swap_integer(chunk.crc);
 	return (chunk);
 }
 

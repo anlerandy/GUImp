@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/09 06:01:43 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/09 07:40:11 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ int main()
 	param[2].dim[1] = 500;
 	param[2].options = SDL_WINDOW_RESIZABLE;
 
-	png = ui_getpng("/home/woap-unix/GUImp/libui/src/ui_png/test/01.png");
-	param[3].coord[0] = 2000;
+	png = ui_getpng("/Users/alerandy/GUImp/libui/src/ui_png/test/test.png");
+	param[3].coord[0] = 200;
 	param[3].coord[1] = 250;
 	param[3].dim[0] = png.header.width;
 	param[3].dim[1] = png.header.height;
@@ -48,12 +48,12 @@ int main()
 	if (!(univ = ui_init_univers()))
 		exit(1);
 	flag = -1;
-	while (++flag < 4)
+	while (++flag < 1)
 	{
-		if (!(win = ui_new_window(univ, param[flag], "Hello toast")))
+		if (!(win = ui_new_window(univ, param[3], "Hello toast")))
 			ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
 		printf("win: %d, %p, %p\n", win->id, win, win->sdl_ptr);
-		if (flag == 3)
+		if (flag == 0)
 		{
 			ft_memcpy(win->surf->pixels, png.pixels, png.header.width * png.header.height * sizeof(unsigned));
 			SDL_UpdateWindowSurface(win->sdl_ptr);
@@ -76,6 +76,8 @@ int main()
 				printf("\nfocus: %d, %p\n", win->id, win);
 				old = win;
 			}
+			if (win)
+				SDL_UpdateWindowSurface(win->sdl_ptr);
 		}
 	}
 }

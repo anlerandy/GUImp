@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 23:37:19 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/08 23:52:58 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/09 06:56:53 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	write_header(t_png *png, t_png_chunk chunk)
 
 	header = &png->header;
 	ft_memcpy((void *)header, (const void *)chunk.data, sizeof(t_png_header));
-	swap_integer(&header->width);
-	swap_integer(&header->height);
-	ft_memdel(&chunk.data);
+	header->width = swap_integer(header->width);
+	header->height = swap_integer(header->height);
+	free(chunk.data);
+	chunk.data = NULL;
 }
