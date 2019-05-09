@@ -23,7 +23,7 @@ int main()
 	SDL_Event		e;
 	SDL_Surface		*test;
 
-	test = SDL_CreateRGBSurface(0, 20, 30, 32,
+	test = SDL_CreateRGBSurface(0, 20, 10, 32,
                                    0x000000ff, 0x0000ff00, 0x00ff0000, 0xff000000);
     if (test == NULL) {
         SDL_Log("SDL_CreateRGBSurface() failed: %s", SDL_GetError());
@@ -53,15 +53,20 @@ int main()
 			ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
 		printf("win: %d, %p, %p\n", win->id, win, win->sdl_ptr);
 	}
-	int i = 0;
+	int i = -1;
 	int j = 0;
 	int *surf;
 	surf = test->pixels;
 
-	while (i++ < 10 && !(j = 0))
-		while (j++ < 15)
-			surf[i * test->w + j] = 0x00ffffff;
+	while (i++ < 10 && (j = -1))
+		while (j++ < 20)
+			surf[i * test->w + j] = (0x00050505 * j) & 0x00ffffff;
 	test->pixels = surf;
+	ui_surf_to_win_scale(test, win, (t_ipos){50, 100}, 2);
+	ui_surf_to_win_scale(test, win, (t_ipos){200, 200}, 5);
+
+	ui_surf_to_win_scale(test, win, (t_ipos){200, 100}, 1.5);
+
 	ui_surf_to_window(test, win, (t_ipos){10, 10});
 	flag = -1;
 	old = ui_get_focused_window(univ);
