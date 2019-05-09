@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libui.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 11:53:34 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/02 18:51:34 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/05/09 05:34:00 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBUI_H
 
 # include "ft_btree_rb.h"
+# include "ui_png.h"
 # include "SDL.h"
 
 typedef struct	s_ui_win_param

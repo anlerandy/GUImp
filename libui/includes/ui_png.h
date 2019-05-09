@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 18:23:59 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/09 04:21:09 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/09 05:21:23 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,7 @@ typedef struct __attribute__((__packed__))	s_rgba
 
 t_png										ui_getpng(char *path);
 void										ui_putpng(t_png png);
+
+unsigned									bit24_pixel_to_hex(t_rgb pixel);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/08 12:38:11 by alerandy          #+#    #+#              #
-#    Updated: 2019/05/08 23:42:43 by alerandy         ###   ########.fr        #
+#    Updated: 2019/05/09 05:45:23 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ SRC_NAME = ft_putchar.c ft_putstr.c ft_putcharerr.c ft_putstrerr.c ft_memset.c \
 		   vec_add.c vec_rot.c vec_init.c vec_mult_mat.c vec_mult.c vec_norm.c \
 		   vec_print.c vec_free.c vec_scale.c vec_spe_mat.c vec_sub.c
 NAME = libft.a
-FLAG = -Wall -Wextra -Werror -O2 -funroll-loops
+FLAG = -Wall -Wextra -Werror -O2 -funroll-loops -g3
 OBJ_NAME = $(SRC_NAME:.c=.o)
 CC = clang $(FLAG)
 SRC = $(addprefix $(SRC_PATH),$(SRC_NAME))
