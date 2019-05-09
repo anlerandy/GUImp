@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:32:45 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/09 02:01:17 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/09 02:28:11 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,5 @@ void		read_png(int fd, t_png *png)
 	}
 	if (chunk.type == PNGIEND)
 		finalise_reading(png, chunk);
+	ft_memdel((void**)&array);
 }

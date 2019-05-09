@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 23:33:09 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/09 01:39:29 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/09 02:25:48 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,5 @@ void	put_chunk(t_png *png, t_png_chunk chunk)
 	ft_putstr(" \033[32m(");
 	ft_putnbr(chunk.length);
 	ft_putstr(" octects)\033[0m\n");
+	ft_memdel(&chunk.data);
 }
