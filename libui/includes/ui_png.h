@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 18:23:59 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/09 01:55:51 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/09 04:21:09 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,22 @@ typedef struct								s_png
 	void			*raw_data;
 	unsigned		raw_size;
 }											t_png;
+
+typedef struct __attribute__((__packed__))	s_rgb
+{
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+}											t_rgb;
+
+typedef struct __attribute__((__packed__))	s_rgba
+{
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+	unsigned char	a;
+}											t_rgba;
+
 
 t_png										ui_getpng(char *path);
 void										ui_putpng(t_png png);
