@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 13:15:11 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/07 17:48:10 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/05/10 11:36:11 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int				ui_new_event(t_ui_univers *univers, unsigned int event_id[2], \
 		ft_putendl_fd(ERR_MALLOC, STDERR_FILENO);
 		return (1);
 	}
-	eve->id = event_id;
+	eve->id[0] = event_id[0];
+	eve->id[1] = event_id[1];
 	eve->callback = callback;
 	eve->config = config_callback;
 	rb_insert(&(univers->events), eve, &ui_cmp_event);

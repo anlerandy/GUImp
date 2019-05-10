@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 13:45:25 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/07 18:04:02 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/05/10 11:37:12 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int			ui_cmp_event(void *ptr_a, void *ptr_b)
 {
-	unsigned int	id_a[2];
-	unsigned int	id_b[2];
+	unsigned int	*id_a;
+	unsigned int	*id_b;
 
 	if (!ptr_a && !ptr_b)
 		return (0);
