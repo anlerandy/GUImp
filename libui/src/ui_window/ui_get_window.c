@@ -6,13 +6,13 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 10:09:20 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/10 19:09:09 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/05/10 19:41:47 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui_tools.h"
 
-t_ui_win		*ui_get_focused_window(t_ui_univers *univers)
+t_ui_win	*ui_get_focused_window(t_ui_univers *univers)
 {
 	int		flag;
 

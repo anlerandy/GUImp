@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 14:28:27 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/10 18:44:39 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/05/10 19:40:34 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int				ui_wait_event(t_ui_univers **univers)
 
 	if (!univers || !*univers)
 		return (0);
-	(void)univers;
 	if ((res = SDL_PollEvent(&eve)))
 	{
 		if (ui_generate_event_id(&eve, &id[0], &id[1], &data))

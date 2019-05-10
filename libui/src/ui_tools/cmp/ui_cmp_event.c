@@ -6,13 +6,13 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 13:45:25 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/10 19:05:31 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/05/10 19:44:42 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui.h"
 
-int				ui_cmp_event_id(void *ptr_eve, void *ptr_id)
+int			ui_cmp_event_id(void *ptr_eve, void *ptr_id)
 {
 	unsigned int	*id_eve;
 	unsigned int	*id_ref;
