@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/10 12:14:00 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/10 16:48:37 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int main()
 	param[2].dim[1] = 500;
 	param[2].options = SDL_WINDOW_RESIZABLE;
 
-	png = ui_getpng("/Users/alerandy/GUImp/libui/src/ui_png/test/test.png");
+	png = ui_getpng("/Users/alerandy/GUImp/libui/src/ui_png/test/test5.png");
 	param[3].coord[0] = 200;
 	param[3].coord[1] = 250;
 	param[3].dim[0] = png.header.width;
@@ -56,7 +56,7 @@ int main()
 		printf("win: %d, %p, %p\n", win->id, win, win->sdl_ptr);
 		if (flag == 3)
 		{
-			ft_memcpy(win->surf->pixels, png.pixels, png.header.width * png.header.height * sizeof(unsigned));
+			ft_memcpy(win->surf->pixels, png.pixels, png.pixel_count * sizeof(unsigned));
 			SDL_UpdateWindowSurface(win->sdl_ptr);
 		}
 	}

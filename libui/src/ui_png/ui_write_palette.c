@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_validatepng.c                                   :+:      :+:    :+:   */
+/*   ui_write_palette.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/07 19:18:53 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/10 14:58:12 by alerandy         ###   ########.fr       */
+/*   Created: 2019/05/10 13:56:00 by alerandy          #+#    #+#             */
+/*   Updated: 2019/05/10 15:51:05 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ui_png.h"
+#include "ui_png_tools.h"
 
-int		validate_signature(unsigned char *signature)
+void		write_palette(t_png *png, t_png_chunk chunk)
 {
-	return (signature[0] == 137 \
-	&& signature[1] == 'P' \
-	&& signature[2] == 'N' \
-	&& signature[3] == 'G' \
-	&& signature[4] == 13 \
-	&& signature[5] == 10 \
-	&& signature[6] == 26 \
-	&& signature[7] == 10);
-}
+	int		size;
 
-int		validate_png(t_png png)
-{
-	return (validate_signature(png.signature));
+	size = chunk.length / sizeof(t_rgb);
+	png->palette = ft_memalloc(size * sizeof(t_rgb));
+	ft_memcpy(png->palette, chunk.data, chunk.length);
+	free(chunk.data);
+	chunk.data = NULL;
 }

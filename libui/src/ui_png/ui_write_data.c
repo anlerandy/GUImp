@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 01:34:34 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/09 07:31:45 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/10 15:58:43 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	write_data(t_png *png, t_png_chunk chunk)
 		return ;
 	}
 	tmp = png->raw_data;
-	if (!(png->raw_data = ft_memalloc(chunk.length)))
+	if (!(png->raw_data = ft_memalloc(chunk.length + png->raw_size)))
 	{
 		ft_putendl_fd("Echec d'allocations de memoire.", 2);
 		return ;

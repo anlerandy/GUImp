@@ -1,2 +1,2 @@
 SRCS += ui_putpng.c ui_getpng.c ui_validatepng.c ui_pngchunk.c ui_putpngchunk.c \
-		ui_write_header.c ui_write_data.c ui_write_pixels.c
+		ui_write_header.c ui_write_data.c ui_write_pixels.c ui_write_palette.c

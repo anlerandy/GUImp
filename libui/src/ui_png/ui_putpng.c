@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/28 03:16:49 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/09 01:32:33 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/10 13:56:35 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,6 @@ void	ui_putpng(t_png png)
 	ft_putstr("Compression: ");
 	ft_putendl(png.header.compression ? "Deflate (zlib)" : "None");
 	put_filter(png.header.filter);
-	ft_putendl(png.header.interlace ? "Interlaced (Adam7)" : "No interlace");
+	ft_putstr("Interlace: ");
+	ft_putendl(png.header.interlace ? "Adam7" : "None");
 }

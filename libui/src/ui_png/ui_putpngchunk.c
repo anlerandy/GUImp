@@ -6,37 +6,18 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 23:33:09 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/09 06:56:09 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/10 15:53:28 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ui_png_tools.h"
 
-void		put_chunktype(unsigned type)
+void	put_chunktype(unsigned type)
 {
-	char	*str;
-
-	if (type == PNGIHDR)
-		ft_putstr("IHDR");
-	else if (type == PNGZTXT)
-		ft_putstr("zTXT");
-	else if (type == PNGICCP)
-		ft_putstr("iCCP");
-	else if (type == PNGIDAT)
-		ft_putstr("IDAT");
-	else if (type == PNGIEND)
-		ft_putstr("IEND");
-	else if (type == PNGPHYS)
-		ft_putstr("pHYS");
-	else if (type == PNGTIME)
-		ft_putstr("tIME");
-	else {
-		ft_putstr("Unknown type: ");
-		str = (char*)&type;
-		ft_putnstr(str, 4);
-		ft_putstr(". Integer value= ");
-		ft_putnbr(type);
-	}
+	ft_putnstr((char*)&type, 4);
+	ft_putstr(" ID: ");
+	ft_putnbr(type);
+	ft_putstr("");
 }
 
 void	put_chunk(t_png *png, t_png_chunk chunk)

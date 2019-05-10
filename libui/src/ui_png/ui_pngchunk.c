@@ -6,24 +6,25 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:32:45 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/09 06:54:14 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/10 15:19:03 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ui_png_tools.h"
 
-t_png_funcs	*getFunctions()
+t_png_funcs		*get_functions(void)
 {
 	t_png_funcs		*array;
 
-	array = ft_memalloc(sizeof(t_png_funcs) * 3);
+	array = ft_memalloc(sizeof(t_png_funcs) * 4);
 	array[0] = (t_png_funcs){PNGIHDR, &write_header};
 	array[1] = (t_png_funcs){PNGIDAT, &write_data};
-	array[2] = (t_png_funcs){0, &put_chunk};
+	array[2] = (t_png_funcs){PNGPLTE, &write_palette};
+	array[3] = (t_png_funcs){0, &put_chunk};
 	return (array);
 }
 
-t_png_chunk	getChunk(int fd)
+t_png_chunk		get_chunk(int fd)
 {
 	t_png_chunk		chunk;
 
@@ -38,14 +39,14 @@ t_png_chunk	getChunk(int fd)
 	return (chunk);
 }
 
-void		read_png(int fd, t_png *png)
+void			read_png(int fd, t_png *png)
 {
 	t_png_funcs		*array;
 	t_png_chunk		chunk;
 	int				i;
 
-	array = getFunctions();
-	chunk = getChunk(fd);
+	array = get_functions();
+	chunk = get_chunk(fd);
 	while (chunk.type != PNGIEND)
 	{
 		i = 0;
@@ -53,7 +54,7 @@ void		read_png(int fd, t_png *png)
 			++i;
 		if (array[i].func)
 			array[i].func(png, chunk);
-		chunk = getChunk(fd);
+		chunk = get_chunk(fd);
 	}
 	if (chunk.type == PNGIEND)
 		finalise_reading(png, chunk);

@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/26 16:21:42 by alerandy          #+#    #+#              #
-#    Updated: 2019/05/09 04:28:07 by alerandy         ###   ########.fr        #
+#    Updated: 2019/05/10 14:51:50 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,3 +20,6 @@ LIBS = -L../../../libft/ -lft
 
 all:
 	@gcc -g3 $(INCLUDES) $(SRCS) -o $(NAME) $(LIBS)
+
+norm:
+	norminette ./*.c
