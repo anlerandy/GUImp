@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/09 07:40:11 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/10 12:14:00 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,14 @@
 int main()
 {
 	t_ui_univers	*univ;
-	t_ui_win_param	param[4];
+	t_ui_win_param	param[5];
 	t_ui_win		*win;
 	t_ui_win		*old;
 	int				flag;
 	SDL_Event		e;
 	t_png			png;
 
+	ft_bzero(param, sizeof(param));
 	param[0].coord[0] = 0;
 	param[0].coord[1] = 500;
 	param[0].dim[0] = 500;
@@ -48,12 +49,12 @@ int main()
 	if (!(univ = ui_init_univers()))
 		exit(1);
 	flag = -1;
-	while (++flag < 1)
+	while (++flag < 4)
 	{
-		if (!(win = ui_new_window(univ, param[3], "Hello toast")))
+		if (!(win = ui_new_window(univ, param[flag], "Hello toast")))
 			ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
 		printf("win: %d, %p, %p\n", win->id, win, win->sdl_ptr);
-		if (flag == 0)
+		if (flag == 3)
 		{
 			ft_memcpy(win->surf->pixels, png.pixels, png.header.width * png.header.height * sizeof(unsigned));
 			SDL_UpdateWindowSurface(win->sdl_ptr);
