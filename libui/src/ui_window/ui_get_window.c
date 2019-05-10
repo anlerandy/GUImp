@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_get_focused_window.c                            :+:      :+:    :+:   */
+/*   ui_get_window.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/01 18:57:57 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/02 21:05:19 by alerandy         ###   ########.fr       */
+/*   Created: 2019/04/30 10:09:20 by gsmith            #+#    #+#             */
+/*   Updated: 2019/05/10 19:09:09 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,17 @@ t_ui_win		*ui_get_focused_window(t_ui_univers *univers)
 	flag = SDL_WINDOW_INPUT_FOCUS;
 	return (rb_search_infix(univers->windows, (void *)&flag, \
 			&ui_cmp_window_flag));
+}
+
+t_ui_win	*ui_get_window_by_id(t_ui_univers *univers, int win_id)
+{
+	void	*search_res;
+
+	if (!univers)
+		return (NULL);
+	search_res = rb_search_infix(univers->windows, (void *)&win_id, \
+			&ui_cmp_window_id);
+	if (!search_res)
+		return (NULL);
+	return ((t_ui_win *)search_res);
 }
