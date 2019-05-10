@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 18:23:59 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/10 16:59:55 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/10 20:34:53 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,13 @@ typedef struct __attribute__((__packed__))	s_rgba
 
 typedef struct __attribute__((__packed__))	s_png_header
 {
-	unsigned	width;
-	unsigned	height;
-	char		bit;
-	char		color;
-	char		compression;
-	char		filter;
-	char		interlace;
+	unsigned		width;
+	unsigned		height;
+	unsigned char	bit;
+	unsigned char	color;
+	unsigned char	compression;
+	unsigned char	filter;
+	unsigned char	interlace;
 }											t_png_header;
 
 typedef struct __attribute__((__packed__))	s_png

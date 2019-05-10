@@ -6,17 +6,38 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 01:34:34 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/10 19:16:56 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/10 20:50:46 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ui_png_tools.h"
 
-void	write_data(t_png *png, t_png_chunk chunk)
+unsigned char	get_compression(unsigned short compression)
 {
-	void	*tmp;
+	if (compression == 0x78DA)
+		return (40);
+	if (compression == 0x789C)
+		return (30);
+	if (compression == 0x785E)
+		return (20);
+	if (compression == 0x7801)
+		return (10);
+	if (compression == 0x1F8B)
+		return (50);
+	return 0;
+}
 
+void			write_data(t_png *png, t_png_chunk chunk)
+{
+	void			*tmp;
+	unsigned short	cmp;
 
+	if (!png->raw_data)
+	{
+		cmp = *(unsigned short*)chunk.data;
+		cmp = swap_integer(((unsigned)cmp) << 16);
+		png->header.compression += get_compression(cmp);
+	}
 	tmp = png->raw_data;
 	if (!(png->raw_data = ft_memalloc(chunk.length + png->raw_size)))
 	{

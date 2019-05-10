@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/28 03:16:49 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/10 13:56:35 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/10 20:38:37 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,28 @@ void	put_filter(unsigned char filter)
 		ft_putendl("Paeth");
 }
 
+void	put_compression(unsigned char compression)
+{
+	int		idat;
+	int		ihdr;
+
+	idat = compression / 10;
+	ihdr = compression % 10;
+	ft_putstr("Compression: ");
+	ft_putendl(ihdr ? "Compressed" : "None");
+	ft_putstr("Pixels compression: ");
+	if (idat == 1)
+		ft_putendl("None");
+	if (idat == 2)
+		ft_putendl("Low");
+	if (idat == 3)
+		ft_putendl("Medium");
+	if (idat == 4)
+		ft_putendl("Strong");
+	if (idat == 5)
+		ft_putendl("gZIP");
+}
+
 void	ui_putpng(t_png png)
 {
 	put_signature(png.signature);
@@ -78,8 +100,7 @@ void	ui_putpng(t_png png)
 	ft_putnbr(png.header.bit);
 	ft_putchar('\n');
 	put_color(png.header.color);
-	ft_putstr("Compression: ");
-	ft_putendl(png.header.compression ? "Deflate (zlib)" : "None");
+	put_compression(png.header.compression);
 	put_filter(png.header.filter);
 	ft_putstr("Interlace: ");
 	ft_putendl(png.header.interlace ? "Adam7" : "None");
