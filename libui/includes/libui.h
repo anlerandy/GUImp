@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 11:53:34 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/07 18:27:50 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/05/10 13:34:55 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct	s_ui_event_data
 	unsigned int	timestamp;
 	unsigned int	win_id;
 	unsigned int	state;
-	unsigned int	repeat;
 	unsigned int	keycode;
 	unsigned int	keymod;
 	int				x;
@@ -37,7 +36,7 @@ typedef struct	s_ui_event_data
 	int				xrel;
 	int				yrel;
 	unsigned int	click;
-	char			*file;
+	char			*path;
 }				t_ui_event_data;
 
 typedef struct	s_ui_theme
