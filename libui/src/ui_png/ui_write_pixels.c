@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:01:37 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/11 18:05:40 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/11 18:08:02 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,38 +43,21 @@ void		finalise_reading(t_png *png, t_png_chunk chunk)
 	uncompress_data(data, png->raw_data, png->raw_size, \
 				png->header.width * png->header.height * 4);
 	png->pixel_count = png->header.width * png->header.height;
-	if (png->header.color == PNGRGB)
+	if (!(png->pixels = ft_memalloc(sizeof(unsigned) \
+					* png->pixel_count)))
 	{
-		if (!(png->pixels = ft_memalloc(sizeof(unsigned) \
-						* png->pixel_count)))
-		{
-			ft_putendl_fd("Echec d'allocations de memoire.", 2);
-			return ;
-		}
+		ft_putendl_fd("Echec d'allocations de memoire.", 2);
+		return ;
+	}
+	if (png->header.color == PNGRGB)
 		while (png->raw_size - ++i * sizeof(t_rgb) >= sizeof(t_rgb))
 			png->pixels[i] = bit24_pixel_to_hex(*(t_rgb*)(png->raw_data \
 							+ i * sizeof(t_rgb)));
-	}
 	if (png->header.color == PNGRGBA)
-	{
-		if (!(png->pixels = ft_memalloc(sizeof(unsigned) \
-						* png->pixel_count)))
-		{
-			ft_putendl_fd("Echec d'allocations de memoire.", 2);
-			return ;
-		}
 		while (png->pixel_count - ++i)
 			png->pixels[i] = bit32_pixel_to_hex(*(t_rgba*)(data + i * sizeof(t_rgba)));
-	}
 	if (png->header.color == PNGINDEX)
-	{
-		if (!(png->pixels = ft_memalloc(sizeof(unsigned) * png->pixel_count)))
-		{
-			ft_putendl_fd("Echec d'allocations de memoire.", 2);
-			return ;
-		}
 		while (png->pixel_count - ++i - 1)
 			png->pixels[i] = bit24_pixel_to_hex(png->palette[((unsigned char*)data)[i]]);
-	}
 	ft_memdel(&data);
 }
