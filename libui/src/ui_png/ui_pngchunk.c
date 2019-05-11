@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:32:45 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/10 15:19:03 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/11 21:11:46 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@ t_png_funcs		*get_functions(void)
 {
 	t_png_funcs		*array;
 
-	array = ft_memalloc(sizeof(t_png_funcs) * 4);
+	array = ft_memalloc(sizeof(t_png_funcs) * 5);
 	array[0] = (t_png_funcs){PNGIHDR, &write_header};
 	array[1] = (t_png_funcs){PNGIDAT, &write_data};
 	array[2] = (t_png_funcs){PNGPLTE, &write_palette};
-	array[3] = (t_png_funcs){0, &put_chunk};
+	array[3] = (t_png_funcs){PNGTRNS, &write_transparency};
+	array[4] = (t_png_funcs){0, &put_chunk};
 	return (array);
 }
 
@@ -58,5 +59,6 @@ void			read_png(int fd, t_png *png)
 	}
 	if (chunk.type == PNGIEND)
 		finalise_reading(png, chunk);
-	ft_memdel((void**)&array);
+	free(array);
+	array = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 18:23:59 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/10 20:34:53 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/11 20:43:41 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define PNGICCP 1346585449
 # define PNGZTXT 1951945850
 # define PNGITXT 1951945833
+# define PNGTRNS 1397641844
 
 # define PNGGRAY 0
 # define PNGRGB 2
@@ -69,6 +70,7 @@ typedef struct __attribute__((__packed__))	s_png
 	unsigned char	signature[9];
 	t_png_header	header;
 	t_rgb			*palette;
+	unsigned char	*opacity;
 	unsigned		*pixels;
 	unsigned		pixel_count;
 	void			*raw_data;

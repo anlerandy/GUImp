@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/10 16:48:37 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/11 21:12:41 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int main()
 	png = ui_getpng("/Users/alerandy/GUImp/libui/src/ui_png/test/test5.png");
 	param[3].coord[0] = 200;
 	param[3].coord[1] = 250;
-	param[3].dim[0] = png.header.width;
-	param[3].dim[1] = png.header.height;
+	param[3].dim[0] = png.header.width ? png.header.width : 1000;
+	param[3].dim[1] = png.header.height ? png.header.height : 1000;
 	param[3].options = SDL_WINDOW_RESIZABLE;
 	if (!(univ = ui_init_univers()))
 		exit(1);
@@ -56,8 +56,11 @@ int main()
 		printf("win: %d, %p, %p\n", win->id, win, win->sdl_ptr);
 		if (flag == 3)
 		{
-			ft_memcpy(win->surf->pixels, png.pixels, png.pixel_count * sizeof(unsigned));
+			flag = -1;
+			while (++flag < (int)png.header.height)
+				ft_memcpy(win->surf->pixels + (png.header.width * flag) * sizeof(t_rgba), png.pixels + (png.header.width * flag) + flag, png.header.width * sizeof(t_rgba));
 			SDL_UpdateWindowSurface(win->sdl_ptr);
+			flag = 3;
 		}
 	}
 	old = ui_get_focused_window(univ);
