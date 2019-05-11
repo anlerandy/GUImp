@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:59:51 by alerandy          #+#    #+#              #
-#    Updated: 2019/05/10 13:03:49 by alerandy         ###   ########.fr        #
+#    Updated: 2019/05/11 17:41:23 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,9 +22,9 @@ include includes.dep
 # Intisialize the main files
 SDL2 = SDL2-2.0.9
 INCLUDES += ./includes ./libui/$(SDL2)/include ./libft/includes \
-			./libui/includes
+			./libui/includes /Users/alerandy/.brew/opt/zlib/include
 LIBS = -L./libui -lui -L./libft -lft -L./libui/SDL/build/.libs -lSDL2 \
-	   -Wl,-rpath,./libui/SDL/build/.libs
+	   -Wl,-rpath,./libui/SDL/build/.libs -L/Users/alerandy/.brew/opt/zlib/lib -lz
 
 SRCS += main.c
 INCLUDES:=$(addprefix -I, $(INCLUDES))
