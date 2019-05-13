@@ -6,12 +6,14 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 11:53:34 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/13 13:36:36 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/05/13 15:14:05 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBUI_H
 # define LIBUI_H
+
+# include "libui_kcode.h"
 
 typedef struct	s_ui_win_param
 {
