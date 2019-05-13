@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/13 16:07:38 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/05/13 18:16:32 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 void	pt_event_param(t_ui_event_data event)
 {
-	ft_putendl("\nCallback: event data");
-	ft_putstr("id_type: ");
+	ft_putstr("\nCallback: event data\nid_type: ");
 	ft_putnbr(event.event_id[0]);
 	ft_putstr("\nid_event: ");
 	ft_putnbr(event.event_id[1]);
@@ -40,8 +39,7 @@ void	pt_event_param(t_ui_event_data event)
 	ft_putstr("\nclick: ");
 	ft_putnbr(event.click);
 	ft_putstr("\npath: ");
-	ft_putstr(event.path);
-	ft_putchar('\n');
+	ft_putendl(event.path);
 }
 
 void	callback_quit(t_ui_univers **uni, void *dummy, t_ui_event_data event)
@@ -71,33 +69,19 @@ int		main()
 	t_ui_univers	*univ;
 	t_ui_win_param	param[3];
 	t_ui_win		*win;
-	t_ui_win		*old;
 	int				flag;
 	unsigned int	event_id[2];
 
-	param[0].coord[0] = 0;
-	param[0].coord[1] = 500;
-	param[0].dim[0] = 500;
-	param[0].dim[1] = 500;
-	param[0].options = UI_WINDOW_RESIZABLE;
-	param[1].coord[0] = 500;
-	param[1].coord[1] = 500;
-	param[1].dim[0] = 500;
-	param[1].dim[1] = 500;
-	param[2].options = UI_WINDOW_RESIZABLE;
-	param[2].coord[0] = 1000;
-	param[2].coord[1] = 500;
-	param[2].dim[0] = 500;
-	param[2].dim[1] = 500;
-	param[2].options = UI_WINDOW_RESIZABLE;
+	ft_bzero(param, sizeof(param));
+	param[0] = (t_ui_win_param){{0, 500}, {500, 500}, UI_WINDOW_RESIZABLE};
+	param[1] = (t_ui_win_param){{500, 500}, {500, 500}, UI_WINDOW_RESIZABLE};
+	param[2] = (t_ui_win_param){{1000, 500}, {500, 500}, UI_WINDOW_RESIZABLE};
 	if (!(univ = ui_init_univers()))
 		exit(1);
 	flag = -1;
 	while (++flag < 3)
-	{
 		if (!(win = ui_new_window(univ, param[flag], "Hello toast")))
 			ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
-	}
 	event_id[0] = UI_EVENT_KEYUP;
 	event_id[1] = UIK_ESCAPE;
 	if (ui_new_event(univ, event_id, &callback_quit, NULL))
@@ -114,9 +98,6 @@ int		main()
 	if (ui_new_event(univ, event_id, &callback_close, NULL))
 		ui_quit_univers(&univ, 1, "Error while setting up event. eoe.");
 	flag = -1;
-	old = ui_get_focused_window(univ);
 	while (1)
-	{
 		ui_watch_events(&univ);
-	}
 }
