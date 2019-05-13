@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/10 18:24:02 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/05/13 16:21:27 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,5 @@ int		main()
 		ui_quit_univers(&univ, 1, "Error while setting up event. eoe.");
 	flag = -1;
 	old = ui_get_focused_window(univ);
-	while(1)
-	{
-		ui_watch_events(&univ);
-	}
+	ui_watch_events(&univ);
 }
