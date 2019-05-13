@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "libui.h"
+#include "libui_tools.h"
 
 void	ui_quit_univers(t_ui_univers **univers, int exit_code, char *msg)
 {

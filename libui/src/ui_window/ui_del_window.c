@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "libui.h"
+#include "libui_tools.h"
 #include "libui_tools.h"
 
 void		ui_del_window(t_ui_univers *univers, int win_id)

@@ -6,11 +6,12 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/10 18:24:02 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/05/13 13:43:54 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "guimp.h"
+#include "SDL.h"
 
 void	pt_event_param(t_ui_event_data event)
 {

@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "libui.h"
+#include "libui_tools.h"
 
 int					ui_pick_mouse_whee(SDL_Event *eve, unsigned int *id_type, \
 							unsigned int *id_event, t_ui_event_data *ev_data)
