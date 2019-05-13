@@ -6,14 +6,34 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 11:53:34 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/13 15:14:05 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/05/13 16:06:21 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBUI_H
 # define LIBUI_H
 
-# include "libui_kcode.h"
+# define UI_WINDOW_FULLSCREEN          0x00000001
+# define UI_WINDOW_OPENGL              0x00000002
+# define UI_WINDOW_SHOWN               0x00000004
+# define UI_WINDOW_HIDDEN              0x00000008
+# define UI_WINDOW_BORDERLESS          0x00000010
+# define UI_WINDOW_RESIZABLE           0x00000020
+# define UI_WINDOW_MINIMIZED           0x00000040
+# define UI_WINDOW_MAXIMIZED           0x00000080
+# define UI_WINDOW_INPUT_GRABBED       0x00000100
+# define UI_WINDOW_INPUT_FOCUS         0x00000200
+# define UI_WINDOW_MOUSE_FOCUS         0x00000400
+# define UI_WINDOW_FULLSCREEN_DESKTOP  ( UI_WINDOW_FULLSCREEN | 0x00001000 )
+# define UI_WINDOW_FOREIGN             0x00000800
+# define UI_WINDOW_ALLOW_HIGHDPI       0x00002000
+# define UI_WINDOW_MOUSE_CAPTURE       0x00004000
+# define UI_WINDOW_ALWAYS_ON_TOP       0x00008000
+# define UI_WINDOW_SKIP_TASKBAR        0x00010000
+# define UI_WINDOW_UTILITY             0x00020000
+# define UI_WINDOW_TOOLTIP             0x00040000
+# define UI_WINDOW_POPUP_MENU          0x00080000
+# define UI_WINDOW_VULKAN              0x10000000
 
 typedef struct	s_ui_win_param
 {
