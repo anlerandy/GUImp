@@ -98,6 +98,6 @@ int		main()
 	if (ui_new_event(univ, event_id, &callback_close, NULL))
 		ui_quit_univers(&univ, 1, "Error while setting up event. eoe.");
 	flag = -1;
-	while (1)
-		ui_watch_events(&univ);
+	old = ui_get_focused_window(univ);
+	ui_watch_events(&univ);
 }
