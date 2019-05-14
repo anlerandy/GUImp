@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libui.h"
+#include "libui_tools.h"
 
 int			ui_cmp_event_id(void *ptr_eve, void *ptr_id)
 {

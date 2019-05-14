@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   callback.h                                         :+:      :+:    :+:   */
+/*   libui_pick_callback.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 14:57:45 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/10 17:52:05 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/05/13 13:41:28 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CALLBACK_H
-# define CALLBACK_H
+#ifndef LIBUI_PICK_CALLBACK_H
+# define LIBUI_PICK_CALLBACK_H
 
-# include "libui.h"
+# include "libui_tools.h"
 
 # define UI_NB_EVENT 12
 

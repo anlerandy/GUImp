@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "error.h"
+#include "libui_error.h"
 #include "libft.h"
-#include "libui.h"
+#include "libui_tools.h"
 
 t_ui_univers	*ui_init_univers(void)
 {

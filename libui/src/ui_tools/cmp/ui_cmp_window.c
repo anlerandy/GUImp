@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libui.h"
+#include "libui_tools.h"
 
 int		ui_cmp_window_id(void *ptr_win, void *ptr_id)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "error.h"
+#include "libui_error.h"
 #include "libft.h"
 #include "libui_tools.h"
 

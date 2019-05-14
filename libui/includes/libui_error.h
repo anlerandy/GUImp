@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.h                                            :+:      :+:    :+:   */
+/*   libui_error.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 14:01:44 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/27 18:45:16 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/05/13 13:47:38 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERROR_H
-# define ERROR_H
+#ifndef LIBUI_ERROR_H
+# define LIBUI_ERROR_H
 
 # define ERR_MALLOC "Malloc failed."
 # define ERR_SDL_INIT "SDL Initialization failed."

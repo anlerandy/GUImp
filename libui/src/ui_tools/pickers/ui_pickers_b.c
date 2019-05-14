@@ -6,12 +6,13 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 16:49:23 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/10 18:17:47 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/05/13 16:12:02 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "libui.h"
+#include "libui_events.h"
+#include "libui_tools.h"
 
 int					ui_pick_mouse_whee(SDL_Event *eve, unsigned int *id_type, \
 							unsigned int *id_event, t_ui_event_data *ev_data)
@@ -47,7 +48,7 @@ int					ui_pick_drop(SDL_Event *eve, unsigned int *id_type, \
 							unsigned int *id_event, t_ui_event_data *ev_data)
 {
 	*id_type = eve->type;
-	*id_event = 0;
+	*id_event = UID_DROP_EVENT;
 	ft_bzero(ev_data, sizeof(t_ui_event_data));
 	ev_data->event_id[0] = *id_type;
 	ev_data->event_id[1] = *id_event;
