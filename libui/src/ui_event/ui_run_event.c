@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 14:28:27 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/13 16:22:39 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/05/14 15:52:12 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,9 @@ void			ui_watch_events(t_ui_univers **univers)
 	while (univ->run_event)
 		while (ui_wait_event(univers))
 			continue ;
+}
+
+void			ui_stop_watch(t_ui_univers *univers)
+{
+	univers->run_event = 0;
 }

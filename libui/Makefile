@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 15:11:25 by alerandy          #+#    #+#              #
-#    Updated: 2019/05/13 18:17:31 by alerandy         ###   ########.fr        #
+#    Updated: 2019/05/14 15:33:05 by gsmith           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ endif
 # Intisialize the main files
 SDLINK = https://www.libsdl.org/release/SDL2-2.0.9.tar.gz
 SDL2 = SDL2-2.0.9
-INCLUDES += ./includes $(SDL2)/include ../libft/includes ./src/private
+INCLUDES += ./includes ./includes/privates/ $(SDL2)/include ../libft/includes
 LIBS = -L../libft -lft -L./SDL/build/.libs -lSDL2 $(linksdl)
 SRCS += ui_init_univers.c ui_quit_univers.c
 INCLUDES:=$(addprefix -I, $(INCLUDES))

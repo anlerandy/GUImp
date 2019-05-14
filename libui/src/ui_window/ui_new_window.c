@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_new_window.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 12:02:48 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/06 16:26:19 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/14 15:53:17 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,8 @@ t_ui_win		*ui_new_window(t_ui_univers *univers, t_ui_win_param param, \
 
 	if (!(win = ft_memalloc(sizeof(t_ui_win))))
 		return (abort_new_window(ERR_MALLOC, NULL, NULL));
-	if (!(win->sdl_ptr = \
-				SDL_CreateWindow(title, param.coord[0], param.coord[1], \
-					param.dim[0], param.dim[1], param.options)))
+	if (!(win->sdl_ptr = SDL_CreateWindow(title, param.x, param.y, param.w, \
+				param.h, param.options)))
 		return (abort_new_window(ERR_SDL_WIN, (void **)&win, NULL));
 	if (!(win->surf = SDL_GetWindowSurface(win->sdl_ptr)))
 		return (abort_new_window(ERR_SDL_SURF, (void **)&win, win->sdl_ptr));

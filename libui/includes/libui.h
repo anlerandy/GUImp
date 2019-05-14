@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 11:53:34 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/13 16:06:21 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/05/14 15:50:09 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@
 
 typedef struct	s_ui_win_param
 {
-	int				coord[2];
-	int				dim[2];
+	int				x;
+	int				y;
+	int				w;
+	int				h;
 	unsigned int	options;
 }				t_ui_win_param;
 
@@ -81,6 +83,7 @@ void			ui_del_event(t_ui_univers *univers, unsigned int event_id[2]);
 void			ui_clear_events(t_ui_univers *univers);
 void			ui_watch_events(t_ui_univers **univers);
 int				ui_wait_event(t_ui_univers **univers);
+void			ui_stop_watch(t_ui_univers *univers);
 
 t_ui_theme		*ui_new_theme(t_ui_univers *univers, char *file_path);
 t_ui_theme		*ui_get_theme_by_id(t_ui_univers *univers, int theme_id);

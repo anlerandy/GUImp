@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/13 18:16:32 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/14 15:58:43 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,15 @@ void	pt_event_param(t_ui_event_data event)
 	ft_putnbr(event.click);
 	ft_putstr("\npath: ");
 	ft_putendl(event.path);
+	ft_putchar('\n');
 }
 
 void	callback_quit(t_ui_univers **uni, void *dummy, t_ui_event_data event)
 {
 	(void)dummy;
 	pt_event_param(event);
-	ui_quit_univers(uni, 0, "thanks for the fish !");
+	ui_stop_watch(*uni);
+	ft_putendl("thanks for the fish!");
 }
 
 void	callback_close(t_ui_univers **uni, void *dummy, t_ui_event_data event)
@@ -73,9 +75,9 @@ int		main()
 	unsigned int	event_id[2];
 
 	ft_bzero(param, sizeof(param));
-	param[0] = (t_ui_win_param){{0, 500}, {500, 500}, UI_WINDOW_RESIZABLE};
-	param[1] = (t_ui_win_param){{500, 500}, {500, 500}, UI_WINDOW_RESIZABLE};
-	param[2] = (t_ui_win_param){{1000, 500}, {500, 500}, UI_WINDOW_RESIZABLE};
+	param[0] = (t_ui_win_param){0, 500, 500, 500, UI_WINDOW_RESIZABLE};
+	param[1] = (t_ui_win_param){500, 500, 500, 500, UI_WINDOW_RESIZABLE};
+	param[2] = (t_ui_win_param){1000, 500, 500, 500, UI_WINDOW_RESIZABLE};
 	if (!(univ = ui_init_univers()))
 		exit(1);
 	flag = -1;
@@ -97,7 +99,6 @@ int		main()
 	event_id[1] = UI_WINDOWEVENT_CLOSE;
 	if (ui_new_event(univ, event_id, &callback_close, NULL))
 		ui_quit_univers(&univ, 1, "Error while setting up event. eoe.");
-	flag = -1;
-	old = ui_get_focused_window(univ);
 	ui_watch_events(&univ);
+	ui_quit_univers(&univ, 0, NULL);
 }
