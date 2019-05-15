@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 11:53:34 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/14 15:50:09 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/05/15 13:23:54 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,26 @@
 # define UI_WINDOW_POPUP_MENU          0x00080000
 # define UI_WINDOW_VULKAN              0x10000000
 
+# define UI_ELEM_TYPE_CANVAS           0
+# define UI_ELEM_TYPE_BUTTON           1
+# define UI_ELEM_TYPE_INPUT            2
+# define UI_ELEM_TYPE_TEXT             3
+# define UI_ELEM_TYPE_DROPDOWN         4
+
+# define UI_ELEM_STATE_IDLE            0
+# define UI_ELEM_STATE_ACTIVE          1
+# define UI_ELEM_STATE_HOVER           2
+# define UI_ELEM_STATE_DISABLED        3
+
+# define UI_SUBPART_WINDOW 0
+# define UI_SUBPART_ELEM   1
+
+typedef struct s_ui_elem	t_ui_elem;
+typedef struct s_ui_theme	t_ui_theme;
+typedef struct s_ui_win		t_ui_win;
+typedef struct s_ui_univers	t_ui_univers;
+typedef struct s_ui_event	t_ui_event;
+
 typedef struct	s_ui_win_param
 {
 	int				x;
@@ -60,30 +80,57 @@ typedef struct	s_ui_event_data
 	char			*path;
 }				t_ui_event_data;
 
-typedef struct s_ui_theme	t_ui_theme;
-typedef struct s_ui_win		t_ui_win;
-typedef struct s_ui_univers	t_ui_univers;
-typedef struct s_ui_event	t_ui_event;
+typedef struct	s_ui_elem_used
+{
+	unsigned int	elem_id;
+	unsigned int	previous_state;
+	unsigned int	new_state;
+	char			*text;
+	void			*value;
+	t_ui_event_data	event;
+}				t_ui_elem_used;
+
+typedef struct	s_ui_new_subpart
+{
+	unsigned int	type;
+	t_ui_win		*win_ptr;
+	unsigned int	elem_type;
+	unsigned int	state;
+	char			*text;
+	void			*value;
+	void			(*callback)(t_ui_univers **uni, t_ui_elem_used *context);
+}				t_ui_new_subpart;
 
 t_ui_univers	*ui_init_univers(void);
 void			ui_quit_univers(t_ui_univers **univers, int exit_code, \
-						char *msg);
+					char *msg);
 
 t_ui_win		*ui_new_window(t_ui_univers *univers, t_ui_win_param param, \
-						char *title);
+					char *title);
 t_ui_win		*ui_get_window_by_id(t_ui_univers *univers, int win_id);
 t_ui_win		*ui_get_focused_window(t_ui_univers *univers);
 void			ui_del_window(t_ui_univers *univers, int win_id);
 void			ui_clear_all_windows(t_ui_univers *univers);
 
 int				ui_new_event(t_ui_univers *univers, unsigned int event_id[2], \
-						void (*callback)(t_ui_univers **, void *, \
-							t_ui_event_data), void *config_callback);
+					void (*callback)(t_ui_univers **, void *, \
+						t_ui_event_data), void *config_callback);
 void			ui_del_event(t_ui_univers *univers, unsigned int event_id[2]);
 void			ui_clear_events(t_ui_univers *univers);
 void			ui_watch_events(t_ui_univers **univers);
 int				ui_wait_event(t_ui_univers **univers);
 void			ui_stop_watch(t_ui_univers *univers);
+
+int				ui_new_subpart(t_ui_win *win, t_ui_new_subpart param);
+void			ui_del_subpart(t_ui_win *win, unsigned int type, \
+					unsigned int id);
+void			ui_clear_subparts(t_ui_win *win);
+t_ui_elem		*ui_get_elem_by_id(t_ui_win *win, unsigned int id);
+void			ui_elem_new_state(t_ui_elem *elem, unsigned int new_state);
+void			ui_elem_new_text(t_ui_elem *elem, char *new_text);
+void			ui_elem_new_value(t_ui_elem *elem, void *new_value);
+void			ui_elem_new_callback(t_ui_elem *elem, void (*callback) \
+					(t_ui_univers **uni, t_ui_elem_used *context));
 
 t_ui_theme		*ui_new_theme(t_ui_univers *univers, char *file_path);
 t_ui_theme		*ui_get_theme_by_id(t_ui_univers *univers, int theme_id);
