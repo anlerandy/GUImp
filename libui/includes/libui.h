@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 11:53:34 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/14 15:50:09 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/05/15 13:55:51 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define UI_WINDOW_INPUT_GRABBED       0x00000100
 # define UI_WINDOW_INPUT_FOCUS         0x00000200
 # define UI_WINDOW_MOUSE_FOCUS         0x00000400
-# define UI_WINDOW_FULLSCREEN_DESKTOP  ( UI_WINDOW_FULLSCREEN | 0x00001000 )
+# define UI_WINDOW_FULLSCREEN_DESKTOP  0x00001001
 # define UI_WINDOW_FOREIGN             0x00000800
 # define UI_WINDOW_ALLOW_HIGHDPI       0x00002000
 # define UI_WINDOW_MOUSE_CAPTURE       0x00004000
