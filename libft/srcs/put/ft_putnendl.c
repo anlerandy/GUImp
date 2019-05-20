@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_putnendl.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/08 14:56:14 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/08 22:24:58 by alerandy         ###   ########.fr       */
+/*   Created: 2019/05/08 22:28:51 by alerandy          #+#    #+#             */
+/*   Updated: 2019/05/08 22:33:18 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr(char const *s)
+void	ft_putnendl_fd(const char *s, int len, int fd)
 {
-	ft_putstr_fd(s, 1);
+	if (!s)
+		return ;
+	ft_putnstr_fd(s, len, fd);
+	ft_putchar_fd('\n', 1);
+}
+void	ft_putnendl(const char *s, int len)
+{
+	ft_putnendl_fd(s, len, 1);
 }

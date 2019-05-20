@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:59:51 by alerandy          #+#    #+#              #
-#    Updated: 2019/05/05 16:54:56 by alerandy         ###   ########.fr        #
+#    Updated: 2019/05/20 18:16:53 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,34 +48,34 @@ ECHO = "[`expr $C  '*' 100 / $T`%]"
 all: libs $(NAME)
 
 $(NAME): $(LIBFT) $(LIBUI) $(OBJS)
-	@printf "\r\033[K""\r\033[K""\033[32m[GUI] \033[0m""Compiling""\n"
-	@$(COMPILE) $(PATH_OBJ) -o $(NAME) $(INCLUDES) $(LIBS)
-	@sh updateLinker.sh
-	@printf "\033[1A\r\033[K""\r\033[K""\033[32m[GUI] \033[0m""Ready""\n"
+	printf "\r\033[K""\r\033[K""\033[32m[GUI] \033[0m""Compiling""\n"
+	$(COMPILE) $(PATH_OBJ) -o $(NAME) $(INCLUDES) $(LIBS)
+	sh updateLinker.sh
+	printf "\033[1A\r\033[K""\r\033[K""\033[32m[GUI] \033[0m""Ready""\n"
 
 %.o: %.c
-	@mkdir -p $(OPATH)
-	@printf "%-60b\r" "\033[32m[GUI] $(ECHO)\033[0 mCompiling $@"
-	@$(COMPILE) $(INCLUDES) -c $< -o $(OPATH)$@
+	mkdir -p $(OPATH)
+	printf "%-60b\r" "\033[32m[GUI] $(ECHO)\033[0 mCompiling $@"
+	$(COMPILE) $(INCLUDES) -c $< -o $(OPATH)$@
 
 libs:
-	@make -s -C libft -j3
-	@make -s -C libui
+	make -s -C libft -j3
+	make -s -C libui
 
 clean:
-	@rm -rf obj
-	@make -s -C libft fclean
-	@make -s -C libui fclean
+	rm -rf obj
+	make -s -C libft fclean
+	make -s -C libui fclean
 
 fclean: clean
-	@rm -rf $(NAME)
+	rm -rf $(NAME)
 
 re: fclean all
 
 hardclean: fclean
-	@make -s -C libui hardclean
+	make -s -C libui hardclean
 
 hardre: hardclean all
 
 .PHONY: re libs fclean hardre hardclean clean all
-
+.SILENT: all libs clean fclean re hardclean hardre $(OBJS) $(NAME)
