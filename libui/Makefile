@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 15:11:25 by alerandy          #+#    #+#              #
-#    Updated: 2019/05/20 18:27:48 by alerandy         ###   ########.fr        #
+#    Updated: 2019/05/22 18:42:46 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,5 +88,11 @@ hardre: hardclean
 
 re: fclean all
 
+norm: 
+	printf "\033[32mC files:\033[0m\n"
+	norminette $(shell find src -regex ".\{1,200\}\.c" | xargs)
+	printf "\033[32mH files:\033[0m\n"
+	norminette $(shell find includes -regex ".\{1,200\}\.h" | xargs)
+
 .PHONY: re fclean hardre hardclean clean all
-.SILENT: $(SDL2) all $(NAME) clean fclean re hardclean hardre $(OBJS)
+.SILENT: $(SDL2) all $(NAME) clean fclean re hardclean hardre $(OBJS) norm

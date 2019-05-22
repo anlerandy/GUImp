@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/08 12:38:11 by alerandy          #+#    #+#              #
-#    Updated: 2019/05/20 18:20:32 by alerandy         ###   ########.fr        #
+#    Updated: 2019/05/22 18:42:38 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,10 +74,10 @@ fclean : clean
 
 re : fclean $(NAME)
 
-norm :
-	@norminette srcs/ includes/
-
-header :
-	cp includes/libft.h ./
+norm:
+	@printf "\033[32mC files:\033[0m\n"
+	@norminette $(shell find srcs -regex ".\{1,200\}\.c" | xargs)
+	@printf "\033[32mH files:\033[0m\n"
+	@norminette $(shell find includes -regex ".\{1,200\}\.h" | xargs)
 
 .PHONY: re fclean clean all so

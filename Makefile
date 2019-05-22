@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:59:51 by alerandy          #+#    #+#              #
-#    Updated: 2019/05/20 18:16:53 by alerandy         ###   ########.fr        #
+#    Updated: 2019/05/22 18:43:10 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,7 @@ libs:
 	make -s -C libft -j3
 	make -s -C libui
 
+
 clean:
 	rm -rf obj
 	make -s -C libft fclean
@@ -77,5 +78,26 @@ hardclean: fclean
 
 hardre: hardclean all
 
+norm:
+	printf "\033[32mC files:\033[0m\n"
+	norminette $(shell find src -regex ".\{1,200\}\.c" | xargs)
+	printf "\033[32mH files:\033[0m\n"
+	norminette $(shell find includes -regex ".\{1,200\}\.h" | xargs)
+
+normft:
+	printf "\033[32m[LIBFT]\033[0m Norm:\n"
+	make -C libft norm
+
+normui:
+	printf "\n\n\033[32m[LIBUI]\033[0m Norm:\n"
+	make -C libui norm
+
+normall:
+	clear
+	make normft
+	make normui
+	printf "\n\n\033[32m[GUIMP]\033[0m Norm:\n"
+	make norm
+
 .PHONY: re libs fclean hardre hardclean clean all
-.SILENT: all libs clean fclean re hardclean hardre $(OBJS) $(NAME)
+.SILENT: all libs clean fclean re hardclean hardre $(OBJS) $(NAME) norm normft normui normall
