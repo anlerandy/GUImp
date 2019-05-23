@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:59:51 by alerandy          #+#    #+#              #
-#    Updated: 2019/05/22 18:43:10 by alerandy         ###   ########.fr        #
+#    Updated: 2019/05/23 11:18:12 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,18 +86,18 @@ norm:
 
 normft:
 	printf "\033[32m[LIBFT]\033[0m Norm:\n"
-	make -C libft norm
+	make -s -C libft norm
 
 normui:
 	printf "\n\n\033[32m[LIBUI]\033[0m Norm:\n"
-	make -C libui norm
+	make -s -C libui norm
 
 normall:
 	clear
-	make normft
-	make normui
+	make -s normft
+	make -s normui
 	printf "\n\n\033[32m[GUIMP]\033[0m Norm:\n"
-	make norm
+	make -s norm
 
 .PHONY: re libs fclean hardre hardclean clean all
 .SILENT: all libs clean fclean re hardclean hardre $(OBJS) $(NAME) norm normft normui normall
