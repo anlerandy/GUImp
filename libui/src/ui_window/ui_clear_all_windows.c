@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ui_clear_all_windows.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/08 14:56:14 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/08 22:24:58 by alerandy         ###   ########.fr       */
+/*   Created: 2019/04/27 19:15:13 by gsmith            #+#    #+#             */
+/*   Updated: 2019/04/27 19:22:06 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libui_tools.h"
 
-void	ft_putstr(char const *s)
+void		ui_clear_all_windows(t_ui_univers *univers)
 {
-	ft_putstr_fd(s, 1);
+	rb_clear_tree(&(univers->windows), &ui_free_window);
 }

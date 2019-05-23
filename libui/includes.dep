@@ -1,2 +1,7 @@
 # Include the sub-folder files
 include src/ui_bmp/make.dep
+include src/ui_window/make.dep
+include src/ui_event/make.dep
+include src/ui_tools/cmp/make.dep
+include src/ui_tools/free/make.dep
+include src/ui_tools/pickers/make.dep

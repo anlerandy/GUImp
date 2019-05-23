@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ui_del_event.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/08 14:56:14 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/08 22:24:58 by alerandy         ###   ########.fr       */
+/*   Created: 2019/05/06 14:06:27 by gsmith            #+#    #+#             */
+/*   Updated: 2019/05/07 17:50:21 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libui_tools.h"
 
-void	ft_putstr(char const *s)
+void			ui_del_event(t_ui_univers *univers, unsigned int event_id[2])
 {
-	ft_putstr_fd(s, 1);
+	rb_remove(&(univers->events), &event_id, &ui_cmp_event_id, &ui_free_event);
 }

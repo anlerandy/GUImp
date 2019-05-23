@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 13:14:54 by alerandy          #+#    #+#             */
-/*   Updated: 2019/04/21 15:22:27 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/22 18:33:28 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static inline int		eight_checker(unsigned long int **s1, \
 		if (src != dst)
 			if ((cmp = single_checker((unsigned char*)&src, \
 				(unsigned char *)&dst)))
-				return cmp;
+				return (cmp);
 	}
 	return (0);
 }
@@ -80,6 +80,6 @@ int						ft_memcmp(const void *s1, const void *s2, size_t n)
 	ptr1 = (unsigned long int*)s1;
 	ptr2 = (unsigned long int*)s2;
 	if ((cmp = eight_checker(&ptr1, &ptr2, len)))
-		return cmp;
+		return (cmp);
 	return (get_cmp(&ptr1, &ptr2, n));
 }

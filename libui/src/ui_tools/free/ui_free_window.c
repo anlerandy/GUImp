@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rb_search_infix.c                                  :+:      :+:    :+:   */
+/*   ui_free_window.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/08 21:58:25 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/30 10:20:17 by gsmith           ###   ########.fr       */
+/*   Created: 2019/04/27 15:38:38 by gsmith            #+#    #+#             */
+/*   Updated: 2019/05/01 19:07:02 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "ft_btree_rb.h"
+#include "libft.h"
+#include "libui_tools.h"
+#include "libui_tools.h"
 
-void	*rb_search_infix(t_rb_node *root, void *data_ref, \
-			int (*cmp_funct)(void *, void *))
+void	ui_free_window(void *win_ptr)
 {
-	t_rb_node		*left_res;
+	t_ui_win	*win;
 
-	if (!root)
-		return (NULL);
-	if (!cmp_funct(root->data, data_ref))
-		return (root->data);
-	left_res = rb_search_infix(root->left, data_ref, cmp_funct);
-	if (left_res)
-		return (left_res);
-	return (rb_search_infix(root->right, data_ref, cmp_funct));
+	if (!win_ptr)
+		return ;
+	win = (t_ui_win *)win_ptr;
+	SDL_DestroyWindow(win->sdl_ptr);
+/*
+** TODO
+** 	rb_clear_tree(&(win->elem), &ui_free_elem);
+*/
+	ft_memdel(&win_ptr);
 }

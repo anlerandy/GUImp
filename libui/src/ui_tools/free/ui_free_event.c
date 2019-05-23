@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ui_free_event.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/08 14:56:14 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/08 22:24:58 by alerandy         ###   ########.fr       */
+/*   Created: 2019/05/06 14:13:31 by gsmith            #+#    #+#             */
+/*   Updated: 2019/05/06 14:19:54 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "libui_tools.h"
 
-void	ft_putstr(char const *s)
+void		ui_free_event(void *ptr_eve)
 {
-	ft_putstr_fd(s, 1);
+	ft_memdel(&ptr_eve);
 }
