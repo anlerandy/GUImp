@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/28 03:54:28 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/25 22:39:15 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/25 22:51:41 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	read_header(int fd, t_bmp *bmp)
 
 void	read_info(int fd, t_bmp *bmp)
 {
-	char	tmp[2048];
+	char	*tmp;
 
 	read(fd, &bmp->info.header_size, sizeof(bmp->info.header_size));
 	read(fd, &bmp->info.width, sizeof(bmp->info.width));
@@ -77,7 +77,9 @@ void	read_info(int fd, t_bmp *bmp)
 	read(fd, &bmp->info.height_meter, sizeof(bmp->info.height_meter));
 	read(fd, &bmp->info.used_color, sizeof(bmp->info.used_color));
 	read(fd, &bmp->info.important_color, sizeof(bmp->info.important_color));
-	read(fd, tmp, bmp->info.header_size - sizeof(bmp->info));
+	if ((tmp = ft_memalloc(bmp->info.header_size - sizeof(bmp->info))))
+		read(fd, tmp, bmp->info.header_size - sizeof(bmp->info));
+	free(tmp);
 }
 
 t_bmp	ui_getbmp(char *path)
