@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 16:46:47 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/25 18:33:43 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/25 23:10:00 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_bmp	print_parse_error(int error, t_bmp bmp, char *path)
 	if (error == 3)
 		ft_putendl("The size of the file is incorrect.");
 	if (error == 4)
-		ft_putendl("Incompatible color depth. Allowed: 1, 16, 24 & 32bit.");
+		ft_putendl("Unknowned color depth. Known: 1, 4, 8, 16, 24 & 32bit.");
 	ft_bzero(&bmp, sizeof(t_bmp));
 	return (bmp);
 }

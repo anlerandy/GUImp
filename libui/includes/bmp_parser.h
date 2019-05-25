@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 13:31:11 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/25 22:27:09 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/25 23:08:15 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef struct		s_bmp
 {
 	t_bmp_header	header;
 	t_bmp_file		info;
-	t_bmp_24		*palette;
+	t_bmp_32		*palette;
 	unsigned		*pixels;
 	unsigned		pixel_count;
 }					t_bmp;

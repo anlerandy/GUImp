@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/28 03:54:28 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/25 22:51:41 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/25 23:09:09 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	read_bmp(int fd, t_bmp *bmpfile)
 	}
 	if (bmpfile->info.color_depth == 1)
 		fill_pixels_1(bmpfile->pixels, (char*)pixels, w, h);
-	if (bmpfile->info.color_depth == 8)
+	if (bmpfile->info.color_depth == 8 && bmpfile->info.color_depth == 4)
 		fill_pixels_index(bmpfile, (char*)pixels, w, h);
 	if (bmpfile->info.color_depth == 16)
 		fill_pixels_16(bmpfile->pixels, (unsigned short*)pixels, w, h);
