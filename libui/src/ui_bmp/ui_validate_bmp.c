@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 16:46:47 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/25 23:10:00 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/25 23:12:04 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ t_bmp	print_parse_error(int error, t_bmp bmp, char *path)
 		ft_putendl("The size of the file is incorrect.");
 	if (error == 4)
 		ft_putendl("Unknowned color depth. Known: 1, 4, 8, 16, 24 & 32bit.");
+	if (error == 5)
+		ft_putendl("Width or Height is wrong. BMP might be inversed.");
 	ft_bzero(&bmp, sizeof(t_bmp));
 	return (bmp);
 }
@@ -45,5 +47,7 @@ int		validate_bmp(t_bmp bmp)
 		&& info.color_depth != 32 && info.color_depth != 16 \
 		&& info.color_depth != 8)
 		return (4);
+	if (info.width <= 0 || info.height <= 0)
+		return (5);
 	return (0);
 }
