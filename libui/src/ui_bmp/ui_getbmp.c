@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/28 03:54:28 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/23 17:46:07 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/25 22:39:15 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,49 +28,56 @@ void	read_bmp(int fd, t_bmp *bmpfile)
 {
 	void			*pixels;
 	int				offset;
-	int				width;
-	int				height;
-	unsigned short	bit;
+	int				w;
+	int				h;
 
-	bit = bmpfile->info.biBitCount;
-	offset = get_read_offset(bit);
-	width = bmpfile->info.width;
-	height = bmpfile->info.height;
+	offset = get_read_offset(bmpfile->info.color_depth);
+	w = bmpfile->info.width;
+	h = bmpfile->info.height;
 	pixels = ft_memalloc(offset * bmpfile->pixel_count);
 	if (!read(fd, pixels, offset * bmpfile->pixel_count))
 	{
 		ft_putendl_fd("Une erreur est survenue lors de la lecture.", 2);
-		return ;
+		return (free(pixels));
 	}
-	if (bit == 1)
-		return fill_pixels_1(bmpfile->pixels, (char*)pixels, width, height);
-	if (bit == 8)
-		return fill_pixels_index(bmpfile, (char*)pixels, width, height);
-	if (bit == 16)
-		return fill_pixels_16(bmpfile->pixels, (unsigned short*)pixels, \
-				width, height);
-	if (bit == 32)
-		return fill_pixels_32(bmpfile->pixels, (t_bmp_32*)pixels, width, \
-				height);
-	return (fill_pixels_24(bmpfile->pixels, (t_bmp_24*)pixels, width, height));
+	if (bmpfile->info.color_depth == 1)
+		fill_pixels_1(bmpfile->pixels, (char*)pixels, w, h);
+	if (bmpfile->info.color_depth == 8)
+		fill_pixels_index(bmpfile, (char*)pixels, w, h);
+	if (bmpfile->info.color_depth == 16)
+		fill_pixels_16(bmpfile->pixels, (unsigned short*)pixels, w, h);
+	if (bmpfile->info.color_depth == 32)
+		fill_pixels_32(bmpfile->pixels, (t_bmp_32*)pixels, w, h);
+	if (bmpfile->info.color_depth == 24)
+		fill_pixels_24(bmpfile->pixels, (t_bmp_24*)pixels, w, h);
+	free(pixels);
+}
+
+void	read_header(int fd, t_bmp *bmp)
+{
+	read(fd, &bmp->header.type, sizeof(bmp->header.type));
+	read(fd, &bmp->header.size, sizeof(bmp->header.size));
+	read(fd, &bmp->header.reserved1, sizeof(bmp->header.reserved1));
+	read(fd, &bmp->header.reserved2, sizeof(bmp->header.reserved2));
+	read(fd, &bmp->header.offset, sizeof(bmp->header.offset));
 }
 
 void	read_info(int fd, t_bmp *bmp)
 {
 	char	tmp[2048];
 
-	read(fd, &bmp->info.biSize, sizeof(bmp->info.biSize));
+	read(fd, &bmp->info.header_size, sizeof(bmp->info.header_size));
 	read(fd, &bmp->info.width, sizeof(bmp->info.width));
 	read(fd, &bmp->info.height, sizeof(bmp->info.height));
-	read(fd, &bmp->info.biPlanes, sizeof(bmp->info.biPlanes));
-	read(fd, &bmp->info.biBitCount, sizeof(bmp->info.biBitCount));
-	read(fd, &bmp->info.biCompression, sizeof(bmp->info.biCompression));
-	read(fd, &bmp->info.biSizeImage, sizeof(bmp->info.biSizeImage));
-	read(fd, &bmp->info.biXPelsPerMeter, sizeof(bmp->info.biXPelsPerMeter));
-	read(fd, &bmp->info.biYPelsPerMeter, sizeof(bmp->info.biYPelsPerMeter));
-	read(fd, &bmp->info.biClrUsed, sizeof(bmp->info.biClrUsed));
-	read(fd, &bmp->info.biClrImportant, sizeof(bmp->info.biClrImportant));
-	read(fd, tmp, bmp->info.biSize - sizeof(bmp->info));
+	read(fd, &bmp->info.planes, sizeof(bmp->info.planes));
+	read(fd, &bmp->info.color_depth, sizeof(bmp->info.color_depth));
+	read(fd, &bmp->info.compression, sizeof(bmp->info.compression));
+	read(fd, &bmp->info.image_size, sizeof(bmp->info.image_size));
+	read(fd, &bmp->info.width_meter, sizeof(bmp->info.width_meter));
+	read(fd, &bmp->info.height_meter, sizeof(bmp->info.height_meter));
+	read(fd, &bmp->info.used_color, sizeof(bmp->info.used_color));
+	read(fd, &bmp->info.important_color, sizeof(bmp->info.important_color));
+	read(fd, tmp, bmp->info.header_size - sizeof(bmp->info));
 }
 
 t_bmp	ui_getbmp(char *path)
@@ -87,11 +94,11 @@ t_bmp	ui_getbmp(char *path)
 		close(fd);
 		return (bmp);
 	}
-	read(fd, &bmp.header, sizeof(t_bmp_header));
+	read_header(fd, &bmp);
 	read_info(fd, &bmp);
 	if ((error = validate_bmp(bmp)))
-		return print_parse_error(error, bmp, path);
-	skip = bmp.header.bfOffBits - bmp.info.biSize - sizeof(t_bmp_header);
+		return (print_parse_error(error, bmp, path));
+	skip = bmp.header.offset - bmp.info.header_size - sizeof(t_bmp_header);
 	if ((bmp.palette = ft_memalloc(skip)))
 		read(fd, bmp.palette, skip);
 	ui_putbmp(bmp.header, bmp.info);

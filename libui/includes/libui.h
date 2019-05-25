@@ -6,15 +6,15 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 11:53:34 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/23 12:00:58 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/25 22:26:34 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBUI_H
 # define LIBUI_H
 
-#include "libft.h"
-#include "bmp_parser.h"
+# include "libft.h"
+# include "bmp_parser.h"
 
 # define UI_WINDOW_OPENGL              0x00000002
 # define UI_WINDOW_SHOWN               0x00000004

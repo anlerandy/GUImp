@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/23 17:45:35 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/25 18:49:56 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int		main()
 	unsigned int	event_id[2];
 	t_bmp		bmpfile;
 
-	bmpfile = ui_getbmp("/media/woap-unix/7BA9-15F9/800_600/8bit.bmp");
+	bmpfile = ui_getbmp("/Users/alerandy/Desktop/sample.bmp");
 	ft_bzero(param, sizeof(param));
 	param[0] = (t_ui_win_param){0, 500, 500, 500, UI_WINDOW_RESIZABLE};
 	param[1] = (t_ui_win_param){500, 500, 500, 500, UI_WINDOW_RESIZABLE};

@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 16:46:47 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/23 17:11:42 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/25 18:33:43 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,15 @@ int		validate_bmp(t_bmp bmp)
 
 	header = bmp.header;
 	info = bmp.info;
-	if (header.bfType[0] != 'B' || header.bfType[1] != 'M')
+	if (header.type[0] != 'B' || header.type[1] != 'M')
 		return (1);
-	if (info.biSize < 40)
+	if (info.header_size < 40)
 		return (3);
-	if (header.bfSize <= 0)
+	if (header.size <= 0)
 		return (2);
-	if (info.biBitCount != 1 && info.biBitCount != 24 && info.biBitCount != 32 \
-		&& info.biBitCount != 16 &&  info.biBitCount != 8)
+	if (info.color_depth != 1 && info.color_depth != 24 \
+		&& info.color_depth != 32 && info.color_depth != 16 \
+		&& info.color_depth != 8)
 		return (4);
 	return (0);
 }

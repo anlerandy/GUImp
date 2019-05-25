@@ -1,31 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   32bit_filler.c                                     :+:      :+:    :+:   */
+/*   index_bit_filler.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/05 14:46:11 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/05 21:00:22 by alerandy         ###   ########.fr       */
+/*   Created: 2019/05/23 15:50:06 by alerandy          #+#    #+#             */
+/*   Updated: 2019/05/25 18:13:46 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bmp_parser.h"
 
-void	fill_pixels_32(unsigned *bmp_pixels, t_bmp_32 *pixels, int width, \
+void	fill_pixels_index(t_bmp *bmp, char *pixels, int width, \
 						int height)
 {
-	int		x;
-	int		y;
-	int		i;
+	int			x;
+	int			y;
+	int			i;
+	t_bmp_24	*palette;
 
-	y = 0;
+	y = -1;
 	i = 0;
-	while (++y <= height)
+	palette = bmp->palette;
+	if (!palette)
+		return ;
+	while (++y < height)
 	{
-		x =-1;
+		x = -1;
 		while (++x < width)
-			bmp_pixels[i++] \
-				= bit32_pixel_to_hex(pixels[x + (height - y) * width]);
+			bmp->pixels[i++] = \
+							bit24_pixel_to_hex(palette[(unsigned)(pixels[x \
+												+ (height - y - 1) \
+												* width]) % 256]);
 	}
 }

@@ -1,4 +1,4 @@
 INCLUDES += $(shell pwd)/src/ui_bmp/includes/
 SRCS += ui_putbmp.c ui_getbmp.c ui_pixtohex.c \
-		1bit_filler.c 8bit_filler.c 16bit_filler.c 24bit_filler.c 32bit_filler.c \
+		bit_filler.c index_bit_filler.c \
 		ui_validate_bmp.c

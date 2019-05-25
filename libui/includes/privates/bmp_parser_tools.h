@@ -6,12 +6,12 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 16:48:19 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/23 16:51:42 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/25 22:27:31 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BMP_PARSER_TOOLS
-# define BMP_PARSER_TOOLS
+#ifndef BMP_PARSER_TOOLS_H
+# define BMP_PARSER_TOOLS_H
 
 # include "bmp_parser.h"
 
