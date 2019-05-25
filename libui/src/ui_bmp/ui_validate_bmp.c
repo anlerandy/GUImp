@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 16:46:47 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/25 23:12:04 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/25 23:16:43 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_bmp	print_parse_error(int error, t_bmp bmp, char *path)
 	ft_putstr("Error while parsing ");
 	ft_putendl(path);
 	if (error == 1)
-		ft_putendl("The file is not a BMP File.");
+		ft_putendl("The file is not a BMP File (or not a Windows one).");
 	if (error == 2)
 		ft_putendl("The file has a wrong size.");
 	if (error == 3)
