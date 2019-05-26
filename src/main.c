@@ -6,12 +6,11 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/25 18:49:56 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/26 19:29:38 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "guimp.h"
-#include "libui_tools.h"
 
 void	pt_event_param(t_ui_event_data event)
 {
@@ -74,26 +73,29 @@ int		main()
 	t_ui_win		*win;
 	int				flag;
 	unsigned int	event_id[2];
-	t_bmp		bmpfile;
 
-	bmpfile = ui_getbmp("/Users/alerandy/Desktop/sample.bmp");
 	ft_bzero(param, sizeof(param));
 	param[0] = (t_ui_win_param){0, 500, 500, 500, UI_WINDOW_RESIZABLE};
 	param[1] = (t_ui_win_param){500, 500, 500, 500, UI_WINDOW_RESIZABLE};
 	param[2] = (t_ui_win_param){1000, 500, 500, 500, UI_WINDOW_RESIZABLE};
-	param[3] = (t_ui_win_param){1500, 0, bmpfile.info.width, bmpfile.info.height, UI_WINDOW_RESIZABLE};
 	if (!(univ = ui_init_univers()))
 		exit(1);
 	flag = -1;
-	while (++flag < 4) {
+	while (++flag < 3)
 		if (!(win = ui_new_window(univ, param[flag], "Hello toast")))
 			ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
-		if (flag == 3 && win) {
-			ft_memcpy(win->surf->pixels, bmpfile.pixels,
-				(sizeof(unsigned) * bmpfile.pixel_count));
-			SDL_UpdateWindowSurface(win->sdl_ptr);
-		}
-	}
+	// if (!(win = ui_open_image(univ, "/Users/alerandy/Desktop/1bit.bmp")))
+	// 	ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
+	// if (!(win = ui_open_image(univ, "/Users/alerandy/Desktop/4bit.bmp")))
+	// 	ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
+	if (!(win = ui_open_image(univ, "/Users/alerandy/Desktop/8bit.bmp")))
+		ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
+	// if (!(win = ui_open_image(univ, "/Users/alerandy/Desktop/16bit.bmp")))
+	// 	ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
+	// if (!(win = ui_open_image(univ, "/Users/alerandy/Desktop/24bit.bmp")))
+	// 	ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
+	// if (!(win = ui_open_image(univ, "/Users/alerandy/Desktop/32bit.bmp")))
+	// 	ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
 	event_id[0] = UI_EVENT_KEYUP;
 	event_id[1] = UIK_ESCAPE;
 	if (ui_new_event(univ, event_id, &callback_quit, NULL))
