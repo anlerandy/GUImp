@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 15:50:06 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/26 19:34:51 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/26 21:17:15 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ void	fill_pixels_index(t_bmp *bmp, char *pixels, int width, \
 	i = 0;
 	palette = bmp->palette;
 	if (!palette)
-		return ft_putendl_fd("Palette is NULL", 2);
+		return (ft_putendl_fd("Palette is NULL", 2));
 	while (++y < height)
 	{
 		x = -1;
 		while (++x < width)
 			bmp->pixels[i++] = \
 				bit32_pixel_to_hex(((t_bmp_32*)palette)[(unsigned)(pixels[x \
-									+ (height - y - 1) * width])]);
+									+ (height - y - 1) * width]) % 256]);
 	}
 }

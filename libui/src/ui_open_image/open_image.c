@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 18:05:21 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/26 19:13:50 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/26 21:16:42 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_ui_win	*ui_open_image(t_ui_univers *univers, char *path)
 	t_ui_win		*win;
 	t_ui_win_param	param;
 	t_bmp			bmp;
-	
+
 	bmp = ui_getbmp(path);
 	param = (t_ui_win_param){0, 0, bmp.info.width, bmp.info.height, \
 		UI_WINDOW_SHOWN};
