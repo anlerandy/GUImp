@@ -1,1 +1,1 @@
-SRCS += open_image.c 
+SRCS += open_image.c splash.c 

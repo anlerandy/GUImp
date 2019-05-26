@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 11:53:34 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/26 18:40:36 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/26 21:44:08 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,7 @@ int				ui_del_theme(t_ui_univers *univers, int theme_id);
 int				ui_clear_all_themes(t_ui_univers *univers);
 
 t_ui_win		*ui_open_image(t_ui_univers *univers, char *path);
+t_ui_win		*ui_open_splash(t_ui_univers *univers, char *path);
+void			ui_close_splash(t_ui_univers *univers, t_ui_win **win);
 
 #endif

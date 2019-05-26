@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/26 21:19:29 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/26 22:23:24 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,15 @@ int		main()
 	t_ui_win		*win;
 	int				flag;
 	unsigned int	event_id[2];
+	t_ui_win		*splash;
 
+	if (!(univ = ui_init_univers()))
+		exit(1);
+	splash = ui_open_splash(univ, "./assets/splash.bmp");
 	ft_bzero(param, sizeof(param));
 	param[0] = (t_ui_win_param){0, 500, 500, 500, UI_WINDOW_RESIZABLE};
 	param[1] = (t_ui_win_param){500, 500, 500, 500, UI_WINDOW_RESIZABLE};
 	param[2] = (t_ui_win_param){1000, 500, 500, 500, UI_WINDOW_RESIZABLE};
-	if (!(univ = ui_init_univers()))
-		exit(1);
 	flag = -1;
 	while (++flag < 3)
 		if (!(win = ui_new_window(univ, param[flag], "Hello toast")))
@@ -101,6 +103,7 @@ int		main()
 	event_id[1] = UI_WINDOWEVENT_CLOSE;
 	if (ui_new_event(univ, event_id, &callback_close, NULL))
 		ui_quit_univers(&univ, 1, "Error while setting up event. eoe.");
+	ui_close_splash(univ, &splash);
 	ui_watch_events(&univ);
 	ui_quit_univers(&univ, 0, NULL);
 }
