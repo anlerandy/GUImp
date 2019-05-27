@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/26 22:23:24 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/27 10:53:40 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int		main()
 
 	if (!(univ = ui_init_univers()))
 		exit(1);
-	splash = ui_open_splash(univ, "./assets/splash.bmp");
+	splash = ui_open_splash(univ, "./assets/splash.bmp", "The GUImp");
 	ft_bzero(param, sizeof(param));
 	param[0] = (t_ui_win_param){0, 500, 500, 500, UI_WINDOW_RESIZABLE};
 	param[1] = (t_ui_win_param){500, 500, 500, 500, UI_WINDOW_RESIZABLE};
@@ -86,7 +86,7 @@ int		main()
 	while (++flag < 3)
 		if (!(win = ui_new_window(univ, param[flag], "Hello toast")))
 			ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
-	if (!(win = ui_open_image(univ, "/Users/alerandy/Desktop/32bit.bmp")))
+	if (!(win = ui_open_image(univ, "/media/woap-unix/7BA9-15F9/GUMPtest/16bit.bmp")))
 		ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
 	event_id[0] = UI_EVENT_KEYUP;
 	event_id[1] = UIK_ESCAPE;

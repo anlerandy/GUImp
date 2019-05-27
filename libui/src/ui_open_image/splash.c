@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 21:36:27 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/26 22:23:28 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/27 10:53:09 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "ui_shared.h"
 #include "SDL.h"
 
-t_ui_win	*ui_open_splash(t_ui_univers *univers, char *path)
+t_ui_win	*ui_open_splash(t_ui_univers *univers, char *path, char *name)
 {
 	t_ui_win		*win;
 	t_ui_win_param	param;
@@ -28,10 +28,11 @@ t_ui_win	*ui_open_splash(t_ui_univers *univers, char *path)
 		return (NULL);
 	if (SDL_GetDesktopDisplayMode(0, &dm))
 		return (NULL);
+	name = !name ? get_file_name(path) : name;
 	param = (t_ui_win_param){dm.w / 2 - bmp.info.width / 2, \
 		dm.h / 2 - bmp.info.height / 2, bmp.info.width, bmp.info.height, \
 		UI_WINDOW_SHOWN | UI_WINDOW_BORDERLESS | UI_WINDOW_ALWAYS_ON_TOP};
-	if (!(win = ui_new_window(univers, param, get_file_name(path))))
+	if (!(win = ui_new_window(univers, param, name)))
 		return (NULL);
 	ft_memcpy(win->surf->pixels, bmp.pixels, (sizeof(unsigned) \
 				* bmp.pixel_count));
