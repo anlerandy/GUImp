@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/27 10:53:40 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/31 10:06:19 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,9 @@ int		main()
 	while (++flag < 3)
 		if (!(win = ui_new_window(univ, param[flag], "Hello toast")))
 			ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
-	if (!(win = ui_open_image(univ, "/media/woap-unix/7BA9-15F9/GUMPtest/16bit.bmp")))
+	if (!(win = ui_open_image(univ, "/Users/alerandy/Desktop/sample.bmp")))
 		ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
+	put_bmpinfo("/Users/alerandy/Desktop/sample.bmp");
 	event_id[0] = UI_EVENT_KEYUP;
 	event_id[1] = UIK_ESCAPE;
 	if (ui_new_event(univ, event_id, &callback_quit, NULL))
