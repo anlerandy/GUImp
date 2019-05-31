@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:59:51 by alerandy          #+#    #+#              #
-#    Updated: 2019/05/23 12:38:03 by alerandy         ###   ########.fr        #
+#    Updated: 2019/05/31 13:44:29 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ $(NAME): $(LIBFT) $(LIBUI) $(OBJS)
 	printf "\r\033[K""\r\033[K""\033[32m[GUI] \033[0m""Compiling""\n"
 	$(COMPILE) $(PATH_OBJ) -o $(NAME) $(INCLUDES) $(LIBS)
 	sh updateLinker.sh
+	sh addIcon.sh
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[GUI] \033[0m""Ready""\n"
 
 %.o: %.c
