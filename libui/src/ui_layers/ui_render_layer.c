@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 11:18:03 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/31 13:50:25 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/31 14:21:07 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	ui_render_layer(t_ui_win **win, t_ui_layer layer)
 	src = layer.pixels;
 	dst = (unsigned *)tmp->surf->pixels;
 	i = 0;
-	limit_w = tmp->surf->w - layer.x < (int)layer.rescale_w ? tmp->surf->w : layer.rescale_w;
+	limit_w = tmp->surf->w - layer.x < (int)layer.rescale_w \
+				? tmp->surf->w : layer.rescale_w;
 	while (layer.rescale_h > i || tmp->surf->h > (int)i)
 	{
 		ft_memcpy(dst + layer.x, src, limit_w * sizeof(unsigned));
