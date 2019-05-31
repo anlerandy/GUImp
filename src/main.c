@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/31 14:01:49 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/31 14:13:44 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,10 @@ int		main()
 	while (++flag < 1)
 		if (!(win = ui_new_window(univ, param[flag], "Hello toast")))
 			ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
-	if (!(win = ui_open_image(univ, "/Users/alerandy/Desktop/sample.bmp")))
-		ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
 	layer = ui_image_to_layer("/Users/alerandy/Desktop/sample.bmp");
 	ui_render_layer(&win, layer);
+	if (!(win = ui_open_image(univ, "/Users/alerandy/Desktop/sample.bmp")))
+		ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
 	put_bmpinfo("/Users/alerandy/Desktop/sample.bmp");
 	event_id[0] = UI_EVENT_KEYUP;
 	event_id[1] = UIK_ESCAPE;
