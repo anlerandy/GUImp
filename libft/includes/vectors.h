@@ -101,6 +101,7 @@ t_vec3			rot_vec3_z(t_vec3 v, double theta);
 
 t_mat			init_id_mat(int w);
 t_mat			rot_mat(t_vec3 v, double theta);
+t_mat			rot_mat2(double theta);
 
 void			print_v2(t_vec2 a);
 void			print_v3(t_vec3 a);

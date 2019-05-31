@@ -50,3 +50,20 @@ t_mat	rot_mat(t_vec3 v, double theta)
 	rot.mat[2][1] = v.z * v.y * (1 - cos(theta)) + v.x * sin(theta);
 	return (rot);
 }
+
+t_mat rot_mat2(double theta)
+{
+	t_mat rot;
+	double s;
+	double c;
+
+	if ((rot = init_mat(2, 2)).w == -1)
+		return (rot);
+	s = sin(theta);
+	c = cos(theta);
+	rot.mat[0][0] = c;
+	rot.mat[0][1] = -s;
+	rot.mat[1][0] = s;
+	rot.mat[1][1] = c;
+	return (rot);
+}
