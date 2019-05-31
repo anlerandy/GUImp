@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 21:36:27 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/27 10:53:09 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/31 14:00:59 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ t_ui_win	*ui_open_splash(t_ui_univers *univers, char *path, char *name)
 
 void		ui_close_splash(t_ui_univers *univers, t_ui_win **win)
 {
+	if (!win || !*win)
+		return ;
 	ui_del_window(univers, (*win)->id);
 	*win = NULL;
 }
