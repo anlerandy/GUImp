@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/31 10:06:19 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/31 14:01:49 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int		main()
 	int				flag;
 	unsigned int	event_id[2];
 	t_ui_win		*splash;
+	t_ui_layer		layer;
 
 	if (!(univ = ui_init_univers()))
 		exit(1);
@@ -83,11 +84,13 @@ int		main()
 	param[1] = (t_ui_win_param){500, 500, 500, 500, UI_WINDOW_RESIZABLE};
 	param[2] = (t_ui_win_param){1000, 500, 500, 500, UI_WINDOW_RESIZABLE};
 	flag = -1;
-	while (++flag < 3)
+	while (++flag < 1)
 		if (!(win = ui_new_window(univ, param[flag], "Hello toast")))
 			ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
 	if (!(win = ui_open_image(univ, "/Users/alerandy/Desktop/sample.bmp")))
 		ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
+	layer = ui_image_to_layer("/Users/alerandy/Desktop/sample.bmp");
+	ui_render_layer(&win, layer);
 	put_bmpinfo("/Users/alerandy/Desktop/sample.bmp");
 	event_id[0] = UI_EVENT_KEYUP;
 	event_id[1] = UIK_ESCAPE;
