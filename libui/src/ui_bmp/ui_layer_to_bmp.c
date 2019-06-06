@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 20:27:10 by alerandy          #+#    #+#             */
-/*   Updated: 2019/06/06 13:22:55 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/06/06 13:40:32 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,6 @@ void	write_header(int fd, t_bmp *bmp)
 	write(fd, &bmp->header.reserved1, sizeof(bmp->header.reserved1));
 	write(fd, &bmp->header.reserved2, sizeof(bmp->header.reserved2));
 	write(fd, &bmp->header.offset, sizeof(bmp->header.offset));
-	ft_putstr("header size: ");
-	ft_putnbr(sizeof(bmp->header.type) + sizeof(bmp->header.size) + sizeof(bmp->header.reserved1) + sizeof(bmp->header.reserved2) + sizeof(bmp->header.offset));
-	ft_putstr(" + ");
 }
 
 void	write_info(int fd, t_bmp *bmp)
@@ -54,28 +51,22 @@ void	write_info(int fd, t_bmp *bmp)
 	write(fd, &bmp->info.height_meter, sizeof(bmp->info.height_meter));
 	write(fd, &bmp->info.used_color, sizeof(bmp->info.used_color));
 	write(fd, &bmp->info.important_color, sizeof(bmp->info.important_color));
-	ft_putnbr(sizeof(bmp->info));
-	ft_putchar('\n');
 }
 
 void	write_pixels(int fd, t_ui_layer layer)
 {
 	unsigned	*pixels;
 	unsigned	length;
-	unsigned	x;
 	unsigned	y;
 
-	length = layer.rescale_h * layer.rescale_w;
+	length = layer.height * layer.width;
 	if (!(pixels = ft_memalloc(sizeof(unsigned) * length)))
 		return (close_fd(fd, "Allocation failed. Unable to save."));
 	y = 0;
-	while (++y <= layer.rescale_h)
-	{
-		x = 0;
-		while (x < layer.rescale_w)
-			*(pixels + x++ + (layer.rescale_h - y) * layer.rescale_w) \
-										= *(layer.pixels++);
-	}
+	while (++y <= layer.height)
+		ft_memcpy(pixels + (layer.width * (layer.height - y)), \
+					layer.pixels + ((y - 1) * layer.width), \
+					sizeof(unsigned) * layer.width);
 	write(fd, pixels, length * sizeof(t_bmp_32));
 	free(pixels);
 }

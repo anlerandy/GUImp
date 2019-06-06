@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
-/*   Updated: 2019/06/06 10:40:26 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/06/06 13:23:36 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,6 @@ int		main()
 			ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
 	layer = ui_image_to_layer("/Users/alerandy/Desktop/sample.bmp");
 	ui_render_layer(&win, layer);
-	ft_putendl("Sample:");
-	put_bmpinfo("/Users/alerandy/Desktop/sample.bmp");
-	ft_putendl("\nMy test:");
-	ui_layer_to_bmp(layer, "/Users/alerandy/Desktop/test.bmp");
-	put_bmpinfo("/Users/alerandy/Desktop/test.bmp");
-	ft_putchar('\n');
 	if (!(win = ui_open_image(univ, "/Users/alerandy/Desktop/test.bmp")))
 		ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
 	if (!(win = ui_open_image(univ, "/Users/alerandy/Desktop/sample.bmp")))
