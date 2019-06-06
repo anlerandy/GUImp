@@ -6,14 +6,16 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 11:53:34 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/20 18:15:05 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/31 10:04:54 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBUI_H
 # define LIBUI_H
 
-# define UI_WINDOW_FULLSCREEN          0x00000001
+# include "libft.h"
+# include "bmp_parser.h"
+
 # define UI_WINDOW_OPENGL              0x00000002
 # define UI_WINDOW_SHOWN               0x00000004
 # define UI_WINDOW_HIDDEN              0x00000008
@@ -92,5 +94,10 @@ int				ui_import_themes(t_ui_univers *univers, char *rep_path);
 int				ui_set_default_theme(t_ui_univers *univers, int theme_id);
 int				ui_del_theme(t_ui_univers *univers, int theme_id);
 int				ui_clear_all_themes(t_ui_univers *univers);
+
+t_ui_win		*ui_open_image(t_ui_univers *univers, char *path);
+t_ui_win		*ui_open_splash(t_ui_univers *univers, char *path, char *name);
+void			ui_close_splash(t_ui_univers *univers, t_ui_win **win);
+void			put_bmpinfo(char *path);
 
 #endif

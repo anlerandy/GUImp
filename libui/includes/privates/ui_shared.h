@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   guimp.h                                            :+:      :+:    :+:   */
+/*   ui_shared.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/22 18:39:00 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/31 11:51:00 by alerandy         ###   ########.fr       */
+/*   Created: 2019/05/26 18:03:13 by alerandy          #+#    #+#             */
+/*   Updated: 2019/06/06 11:22:05 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GUIMP_H
-# define GUIMP_H
+#ifndef UI_SHARED_H
+# define UI_SHARED_H
 
-# include "libft.h"
-# include "libui.h"
-# include "libui_events.h"
-# include "libui_layers.h"
+char	*get_file_name(char *path);
+void	close_fd(int fd, char *error);
 
 #endif

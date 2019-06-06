@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   guimp.h                                            :+:      :+:    :+:   */
+/*   ui_close_fd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/22 18:39:00 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/31 11:51:00 by alerandy         ###   ########.fr       */
+/*   Created: 2019/06/06 11:19:02 by alerandy          #+#    #+#             */
+/*   Updated: 2019/06/06 13:24:00 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GUIMP_H
-# define GUIMP_H
+#include "libft.h"
 
-# include "libft.h"
-# include "libui.h"
-# include "libui_events.h"
-# include "libui_layers.h"
-
-#endif
+void	close_fd(int fd, char *error)
+{
+	if (error)
+		ft_putendl_fd(error, 2);
+	close(fd);
+}

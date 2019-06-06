@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 21:35:32 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/14 19:27:18 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/06/05 17:01:36 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void			free_node(t_rb_node **root, t_rb_node *old_node)
 		return ;
 	}
 	new_node = old_node->left ? old_node->left : old_node->right;
-	if (new_node)
+	if (new_node && new_node->color == RB_RED)
 	{
 		new_node->color = RB_BLACK;
 		*rb_rot_node(root, old_node) = new_node;

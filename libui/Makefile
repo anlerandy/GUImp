@@ -6,13 +6,13 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 15:11:25 by alerandy          #+#    #+#              #
-#    Updated: 2019/05/22 18:42:46 by alerandy         ###   ########.fr        #
+#    Updated: 2019/05/23 12:37:58 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libui.a
 CFLAGS = -Wall -Werror -Wextra -g3
-CC = gcc
+CC = clang
 COMPILE=$(CC) $(CFLAGS)
 
 # Get all dependances
@@ -26,9 +26,9 @@ else
 endif
 
 # Intisialize the main files
-SDLINK = https://www.libsdl.org/release/SDL2-2.0.9.tar.gz
 SDL2 = SDL2-2.0.9
-INCLUDES += ./includes ./includes/privates/ $(SDL2)/include ../libft/includes
+SDLINK = https://www.libsdl.org/release/$(SDL2).tar.gz
+INCLUDES += ./includes ./includes/privates $(SDL2)/include ../libft/includes
 LIBS = -L../libft -lft -L./SDL/build/.libs -lSDL2 $(linksdl)
 SRCS += ui_init_univers.c ui_quit_univers.c
 INCLUDES:=$(addprefix -I, $(INCLUDES))
@@ -88,7 +88,7 @@ hardre: hardclean
 
 re: fclean all
 
-norm: 
+norm:
 	printf "\033[32mC files:\033[0m\n"
 	norminette $(shell find src -regex ".\{1,200\}\.c" | xargs)
 	printf "\033[32mH files:\033[0m\n"
