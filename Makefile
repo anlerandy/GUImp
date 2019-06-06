@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:59:51 by alerandy          #+#    #+#              #
-#    Updated: 2019/05/31 13:44:29 by alerandy         ###   ########.fr        #
+#    Updated: 2019/06/06 16:05:51 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,9 @@ OBJS = $(SRCS:%.c=%.o)
 OPATH = obj/
 PATH_OBJ = $(addprefix $(OPATH), $(OBJS))
 
+DPATH = .depends/
+DPDS = $(addprefix $(DPATH), $(SRCS:%.c=%.d))
+
 # Conditions
 LIBUI = libui/libui.a
 LIBFT = libft/libft.a
@@ -59,6 +62,10 @@ $(NAME): $(LIBFT) $(LIBUI) $(OBJS)
 	printf "%-60b\r" "\033[32m[GUI] $(ECHO)\033[0 mCompiling $@"
 	$(COMPILE) $(INCLUDES) -c $< -o $(OPATH)$@
 
+$(DPATH)%.d: %.c
+	mkdir -p $(DPATH)
+	$(COMPILE) $(INCLUDES) -MT $(@:$(DPATH)%.d=%.o) -MM $^ > $@
+
 libs:
 	make -s -C libft -j3
 	make -s -C libui
@@ -68,8 +75,11 @@ clean:
 	make -s -C libft fclean
 	make -s -C libui fclean
 
-fclean: clean
+fclean: clean dclean
 	rm -rf $(NAME)
+
+dclean:
+	rm -rf .depends
 
 re: fclean all
 
@@ -100,4 +110,6 @@ normall:
 	make -s norm
 
 .PHONY: re libs fclean hardre hardclean clean all
-.SILENT: all libs clean fclean re hardclean hardre $(OBJS) $(NAME) norm normft normui normall
+.SILENT: all libs clean fclean re hardclean hardre $(OBJS) $(NAME) norm normft normui normall $(DPDS) dclean
+
+-include $(DPDS)
