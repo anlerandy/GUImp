@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/28 03:16:49 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/31 10:04:58 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/06/06 14:29:12 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	put_bmpinfo(char *path)
 	t_bmp	bmp;
 
 	bmp = ui_getbmp(path);
+	if (!bmp.pixels)
+		return (ft_putendl_fd("Failed to open and read BMP Info.", 2));
 	ui_putbmp(bmp.header, bmp.info);
 	ui_delbmp(&bmp);
 }
