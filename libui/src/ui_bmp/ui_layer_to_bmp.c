@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 20:27:10 by alerandy          #+#    #+#             */
-/*   Updated: 2019/06/06 13:20:22 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/06/06 13:22:55 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ void	write_info(int fd, t_bmp *bmp)
 
 void	write_pixels(int fd, t_ui_layer layer)
 {
-	t_bmp_32	*pixels;
+	unsigned	*pixels;
 	unsigned	length;
 	unsigned	x;
 	unsigned	y;
 
 	length = layer.rescale_h * layer.rescale_w;
-	if (!(pixels = ft_memalloc(sizeof(t_bmp_32) * length)))
+	if (!(pixels = ft_memalloc(sizeof(unsigned) * length)))
 		return (close_fd(fd, "Allocation failed. Unable to save."));
 	y = 0;
 	while (++y <= layer.rescale_h)
@@ -74,7 +74,7 @@ void	write_pixels(int fd, t_ui_layer layer)
 		x = 0;
 		while (x < layer.rescale_w)
 			*(pixels + x++ + (layer.rescale_h - y) * layer.rescale_w) \
-										= hex_to_bit32_pixel(*(layer.pixels++));
+										= *(layer.pixels++);
 	}
 	write(fd, pixels, length * sizeof(t_bmp_32));
 	free(pixels);
@@ -91,7 +91,6 @@ void	ui_layer_to_bmp(t_ui_layer layer, char *path)
 	if (!(fd = open(path, O_RDWR | O_APPEND | O_CREAT | O_TRUNC, 0666)))
 		return (close_fd(fd, "Unable to open/create a the file."));
 	layer_to_bmp_header(&bmp, layer);
-	// ui_putbmp(bmp.header, bmp.info);
 	write_header(fd, &bmp);
 	write_info(fd, &bmp);
 	write_pixels(fd, layer);
