@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 11:43:25 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/15 13:07:51 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/06/06 11:31:43 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,6 @@ typedef struct	s_ui_elem
 	void			*value;
 	void			(*callback)(t_ui_univers **uni, t_ui_elem_used *context);
 }				t_ui_elem;
-
-typedef struct	s_ui_sub_part
-{
-	unsigned int	type;
-	void			*sub_part;
-}				t_ui_sub_part;
 
 int				ui_cmp_elem(void *ptr_a, void *ptr_b);
 int				ui_cmp_elem_id(void *ptr_win, void *ptr_id);

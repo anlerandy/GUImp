@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 11:53:34 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/15 13:23:54 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/06/06 11:31:28 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,16 +90,15 @@ typedef struct	s_ui_elem_used
 	t_ui_event_data	event;
 }				t_ui_elem_used;
 
-typedef struct	s_ui_new_subpart
+typedef struct	s_ui_new_elem
 {
-	unsigned int	type;
 	t_ui_win		*win_ptr;
 	unsigned int	elem_type;
 	unsigned int	state;
 	char			*text;
 	void			*value;
 	void			(*callback)(t_ui_univers **uni, t_ui_elem_used *context);
-}				t_ui_new_subpart;
+}				t_ui_new_elem;
 
 t_ui_univers	*ui_init_univers(void);
 void			ui_quit_univers(t_ui_univers **univers, int exit_code, \
@@ -121,10 +120,10 @@ void			ui_watch_events(t_ui_univers **univers);
 int				ui_wait_event(t_ui_univers **univers);
 void			ui_stop_watch(t_ui_univers *univers);
 
-int				ui_new_subpart(t_ui_win *win, t_ui_new_subpart param);
-void			ui_del_subpart(t_ui_win *win, unsigned int type, \
+int				ui_new_elem(t_ui_win *win, t_ui_new_elem param);
+void			ui_del_elem(t_ui_win *win, unsigned int type, \
 					unsigned int id);
-void			ui_clear_subparts(t_ui_win *win);
+void			ui_clear_elems(t_ui_win *win);
 t_ui_elem		*ui_get_elem_by_id(t_ui_win *win, unsigned int id);
 void			ui_elem_new_state(t_ui_elem *elem, unsigned int new_state);
 void			ui_elem_new_text(t_ui_elem *elem, char *new_text);
