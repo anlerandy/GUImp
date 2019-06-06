@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 10:47:50 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/31 14:20:51 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/06/03 14:26:32 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ t_ui_layer		ui_image_to_layer(char *path)
 	}
 	ft_memcpy(layer.pixels, bmp.pixels, sizeof(unsigned) * bmp.pixel_count);
 	layer.width = bmp.info.width;
-	layer.height = bmp.info.width;
+	layer.height = bmp.info.height;
 	layer.rescale_w = bmp.info.width;
-	layer.rescale_h = bmp.info.width;
+	layer.rescale_h = bmp.info.height;
 	ui_delbmp(&bmp);
 	return (layer);
 }

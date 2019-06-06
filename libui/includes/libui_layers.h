@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 10:43:28 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/31 14:20:38 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/06/03 14:07:36 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ typedef struct	s_ui_layer
 
 t_ui_layer		ui_image_to_layer(char *path);
 void			ui_render_layer(t_ui_win **win, t_ui_layer layer);
+void			ui_layer_to_bmp(t_ui_layer layer, char *path);
 
 #endif

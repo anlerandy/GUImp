@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_shared.h                                        :+:      :+:    :+:   */
+/*   ui_close_fd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/26 18:03:13 by alerandy          #+#    #+#             */
-/*   Updated: 2019/06/06 11:22:05 by alerandy         ###   ########.fr       */
+/*   Created: 2019/06/06 11:19:02 by alerandy          #+#    #+#             */
+/*   Updated: 2019/06/06 11:22:01 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UI_SHARED_H
-# define UI_SHARED_H
+#include "libft.h"
 
-char	*get_file_name(char *path);
-void	close_fd(int fd, char *error);
-
-#endif
+void	close_fd(int fd, char *error)
+{
+	if (error)
+		ft_putendl_fd(error, 2);
+	close(fd);
+}

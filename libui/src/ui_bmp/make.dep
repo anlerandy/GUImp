@@ -1,3 +1,3 @@
-SRCS += ui_putbmp.c ui_getbmp.c ui_delbmp.c ui_pixtohex.c \
+SRCS += ui_putbmp.c ui_getbmp.c ui_delbmp.c ui_pixtohex.c ui_hextopix.c \
 		bit_filler.c index_bit_filler.c \
-		ui_validate_bmp.c
+		ui_validate_bmp.c ui_layer_to_bmp.c
