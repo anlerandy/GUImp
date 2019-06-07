@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/08 12:38:11 by alerandy          #+#    #+#              #
-#    Updated: 2019/06/06 16:09:26 by alerandy         ###   ########.fr        #
+#    Updated: 2019/06/07 11:40:29 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,7 @@ $(OBJ_PATH)%.o: %.c
 
 $(DPATH)%.d: %.c
 	@mkdir -p $(DPATH)
-	@$(CC) -fpic -I./includes -MT $(@:$(DPATH)%.d=%.o) -MM $^ > $@
+	@$(CC) -fpic -I./includes -MT $(@:$(DPATH)%.d=$(OBJ_PATH)%.o) -MM $^ > $@
 
 clean :
 	@rm -rf $(OBJ_PATH)

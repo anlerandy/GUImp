@@ -6,14 +6,14 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:59:51 by alerandy          #+#    #+#              #
-#    Updated: 2019/06/06 16:05:51 by alerandy         ###   ########.fr        #
+#    Updated: 2019/06/07 11:39:40 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = guimp
 CFLAGS = -Wall -Werror -Wextra
 CC = clang
-COMPILE=$(CC) -g3 $(CFLAGS)
+COMPILE= $(CC) -g3 $(CFLAGS)
 
 # Get all dependances
 include includes.dep
@@ -68,7 +68,7 @@ $(DPATH)%.d: %.c
 
 libs:
 	make -s -C libft -j3
-	make -s -C libui
+	make -s -C libui -j3
 
 clean:
 	rm -rf obj
