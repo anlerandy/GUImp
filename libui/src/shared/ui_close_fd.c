@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ui_close_fd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/08 14:56:14 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/08 22:24:58 by alerandy         ###   ########.fr       */
+/*   Created: 2019/06/06 11:19:02 by alerandy          #+#    #+#             */
+/*   Updated: 2019/06/06 13:24:00 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr(char const *s)
+void	close_fd(int fd, char *error)
 {
-	ft_putstr_fd(s, 1);
+	if (error)
+		ft_putendl_fd(error, 2);
+	close(fd);
 }

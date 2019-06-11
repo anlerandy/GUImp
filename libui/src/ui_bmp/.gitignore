@@ -1,0 +1,8 @@
+bmp_parser
+test.bmp
+1bit.bmp
+16bit.bmp
+24bit.bmp
+32bit.bmp
+800_600
+*.bmp

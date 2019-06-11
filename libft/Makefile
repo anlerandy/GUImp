@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/08 12:38:11 by alerandy          #+#    #+#              #
-#    Updated: 2019/04/26 15:59:37 by alerandy         ###   ########.fr        #
+#    Updated: 2019/06/07 11:40:29 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC_NAME = ft_putchar.c ft_putstr.c ft_putcharerr.c ft_putstrerr.c ft_memset.c \
 		   ft_itoa.c ft_lstnew.c ft_lstmap.c ft_lstiter.c ft_lstdelone.c \
 		   ft_lstdel.c ft_lstadd.c ft_hidenp.c ft_strcapitalize.c ft_strndup.c \
 		   ft_isupper.c get_next_line.c \
+		   ft_putnstr.c ft_putnendl.c ft_swap_integer.c \
 		   rb_apply_by_level.c rb_apply_infix.c rb_apply_prefix.c \
 		   rb_apply_suffix.c rb_clear_tree.c rb_fix_black_node.c rb_insert.c \
 		   rb_level_count.c rb_parenting.c rb_remove.c rb_rotation.c \
@@ -33,11 +34,14 @@ SRC_NAME = ft_putchar.c ft_putstr.c ft_putcharerr.c ft_putstrerr.c ft_memset.c \
 		   vec_add.c vec_rot.c vec_init.c vec_mult_mat.c vec_mult.c vec_norm.c \
 		   vec_print.c vec_free.c vec_scale.c vec_spe_mat.c vec_sub.c
 NAME = libft.a
-FLAG = -Wall -Wextra -Werror -O2 -funroll-loops
+FLAG = -Wall -Wextra -Werror -O2 -funroll-loops -g3
 OBJ_NAME = $(SRC_NAME:.c=.o)
 CC = clang $(FLAG)
 SRC = $(addprefix $(SRC_PATH),$(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH),$(OBJ_NAME))
+
+DPATH = .depends/
+DPDS = $(addprefix $(DPATH), $(SRC_NAME:%.c=%.d))
 
 # Updating the VPATH
 VPATH = .:objects:$(shell find srcs -type d | tr '\n' ':'):./srcs
@@ -63,20 +67,29 @@ $(OBJ_PATH)%.o: %.c
 	@mkdir -p $(OBJ_PATH)
 	@$(CC) -fpic -I./includes -o $@ -c $<
 
+$(DPATH)%.d: %.c
+	@mkdir -p $(DPATH)
+	@$(CC) -fpic -I./includes -MT $(@:$(DPATH)%.d=$(OBJ_PATH)%.o) -MM $^ > $@
+
 clean :
 	@rm -rf $(OBJ_PATH)
 	@echo "\033[1;30m[LIBFT]\033[0m\033[0;37m Binaries cleaned\033[0m"
 
-fclean : clean
+fclean : clean dclean
 	@rm -f $(NAME)
 	@echo "\033[0;31m[LIBFT]\033[0m Deleted"
 
+dclean:
+	@rm -rf .depends
+
 re : fclean $(NAME)
 
-norm :
-	@norminette srcs/ includes/
-
-header :
-	cp includes/libft.h ./
+norm:
+	@printf "\033[32mC files:\033[0m\n"
+	@norminette $(shell find srcs -regex ".\{1,200\}\.c" | xargs)
+	@printf "\033[32mH files:\033[0m\n"
+	@norminette $(shell find includes -regex ".\{1,200\}\.h" | xargs)
 
 .PHONY: re fclean clean all so
+
+-include $(DPDS)

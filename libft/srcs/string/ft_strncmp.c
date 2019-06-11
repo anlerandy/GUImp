@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 15:04:24 by alerandy          #+#    #+#             */
-/*   Updated: 2019/04/22 03:18:13 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/05/22 18:34:52 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n)
 	while (j <= i && ((unsigned long int)(str1 + i) & \
 			(sizeof(unsigned long int) - 1)) != 0 && \
 			((unsigned long int)(str2 + i) & \
-			(sizeof(unsigned long int) - 1)) != 0 )
+			(sizeof(unsigned long int) - 1)) != 0)
 	{
 		if (str1[i] != str2[i] || (!str1[i] || !str2[i]))
 			return (str1[i] - str2[i]);

@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:27:55 by gsmith            #+#    #+#             */
-/*   Updated: 2019/06/06 11:32:39 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/06/11 14:50:01 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct	s_ui_univers
 	t_rb_node		*themes;
 	t_ui_theme		*default_theme;
 	t_rb_node		*events;
+	t_ui_win		*splash;
 	unsigned int	run_event;
 }				t_ui_univers;
 

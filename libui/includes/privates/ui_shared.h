@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ui_shared.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/08 14:56:14 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/08 22:24:58 by alerandy         ###   ########.fr       */
+/*   Created: 2019/05/26 18:03:13 by alerandy          #+#    #+#             */
+/*   Updated: 2019/06/06 11:22:05 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef UI_SHARED_H
+# define UI_SHARED_H
 
-void	ft_putstr(char const *s)
-{
-	ft_putstr_fd(s, 1);
-}
+char	*get_file_name(char *path);
+void	close_fd(int fd, char *error);
+
+#endif

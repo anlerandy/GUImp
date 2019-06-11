@@ -6,14 +6,14 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:59:51 by alerandy          #+#    #+#              #
-#    Updated: 2019/05/05 16:54:56 by alerandy         ###   ########.fr        #
+#    Updated: 2019/06/07 11:39:40 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = guimp
 CFLAGS = -Wall -Werror -Wextra
-CC = gcc
-COMPILE=$(CC) -g3 $(CFLAGS)
+CC = clang
+COMPILE= $(CC) -g3 $(CFLAGS)
 
 # Get all dependances
 include includes.dep
@@ -21,7 +21,7 @@ include includes.dep
 # Intisialize the main files
 SDL2 = SDL2-2.0.9
 INCLUDES += ./includes ./libui/$(SDL2)/include ./libft/includes \
-			./libui/includes
+			./libui/includes ./libui/includes/privates
 LIBS = -L./libui -lui -L./libft -lft -L./libui/SDL/build/.libs -lSDL2 \
 	   -Wl,-rpath,./libui/SDL/build/.libs
 
@@ -36,6 +36,9 @@ OBJS = $(SRCS:%.c=%.o)
 OPATH = obj/
 PATH_OBJ = $(addprefix $(OPATH), $(OBJS))
 
+DPATH = .depends/
+DPDS = $(addprefix $(DPATH), $(SRCS:%.c=%.d))
+
 # Conditions
 LIBUI = libui/libui.a
 LIBFT = libft/libft.a
@@ -48,34 +51,65 @@ ECHO = "[`expr $C  '*' 100 / $T`%]"
 all: libs $(NAME)
 
 $(NAME): $(LIBFT) $(LIBUI) $(OBJS)
-	@printf "\r\033[K""\r\033[K""\033[32m[GUI] \033[0m""Compiling""\n"
-	@$(COMPILE) $(PATH_OBJ) -o $(NAME) $(INCLUDES) $(LIBS)
-	@sh updateLinker.sh
-	@printf "\033[1A\r\033[K""\r\033[K""\033[32m[GUI] \033[0m""Ready""\n"
+	printf "\r\033[K""\r\033[K""\033[32m[GUI] \033[0m""Compiling""\n"
+	$(COMPILE) $(PATH_OBJ) -o $(NAME) $(INCLUDES) $(LIBS)
+	sh updateLinker.sh
+	sh addIcon.sh
+	printf "\033[1A\r\033[K""\r\033[K""\033[32m[GUI] \033[0m""Ready""\n"
 
 %.o: %.c
-	@mkdir -p $(OPATH)
-	@printf "%-60b\r" "\033[32m[GUI] $(ECHO)\033[0 mCompiling $@"
-	@$(COMPILE) $(INCLUDES) -c $< -o $(OPATH)$@
+	mkdir -p $(OPATH)
+	printf "%-60b\r" "\033[32m[GUI] $(ECHO)\033[0 mCompiling $@"
+	$(COMPILE) $(INCLUDES) -c $< -o $(OPATH)$@
+
+$(DPATH)%.d: %.c
+	mkdir -p $(DPATH)
+	$(COMPILE) $(INCLUDES) -MT $(@:$(DPATH)%.d=%.o) -MM $^ > $@
 
 libs:
-	@make -s -C libft -j3
-	@make -s -C libui
+	make -s -C libft -j3
+	make -s -C libui -j3
 
 clean:
-	@rm -rf obj
-	@make -s -C libft fclean
-	@make -s -C libui fclean
+	rm -rf obj
+	make -s -C libft fclean
+	make -s -C libui fclean
 
-fclean: clean
-	@rm -rf $(NAME)
+fclean: clean dclean
+	rm -rf $(NAME)
+
+dclean:
+	rm -rf .depends
 
 re: fclean all
 
 hardclean: fclean
-	@make -s -C libui hardclean
+	make -s -C libui hardclean
 
 hardre: hardclean all
 
-.PHONY: re libs fclean hardre hardclean clean all
+norm:
+	printf "\033[32mC files:\033[0m\n"
+	norminette $(shell find src -regex ".\{1,200\}\.c" | xargs)
+	printf "\033[32mH files:\033[0m\n"
+	norminette $(shell find includes -regex ".\{1,200\}\.h" | xargs)
 
+normft:
+	printf "\033[32m[LIBFT]\033[0m Norm:\n"
+	make -s -C libft norm
+
+normui:
+	printf "\n\n\033[32m[LIBUI]\033[0m Norm:\n"
+	make -s -C libui norm
+
+normall:
+	clear
+	make -s normft
+	make -s normui
+	printf "\n\n\033[32m[GUIMP]\033[0m Norm:\n"
+	make -s norm
+
+.PHONY: re libs fclean hardre hardclean clean all
+.SILENT: all libs clean fclean re hardclean hardre $(OBJS) $(NAME) norm normft normui normall $(DPDS) dclean
+
+-include $(DPDS)

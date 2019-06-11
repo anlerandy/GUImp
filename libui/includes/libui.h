@@ -6,14 +6,15 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 11:53:34 by gsmith            #+#    #+#             */
-/*   Updated: 2019/06/06 11:31:28 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/06/11 14:49:53 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBUI_H
 # define LIBUI_H
 
-# define UI_WINDOW_FULLSCREEN          0x00000001
+# include "libft.h"
+
 # define UI_WINDOW_OPENGL              0x00000002
 # define UI_WINDOW_SHOWN               0x00000004
 # define UI_WINDOW_HIDDEN              0x00000008
@@ -24,7 +25,7 @@
 # define UI_WINDOW_INPUT_GRABBED       0x00000100
 # define UI_WINDOW_INPUT_FOCUS         0x00000200
 # define UI_WINDOW_MOUSE_FOCUS         0x00000400
-# define UI_WINDOW_FULLSCREEN_DESKTOP  ( UI_WINDOW_FULLSCREEN | 0x00001000 )
+# define UI_WINDOW_FULLSCREEN_DESKTOP  0x00001001
 # define UI_WINDOW_FOREIGN             0x00000800
 # define UI_WINDOW_ALLOW_HIGHDPI       0x00002000
 # define UI_WINDOW_MOUSE_CAPTURE       0x00004000
@@ -138,5 +139,10 @@ int				ui_import_themes(t_ui_univers *univers, char *rep_path);
 int				ui_set_default_theme(t_ui_univers *univers, int theme_id);
 int				ui_del_theme(t_ui_univers *univers, int theme_id);
 int				ui_clear_all_themes(t_ui_univers *univers);
+
+t_ui_win		*ui_open_image(t_ui_univers *univers, char *path);
+t_ui_win		*ui_open_splash(t_ui_univers *univers, char *path, char *name);
+void			ui_close_splash(t_ui_univers *univers, t_ui_win **win);
+void			put_bmpinfo(char *path);
 
 #endif

@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ui_delbmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/08 14:56:14 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/08 22:24:58 by alerandy         ###   ########.fr       */
+/*   Created: 2019/05/26 18:20:59 by alerandy          #+#    #+#             */
+/*   Updated: 2019/05/26 21:17:40 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "bmp_parser.h"
 
-void	ft_putstr(char const *s)
+void	ui_delbmp(t_bmp *bmp)
 {
-	ft_putstr_fd(s, 1);
+	free(bmp->pixels);
+	free(bmp->palette);
+	ft_bzero(bmp, sizeof(t_bmp));
 }

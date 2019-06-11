@@ -3,3 +3,4 @@ libft.a
 libft.so
 srcs/vectors/a.out
 libft-unit-test
+.depends
