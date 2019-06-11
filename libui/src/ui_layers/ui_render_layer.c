@@ -71,4 +71,3 @@ void			ui_render_layer(t_ui_win **win, t_ui_layer layer)
 	}
 	SDL_UpdateWindowSurface(tmp->sdl_ptr);
 }
-
