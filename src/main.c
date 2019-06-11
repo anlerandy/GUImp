@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
-/*   Updated: 2019/06/07 15:02:30 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/06/11 13:21:27 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,6 @@ int		main()
 	ui_render_layer(&win, layer);
 	ui_layer_to_bmp(layer, saved_image);
 	if (!(win = ui_open_image(univ, saved_image)))
-		ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
-	if (!(win = ui_open_image(univ, "/Users/alerandy/Desktop/sample.bmp")))
 		ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
 	event_id[0] = UI_EVENT_KEYUP;
 	event_id[1] = UIK_ESCAPE;
