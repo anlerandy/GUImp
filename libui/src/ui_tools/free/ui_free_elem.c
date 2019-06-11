@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_free_window.c                                   :+:      :+:    :+:   */
+/*   ui_free_elem.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/27 15:38:38 by gsmith            #+#    #+#             */
-/*   Updated: 2019/06/11 15:37:05 by gsmith           ###   ########.fr       */
+/*   Created: 2019/06/11 15:14:31 by gsmith            #+#    #+#             */
+/*   Updated: 2019/06/11 15:35:59 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "libui_tools.h"
-#include "libui_tools.h"
+#include "libui_elem.h"
 
-void	ui_free_window(void *win_ptr)
+void			ui_free_elem(void *elem_ptr)
 {
-	t_ui_win	*win;
+	t_ui_elem	*elem;
 
-	if (!win_ptr)
-		return ;
-	win = (t_ui_win *)win_ptr;
-	SDL_DestroyWindow(win->sdl_ptr);
-	rb_clear_tree(&(win->elements), &ui_free_elem);
-	ft_memdel(&win_ptr);
+	elem = (t_ui_elem *)elem_ptr;
+	ft_strdel(&elem->text);
+	ft_memdel(&elem->value);
+	ft_memdel(&elem_ptr);
 }

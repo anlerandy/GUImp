@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 11:53:34 by gsmith            #+#    #+#             */
-/*   Updated: 2019/06/11 14:49:53 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/06/11 15:26:25 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,7 @@ int				ui_wait_event(t_ui_univers **univers);
 void			ui_stop_watch(t_ui_univers *univers);
 
 int				ui_new_elem(t_ui_win *win, t_ui_new_elem param);
-void			ui_del_elem(t_ui_win *win, unsigned int type, \
-					unsigned int id);
+void			ui_del_elem(t_ui_win *win, unsigned int id);
 void			ui_clear_elems(t_ui_win *win);
 t_ui_elem		*ui_get_elem_by_id(t_ui_win *win, unsigned int id);
 void			ui_elem_new_state(t_ui_elem *elem, unsigned int new_state);

@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_free_window.c                                   :+:      :+:    :+:   */
+/*   ui_del_elem.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/27 15:38:38 by gsmith            #+#    #+#             */
-/*   Updated: 2019/06/11 15:37:05 by gsmith           ###   ########.fr       */
+/*   Created: 2019/06/11 15:23:38 by gsmith            #+#    #+#             */
+/*   Updated: 2019/06/11 15:36:15 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "libui_tools.h"
 #include "libui_tools.h"
 
-void	ui_free_window(void *win_ptr)
+void	ui_del_elem(t_ui_win *win, unsigned int id)
 {
-	t_ui_win	*win;
-
-	if (!win_ptr)
+	if (!win)
 		return ;
-	win = (t_ui_win *)win_ptr;
-	SDL_DestroyWindow(win->sdl_ptr);
-	rb_clear_tree(&(win->elements), &ui_free_elem);
-	ft_memdel(&win_ptr);
+	rb_remove(&(win->elements), (void *)&id, &ui_cmp_elem_id, \
+		&ui_free_elem);
 }
