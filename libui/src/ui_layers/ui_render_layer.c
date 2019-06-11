@@ -56,7 +56,7 @@ void			ui_render_layer(t_ui_win **win, t_ui_layer layer)
 	src = layer.pixels;
 	dst = (unsigned *)tmp->surf->pixels;
 	i = 0;
-	limit_w = tmp->surf->w - layer.x < (int)layer.rescale_w
+	limit_w = tmp->surf->w - layer.x < (int)layer.rescale_w \
 				? tmp->surf->w : 2 * tmp->surf->w - layer.rescale_w - layer.x;
 	if (limit_w < 0)
 		return ;
@@ -71,3 +71,4 @@ void			ui_render_layer(t_ui_win **win, t_ui_layer layer)
 	}
 	SDL_UpdateWindowSurface(tmp->sdl_ptr);
 }
+
