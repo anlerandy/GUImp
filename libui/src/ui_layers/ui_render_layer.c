@@ -45,12 +45,12 @@ static void				ui_render_layer_rescale(t_ui_win **win,
 	layer.scale = calc_scale(layer);
 	l.x = (layer.x >= 0) ? layer.x : 0;
 	while (l.x < (int)(layer.width * layer.scale.x) + layer.x
-		&& l.x <= tmp->surf->w && l.x >= 0 && l.x >= layer.x
+		&& l.x < tmp->surf->w && l.x >= 0 && l.x >= layer.x
 		- (layer.width * layer.scale.x))
 	{
 		l.y = (layer.y >= 0) ? layer.y : 0;
 		while (l.y < (layer.height * layer.scale.y) + layer.y
-			&& l.y <= tmp->surf->h && l.y >= 0 && l.y >= layer.y
+			&& l.y < tmp->surf->h && l.y >= 0 && l.y >= layer.y
 			- (layer.height * layer.scale.y))
 		{
 			dst[l.x + l.y * tmp->surf->w] = src[pixel_place(layer, l.x, l.y)];
