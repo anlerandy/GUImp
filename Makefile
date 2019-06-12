@@ -6,14 +6,14 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:59:51 by alerandy          #+#    #+#              #
-#    Updated: 2019/05/31 13:44:29 by alerandy         ###   ########.fr        #
+#    Updated: 2019/06/07 11:39:40 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = guimp
 CFLAGS = -Wall -Werror -Wextra
 CC = clang
-COMPILE=$(CC) -g3 $(CFLAGS)
+COMPILE= $(CC) -g3 $(CFLAGS)
 
 # Get all dependances
 include includes.dep
@@ -35,6 +35,9 @@ VPATH =.:obj:$(shell find src -type d | tr '\n' ':'):SDL/build/.libs
 OBJS = $(SRCS:%.c=%.o)
 OPATH = obj/
 PATH_OBJ = $(addprefix $(OPATH), $(OBJS))
+
+DPATH = .depends/
+DPDS = $(addprefix $(DPATH), $(SRCS:%.c=%.d))
 
 # Conditions
 LIBUI = libui/libui.a
@@ -59,17 +62,24 @@ $(NAME): $(LIBFT) $(LIBUI) $(OBJS)
 	printf "%-60b\r" "\033[32m[GUI] $(ECHO)\033[0 mCompiling $@"
 	$(COMPILE) $(INCLUDES) -c $< -o $(OPATH)$@
 
+$(DPATH)%.d: %.c
+	mkdir -p $(DPATH)
+	$(COMPILE) $(INCLUDES) -MT $(@:$(DPATH)%.d=%.o) -MM $^ > $@
+
 libs:
 	make -s -C libft -j3
-	make -s -C libui
+	make -s -C libui -j3
 
 clean:
 	rm -rf obj
 	make -s -C libft fclean
 	make -s -C libui fclean
 
-fclean: clean
+fclean: clean dclean
 	rm -rf $(NAME)
+
+dclean:
+	rm -rf .depends
 
 re: fclean all
 
@@ -100,4 +110,6 @@ normall:
 	make -s norm
 
 .PHONY: re libs fclean hardre hardclean clean all
-.SILENT: all libs clean fclean re hardclean hardre $(OBJS) $(NAME) norm normft normui normall
+.SILENT: all libs clean fclean re hardclean hardre $(OBJS) $(NAME) norm normft normui normall $(DPDS) dclean
+
+-include $(DPDS)
