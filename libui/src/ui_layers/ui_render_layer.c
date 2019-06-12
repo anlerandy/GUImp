@@ -6,11 +6,10 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 11:18:03 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/31 14:21:07 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/06/07 15:05:15 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <pthread.h>
 #include "bmp_parser.h"
 #include "libui_layers.h"
 #include "libui_tools.h"
