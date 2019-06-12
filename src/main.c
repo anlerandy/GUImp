@@ -70,7 +70,7 @@ int		main()
 {
 	t_ui_univers	*univ;
 	t_ui_win_param	param[4];
-	t_ui_win		*win;
+	t_ui_win		*win[3];
 	int				flag;
 	unsigned int	event_id[2];
 	t_ui_win		*splash;
@@ -95,7 +95,7 @@ int		main()
 	param[2] = (t_ui_win_param){1000, 500, 500, 500, UI_WINDOW_RESIZABLE};
 	flag = -1;
 	while (++flag < 3)
-		if (!(win = ui_new_window(univ, param[flag], "Hello toast")))
+		if (!(win[flag] = ui_new_window(univ, param[flag], "Hello toast")))
 			ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
 	layer = ui_image_to_layer(image);
 	alpha_layer = ui_image_to_layer(alpha);
@@ -107,8 +107,14 @@ int		main()
 	layer.x = 200;
 	layer.y = 200;
 	layer.width_inversed = -1;
-	ui_render_layer(&win, layer);
-	if (!(win = ui_open_image(univ, saved_image)))
+	ui_render_layer(&(win[2]), layer);
+	layer.rescale_w = 1.2 * layer.width;
+	layer.x = 0;
+	layer.y = 400;
+	layer.width_inversed = 1;
+	layer.height_inversed = -1;
+	ui_render_layer(&(win[1]), layer);
+	if (!(win[0] = ui_open_image(univ, saved_image)))
 		ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
 	event_id[0] = UI_EVENT_KEYUP;
 	event_id[1] = UIK_ESCAPE;
