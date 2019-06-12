@@ -15,35 +15,53 @@
 #include "libui_tools.h"
 #include "vectors.h"
 
-static void		ui_render_layer_rescale(t_ui_win **win, t_ui_layer layer)
+static inline int		pixel_place(t_ui_layer layer, int x, int y)
+{
+	return (((int)(layer.width_inversed
+				* (x - layer.x) / layer.scale.x) + (int)(layer.height_inversed
+				* (y - layer.y) / layer.scale.y) * layer.width));
+}
+
+static inline t_vec2	calc_scale(t_ui_layer layer)
+{
+	t_vec2 scale;
+
+	scale.x = (double)layer.rescale_w / (double)layer.width;
+	scale.y = (double)layer.rescale_h / (double)layer.height;
+	return (scale);
+}
+
+static void				ui_render_layer_rescale(t_ui_win **win,
+	t_ui_layer layer)
 {
 	t_ui_win	*tmp;
 	t_isize		l;
 	unsigned	*dst;
 	unsigned	*src;
-	t_vec2		scale;
 
 	tmp = *win;
 	dst = (unsigned *)tmp->surf->pixels;
 	src = (unsigned *)layer.pixels;
-	scale.x = (double)layer.rescale_w / (double)layer.width;
-	scale.y = (double)layer.rescale_h / (double)layer.height;
-	l.x = (layer.y >= 0) ? layer.y : 0;
-	while (l.x < layer.height * scale.y + layer.y && l.x <= tmp->surf->h)
+	layer.scale = calc_scale(layer);
+	l.x = (layer.x >= 0) ? layer.x : 0;
+	while (l.x < (int)(layer.width * layer.scale.x) + layer.x
+		&& l.x <= tmp->surf->w && l.x > 0 && l.x > layer.x
+		- (layer.width * layer.scale.x))
 	{
-		l.y = (layer.x >= 0) ? layer.x : 0;
-		while (l.y < (layer.width * scale.x) + layer.x && l.y <= tmp->surf->w)
+		l.y = (layer.y >= 0) ? layer.y : 0;
+		while (l.y < (layer.height * layer.scale.y) + layer.y
+			&& l.y <= tmp->surf->h && l.y > 0 && l.y > layer.y
+			- (layer.height * layer.scale.y))
 		{
-			dst[l.y + l.x * tmp->surf->w] = src[((int)((l.y - layer.x)
-				/ scale.x) + (int)((l.x - layer.y) / scale.y) * tmp->surf->w)];
-			l.y++;
+			dst[l.x + l.y * tmp->surf->w] = src[pixel_place(layer, l.x, l.y)];
+			l.y += layer.height_inversed;
 		}
-		l.x++;
+		l.x += layer.width_inversed;
 	}
 	SDL_UpdateWindowSurface(tmp->sdl_ptr);
 }
 
-void			ui_render_layer(t_ui_win **win, t_ui_layer layer)
+void					ui_render_layer(t_ui_win **win, t_ui_layer layer)
 {
 	t_ui_win	*tmp;
 	unsigned	i;
