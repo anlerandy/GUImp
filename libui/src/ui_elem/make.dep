@@ -1,1 +1,1 @@
-SRCS += ui_del_elem.c
+SRCS += ui_del_elem.c ui_get_elem.c
