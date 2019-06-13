@@ -1,7 +1,13 @@
 SDL2-2.0.*
+SDL2_ttf-2.0.*
+freetype-2.10.0
 SDL
+SDLTTF
+freetype2
 .vscode
 obj
 libui.a
 SDL2.tar.gz
+freetype2.tar.gz
 .depends
+shared

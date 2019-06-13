@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:59:51 by alerandy          #+#    #+#              #
-#    Updated: 2019/06/07 11:39:40 by alerandy         ###   ########.fr        #
+#    Updated: 2019/06/13 19:05:38 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,16 +20,16 @@ include includes.dep
 
 # Intisialize the main files
 SDL2 = SDL2-2.0.9
-INCLUDES += ./includes ./libui/$(SDL2)/include ./libft/includes \
+SDLTTF = SDL2_ttf-2.0.15
+INCLUDES += ./includes ./libui/shared/include/SDL2 ./libft/includes \
 			./libui/includes ./libui/includes/privates
-LIBS = -L./libui -lui -L./libft -lft -L./libui/SDL/build/.libs -lSDL2 \
-	   -Wl,-rpath,./libui/SDL/build/.libs
+LIBS = -L./libui -lui -L./libft -lft -L./libui/shared/lib -lSDL2 -lSDL2_ttf
 
 SRCS += main.c
 INCLUDES:=$(addprefix -I, $(INCLUDES))
 
 # Updating the VPATH
-VPATH =.:obj:$(shell find src -type d | tr '\n' ':'):SDL/build/.libs
+VPATH =.:obj:$(shell find src -type d | tr '\n' ':'):shared/lib
 
 # Insert .o files
 OBJS = $(SRCS:%.c=%.o)
@@ -53,7 +53,6 @@ all: libs $(NAME)
 $(NAME): $(LIBFT) $(LIBUI) $(OBJS)
 	printf "\r\033[K""\r\033[K""\033[32m[GUI] \033[0m""Compiling""\n"
 	$(COMPILE) $(PATH_OBJ) -o $(NAME) $(INCLUDES) $(LIBS)
-	sh updateLinker.sh
 	sh addIcon.sh
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[GUI] \033[0m""Ready""\n"
 
@@ -68,7 +67,7 @@ $(DPATH)%.d: %.c
 
 libs:
 	make -s -C libft -j3
-	make -s -C libui -j3
+	make -s -C libui
 
 clean:
 	rm -rf obj
