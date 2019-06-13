@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 12:02:48 by gsmith            #+#    #+#             */
-/*   Updated: 2019/06/13 13:28:33 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/06/13 13:41:51 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,12 @@ t_ui_win		*ui_new_window(t_ui_univers *univers, t_ui_win_param param, \
 		return (abort_new_window(ERR_SDL_WIN, (void **)&win, NULL));
 	if (!(win->surf = SDL_GetWindowSurface(win->sdl_ptr)))
 		return (abort_new_window(ERR_SDL_SURF, (void **)&win, win->sdl_ptr));
-	win->id = SDL_GetWindowID(win->sdl_ptr);
+	if (!(win->id = SDL_GetWindowID(win->sdl_ptr)))
+		return (abort_new_window(ERR_SDL_WIN_ID, (void **)&win, win->sdl_ptr));
 	ft_memset(win->surf->pixels, 0, sizeof(int) * win->surf->h * win->surf->w);
 	SDL_UpdateWindowSurface(win->sdl_ptr);
 	rb_insert(&(univers->windows), (void *)win, &ui_cmp_window);
+	win->mother = 0;
+	win->blocked = 0;
 	return (win);
 }

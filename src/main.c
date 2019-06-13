@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
-/*   Updated: 2019/06/11 13:21:27 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/06/13 13:38:02 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,10 @@ int		main()
 
 	if (!(univ = ui_init_univers()))
 		exit(1);
-	image = "/Users/alerandy/Desktop/sample.bmp";
-	saved_image = "/Users/alerandy/Desktop/test.bmp";
-	alpha2 = "/Users/alerandy/Desktop/alpha2.bmp";
-	alpha = "/Users/alerandy/Desktop/alpha.bmp";
+	image = "/Users/gsmith/dev/joli.bmp";
+	saved_image = "/Users/gsmith/dev/test.bmp";
+	alpha2 = "/Users/gsmith/dev/joli.bmp";
+	alpha = "/Users/gsmith/dev/joli.bmp";
 	splash = ui_open_splash(univ, "./assets/splash.bmp", "The GUImp");
 	ft_bzero(param, sizeof(param));
 	param[0] = (t_ui_win_param){0, 500, 500, 500, UI_WINDOW_RESIZABLE};
