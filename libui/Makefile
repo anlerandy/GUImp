@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 15:11:25 by alerandy          #+#    #+#              #
-#    Updated: 2019/06/06 16:02:30 by alerandy         ###   ########.fr        #
+#    Updated: 2019/06/13 16:11:33 by gsmith           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -100,9 +100,13 @@ re: fclean all
 
 norm:
 	printf "\033[32mC files:\033[0m\n"
-	norminette $(shell find src -regex ".\{1,200\}\.c" | xargs)
+	norminette $(shell find src -regex ".\{1,200\}\.c" | xargs) > tmp
+	grep "Error" -B 1 tmp || echo "\033[1;32mNo error found\033[0m\n"
+	rm tmp
 	printf "\033[32mH files:\033[0m\n"
-	norminette $(shell find includes -regex ".\{1,200\}\.h" | xargs)
+	norminette $(shell find includes -regex ".\{1,200\}\.h" | xargs) > tmp
+	grep "Error" -B 1 tmp || echo "\033[1;32mNo error found\033[0m\n"
+	rm tmp
 
 .PHONY: re fclean hardre hardclean clean all
 .SILENT: $(SDL2) all $(NAME) clean fclean re hardclean hardre $(OBJS) norm $(DPDS) dclean
