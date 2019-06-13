@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 12:02:48 by gsmith            #+#    #+#             */
-/*   Updated: 2019/06/06 16:49:17 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/06/13 13:28:33 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ t_ui_win		*ui_new_window(t_ui_univers *univers, t_ui_win_param param, \
 
 	if (!(win = ft_memalloc(sizeof(t_ui_win))))
 		return (abort_new_window(ERR_MALLOC, NULL, NULL));
+	if (univers->splash)
+		param.options = param.options | SDL_WINDOW_HIDDEN;
 	if (!(win->sdl_ptr = SDL_CreateWindow(title, param.x, param.y, param.w, \
 				param.h, param.options)))
 		return (abort_new_window(ERR_SDL_WIN, (void **)&win, NULL));

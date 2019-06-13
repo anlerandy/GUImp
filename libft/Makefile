@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/08 12:38:11 by alerandy          #+#    #+#              #
-#    Updated: 2019/05/22 18:42:38 by alerandy         ###   ########.fr        #
+#    Updated: 2019/06/07 11:40:29 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,9 @@ CC = clang $(FLAG)
 SRC = $(addprefix $(SRC_PATH),$(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH),$(OBJ_NAME))
 
+DPATH = .depends/
+DPDS = $(addprefix $(DPATH), $(SRC_NAME:%.c=%.d))
+
 # Updating the VPATH
 VPATH = .:objects:$(shell find srcs -type d | tr '\n' ':'):./srcs
 
@@ -64,13 +67,20 @@ $(OBJ_PATH)%.o: %.c
 	@mkdir -p $(OBJ_PATH)
 	@$(CC) -fpic -I./includes -o $@ -c $<
 
+$(DPATH)%.d: %.c
+	@mkdir -p $(DPATH)
+	@$(CC) -fpic -I./includes -MT $(@:$(DPATH)%.d=$(OBJ_PATH)%.o) -MM $^ > $@
+
 clean :
 	@rm -rf $(OBJ_PATH)
 	@echo "\033[1;30m[LIBFT]\033[0m\033[0;37m Binaries cleaned\033[0m"
 
-fclean : clean
+fclean : clean dclean
 	@rm -f $(NAME)
 	@echo "\033[0;31m[LIBFT]\033[0m Deleted"
+
+dclean:
+	@rm -rf .depends
 
 re : fclean $(NAME)
 
@@ -81,3 +91,5 @@ norm:
 	@norminette $(shell find includes -regex ".\{1,200\}\.h" | xargs)
 
 .PHONY: re fclean clean all so
+
+-include $(DPDS)

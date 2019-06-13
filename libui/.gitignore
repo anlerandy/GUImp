@@ -4,3 +4,4 @@ SDL
 obj
 libui.a
 SDL2.tar.gz
+.depends

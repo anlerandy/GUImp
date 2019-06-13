@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
-/*   Updated: 2019/06/06 14:51:34 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/06/11 13:21:27 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,19 @@ int		main()
 	unsigned int	event_id[2];
 	t_ui_win		*splash;
 	t_ui_layer		layer;
+	t_ui_layer		alpha_layer;
+	t_ui_layer		alpha_layer2;
 	char			*image;
 	char			*saved_image;
+	char			*alpha;
+	char			*alpha2;
 
 	if (!(univ = ui_init_univers()))
 		exit(1);
-	image = "/Users/alerandy/Desktop/1bit.bmp";
+	image = "/Users/alerandy/Desktop/sample.bmp";
 	saved_image = "/Users/alerandy/Desktop/test.bmp";
+	alpha2 = "/Users/alerandy/Desktop/alpha2.bmp";
+	alpha = "/Users/alerandy/Desktop/alpha.bmp";
 	splash = ui_open_splash(univ, "./assets/splash.bmp", "The GUImp");
 	ft_bzero(param, sizeof(param));
 	param[0] = (t_ui_win_param){0, 500, 500, 500, UI_WINDOW_RESIZABLE};
@@ -92,11 +98,13 @@ int		main()
 		if (!(win = ui_new_window(univ, param[flag], "Hello toast")))
 			ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
 	layer = ui_image_to_layer(image);
+	alpha_layer = ui_image_to_layer(alpha);
+	alpha_layer2 = ui_image_to_layer(alpha2);
+	ui_layer_into_layer(&layer, &alpha_layer);
+	ui_layer_into_layer(&layer, &alpha_layer2);
 	ui_render_layer(&win, layer);
 	ui_layer_to_bmp(layer, saved_image);
 	if (!(win = ui_open_image(univ, saved_image)))
-		ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
-	if (!(win = ui_open_image(univ, "/Users/alerandy/Desktop/sample.bmp")))
 		ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
 	event_id[0] = UI_EVENT_KEYUP;
 	event_id[1] = UIK_ESCAPE;
@@ -113,6 +121,7 @@ int		main()
 	event_id[1] = UI_WINDOWEVENT_CLOSE;
 	if (ui_new_event(univ, event_id, &callback_close, NULL))
 		ui_quit_univers(&univ, 1, "Error while setting up event. eoe.");
+	// sleep(2); // Test the new system of the Splash.
 	ui_close_splash(univ, &splash);
 	ui_watch_events(&univ);
 	ui_quit_univers(&univ, 0, NULL);

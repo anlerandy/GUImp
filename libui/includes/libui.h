@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 11:53:34 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/31 10:04:54 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/06/06 16:03:36 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define LIBUI_H
 
 # include "libft.h"
-# include "bmp_parser.h"
 
 # define UI_WINDOW_OPENGL              0x00000002
 # define UI_WINDOW_SHOWN               0x00000004
