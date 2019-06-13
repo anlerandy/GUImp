@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 11:53:34 by gsmith            #+#    #+#             */
-/*   Updated: 2019/06/12 16:49:40 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/06/13 11:33:50 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,14 @@
 # define UI_ELEM_TYPE_TEXT             3
 # define UI_ELEM_TYPE_DROPDOWN         4
 
+# define UI_ELEM_TYPE_NB               4
+
 # define UI_ELEM_STATE_IDLE            0
 # define UI_ELEM_STATE_ACTIVE          1
 # define UI_ELEM_STATE_HOVER           2
 # define UI_ELEM_STATE_DISABLED        3
 
-# define UI_SUBPART_WINDOW 0
-# define UI_SUBPART_ELEM   1
+# define UI_ELEM_STATE_NB              3
 
 typedef struct s_ui_elem	t_ui_elem;
 typedef struct s_ui_theme	t_ui_theme;
@@ -93,7 +94,10 @@ typedef struct	s_ui_elem_used
 
 typedef struct	s_ui_new_elem
 {
-	t_ui_win		*win_ptr;
+	unsigned int	x;
+	unsigned int	y;
+	unsigned int	w;
+	unsigned int	h;
 	unsigned int	elem_type;
 	unsigned int	state;
 	char			*text;
@@ -121,7 +125,7 @@ void			ui_watch_events(t_ui_univers **univers);
 int				ui_wait_event(t_ui_univers **univers);
 void			ui_stop_watch(t_ui_univers *univers);
 
-int				ui_new_elem(t_ui_win *win, t_ui_new_elem param);
+unsigned int	ui_new_elem(t_ui_win *win, t_ui_new_elem param);
 void			ui_del_elem(t_ui_win *win, unsigned int id);
 void			ui_clear_elems(t_ui_win *win);
 t_ui_elem		*ui_get_elem_by_id(t_ui_win *win, unsigned int elem_id);

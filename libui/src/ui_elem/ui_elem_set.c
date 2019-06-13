@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 16:49:09 by gsmith            #+#    #+#             */
-/*   Updated: 2019/06/12 16:55:34 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/06/13 10:57:31 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ui_elem_set_state(t_ui_elem *elem, unsigned int new_state)
 {
-	if (!elem || new_state > UI_ELEM_STATE_DISABLED)
+	if (!elem || new_state > UI_ELEM_STATE_NB)
 		return ;
 	elem->state = new_state;
 }

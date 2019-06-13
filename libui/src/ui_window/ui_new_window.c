@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_new_window.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 12:02:48 by gsmith            #+#    #+#             */
-/*   Updated: 2019/06/07 11:06:12 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/06/13 11:31:10 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,6 @@ t_ui_win		*ui_new_window(t_ui_univers *univers, t_ui_win_param param, \
 	ft_memset(win->surf->pixels, 0, sizeof(int) * win->surf->h * win->surf->w);
 	SDL_UpdateWindowSurface(win->sdl_ptr);
 	rb_insert(&(univers->windows), (void *)win, &ui_cmp_window);
+	win->id_next_elem = 1;
 	return (win);
 }
