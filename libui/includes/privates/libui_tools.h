@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:27:55 by gsmith            #+#    #+#             */
-/*   Updated: 2019/06/06 16:37:11 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/06/13 13:25:25 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ typedef struct	s_ui_win
 	SDL_Window		*sdl_ptr;
 	t_rb_node		*elem;
 	t_ui_theme		*theme;
-	t_ui_win		*child;
-	t_ui_win		*block_by;
+	t_ui_win		*mother;
+	t_ui_win		*blocked;
 }				t_ui_win;
 
 typedef struct	s_ui_univers
