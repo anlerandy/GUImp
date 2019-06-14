@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:59:51 by alerandy          #+#    #+#              #
-#    Updated: 2019/06/13 19:05:38 by alerandy         ###   ########.fr        #
+#    Updated: 2019/06/14 10:48:08 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,9 +89,24 @@ hardre: hardclean all
 
 norm:
 	printf "\033[32mC files:\033[0m\n"
+	norminette $(shell find src -regex ".\{1,200\}\.c" | xargs) > .norm.tmp
+	grep "Error" -B 1 .norm.tmp || echo "\033[1;32mNo error found\033[0m\n"
+	rm .norm.tmp
+	printf "\033[32mH files:\033[0m\n"
+	norminette $(shell find includes -regex ".\{1,200\}\.h" | xargs) > .norm.tmp
+	grep "Error" -B 1 .norm.tmp || echo "\033[1;32mNo error found\033[0m\n"
+	rm .norm.tmp
+
+norm-raw:
+	printf "\033[32m[GUIMP]\033[0m Norm:\n"
+	printf "\033[32mC files:\033[0m\n"
 	norminette $(shell find src -regex ".\{1,200\}\.c" | xargs)
 	printf "\033[32mH files:\033[0m\n"
 	norminette $(shell find includes -regex ".\{1,200\}\.h" | xargs)
+	printf "\033[32m[LIBUI]\033[0m Norm:\n"
+	make -s -C libui norm-raw
+	printf "\033[32m[LIBFT]\033[0m Norm:\n"
+	make -s -C libft norm-raw
 
 normft:
 	printf "\033[32m[LIBFT]\033[0m Norm:\n"
@@ -109,6 +124,6 @@ normall:
 	make -s norm
 
 .PHONY: re libs fclean hardre hardclean clean all
-.SILENT: all libs clean fclean re hardclean hardre $(OBJS) $(NAME) norm normft normui normall $(DPDS) dclean
+.SILENT: all libs clean fclean re hardclean hardre $(OBJS) $(NAME) norm normft normui normall $(DPDS) dclean norm-raw
 
 -include $(DPDS)
