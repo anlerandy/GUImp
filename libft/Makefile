@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/08 12:38:11 by alerandy          #+#    #+#              #
-#    Updated: 2019/06/13 14:09:40 by gsmith           ###   ########.fr        #
+#    Updated: 2019/06/14 15:14:14 by gsmith           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,6 +85,16 @@ dclean:
 re : fclean $(NAME)
 
 norm:
+	@printf "\033[32mC files:\033[0m\n"
+	@norminette $(shell find srcs -regex ".\{1,200\}\.c" | xargs) > .norm.tmp
+	@grep "Error" -B 1 .norm.tmp || echo "\033[1;32mNo error found\033[0m\n"
+	@rm .norm.tmp
+	@printf "\033[32mH files:\033[0m\n"
+	@norminette $(shell find includes -regex ".\{1,200\}\.h" | xargs) > .norm.tmp
+	@grep "Error" -B 1 .norm.tmp || echo "\033[1;32mNo error found\033[0m\n"
+	@rm .norm.tmp
+
+norm-raw:
 	@printf "\033[32mC files:\033[0m\n"
 	@norminette $(shell find srcs -regex ".\{1,200\}\.c" | xargs)
 	@printf "\033[32mH files:\033[0m\n"
