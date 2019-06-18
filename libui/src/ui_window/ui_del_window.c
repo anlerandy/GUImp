@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 13:40:12 by gsmith            #+#    #+#             */
-/*   Updated: 2019/06/18 14:43:27 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/06/18 14:51:28 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,6 @@ void		ui_del_window(t_ui_univers *univers, int win_id)
 	clear_block(univers, win_id);
 	rb_remove(&(univers->windows), (void *)&win_id, &ui_cmp_window_id, \
 		&ui_free_window);
+	if (!univers->windows)
+		ui_quit_univers(&univers, 0, NULL);
 }
