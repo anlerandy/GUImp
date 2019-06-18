@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 12:02:48 by gsmith            #+#    #+#             */
-/*   Updated: 2019/06/13 13:41:51 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/06/18 12:00:10 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,61 @@ t_ui_win		*ui_new_window(t_ui_univers *univers, t_ui_win_param param, \
 	rb_insert(&(univers->windows), (void *)win, &ui_cmp_window);
 	win->mother = 0;
 	win->blocked = 0;
+	return (win);
+}
+
+t_ui_win		*ui_new_daughter_win(t_ui_univers *univers, char *title, \
+					t_ui_win_param param, unsigned int mother_id)
+{
+	t_ui_win	*win;
+
+	if (!(win = ui_new_window(univers, param, title)))
+		return (NULL);
+	win->mother = mother_id;
+	return (win);
+}
+
+t_ui_win		*ui_new_blocking_win(t_ui_univers *univers, char *title, \
+					t_ui_win_param param, unsigned int blocked)
+{
+	t_ui_win		*win;
+	t_ui_win		*blocked_win;
+	t_ui_win		**blocked_wins;
+	unsigned int	i;
+
+	if (!(win = ui_new_window(univers, param, title)))
+		return (NULL);
+	if (!(blocked_win = ui_get_window_by_id(univers, blocked)))
+	{
+		i = 0;
+		if (!(blocked_wins = (t_ui_win **)rb_search_all(univers->windows, \
+				(void *)&i, &ui_cmp_blocker)))
+			return (win);
+		while (blocked_wins[i])
+			blocked_wins[i++]->blocked = win->id;
+		return (win);
+	}
+	blocked_win->blocked = win->id;
+	return (win);
+}
+
+t_ui_win		*ui_new_blocking_win_arr(t_ui_univers *univers, char *title, \
+					t_ui_win_param param, unsigned int *blocked)
+{
+	t_ui_win		*win;
+	t_ui_win		*blocked_win;
+	unsigned int	i;
+
+	if (!(win = ui_new_window(univers, param, title)))
+		return (NULL);
+	if (!blocked)
+		return (win);
+	i = -1;
+	while (blocked[++i])
+	{
+		if (!(blocked_win = ui_get_window_by_id(univers, blocked[i])))
+			continue ;
+		blocked_win->blocked = win->id;
+	}
 	return (win);
 }
