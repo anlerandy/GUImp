@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 12:02:48 by gsmith            #+#    #+#             */
-/*   Updated: 2019/06/18 12:00:10 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/06/18 14:43:50 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,14 @@ t_ui_win		*ui_new_blocking_win(t_ui_univers *univers, char *title, \
 			return (win);
 		while (blocked_wins[i])
 			blocked_wins[i++]->blocked = win->id;
+		win->blocked = 0;
+		univers->splash->blocked = 0;
+		ft_memdel((void **)&blocked_wins);
 		return (win);
 	}
 	blocked_win->blocked = win->id;
+	win->blocked = 0;
+	univers->splash->blocked = 0;
 	return (win);
 }
 
@@ -103,5 +108,7 @@ t_ui_win		*ui_new_blocking_win_arr(t_ui_univers *univers, char *title, \
 			continue ;
 		blocked_win->blocked = win->id;
 	}
+	win->blocked = 0;
+	univers->splash->blocked = 0;
 	return (win);
 }

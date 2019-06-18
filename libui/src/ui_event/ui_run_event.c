@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 14:28:27 by gsmith            #+#    #+#             */
-/*   Updated: 2019/06/14 16:06:13 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/06/18 12:49:35 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ static void		redirect_blocker(t_ui_univers *univers, t_ui_event_data *data)
 {
 	t_ui_win	*win;
 
-	win = ui_get_window_by_id(univers, data->win_id);
-	if (!win->blocked)
+	if (!(win = ui_get_window_by_id(univers, data->win_id)) || !win->blocked)
 		return ;
 	while (win->blocked)
 		win = ui_get_window_by_id(univers, win->blocked);
