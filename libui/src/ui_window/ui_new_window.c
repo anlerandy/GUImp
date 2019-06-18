@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 12:02:48 by gsmith            #+#    #+#             */
-/*   Updated: 2019/06/18 14:43:50 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/06/18 15:23:28 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,26 @@ t_ui_win		*ui_new_daughter_win(t_ui_univers *univers, char *title, \
 	return (win);
 }
 
+static void		block_daughter(t_ui_univers *univers, unsigned int mother, \
+						unsigned int blocker)
+{
+	t_ui_win		**blocked_wins;
+	unsigned int	i;
+
+	if (!(blocked_wins = (t_ui_win **)rb_search_all(univers->windows, \
+			(void*)&mother, &ui_cmp_mother)))
+		return ;
+	i = -1;
+	while (blocked_wins[++i])
+	{
+		if (blocked_wins[i]->blocked)
+			continue ;
+		blocked_wins[i]->blocked = blocker;
+		block_daughter(univers, blocked_wins[i]->id, blocker);
+	}
+	ft_memdel((void **)&blocked_wins);
+}
+
 t_ui_win		*ui_new_blocking_win(t_ui_univers *univers, char *title, \
 					t_ui_win_param param, unsigned int blocked)
 {
@@ -85,29 +105,7 @@ t_ui_win		*ui_new_blocking_win(t_ui_univers *univers, char *title, \
 		return (win);
 	}
 	blocked_win->blocked = win->id;
-	win->blocked = 0;
-	univers->splash->blocked = 0;
-	return (win);
-}
-
-t_ui_win		*ui_new_blocking_win_arr(t_ui_univers *univers, char *title, \
-					t_ui_win_param param, unsigned int *blocked)
-{
-	t_ui_win		*win;
-	t_ui_win		*blocked_win;
-	unsigned int	i;
-
-	if (!(win = ui_new_window(univers, param, title)))
-		return (NULL);
-	if (!blocked)
-		return (win);
-	i = -1;
-	while (blocked[++i])
-	{
-		if (!(blocked_win = ui_get_window_by_id(univers, blocked[i])))
-			continue ;
-		blocked_win->blocked = win->id;
-	}
+	block_daughter(univers, blocked_win->id, win->id);
 	win->blocked = 0;
 	univers->splash->blocked = 0;
 	return (win);

@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 11:53:34 by gsmith            #+#    #+#             */
-/*   Updated: 2019/06/18 11:22:18 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/06/18 15:08:58 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ t_ui_win		*ui_new_daughter_win(t_ui_univers *univers, char *title, \
 						t_ui_win_param param, unsigned int mother_id);
 t_ui_win		*ui_new_blocking_win(t_ui_univers *univers, char *title, \
 						t_ui_win_param param, unsigned int blocked);
-t_ui_win		*ui_new_blocking_win_arr(t_ui_univers *univers, char *title, \
-						t_ui_win_param param, unsigned int *blocked);
 t_ui_win		*ui_get_window_by_id(t_ui_univers *univers, int win_id);
 t_ui_win		*ui_get_focused_window(t_ui_univers *univers);
 void			ui_del_window(t_ui_univers *univers, int win_id);
