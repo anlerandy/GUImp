@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 15:11:25 by alerandy          #+#    #+#              #
-#    Updated: 2019/06/14 10:48:20 by alerandy         ###   ########.fr        #
+#    Updated: 2019/06/29 10:39:04 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ FREELINK = http://ftp.igh.cnrs.fr/pub/nongnu/freetype/${FREETP}.tar.gz
 SDLTTF = SDL2_ttf-2.0.15
 SDLTLINK = https://www.libsdl.org/projects/SDL_ttf/release/$(SDLTTF).tar.gz
 INCLUDES += ./includes ./includes/privates ./shared/include/SDL2 ../libft/includes
-LIBS = -L../libft -lft -L./shared/lib -lSDL2 -lSDL2_ttf
+LIBS = -L../libft -lft -L./shared/lib -lSDL2 -L./shared/lib/.libs -lSDL2_ttf
 SRCS += ui_init_univers.c ui_quit_univers.c
 INCLUDES:=$(addprefix -I, $(INCLUDES))
 
@@ -66,9 +66,9 @@ $(SDL2):
 	mkdir SDL && cd SDL && sh ../$(SDL2)/configure --prefix=${shell pwd}/shared > /dev/null 2> /dev/null
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[SDL2] \033[0m""Installing""\n"
 	make -C SDL > /dev/null 2> /dev/null
-	mkdir -p shared shared/include shared/lib
-	cp -rf ./SDL/build/.libs/ ./shared/lib \
-	&& cp -rf ./$(SDL2)/include/ ./shared/include/SDL2
+	mkdir -p shared shared/include
+	cp -rfa ./SDL/build/.libs/ ./shared/lib/ \
+	&& cp -rf ./$(SDL2)/include/ ./shared/include/SDL2/
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[SDL2] \033[0m""Ready""\n"
 
 $(FREETP):
@@ -81,12 +81,12 @@ $(FREETP):
 	mkdir -p freetype2 && cd freetype2 && ../$(FREETP)/configure --prefix=${shell pwd}/shared > /dev/null 2> /dev/null
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[FREETYPE] \033[0m""Installing""\n"
 	make -C freetype2 -j > /dev/null 2> /dev/null
-	mkdir -p shared shared/include shared/lib
-	cp -rf ./freetype2/.libs/ ./shared/lib \
-	&& cp -fXR ./$(FREETP)/include/ ./shared/include/freetype2
+	mkdir -p shared shared/include
+	cp -rf ./freetype2/.libs/ ./shared/lib/ \
+	&& cp -fR ./$(FREETP)/include/ ./shared/include/freetype2/
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[FREETYPE] \033[0m""Ready""\n"
 
-$(SDLTTF): $(FREETP)
+$(SDLTTF): $(SDL2) $(FREETP)
 	printf "\r\033[K""\033[32m[SDLTTF] \033[0m""Downloading""\n"
 	curl $(SDLTLINK) > SDLTTF.tar.gz
 	tar -xf SDLTTF.tar.gz
@@ -103,8 +103,8 @@ $(SDLTTF): $(FREETP)
 	sh ../$(SDLTTF)/configure --prefix=${shell pwd}/shared > /dev/null 2> /dev/null
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[SDLTTF] \033[0m""Installing""\n"
 	make -C SDLTTF -j > /dev/null 2> /dev/null
-	mkdir -p shared shared/include shared/lib
-	cp -rf ./SDLTTF/.libs/ ./shared/lib \
+	mkdir -p shared shared/include
+	cp -rf ./SDLTTF/.libs/ ./shared/lib/ \
 	&& cp -rf ./$(SDLTTF)/SDL_ttf.h ./shared/include/SDL2/SDL_ttf.h
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[SDLTTF] \033[0m""Ready""\n"
 
@@ -137,6 +137,7 @@ hardclean: fclean
 	echo "\033[0;31m[SDLTTF]\033[0m Deleted"
 	rm -rf $(FREETP) freetype2
 	echo "\033[0;31m[FREETYPE]\033[0m Deleted"
+	rm -rf shared
 
 hardre: hardclean all
 
