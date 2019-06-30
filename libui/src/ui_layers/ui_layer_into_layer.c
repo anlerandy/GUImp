@@ -6,18 +6,19 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 12:52:23 by alerandy          #+#    #+#             */
-/*   Updated: 2019/06/07 15:00:05 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/06/30 18:30:45 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui_layers.h"
 #include "bmp_parser.h"
+#include "ui_shared.h"
 
 static inline unsigned	merge_pixel(unsigned dst, unsigned src)
 {
 	double			alpha;
-	t_bmp_32		merge;
-	t_bmp_32		source;
+	t_rgba		merge;
+	t_rgba		source;
 
 	merge = hex_to_bit32_pixel(dst);
 	source = hex_to_bit32_pixel(src);

@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_pixtohex.c                                      :+:      :+:    :+:   */
+/*   ui_validatepng.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/28 03:31:05 by alerandy          #+#    #+#             */
-/*   Updated: 2019/06/11 13:20:28 by alerandy         ###   ########.fr       */
+/*   Created: 2019/05/07 19:18:53 by alerandy          #+#    #+#             */
+/*   Updated: 2019/05/10 14:58:12 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bmp_parser.h"
+#include "ui_png.h"
 
-unsigned	bit24_pixel_to_hex(t_bmp_24 pixel)
+int		validate_signature(unsigned char *signature)
 {
-	unsigned	a;
-
-	a = pixel.r << 16;
-	a += pixel.g << 8;
-	a += pixel.b;
-	return (a);
+	return (signature[0] == 137 \
+	&& signature[1] == 'P' \
+	&& signature[2] == 'N' \
+	&& signature[3] == 'G' \
+	&& signature[4] == 13 \
+	&& signature[5] == 10 \
+	&& signature[6] == 26 \
+	&& signature[7] == 10);
 }
 
-unsigned	bit32_pixel_to_hex(t_bmp_32 pixel)
+int		validate_png(t_png png)
 {
-	unsigned	a;
-
-	a = pixel.a << 24;
-	a += pixel.r << 16;
-	a += pixel.g << 8;
-	a += pixel.b;
-	return (a);
+	return (validate_signature(png.signature));
 }

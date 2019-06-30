@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_hextopix.c                                      :+:      :+:    :+:   */
+/*   ui_putpngchunk.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/03 13:06:52 by alerandy          #+#    #+#             */
-/*   Updated: 2019/06/11 13:19:01 by alerandy         ###   ########.fr       */
+/*   Created: 2019/05/08 23:33:09 by alerandy          #+#    #+#             */
+/*   Updated: 2019/05/10 15:53:28 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bmp_parser.h"
+#include "ui_png_tools.h"
 
-t_bmp_24	hex_to_bit24_pixel(unsigned color)
+void	put_chunktype(unsigned type)
 {
-	t_bmp_24	pixel;
-
-	pixel.r = color >> 16 & 0x000000FF;
-	pixel.g = color >> 8 & 0x000000FF;
-	pixel.b = color & 0x000000FF;
-	return (pixel);
+	ft_putnstr((char*)&type, 4);
+	ft_putstr(" ID: ");
+	ft_putnbr(type);
+	ft_putstr("");
 }
 
-t_bmp_32	hex_to_bit32_pixel(unsigned color)
+void	put_chunk(t_png *png, t_png_chunk chunk)
 {
-	t_bmp_32		pixel;
-
-	pixel.a = color >> 24;
-	pixel.r = color >> 16 & 0x000000FF;
-	pixel.g = color >> 8 & 0x000000FF;
-	pixel.b = color & 0x000000FF;
-	return (pixel);
+	(void)png;
+	ft_putstr("Ignored chunk: ");
+	put_chunktype(chunk.type);
+	ft_putstr(" \033[32m(");
+	ft_putnbr(chunk.length);
+	ft_putstr(" octects)\033[0m\n");
+	free(chunk.data);
+	chunk.data = NULL;
 }

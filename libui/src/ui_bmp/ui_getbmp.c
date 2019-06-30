@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/28 03:54:28 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/31 09:44:23 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/06/30 18:27:39 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int		get_read_offset(unsigned short bit)
 	if (bit == (unsigned short)16)
 		return (sizeof(unsigned short));
 	if (bit == (unsigned short)32)
-		return (sizeof(t_bmp_32));
-	return (sizeof(t_bmp_24));
+		return (sizeof(t_rgba));
+	return (sizeof(t_rgb));
 }
 
 void	read_bmp(int fd, t_bmp *bmpfile)
@@ -47,9 +47,9 @@ void	read_bmp(int fd, t_bmp *bmpfile)
 	if (bmpfile->info.color_depth == 16)
 		fill_pixels_16(bmpfile->pixels, (unsigned short*)pixels, w, h);
 	if (bmpfile->info.color_depth == 32)
-		fill_pixels_32(bmpfile->pixels, (t_bmp_32*)pixels, w, h);
+		fill_pixels_32(bmpfile->pixels, (t_rgba*)pixels, w, h);
 	if (bmpfile->info.color_depth == 24)
-		fill_pixels_24(bmpfile->pixels, (t_bmp_24*)pixels, w, h);
+		fill_pixels_24(bmpfile->pixels, (t_rgb*)pixels, w, h);
 	free(pixels);
 }
 

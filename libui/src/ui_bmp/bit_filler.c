@@ -6,21 +6,22 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 18:09:24 by alerandy          #+#    #+#             */
-/*   Updated: 2019/06/06 14:48:59 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/06/30 18:29:31 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bmp_parser.h"
+#include "ui_shared.h"
 
-void	fill_buffer(t_bmp_24 *buff, char c)
+void	fill_buffer(t_rgb *buff, char c)
 {
 	char		a;
-	t_bmp_24	white;
-	t_bmp_24	black;
+	t_rgb	white;
+	t_rgb	black;
 	int			i;
 
-	white = (t_bmp_24){255, 255, 255};
-	black = (t_bmp_24){0, 0, 0};
+	white = (t_rgb){255, 255, 255};
+	black = (t_rgb){0, 0, 0};
 	a = 1;
 	i = -1;
 	while (++i <= 7)
@@ -32,7 +33,7 @@ void	fill_pixels_1(unsigned *bmp_pixels, char *pixels, int width, \
 {
 	int			x;
 	int			y;
-	t_bmp_24	buff[8];
+	t_rgb	buff[8];
 	int			cursor;
 
 	y = -1;
@@ -62,7 +63,7 @@ void	fill_pixels_16(unsigned *bmp_pixels, unsigned short *pixels, \
 	int			x;
 	int			y;
 	int			i;
-	t_bmp_32	converted;
+	t_rgba	converted;
 	int			pix;
 
 	y = 0;
@@ -84,7 +85,7 @@ void	fill_pixels_16(unsigned *bmp_pixels, unsigned short *pixels, \
 	}
 }
 
-void	fill_pixels_24(unsigned *bmp_pixels, t_bmp_24 *pixels, int width, \
+void	fill_pixels_24(unsigned *bmp_pixels, t_rgb *pixels, int width, \
 						int height)
 {
 	int		x;
@@ -102,7 +103,7 @@ void	fill_pixels_24(unsigned *bmp_pixels, t_bmp_24 *pixels, int width, \
 	}
 }
 
-void	fill_pixels_32(unsigned *bmp_pixels, t_bmp_32 *pixels, int width, \
+void	fill_pixels_32(unsigned *bmp_pixels, t_rgba *pixels, int width, \
 						int height)
 {
 	int		x;
