@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 18:05:21 by alerandy          #+#    #+#             */
-/*   Updated: 2019/06/30 20:58:09 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/06/30 21:09:24 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,6 @@ t_ui_win	*ui_open_image(t_ui_univers *univers, char *path)
 			return (ui_png_to_window(univers, path));
 	}
 	ft_putstr_fd("Unknown file type. ", 2);
-	ft_putendl_fd(file_type + 1, 2);
+	ft_putendl_fd(file_type ? file_type + 1 : path, 2);
 	return (NULL);
 }
