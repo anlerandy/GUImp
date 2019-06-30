@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:33:47 by alerandy          #+#    #+#             */
-/*   Updated: 2019/06/30 21:04:22 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/06/30 21:22:22 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ void				read_png(int fd, t_png *png);
 void				put_chunk(t_png *png, t_png_chunk chunk);
 int					validate_png(t_png png);
 
-void				write_header(t_png *png, t_png_chunk chunk);
-void				write_data(t_png *png, t_png_chunk chunk);
-void				write_palette(t_png *png, t_png_chunk chunk);
-void				write_transparency(t_png *png, t_png_chunk chunk);
-void				finalise_reading(t_png *png, t_png_chunk chunk);
+void				png_write_header(t_png *png, t_png_chunk chunk);
+void				png_write_data(t_png *png, t_png_chunk chunk);
+void				png_write_palette(t_png *png, t_png_chunk chunk);
+void				png_write_transparency(t_png *png, t_png_chunk chunk);
+void				png_finalise_reading(t_png *png, t_png_chunk chunk);
 
 #endif

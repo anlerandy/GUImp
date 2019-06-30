@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:32:45 by alerandy          #+#    #+#             */
-/*   Updated: 2019/06/30 17:38:37 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/06/30 21:22:17 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@ t_png_funcs		*get_functions(void)
 {
 	t_png_funcs		*array;
 
-	array = ft_memalloc(sizeof(t_png_funcs) * 5);
-	array[0] = (t_png_funcs){PNGIHDR, &write_header};
-	array[1] = (t_png_funcs){PNGIDAT, &write_data};
-	array[2] = (t_png_funcs){PNGPLTE, &write_palette};
-	array[3] = (t_png_funcs){PNGTRNS, &write_transparency};
-	array[4] = (t_png_funcs){0, &put_chunk};
+	array = ft_memalloc(sizeof(t_png_funcs) * 6);
+	array[0] = (t_png_funcs){1, NULL};
+	array[1] = (t_png_funcs){PNGIHDR, &png_write_header};
+	array[2] = (t_png_funcs){PNGIDAT, &png_write_data};
+	array[3] = (t_png_funcs){PNGPLTE, &png_write_palette};
+	array[4] = (t_png_funcs){PNGTRNS, &png_write_transparency};
+	array[5] = (t_png_funcs){0, &put_chunk};
 	return (array);
 }
 
@@ -58,7 +59,7 @@ void			read_png(int fd, t_png *png)
 		chunk = get_chunk(fd);
 	}
 	if (chunk.type == PNGIEND)
-		finalise_reading(png, chunk);
+		png_finalise_reading(png, chunk);
 	free(array);
 	array = NULL;
 }

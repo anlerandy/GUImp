@@ -6,13 +6,13 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 13:56:00 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/11 20:40:51 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/06/30 21:19:41 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ui_png_tools.h"
 
-void		write_transparency(t_png *png, t_png_chunk chunk)
+void		png_write_transparency(t_png *png, t_png_chunk chunk)
 {
 	png->opacity = ft_memalloc(chunk.length);
 	ft_memcpy(png->opacity, chunk.data, chunk.length);
@@ -20,7 +20,7 @@ void		write_transparency(t_png *png, t_png_chunk chunk)
 	chunk.data = NULL;
 }
 
-void		write_palette(t_png *png, t_png_chunk chunk)
+void		png_write_palette(t_png *png, t_png_chunk chunk)
 {
 	int		size;
 
