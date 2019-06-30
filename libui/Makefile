@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 15:11:25 by alerandy          #+#    #+#              #
-#    Updated: 2019/06/29 10:39:04 by alerandy         ###   ########.fr        #
+#    Updated: 2019/06/30 16:30:40 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,7 +67,7 @@ $(SDL2):
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[SDL2] \033[0m""Installing""\n"
 	make -C SDL > /dev/null 2> /dev/null
 	mkdir -p shared shared/include
-	cp -rfa ./SDL/build/.libs/ ./shared/lib/ \
+	cp -rf ./SDL/build/.libs/ ./shared/lib/ \
 	&& cp -rf ./$(SDL2)/include/ ./shared/include/SDL2/
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[SDL2] \033[0m""Ready""\n"
 
