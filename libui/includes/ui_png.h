@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 18:23:59 by alerandy          #+#    #+#             */
-/*   Updated: 2019/06/30 18:31:55 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/06/30 21:04:52 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 
-/* Chunk Types */
 # define PNGIHDR 1380206665
 # define PNGPLTE 1163152464
 # define PNGPHYS 1935231088
@@ -64,6 +63,7 @@ typedef struct			s_png
 }						t_png;
 
 t_png					ui_getpng(char *path);
+void					ui_delpng(t_png *png);
 void					ui_putpng(t_png png);
 
 #endif

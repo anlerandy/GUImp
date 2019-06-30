@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 18:09:24 by alerandy          #+#    #+#             */
-/*   Updated: 2019/06/30 18:29:31 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/06/30 20:59:01 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 void	fill_buffer(t_rgb *buff, char c)
 {
-	char		a;
+	char	a;
 	t_rgb	white;
 	t_rgb	black;
-	int			i;
+	int		i;
 
 	white = (t_rgb){255, 255, 255};
 	black = (t_rgb){0, 0, 0};
@@ -31,10 +31,10 @@ void	fill_buffer(t_rgb *buff, char c)
 void	fill_pixels_1(unsigned *bmp_pixels, char *pixels, int width, \
 						int height)
 {
-	int			x;
-	int			y;
+	int		x;
+	int		y;
 	t_rgb	buff[8];
-	int			cursor;
+	int		cursor;
 
 	y = -1;
 	width /= 8;
@@ -63,7 +63,7 @@ void	fill_pixels_16(unsigned *bmp_pixels, unsigned short *pixels, \
 	int			x;
 	int			y;
 	int			i;
-	t_rgba	converted;
+	t_rgba		converted;
 	int			pix;
 
 	y = 0;

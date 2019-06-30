@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:01:37 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/11 21:12:15 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/06/30 21:03:08 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void		uncompress_data(void *dst, void *src, unsigned in_size, \
 	infstream.next_in = (Bytef *)src;
 	infstream.avail_out = (uInt)out_size;
 	infstream.next_out = (Bytef *)dst;
-
 	inflateInit(&infstream);
 	inflate(&infstream, Z_NO_FLUSH);
 	inflateEnd(&infstream);

@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 01:34:34 by alerandy          #+#    #+#             */
-/*   Updated: 2019/06/30 17:38:37 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/06/30 21:01:26 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ unsigned char	get_compression(unsigned short compression)
 		return (10);
 	if (compression == 0x1F8B)
 		return (50);
-	return 0;
+	return (0);
 }
 
 void			write_data(t_png *png, t_png_chunk chunk)

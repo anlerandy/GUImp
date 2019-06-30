@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 12:52:23 by alerandy          #+#    #+#             */
-/*   Updated: 2019/06/30 18:30:45 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/06/30 21:00:58 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 static inline unsigned	merge_pixel(unsigned dst, unsigned src)
 {
-	double			alpha;
+	double		alpha;
 	t_rgba		merge;
 	t_rgba		source;
 
