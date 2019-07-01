@@ -6,12 +6,28 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:01:37 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/01 14:41:39 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/01 22:57:56 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ui_png_tools.h"
 #include <zlib.h>
+
+static inline unsigned	merge_pixel(unsigned dst, unsigned src)
+{
+	double		alpha;
+	t_bgra		merge;
+	t_bgra		source;
+
+	merge = hex_to_bit32_pixel(dst);
+	source = hex_to_bit32_pixel(src);
+	alpha = (255 - source.a) / 255.;
+	merge.r = merge.r * alpha + source.r * (1 - alpha);
+	merge.g = merge.g * alpha + source.g * (1 - alpha);
+	merge.b = merge.b * alpha + source.b * (1 - alpha);
+	dst = bit32_pixel_to_hex(merge);
+	return (dst);
+}
 
 void		uncompress_data(void *dst, void *src, unsigned in_size, \
 							unsigned out_size)
@@ -51,7 +67,7 @@ void		png_finalise_reading(t_png *png, t_png_chunk chunk)
 		ui_scanline_to_rgb(png, data);
 	if (png->header.color == PNGRGBA)
 		while (png->pixel_count - ++i)
-			png->pixels[i] = png_bit32_pixel_to_hex(*(t_argb*)((data + (int)(i / png->header.width)) + i * sizeof(t_argb)));
+			png->pixels[i] = merge_pixel(png->pixels[i], png_bit32_pixel_to_hex(*(t_argb*)((data + (int)(i / png->header.width)) + i * sizeof(t_argb))));
 	if (png->header.color == PNGINDEX)
 		while (png->pixel_count - ++i - 1)
 			png->pixels[i] = bit24_pixel_to_hex(png->palette[((unsigned char*)(data + (int)(i / png->header.width)))[i]]) \
