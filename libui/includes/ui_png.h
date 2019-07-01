@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 18:23:59 by alerandy          #+#    #+#             */
-/*   Updated: 2019/06/30 21:04:52 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/01 14:33:33 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef struct			s_png
 {
 	unsigned char	signature[9];
 	t_png_header	header;
-	t_rgb			*palette;
+	t_bgr			*palette;
 	unsigned char	*opacity;
 	unsigned		*pixels;
 	unsigned		pixel_count;

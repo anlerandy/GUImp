@@ -6,15 +6,15 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 13:06:52 by alerandy          #+#    #+#             */
-/*   Updated: 2019/06/30 18:23:16 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/01 14:33:33 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ui_shared.h"
 
-t_rgb	hex_to_bit24_pixel(unsigned color)
+t_bgr	hex_to_bit24_pixel(unsigned color)
 {
-	t_rgb	pixel;
+	t_bgr	pixel;
 
 	pixel.r = color >> 16 & 0x000000FF;
 	pixel.g = color >> 8 & 0x000000FF;
@@ -22,9 +22,9 @@ t_rgb	hex_to_bit24_pixel(unsigned color)
 	return (pixel);
 }
 
-t_rgba	hex_to_bit32_pixel(unsigned color)
+t_bgra	hex_to_bit32_pixel(unsigned color)
 {
-	t_rgba		pixel;
+	t_bgra		pixel;
 
 	pixel.a = color >> 24;
 	pixel.r = color >> 16 & 0x000000FF;
