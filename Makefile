@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:59:51 by alerandy          #+#    #+#              #
-#    Updated: 2019/06/30 18:25:24 by alerandy         ###   ########.fr        #
+#    Updated: 2019/07/01 13:15:20 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,13 +23,13 @@ SDL2 = SDL2-2.0.9
 SDLTTF = SDL2_ttf-2.0.15
 INCLUDES += ./includes ./libui/shared/include/SDL2 ./libft/includes \
 			./libui/includes ./libui/includes/privates
-LIBS = -lz -L./libui -lui -L./libft -lft -L./libui/shared/lib -lSDL2 -L./libui/shared/lib/.libs -lSDL2_ttf
+LIBS = -lz -lpng -L./libui -lui -L./libft -lft -L./libui/shared/lib -lSDL2 -lSDL2_ttf -lfreetype
 
 SRCS += main.c
 INCLUDES:=$(addprefix -I, $(INCLUDES))
 
 # Updating the VPATH
-VPATH =.:obj:$(shell find src -type d | tr '\n' ':'):shared/lib
+VPATH =.:obj:$(shell find src -type d | tr '\n' ':'):libui/shared/lib
 
 # Insert .o files
 OBJS = $(SRCS:%.c=%.o)
@@ -52,7 +52,7 @@ all: libs $(NAME)
 
 $(NAME): $(LIBFT) $(LIBUI) $(OBJS)
 	printf "\r\033[K""\r\033[K""\033[32m[GUI] \033[0m""Compiling""\n"
-	$(COMPILE) $(PATH_OBJ) -o $(NAME) $(INCLUDES) $(LIBS)
+	$(COMPILE) $(PATH_OBJ) -o $(NAME) $(INCLUDES) $(LIBS) -Wl,-rpath,./libui/shared/lib
 	sh addIcon.sh
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[GUI] \033[0m""Ready""\n"
 
