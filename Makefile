@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:59:51 by alerandy          #+#    #+#              #
-#    Updated: 2019/06/07 11:39:40 by alerandy         ###   ########.fr        #
+#    Updated: 2019/06/29 10:38:05 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,16 +20,16 @@ include includes.dep
 
 # Intisialize the main files
 SDL2 = SDL2-2.0.9
-INCLUDES += ./includes ./libui/$(SDL2)/include ./libft/includes \
+SDLTTF = SDL2_ttf-2.0.15
+INCLUDES += ./includes ./libui/shared/include/SDL2 ./libft/includes \
 			./libui/includes ./libui/includes/privates
-LIBS = -L./libui -lui -L./libft -lft -L./libui/SDL/build/.libs -lSDL2 \
-	   -Wl,-rpath,./libui/SDL/build/.libs
+LIBS = -L./libui -lui -L./libft -lft -L./libui/shared/lib -lSDL2 -L./libui/shared/lib/.libs -lSDL2_ttf
 
 SRCS += main.c
 INCLUDES:=$(addprefix -I, $(INCLUDES))
 
 # Updating the VPATH
-VPATH =.:obj:$(shell find src -type d | tr '\n' ':'):SDL/build/.libs
+VPATH =.:obj:$(shell find src -type d | tr '\n' ':'):shared/lib
 
 # Insert .o files
 OBJS = $(SRCS:%.c=%.o)
@@ -53,7 +53,6 @@ all: libs $(NAME)
 $(NAME): $(LIBFT) $(LIBUI) $(OBJS)
 	printf "\r\033[K""\r\033[K""\033[32m[GUI] \033[0m""Compiling""\n"
 	$(COMPILE) $(PATH_OBJ) -o $(NAME) $(INCLUDES) $(LIBS)
-	sh updateLinker.sh
 	sh addIcon.sh
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[GUI] \033[0m""Ready""\n"
 
@@ -68,7 +67,7 @@ $(DPATH)%.d: %.c
 
 libs:
 	make -s -C libft -j3
-	make -s -C libui -j3
+	make -s -C libui
 
 clean:
 	rm -rf obj
@@ -90,9 +89,24 @@ hardre: hardclean all
 
 norm:
 	printf "\033[32mC files:\033[0m\n"
+	norminette $(shell find src -regex ".\{1,200\}\.c" | xargs) > .norm.tmp
+	grep "Error" -B 1 .norm.tmp || echo "\033[1;32mNo error found\033[0m\n"
+	rm .norm.tmp
+	printf "\033[32mH files:\033[0m\n"
+	norminette $(shell find includes -regex ".\{1,200\}\.h" | xargs) > .norm.tmp
+	grep "Error" -B 1 .norm.tmp || echo "\033[1;32mNo error found\033[0m\n"
+	rm .norm.tmp
+
+norm-raw:
+	printf "\033[32m[GUIMP]\033[0m Norm:\n"
+	printf "\033[32mC files:\033[0m\n"
 	norminette $(shell find src -regex ".\{1,200\}\.c" | xargs)
 	printf "\033[32mH files:\033[0m\n"
 	norminette $(shell find includes -regex ".\{1,200\}\.h" | xargs)
+	printf "\033[32m[LIBUI]\033[0m Norm:\n"
+	make -s -C libui norm-raw
+	printf "\033[32m[LIBFT]\033[0m Norm:\n"
+	make -s -C libft norm-raw
 
 normft:
 	printf "\033[32m[LIBFT]\033[0m Norm:\n"
@@ -110,6 +124,6 @@ normall:
 	make -s norm
 
 .PHONY: re libs fclean hardre hardclean clean all
-.SILENT: all libs clean fclean re hardclean hardre $(OBJS) $(NAME) norm normft normui normall $(DPDS) dclean
+.SILENT: all libs clean fclean re hardclean hardre $(OBJS) $(NAME) norm normft normui normall $(DPDS) dclean norm-raw
 
 -include $(DPDS)
