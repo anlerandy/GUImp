@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:59:51 by alerandy          #+#    #+#              #
-#    Updated: 2019/06/29 10:38:05 by alerandy         ###   ########.fr        #
+#    Updated: 2019/07/12 14:28:22 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ all: libs $(NAME)
 
 $(NAME): $(LIBFT) $(LIBUI) $(OBJS)
 	printf "\r\033[K""\r\033[K""\033[32m[GUI] \033[0m""Compiling""\n"
-	$(COMPILE) $(PATH_OBJ) -o $(NAME) $(INCLUDES) $(LIBS)
+	$(COMPILE) $(PATH_OBJ) -o $(NAME) $(INCLUDES) $(LIBS) -Wl,-rpath,./libui/shared/lib
 	sh addIcon.sh
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[GUI] \033[0m""Ready""\n"
 
