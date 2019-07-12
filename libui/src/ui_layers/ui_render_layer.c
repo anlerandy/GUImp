@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 11:18:03 by alerandy          #+#    #+#             */
-/*   Updated: 2019/06/07 15:05:15 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/12 15:30:18 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,9 @@ static void				ui_render_layer_rescale(t_ui_win **win,
 	t_ui_win	*tmp;
 	t_isize		l;
 	unsigned	*dst;
-	unsigned	*src;
 
 	tmp = *win;
 	dst = (unsigned *)tmp->surf->pixels;
-	src = (unsigned *)layer.pixels;
 	layer.scale = calc_scale(layer);
 	l.x = (layer.x >= 0) ? layer.x : 0;
 	while (l.x < (int)(layer.width * layer.scale.x) + layer.x
@@ -53,7 +51,8 @@ static void				ui_render_layer_rescale(t_ui_win **win,
 			&& l.y < tmp->surf->h && l.y >= 0 && l.y >= layer.y
 			- (layer.height * layer.scale.y))
 		{
-			dst[l.x + l.y * tmp->surf->w] = src[pixel_place(layer, l.x, l.y)];
+			dst[l.x + l.y * tmp->surf->w] = layer.pixels[ \
+											pixel_place(layer, l.x, l.y)];
 			l.y += layer.height_inversed;
 		}
 		l.x += layer.width_inversed;
