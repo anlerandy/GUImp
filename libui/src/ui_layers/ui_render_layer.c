@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 11:18:03 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/20 15:29:08 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/20 15:38:08 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ static void				ui_render_layer_rescale(t_ui_win **win,
 			&& l.y < tmp->surf->h && l.y >= 0 && l.y >= layer.y
 			- (layer.height * layer.scale.y))
 		{
-			dst[l.x + l.y * tmp->surf->w] = layer.pixels[ \
-											pixel_place(layer, l.x, l.y)];
+			dst[l.x + l.y * tmp->surf->w] = layer.pixels[pixel_place(layer, \
+											l.x, l.y)];
 			l.y += layer.height_inversed;
 		}
 		l.x += layer.width_inversed;
@@ -71,7 +71,8 @@ void					ui_render_layer(t_ui_win **win, t_ui_layer layer)
 	dst = (*win)->surf->pixels;
 	i = 0;
 	limit_w = (*win)->surf->w - layer.x < (int)layer.rescale_w \
-				? (*win)->surf->w : 2 * (*win)->surf->w - layer.rescale_w - layer.x;
+				? (*win)->surf->w \
+				: 2 * (*win)->surf->w - layer.rescale_w - layer.x;
 	if (limit_w < 0)
 		return ;
 	if (layer.width != layer.rescale_w || layer.height != layer.rescale_h)
