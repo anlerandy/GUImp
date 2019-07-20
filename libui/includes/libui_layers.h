@@ -14,6 +14,7 @@
 # define LIBUI_LAYERS_H
 
 # include "libui.h"
+# include "vectors.h"
 
 typedef struct	s_ui_layer
 {
@@ -27,6 +28,7 @@ typedef struct	s_ui_layer
 	int			width_inversed;
 	unsigned	rescale_h;
 	int			height_inversed;
+	t_vec2		scale;
 }				t_ui_layer;
 
 t_ui_layer		ui_image_to_layer(char *path);
