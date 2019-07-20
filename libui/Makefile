@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 15:11:25 by alerandy          #+#    #+#              #
-#    Updated: 2019/07/20 14:02:50 by alerandy         ###   ########.fr        #
+#    Updated: 2019/07/20 15:44:10 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -132,11 +132,11 @@ fclean: clean dclean
 	echo "\033[0;31m[LIBUI]\033[0m Deleted"
 
 hardclean: fclean
-	rm -rf $(SDL2)
+	rm -rf $(SDL2) SDL
 	echo "\033[0;31m[SDL2]\033[0m Deleted"
-	rm -rf $(SDLTTF)
+	rm -rf $(SDLTTF) SDLTTF
 	echo "\033[0;31m[SDLTTF]\033[0m Deleted"
-	rm -rf $(FREETP)
+	rm -rf $(FREETP) freetype2
 	echo "\033[0;31m[FREETYPE]\033[0m Deleted"
 	rm -rf shared
 
