@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_del_window.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 13:40:12 by gsmith            #+#    #+#             */
-/*   Updated: 2019/06/18 14:51:28 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/07/20 15:23:12 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,9 @@ void		ui_del_window(t_ui_univers *univers, int win_id)
 		&ui_free_window);
 	if (!univers->windows)
 		ui_quit_univers(&univers, 0, NULL);
+}
+
+void		ui_clear_all_windows(t_ui_univers *univers)
+{
+	rb_clear_tree(&(univers->windows), &ui_free_window);
 }

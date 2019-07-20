@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libui_tools.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:27:55 by gsmith            #+#    #+#             */
-/*   Updated: 2019/06/13 15:35:58 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/07/20 15:23:00 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBUI_TOOLS_H
 
 # include "libui.h"
+# include "libui_elem.h"
 # include "ft_btree_rb.h"
 # include "SDL.h"
 
@@ -25,9 +26,10 @@ typedef struct	s_ui_theme
 typedef struct	s_ui_win
 {
 	unsigned int	id;
+	unsigned int	id_next_elem;
 	SDL_Surface		*surf;
 	SDL_Window		*sdl_ptr;
-	t_rb_node		*elem;
+	t_rb_node		*elements;
 	t_ui_theme		*theme;
 	unsigned int	mother;
 	unsigned int	blocked;
@@ -59,7 +61,6 @@ int				ui_cmp_blocker(void *ptr_win, void *ptr_blocker_id);
 int				ui_cmp_event(void *ptr_a, void *ptr_b);
 int				ui_cmp_event_id(void *ptr_eve, void *ptr_id);
 
-void			ui_free_elem(void *elem_ptr);
 void			ui_free_window(void *win_ptr);
 void			ui_free_event(void *ptr_eve);
 

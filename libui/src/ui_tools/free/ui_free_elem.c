@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_del_event.c                                     :+:      :+:    :+:   */
+/*   ui_free_elem.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/06 14:06:27 by gsmith            #+#    #+#             */
-/*   Updated: 2019/06/12 16:22:58 by gsmith           ###   ########.fr       */
+/*   Created: 2019/06/11 15:14:31 by gsmith            #+#    #+#             */
+/*   Updated: 2019/06/13 11:29:40 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libui_tools.h"
+#include "libui_elem.h"
 
-void			ui_del_event(t_ui_univers *univers, unsigned int event_id[2])
+void			ui_free_elem(void *elem_ptr)
 {
-	rb_remove(&(univers->events), &event_id, &ui_cmp_event_id, &ui_free_event);
-}
+	t_ui_elem	*elem;
 
-void			ui_clear_events(t_ui_univers *univers)
-{
-	rb_clear_tree(&(univers->events), &ui_free_event);
+	elem = (t_ui_elem *)elem_ptr;
+	ft_strdel(&elem->text);
+	ft_memdel(&elem_ptr);
 }

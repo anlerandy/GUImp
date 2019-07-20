@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/20 14:15:31 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/20 15:31:25 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,23 @@ void	callback_enter(t_ui_univers **uni, void *dummy, t_ui_event_data event)
 	pt_event_param(event);
 }
 
+void	button(t_ui_univers **uni, t_ui_elem_used *context)
+{
+	(void)uni;
+	(void)context;
+	ft_putendl("a button was clicked.");
+}
+
 int		main()
 {
 	t_ui_univers	*univ;
 	t_ui_win_param	param[4];
+	t_ui_new_elem	el[3];
 	t_ui_win		*win;
 	t_ui_win		*win2;
 	t_ui_win		*wins[3];
 	int				flag;
+	int				flog;
 	unsigned int	event_id[2];
 	t_ui_win		*splash;
 	t_ui_layer		layer;
@@ -109,10 +118,22 @@ int		main()
 
 	param[1] = (t_ui_win_param){500, 500, 500, 500, UI_WINDOW_RESIZABLE};
 	param[2] = (t_ui_win_param){1000, 500, 500, 500, UI_WINDOW_RESIZABLE};
+	el[0] = (t_ui_new_elem){0, 0, 100, 100, UI_ELEM_TYPE_BUTTON, \
+		UI_ELEM_STATE_IDLE, "button", NULL, &button};
+	el[1] = (t_ui_new_elem){100, 100, 200, 200, UI_ELEM_TYPE_BUTTON, \
+		UI_ELEM_STATE_IDLE, "button", NULL, &button};
+	el[2] = (t_ui_new_elem){200, 200, 300, 300, UI_ELEM_TYPE_BUTTON, \
+		UI_ELEM_STATE_IDLE, "button", NULL, &button};
 	flag = -1;
 	while (++flag < 3)
+	{
 		if (!(wins[flag] = ui_new_window(univ, param[flag], "Hello toast")))
 			ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
+		flog = -1;
+		while (++flog < 3)
+			if (!ui_new_elem(wins[flag], el[flag]))
+				ui_quit_univers(&univ, 1, "Could not add new elem. eoe.");
+	}
 	layer = ui_image_to_layer(image);
 	alpha_layer = ui_image_to_layer(alpha);
 	alpha_layer2 = ui_image_to_layer(alpha2);
