@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 14:05:22 by gsmith            #+#    #+#             */
-/*   Updated: 2019/06/13 14:43:01 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/06/18 14:26:01 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void				**rb_search_all(t_rb_node *root, void *data_ref, \
 
 	if (!root || !(count = count_node(root, data_ref, cmp_funct)))
 		return (NULL);
-	if (!(tab = ft_memalloc(sizeof(void *) * count + 1)))
+	if (!(tab = ft_memalloc(sizeof(void *) * (count + 1))))
 		return (NULL);
 	fill_tab(tab, root, data_ref, cmp_funct);
 	return (tab);

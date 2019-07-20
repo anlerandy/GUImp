@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
-/*   Updated: 2019/06/13 13:38:02 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/06/18 14:47:49 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,12 @@ int		main()
 	t_ui_univers	*univ;
 	t_ui_win_param	param[4];
 	t_ui_win		*win;
-	int				flag;
+	// int				flag;
 	unsigned int	event_id[2];
 	t_ui_win		*splash;
-	t_ui_layer		layer;
-	t_ui_layer		alpha_layer;
-	t_ui_layer		alpha_layer2;
+	// t_ui_layer		layer;
+	// t_ui_layer		alpha_layer;
+	// t_ui_layer		alpha_layer2;
 	char			*image;
 	char			*saved_image;
 	char			*alpha;
@@ -89,23 +89,42 @@ int		main()
 	alpha2 = "/Users/gsmith/dev/joli.bmp";
 	alpha = "/Users/gsmith/dev/joli.bmp";
 	splash = ui_open_splash(univ, "./assets/splash.bmp", "The GUImp");
+
+/*
+**	windows creation
+*/
 	ft_bzero(param, sizeof(param));
 	param[0] = (t_ui_win_param){0, 500, 500, 500, UI_WINDOW_RESIZABLE};
-	param[1] = (t_ui_win_param){500, 500, 500, 500, UI_WINDOW_RESIZABLE};
-	param[2] = (t_ui_win_param){1000, 500, 500, 500, UI_WINDOW_RESIZABLE};
-	flag = -1;
-	while (++flag < 3)
-		if (!(win = ui_new_window(univ, param[flag], "Hello toast")))
-			ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
-	layer = ui_image_to_layer(image);
-	alpha_layer = ui_image_to_layer(alpha);
-	alpha_layer2 = ui_image_to_layer(alpha2);
-	ui_layer_into_layer(&layer, &alpha_layer);
-	ui_layer_into_layer(&layer, &alpha_layer2);
-	ui_render_layer(&win, layer);
-	ui_layer_to_bmp(layer, saved_image);
-	if (!(win = ui_open_image(univ, saved_image)))
+	param[1] = (t_ui_win_param){600, 500, 500, 500, UI_WINDOW_RESIZABLE};
+	param[2] = (t_ui_win_param){1200, 500, 500, 500, UI_WINDOW_RESIZABLE};
+	param[3] = (t_ui_win_param){1800, 500, 500, 500, UI_WINDOW_RESIZABLE};
+	if (!(win = ui_new_window(univ, param[0], "mother of window")))
 		ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
+	if (!(win = ui_new_daughter_win(univ, "daughter window 1", param[1], 2)))
+		ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
+	if (!(win = ui_new_daughter_win(univ, "daughter window 2", param[2], 2)))
+		ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
+
+	if (!(win = ui_new_blocking_win(univ, "blocking mother", param[3], 2)))
+		ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
+
+	// flag = -1;
+	// while (++flag < 3)
+	// 	if (!(win = ui_new_window(univ, param[flag], "Hello toast")))
+	// 		ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
+	// layer = ui_image_to_layer(image);
+	// alpha_layer = ui_image_to_layer(alpha);
+	// alpha_layer2 = ui_image_to_layer(alpha2);
+	// ui_layer_into_layer(&layer, &alpha_layer);
+	// ui_layer_into_layer(&layer, &alpha_layer2);
+	// ui_render_layer(&win, layer);
+	// ui_layer_to_bmp(layer, saved_image);
+	// if (!(win = ui_open_image(univ, saved_image)))
+	// 	ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
+
+/*
+**	events creation
+*/
 	event_id[0] = UI_EVENT_KEYUP;
 	event_id[1] = UIK_ESCAPE;
 	if (ui_new_event(univ, event_id, &callback_quit, NULL))
