@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 15:11:25 by alerandy          #+#    #+#              #
-#    Updated: 2019/07/20 15:44:10 by alerandy         ###   ########.fr        #
+#    Updated: 2019/07/20 16:11:13 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,8 +62,6 @@ $(SDL2):
 	mkdir -p shared shared/include
 	cp -rf ./SDL/build/.libs/ ./shared/lib/ \
 	&& cp -rf ./$(SDL2)/include/ ./shared/include/SDL2/
-	rm -rf $(SDL2) SDL
-	touch $(SDL2)
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[SDL2] \033[0m""Ready""\n"
 
 $(FREETP):
@@ -79,7 +77,7 @@ $(FREETP):
 	mkdir -p shared shared/include
 	cp -rf ./freetype2/.libs/* ./shared/lib/ \
 	&& cp -fR ./$(FREETP)/include/ ./shared/include/freetype2/
-	rm -rf $(FREETP) freetype2
+	rm -rf $(FREETP)
 	touch $(FREETP)
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[FREETYPE] \033[0m""Ready""\n"
 
@@ -103,9 +101,9 @@ $(SDLTTF): $(SDL2) $(FREETP)
 	mkdir -p shared shared/include
 	cp -rf ./SDLTTF/.libs/* ./shared/lib/ \
 	&& cp -rf ./$(SDLTTF)/SDL_ttf.h ./shared/include/SDL2/SDL_ttf.h
-	rm -rf $(SDLTTF) SDLTTF
+	rm -rf $(SDLTTF)
 	touch $(SDLTTF)
-	rm -rf $(SDL2) SDL
+	rm -rf $(SDL2)
 	touch $(SDL2)
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[SDLTTF] \033[0m""Ready""\n"
 

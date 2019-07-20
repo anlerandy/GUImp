@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:59:51 by alerandy          #+#    #+#              #
-#    Updated: 2019/07/01 13:15:20 by alerandy         ###   ########.fr        #
+#    Updated: 2019/07/20 16:14:23 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SDL2 = SDL2-2.0.9
 SDLTTF = SDL2_ttf-2.0.15
 INCLUDES += ./includes ./libui/shared/include/SDL2 ./libft/includes \
 			./libui/includes ./libui/includes/privates
-LIBS = -lz -lpng -L./libui -lui -L./libft -lft -L./libui/shared/lib -lSDL2 -lSDL2_ttf -lfreetype
+LIBS = -lz -L./libui -lui -L./libft -lft -L./libui/shared/lib -lSDL2 -lSDL2_ttf -lfreetype
 
 SRCS += main.c
 INCLUDES:=$(addprefix -I, $(INCLUDES))

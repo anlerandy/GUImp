@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:01:37 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/20 14:02:25 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/20 15:59:56 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 #include <zlib.h>
 #include <stdio.h>
 
-static inline unsigned	merge_pixel(unsigned dst, unsigned src)
-{
-	double		alpha;
-	t_bgra		merge;
-	t_bgra		source;
+// static inline unsigned	merge_pixel(unsigned dst, unsigned src)
+// {
+// 	double		alpha;
+// 	t_bgra		merge;
+// 	t_bgra		source;
 
-	merge = hex_to_bit32_pixel(dst);
-	source = hex_to_bit32_pixel(src);
-	alpha = (255 - source.a) / 255.;
-	merge.r = merge.r * alpha + source.r * (1 - alpha);
-	merge.g = merge.g * alpha + source.g * (1 - alpha);
-	merge.b = merge.b * alpha + source.b * (1 - alpha);
-	dst = bit32_pixel_to_hex(merge);
-	return (dst);
-}
+// 	merge = hex_to_bit32_pixel(dst);
+// 	source = hex_to_bit32_pixel(src);
+// 	alpha = (255 - source.a) / 255.;
+// 	merge.r = merge.r * alpha + source.r * (1 - alpha);
+// 	merge.g = merge.g * alpha + source.g * (1 - alpha);
+// 	merge.b = merge.b * alpha + source.b * (1 - alpha);
+// 	dst = bit32_pixel_to_hex(merge);
+// 	return (dst);
+// }
 
 void		uncompress_data(void *dst, void *src, unsigned in_size, \
 							unsigned out_size)
