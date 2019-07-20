@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 13:56:00 by alerandy          #+#    #+#             */
-/*   Updated: 2019/06/30 21:19:41 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/01 14:33:33 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void		png_write_palette(t_png *png, t_png_chunk chunk)
 {
 	int		size;
 
-	size = chunk.length / sizeof(t_rgb);
-	png->palette = ft_memalloc(size * sizeof(t_rgb));
+	size = chunk.length / sizeof(t_bgr);
+	png->palette = ft_memalloc(size * sizeof(t_bgr));
 	ft_memcpy(png->palette, chunk.data, chunk.length);
 	free(chunk.data);
 	chunk.data = NULL;
