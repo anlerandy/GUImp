@@ -6,7 +6,7 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 13:30:40 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/27 18:47:28 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/06/13 14:09:20 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void			rb_apply_prefix(t_rb_node *root, void (*node_funct)(void *));
 void			rb_apply_suffix(t_rb_node *root, void (*node_funct)(void *));
 int				rb_level_count(t_rb_node *root);
 void			*rb_search_infix(t_rb_node *root, void *data_ref, \
+					int (*cmp_funct)(void *, void *));
+void			**rb_search_all(t_rb_node *root, void *data_ref, \
 					int (*cmp_funct)(void *, void *));
 
 int				rb_validate_tree(t_rb_node *root);

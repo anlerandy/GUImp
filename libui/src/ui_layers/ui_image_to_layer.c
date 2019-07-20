@@ -36,6 +36,8 @@ t_ui_layer		ui_image_to_layer(char *path)
 	layer.height = bmp.info.height;
 	layer.rescale_w = bmp.info.width;
 	layer.rescale_h = bmp.info.height;
+	layer.width_inversed = 1;
+	layer.height_inversed = 1;
 	ui_delbmp(&bmp);
 	return (layer);
 }

@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libui_error.h                                      :+:      :+:    :+:   */
+/*   ui_free_elem.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/15 14:01:44 by gsmith            #+#    #+#             */
-/*   Updated: 2019/06/13 13:41:37 by gsmith           ###   ########.fr       */
+/*   Created: 2019/06/11 15:14:31 by gsmith            #+#    #+#             */
+/*   Updated: 2019/06/13 11:29:40 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBUI_ERROR_H
-# define LIBUI_ERROR_H
+#include "libui_elem.h"
 
-# define ERR_MALLOC "Malloc failed."
-# define ERR_SDL_INIT "SDL Initialization failed."
-# define ERR_SDL_WIN "SDL Window creation failed."
-# define ERR_SDL_SURF "SDL failed retrieving window's surface."
-# define ERR_WINDOW_ID "No more id available for new window."
-# define ERR_SDL_WIN_ID "Error while retrieving window ID from SDL."
+void			ui_free_elem(void *elem_ptr)
+{
+	t_ui_elem	*elem;
 
-#endif
+	elem = (t_ui_elem *)elem_ptr;
+	ft_strdel(&elem->text);
+	ft_memdel(&elem_ptr);
+}

@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/08 12:38:11 by alerandy          #+#    #+#              #
-#    Updated: 2019/06/07 11:40:29 by alerandy         ###   ########.fr        #
+#    Updated: 2019/07/20 14:05:36 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SRC_NAME = ft_putchar.c ft_putstr.c ft_putcharerr.c ft_putstrerr.c ft_memset.c \
 		   rb_apply_by_level.c rb_apply_infix.c rb_apply_prefix.c \
 		   rb_apply_suffix.c rb_clear_tree.c rb_fix_black_node.c rb_insert.c \
 		   rb_level_count.c rb_parenting.c rb_remove.c rb_rotation.c \
-		   rb_search_infix.c rb_validate_tree.c \
+		   rb_search_infix.c rb_search_all.c rb_validate_tree.c \
 		   vec_add.c vec_rot.c vec_init.c vec_mult_mat.c vec_mult.c vec_norm.c \
 		   vec_print.c vec_free.c vec_scale.c vec_spe_mat.c vec_sub.c
 NAME = libft.a
@@ -85,6 +85,16 @@ dclean:
 re : fclean $(NAME)
 
 norm:
+	@printf "\033[32mC files:\033[0m\n"
+	@norminette $(shell find srcs -regex ".\{1,200\}\.c" | xargs) > .norm.tmp
+	@grep "Error" -B 1 .norm.tmp || echo "\033[1;32mNo error found\033[0m\n"
+	@rm .norm.tmp
+	@printf "\033[32mH files:\033[0m\n"
+	@norminette $(shell find includes -regex ".\{1,200\}\.h" | xargs) > .norm.tmp
+	@grep "Error" -B 1 .norm.tmp || echo "\033[1;32mNo error found\033[0m\n"
+	@rm .norm.tmp
+
+norm-raw:
 	@printf "\033[32mC files:\033[0m\n"
 	@norminette $(shell find srcs -regex ".\{1,200\}\.c" | xargs)
 	@printf "\033[32mH files:\033[0m\n"

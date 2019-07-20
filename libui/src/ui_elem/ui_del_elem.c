@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_clear_all_windows.c                             :+:      :+:    :+:   */
+/*   ui_del_elem.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/27 19:15:13 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/27 19:22:06 by gsmith           ###   ########.fr       */
+/*   Created: 2019/06/11 15:23:38 by gsmith            #+#    #+#             */
+/*   Updated: 2019/06/12 16:58:02 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui_tools.h"
 
-void		ui_clear_all_windows(t_ui_univers *univers)
+void	ui_del_elem(t_ui_win *win, unsigned int id)
 {
-	rb_clear_tree(&(univers->windows), &ui_free_window);
+	if (!win)
+		return ;
+	rb_remove(&(win->elements), (void *)&id, &ui_cmp_elem_id, \
+		&ui_free_elem);
+}
+
+void	ui_clear_elems(t_ui_win *win)
+{
+	if (!win)
+		return ;
+	rb_clear_tree(&(win->elements), &ui_free_elem);
 }
