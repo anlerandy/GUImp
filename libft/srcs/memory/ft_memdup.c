@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   guimp.h                                            :+:      :+:    :+:   */
+/*   ft_memdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/22 18:39:00 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/20 17:32:25 by alerandy         ###   ########.fr       */
+/*   Created: 2019/07/20 17:18:23 by alerandy          #+#    #+#             */
+/*   Updated: 2019/07/20 17:27:51 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GUIMP_H
-# define GUIMP_H
+#include "libft.h"
 
-# include "libft.h"
-# include "libui.h"
-# include "libui_events.h"
-# include "libui_ttf.h"
+void	*ft_memdup(void *src, size_t size)
+{
+	void	*dst;
 
-#endif
+	if (!(dst = ft_memalloc(size)))
+		return (NULL);
+	ft_memcpy(dst, src, size);
+	return (dst);
+}

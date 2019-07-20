@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/08 12:38:11 by alerandy          #+#    #+#              #
-#    Updated: 2019/07/20 14:05:36 by alerandy         ###   ########.fr        #
+#    Updated: 2019/07/20 17:20:40 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ SRC_NAME = ft_putchar.c ft_putstr.c ft_putcharerr.c ft_putstrerr.c ft_memset.c \
 		   ft_putendl_fd.c ft_putstr_fd.c ft_putchar_fd.c ft_strsplit.c \
 		   ft_itoa.c ft_lstnew.c ft_lstmap.c ft_lstiter.c ft_lstdelone.c \
 		   ft_lstdel.c ft_lstadd.c ft_hidenp.c ft_strcapitalize.c ft_strndup.c \
-		   ft_isupper.c get_next_line.c \
+		   ft_isupper.c get_next_line.c ft_memdup.c \
 		   ft_putnstr.c ft_putnendl.c ft_swap_integer.c \
 		   rb_apply_by_level.c rb_apply_infix.c rb_apply_prefix.c \
 		   rb_apply_suffix.c rb_clear_tree.c rb_fix_black_node.c rb_insert.c \

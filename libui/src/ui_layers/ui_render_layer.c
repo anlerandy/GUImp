@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 11:18:03 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/20 15:38:08 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/20 17:53:23 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,6 @@ void					ui_render_layer(t_ui_win **win, t_ui_layer layer)
 		dst += (*win)->surf->w;
 		++i;
 	}
+
 	SDL_UpdateWindowSurface((*win)->sdl_ptr);
 }

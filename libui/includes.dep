@@ -5,7 +5,8 @@ include src/ui_event/make.dep
 include src/ui_tools/cmp/make.dep
 include src/ui_tools/free/make.dep
 include src/ui_tools/pickers/make.dep
-include src/shared/make.dep
+include src/ui_shared/make.dep
 include src/ui_open_image/make.dep
 include src/ui_layers/make.dep
 include src/ui_elem/make.dep
+include src/ui_font/make.dep
