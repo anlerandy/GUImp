@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libui.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 11:53:34 by gsmith            #+#    #+#             */
-/*   Updated: 2019/06/13 11:33:50 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/07/20 15:22:53 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,11 @@ void			ui_quit_univers(t_ui_univers **univers, int exit_code, \
 					char *msg);
 
 t_ui_win		*ui_new_window(t_ui_univers *univers, t_ui_win_param param, \
-					char *title);
+						char *title);
+t_ui_win		*ui_new_daughter_win(t_ui_univers *univers, char *title, \
+						t_ui_win_param param, unsigned int mother_id);
+t_ui_win		*ui_new_blocking_win(t_ui_univers *univers, char *title, \
+						t_ui_win_param param, unsigned int blocked);
 t_ui_win		*ui_get_window_by_id(t_ui_univers *univers, int win_id);
 t_ui_win		*ui_get_focused_window(t_ui_univers *univers);
 void			ui_del_window(t_ui_univers *univers, int win_id);

@@ -6,11 +6,22 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 14:28:27 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/14 15:52:12 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/06/18 12:49:35 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui_tools.h"
+
+static void		redirect_blocker(t_ui_univers *univers, t_ui_event_data *data)
+{
+	t_ui_win	*win;
+
+	if (!(win = ui_get_window_by_id(univers, data->win_id)) || !win->blocked)
+		return ;
+	while (win->blocked)
+		win = ui_get_window_by_id(univers, win->blocked);
+	data->win_id = win->id;
+}
 
 int				ui_wait_event(t_ui_univers **univers)
 {
@@ -30,6 +41,7 @@ int				ui_wait_event(t_ui_univers **univers)
 					&ui_cmp_event_id));
 		if (!eve_call)
 			return (res);
+		redirect_blocker(*univers, &data);
 		eve_call->callback(univers, eve_call->config, data);
 	}
 	return (res);

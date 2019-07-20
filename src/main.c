@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
-/*   Updated: 2019/06/13 11:47:34 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/07/20 15:31:25 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	callback_quit(t_ui_univers **uni, void *dummy, t_ui_event_data event)
 	(void)dummy;
 	pt_event_param(event);
 	ui_stop_watch(*uni);
-	ft_putendl("thanks for the fish!");
+	ft_putendl("thanks for all the fish!");
 }
 
 void	callback_close(t_ui_univers **uni, void *dummy, t_ui_event_data event)
@@ -79,6 +79,8 @@ int		main()
 	t_ui_win_param	param[4];
 	t_ui_new_elem	el[3];
 	t_ui_win		*win;
+	t_ui_win		*win2;
+	t_ui_win		*wins[3];
 	int				flag;
 	int				flog;
 	unsigned int	event_id[2];
@@ -93,13 +95,27 @@ int		main()
 
 	if (!(univ = ui_init_univers()))
 		exit(1);
-	image = "/Users/gsmith/dev/joli.bmp";
-	saved_image = "/Users/gsmith/dev/test.bmp";
-	alpha2 = "/Users/gsmith/dev/joli.bmp";
-	alpha = "/Users/gsmith/dev/joli.bmp";
+	image = "/Users/alerandy/Desktop/sample.bmp";
+	saved_image = "/Users/alerandy/Desktop/test.bmp";
+	alpha2 = "/Users/alerandy/Desktop/alpha2.bmp";
+	alpha = "/Users/alerandy/Desktop/alpha.bmp";
 	splash = ui_open_splash(univ, "./assets/splash.bmp", "The GUImp");
+
 	ft_bzero(param, sizeof(param));
 	param[0] = (t_ui_win_param){0, 500, 500, 500, UI_WINDOW_RESIZABLE};
+	param[1] = (t_ui_win_param){600, 500, 500, 500, UI_WINDOW_RESIZABLE};
+	param[2] = (t_ui_win_param){1200, 500, 500, 500, UI_WINDOW_RESIZABLE};
+	param[3] = (t_ui_win_param){1800, 500, 500, 500, UI_WINDOW_RESIZABLE};
+	if (!(win = ui_new_window(univ, param[0], "mother of window")))
+		ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
+	if (!(win2 = ui_new_daughter_win(univ, "daughter window 1", param[1], 2)))
+		ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
+	if (!(win = ui_new_daughter_win(univ, "daughter window 2", param[2], 2)))
+		ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
+
+	if (!(win = ui_new_blocking_win(univ, "blocking mother", param[3], 2)))
+		ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
+
 	param[1] = (t_ui_win_param){500, 500, 500, 500, UI_WINDOW_RESIZABLE};
 	param[2] = (t_ui_win_param){1000, 500, 500, 500, UI_WINDOW_RESIZABLE};
 	el[0] = (t_ui_new_elem){0, 0, 100, 100, UI_ELEM_TYPE_BUTTON, \
@@ -111,11 +127,11 @@ int		main()
 	flag = -1;
 	while (++flag < 3)
 	{
-		if (!(win = ui_new_window(univ, param[flag], "Hello toast")))
+		if (!(wins[flag] = ui_new_window(univ, param[flag], "Hello toast")))
 			ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
 		flog = -1;
 		while (++flog < 3)
-			if (!ui_new_elem(win, el[flag]))
+			if (!ui_new_elem(wins[flag], el[flag]))
 				ui_quit_univers(&univ, 1, "Could not add new elem. eoe.");
 	}
 	layer = ui_image_to_layer(image);
@@ -123,9 +139,20 @@ int		main()
 	alpha_layer2 = ui_image_to_layer(alpha2);
 	ui_layer_into_layer(&layer, &alpha_layer);
 	ui_layer_into_layer(&layer, &alpha_layer2);
-	ui_render_layer(&win, layer);
+	ui_render_layer(&win2, layer);
 	ui_layer_to_bmp(layer, saved_image);
-	if (!(win = ui_open_image(univ, saved_image)))
+	layer.rescale_w = 0.3 * layer.width;
+	layer.x = 200;
+	layer.y = 200;
+	layer.width_inversed = -1;
+	ui_render_layer(&(wins[2]), layer);
+	layer.rescale_w = 1.2 * layer.width;
+	layer.x = 0;
+	layer.y = 400;
+	layer.width_inversed = 1;
+	layer.height_inversed = -1;
+	ui_render_layer(&(wins[1]), layer);
+	if (!(wins[0] = ui_open_image(univ, saved_image)))
 		ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
 	event_id[0] = UI_EVENT_KEYUP;
 	event_id[1] = UIK_ESCAPE;
@@ -142,7 +169,7 @@ int		main()
 	event_id[1] = UI_WINDOWEVENT_CLOSE;
 	if (ui_new_event(univ, event_id, &callback_close, NULL))
 		ui_quit_univers(&univ, 1, "Error while setting up event. eoe.");
-	// sleep(2); // Test the new system of the Splash.
+//	sleep(2); // Test the new system of the Splash.
 	ui_close_splash(univ, &splash);
 	ui_watch_events(&univ);
 	ui_quit_univers(&univ, 0, NULL);
