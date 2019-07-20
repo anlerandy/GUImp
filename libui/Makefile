@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 15:11:25 by alerandy          #+#    #+#              #
-#    Updated: 2019/06/30 16:30:40 by alerandy         ###   ########.fr        #
+#    Updated: 2019/07/05 15:54:41 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,6 +84,8 @@ $(FREETP):
 	mkdir -p shared shared/include
 	cp -rf ./freetype2/.libs/ ./shared/lib/ \
 	&& cp -fR ./$(FREETP)/include/ ./shared/include/freetype2/
+	rm -rf $(FREETP) freetype2
+	touch $(FREETP)
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[FREETYPE] \033[0m""Ready""\n"
 
 $(SDLTTF): $(SDL2) $(FREETP)
@@ -106,6 +108,10 @@ $(SDLTTF): $(SDL2) $(FREETP)
 	mkdir -p shared shared/include
 	cp -rf ./SDLTTF/.libs/ ./shared/lib/ \
 	&& cp -rf ./$(SDLTTF)/SDL_ttf.h ./shared/include/SDL2/SDL_ttf.h
+	rm -rf $(SDLTTF) SDLTTF
+	touch $(SDLTTF)
+	rm -rf $(SDL2) SDL
+	touch $(SDL2)
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[SDLTTF] \033[0m""Ready""\n"
 
 $(NAME): $(OBJS)

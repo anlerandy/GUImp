@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/28 03:16:49 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/10 20:38:37 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/05 16:52:37 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,4 +104,6 @@ void	ui_putpng(t_png png)
 	put_filter(png.header.filter);
 	ft_putstr("Interlace: ");
 	ft_putendl(png.header.interlace ? "Adam7" : "None");
+	ft_putendl(png.palette ? "Color palette PNG" : "No color palette");
+	ft_putendl(png.opacity ? "Alpha Channel PNG" : "No Alpha sub channel");
 }
