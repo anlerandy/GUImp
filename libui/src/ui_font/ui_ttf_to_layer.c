@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 16:47:44 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/23 14:19:23 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/23 15:03:40 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,28 @@ inline static void	fill_layer(SDL_Surface *surface, t_ui_layer *layer, \
 		return (ft_putendl_fd("Erreur lors de la conversion du TTF.", 2));
 }
 
+static inline t_ui_layer	ttf_print_error(char *error, char *detail)
+{
+	t_ui_layer	layer;
+
+	ft_bzero(&layer, sizeof(t_ui_layer));
+	ft_putstr_fd(error, 2);
+	if (detail)
+		ft_putendl_fd(detail, 2);
+	else
+		ft_putchar('\n');
+	return (layer);
+}
+
+static inline void	quit_ttf(TTF_Font *police, SDL_Surface *surface)
+{
+	if (police)
+		TTF_CloseFont(police);
+	if (surface)
+		SDL_FreeSurface(surface);
+	TTF_Quit();
+}
+
 t_ui_layer			ui_ttf_to_layer(char *path, char *txt, t_ui_ttf_param param)
 {
 	t_ui_layer	layer;
@@ -50,26 +72,19 @@ t_ui_layer			ui_ttf_to_layer(char *path, char *txt, t_ui_ttf_param param)
 	police = NULL;
 	surface = NULL;
 	if (TTF_Init() == -1)
-	{
-		ft_putstr_fd("Erreur d'initialisation de TTF_Init: ", 2);
-		ft_putendl_fd(TTF_GetError(), 2);
-		return (layer);
-	}
+		return (ttf_print_error("Erreur d'initialisation : ", TTF_GetError()));
 	if (!(police = TTF_OpenFont(path, 65)))
 	{
-		ft_putstr_fd("La font est introuvable: ", 2);
-		ft_putendl_fd(path, 2);
-		return (layer);
+		quit_ttf(NULL, NULL);
+		return (ttf_print_error("La font est introuvable : ", path));
 	}
 	fill_color(&color, param.color);
 	if (!(surface = TTF_RenderText_Blended(police, txt, color)))
 	{
-		ft_putstr_fd("Erreur lors du dessin du texte: ", 2);
-		ft_putendl_fd(TTF_GetError(), 2);
-		return (layer);
+		quit_ttf(police, NULL);
+		return (ttf_print_error("Erreur dessin de texte : ", TTF_GetError()));
 	}
 	fill_layer(surface, &layer, param);
-	TTF_CloseFont(police);
-	TTF_Quit();
+	quit_ttf(police, surface);
 	return (layer);
 }
