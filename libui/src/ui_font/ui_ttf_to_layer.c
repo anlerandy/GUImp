@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 16:47:44 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/23 16:24:28 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/23 17:06:32 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ inline static void	fill_color(SDL_Color *color, unsigned user_color)
 	t_bmp_32	divided;
 
 	divided = hex_to_bit32_pixel(user_color);
+	divided.a = (1 - divided.a / 255.) * 255;
 	*color = (SDL_Color){divided.r, divided.g, divided.b, divided.a};
 }
 
