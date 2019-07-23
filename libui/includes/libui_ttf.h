@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 16:50:22 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/20 17:30:32 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/23 16:19:27 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ typedef struct	s_ui_ttf_param
 	unsigned	y;
 	unsigned	width;
 	unsigned	height;
+	int			inversed_w;
+	int			inversed_h;
 	unsigned	color;
 }				t_ui_ttf_param;
 

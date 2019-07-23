@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 16:47:44 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/23 15:03:40 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/23 16:24:28 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@ inline static void	fill_layer(SDL_Surface *surface, t_ui_layer *layer, \
 	layer->height = surface->h;
 	layer->x = param.x;
 	layer->y = param.y;
-	layer->rescale_h = param.height;
+	layer->width_inversed = param.inversed_w >= 0 ? 1 : -1;
+	layer->height_inversed = param.inversed_h >= 0 ? 1 : -1;
 	layer->rescale_w = param.width;
-	layer->height_inversed = 1;
-	layer->width_inversed = 1;
+	layer->rescale_h = param.height;
 	if (!(layer->pixels = ft_memdup(surface->pixels, layer->width \
 									* layer->height * sizeof(unsigned))))
 		return (ft_putendl_fd("Erreur lors de la conversion du TTF.", 2));
 }
 
-static inline t_ui_layer	ttf_print_error(char *error, char *detail)
+static inline t_ui_layer	ttf_print_error(char *error, const char *detail)
 {
 	t_ui_layer	layer;
 
