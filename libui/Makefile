@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 15:11:25 by alerandy          #+#    #+#              #
-#    Updated: 2019/06/30 16:30:40 by alerandy         ###   ########.fr        #
+#    Updated: 2019/07/23 13:05:49 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,13 +18,6 @@ COMPILE=$(CC) $(CFLAGS)
 # Get all dependances
 include includes.dep
 
-# Deal with Cross-Platform
-ifeq ($(shell uname -s), Darwin)
-    linksdl = -Wl,-rpath,./shared/lib
-else
-    linksdl = -Wl,-rpath,./shared/lib
-endif
-
 # Intisialize the main files
 SDL2 = SDL2-2.0.9
 SDL2LINK = https://www.libsdl.org/release/$(SDL2).tar.gz
@@ -34,7 +27,7 @@ FREELINK = http://ftp.igh.cnrs.fr/pub/nongnu/freetype/${FREETP}.tar.gz
 SDLTTF = SDL2_ttf-2.0.15
 SDLTLINK = https://www.libsdl.org/projects/SDL_ttf/release/$(SDLTTF).tar.gz
 INCLUDES += ./includes ./includes/privates ./shared/include/SDL2 ../libft/includes
-LIBS = -L../libft -lft -L./shared/lib -lSDL2 -L./shared/lib/.libs -lSDL2_ttf
+LIBS = -L../libft -lft -L./shared/lib -lSDL2 -lSDL2_ttf
 SRCS += ui_init_univers.c ui_quit_univers.c
 INCLUDES:=$(addprefix -I, $(INCLUDES))
 
@@ -82,8 +75,10 @@ $(FREETP):
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[FREETYPE] \033[0m""Installing""\n"
 	make -C freetype2 -j > /dev/null 2> /dev/null
 	mkdir -p shared shared/include
-	cp -rf ./freetype2/.libs/ ./shared/lib/ \
+	cp -rf ./freetype2/.libs/* ./shared/lib/ \
 	&& cp -fR ./$(FREETP)/include/ ./shared/include/freetype2/
+	rm -rf $(FREETP)
+	touch $(FREETP)
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[FREETYPE] \033[0m""Ready""\n"
 
 $(SDLTTF): $(SDL2) $(FREETP)
@@ -104,8 +99,12 @@ $(SDLTTF): $(SDL2) $(FREETP)
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[SDLTTF] \033[0m""Installing""\n"
 	make -C SDLTTF -j > /dev/null 2> /dev/null
 	mkdir -p shared shared/include
-	cp -rf ./SDLTTF/.libs/ ./shared/lib/ \
+	cp -rf ./SDLTTF/.libs/* ./shared/lib/ \
 	&& cp -rf ./$(SDLTTF)/SDL_ttf.h ./shared/include/SDL2/SDL_ttf.h
+	rm -rf $(SDLTTF)
+	touch $(SDLTTF)
+	rm -rf $(SDL2)
+	touch $(SDL2)
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[SDLTTF] \033[0m""Ready""\n"
 
 $(NAME): $(OBJS)
