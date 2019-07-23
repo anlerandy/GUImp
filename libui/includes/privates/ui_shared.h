@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 18:03:13 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/23 16:45:26 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/23 18:05:51 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,5 @@ void		close_fd(int fd, char *error);
 void		convert_color_lines(unsigned *dst, unsigned *src, unsigned width);
 unsigned	merge_pixel(unsigned dst, unsigned src);
 void		ui_memuset(void *b, unsigned c, size_t len);
-
 
 #endif

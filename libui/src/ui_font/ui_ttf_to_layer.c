@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 16:47:44 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/23 17:06:32 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/23 18:05:22 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "SDL_surface.h"
 #include "bmp_parser.h"
 
-inline static void	fill_color(SDL_Color *color, unsigned user_color)
+inline static void			fill_color(SDL_Color *color, unsigned user_color)
 {
 	t_bmp_32	divided;
 
@@ -24,8 +24,8 @@ inline static void	fill_color(SDL_Color *color, unsigned user_color)
 	*color = (SDL_Color){divided.r, divided.g, divided.b, divided.a};
 }
 
-inline static void	fill_layer(SDL_Surface *surface, t_ui_layer *layer, \
-								t_ui_ttf_param param)
+inline static void			fill_layer(SDL_Surface *surface, \
+										t_ui_layer *layer, t_ui_ttf_param param)
 {
 	layer->width = surface->w;
 	layer->height = surface->h;
@@ -53,7 +53,7 @@ static inline t_ui_layer	ttf_print_error(char *error, const char *detail)
 	return (layer);
 }
 
-static inline void	quit_ttf(TTF_Font *police, SDL_Surface *surface)
+static inline void			quit_ttf(TTF_Font *police, SDL_Surface *surface)
 {
 	if (police)
 		TTF_CloseFont(police);
@@ -62,7 +62,8 @@ static inline void	quit_ttf(TTF_Font *police, SDL_Surface *surface)
 	TTF_Quit();
 }
 
-t_ui_layer			ui_ttf_to_layer(char *path, char *txt, t_ui_ttf_param param)
+t_ui_layer					ui_ttf_to_layer(char *path, char *txt, \
+											t_ui_ttf_param param)
 {
 	t_ui_layer	layer;
 	TTF_Font	*police;
