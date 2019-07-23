@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 11:18:03 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/20 17:53:23 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/23 13:00:35 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "libui_layers.h"
 #include "libui_tools.h"
 #include "vectors.h"
+#include "ui_shared.h"
 
 static inline int		pixel_place(t_ui_layer layer, int x, int y)
 {
@@ -79,7 +80,7 @@ void					ui_render_layer(t_ui_win **win, t_ui_layer layer)
 		return (ui_render_layer_rescale(win, layer));
 	while (layer.rescale_h > i && (*win)->surf->h > (int)i)
 	{
-		ft_memcpy(dst + layer.x, src, limit_w * sizeof(unsigned));
+		convert_color_lines(dst + layer.x, src, limit_w);
 		src += layer.width;
 		dst += (*win)->surf->w;
 		++i;
