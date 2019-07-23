@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 11:18:03 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/23 13:00:35 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/23 14:24:10 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ static inline t_vec2	calc_scale(t_ui_layer layer)
 	return (scale);
 }
 
+static inline void		handle_transparancy(unsigned *dst, unsigned *src)
+{
+	*dst = merge_pixel(*dst, *src);
+}
+
 static void				ui_render_layer_rescale(t_ui_win **win,
 	t_ui_layer layer)
 {
@@ -52,8 +57,9 @@ static void				ui_render_layer_rescale(t_ui_win **win,
 			&& l.y < tmp->surf->h && l.y >= 0 && l.y >= layer.y
 			- (layer.height * layer.scale.y))
 		{
-			dst[l.x + l.y * tmp->surf->w] = layer.pixels[pixel_place(layer, \
-											l.x, l.y)];
+			handle_transparancy(&(dst[l.x + l.y * tmp->surf->w]), \
+								&(layer.pixels[pixel_place(layer, \
+									l.x, l.y)]));
 			l.y += layer.height_inversed;
 		}
 		l.x += layer.width_inversed;
@@ -85,6 +91,5 @@ void					ui_render_layer(t_ui_win **win, t_ui_layer layer)
 		dst += (*win)->surf->w;
 		++i;
 	}
-
 	SDL_UpdateWindowSurface((*win)->sdl_ptr);
 }
