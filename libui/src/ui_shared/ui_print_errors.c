@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_shared.h                                        :+:      :+:    :+:   */
+/*   ui_print_errors.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/26 18:03:13 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/24 18:42:11 by alerandy         ###   ########.fr       */
+/*   Created: 2019/07/24 18:41:16 by alerandy          #+#    #+#             */
+/*   Updated: 2019/07/24 18:45:34 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UI_SHARED_H
-# define UI_SHARED_H
+#include "libui_layers.h"
 
-char		*get_file_name(char *path);
-void		close_fd(int fd, char *error);
-void		convert_color_lines(unsigned *dst, unsigned *src, unsigned width);
-unsigned	merge_pixel(unsigned dst, unsigned src);
-void		ui_memuset(void *b, unsigned c, size_t len);
-t_ui_layer	ttf_print_error(char *error, const char *detail);
+t_ui_layer	ttf_print_error(char *error, const char *detail)
+{
+	t_ui_layer	layer;
 
-#endif
+	ft_bzero(&layer, sizeof(t_ui_layer));
+	ft_putstr_fd(error, 2);
+	if (detail)
+		ft_putendl_fd(detail, 2);
+	else
+		ft_putchar('\n');
+	return (layer);
+}

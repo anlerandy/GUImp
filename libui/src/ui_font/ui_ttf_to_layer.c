@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 16:47:44 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/23 18:05:22 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/24 18:44:46 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "libui_ttf.h"
 #include "SDL_surface.h"
 #include "bmp_parser.h"
+#include "ui_shared.h"
 
 inline static void			fill_color(SDL_Color *color, unsigned user_color)
 {
@@ -22,6 +23,31 @@ inline static void			fill_color(SDL_Color *color, unsigned user_color)
 	divided = hex_to_bit32_pixel(user_color);
 	divided.a = (1 - divided.a / 255.) * 255;
 	*color = (SDL_Color){divided.r, divided.g, divided.b, divided.a};
+}
+
+inline static void			set_layer_size(SDL_Surface *surface, \
+										t_ui_layer *layer, t_ui_ttf_param param)
+{
+	if (!param.width && !param.height)
+	{
+		layer->rescale_w = surface->w;
+		layer->rescale_h = surface->h;
+	}
+	else if (!param.width && param.height)
+	{
+		layer->rescale_w = param.height * 100. / surface->h / 100. * surface->w;
+		layer->rescale_h = param.height;
+	}
+	else if (param.width && !param.height)
+	{
+		layer->rescale_h = param.width * 100. / surface->w / 100. * surface->h;
+		layer->rescale_w = param.width;
+	}
+	else
+	{
+		layer->rescale_w = param.width;
+		layer->rescale_h = param.height;
+	}
 }
 
 inline static void			fill_layer(SDL_Surface *surface, \
@@ -33,24 +59,10 @@ inline static void			fill_layer(SDL_Surface *surface, \
 	layer->y = param.y;
 	layer->width_inversed = param.inversed_w >= 0 ? 1 : -1;
 	layer->height_inversed = param.inversed_h >= 0 ? 1 : -1;
-	layer->rescale_w = param.width;
-	layer->rescale_h = param.height;
+	set_layer_size(surface, layer, param);
 	if (!(layer->pixels = ft_memdup(surface->pixels, layer->width \
 									* layer->height * sizeof(unsigned))))
 		return (ft_putendl_fd("Erreur lors de la conversion du TTF.", 2));
-}
-
-static inline t_ui_layer	ttf_print_error(char *error, const char *detail)
-{
-	t_ui_layer	layer;
-
-	ft_bzero(&layer, sizeof(t_ui_layer));
-	ft_putstr_fd(error, 2);
-	if (detail)
-		ft_putendl_fd(detail, 2);
-	else
-		ft_putchar('\n');
-	return (layer);
 }
 
 static inline void			quit_ttf(TTF_Font *police, SDL_Surface *surface)
