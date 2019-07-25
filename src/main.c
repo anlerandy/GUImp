@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/25 13:56:53 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/25 17:45:51 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int		main()
 	char			*alpha2;
 	t_ui_layer		text;
 	t_ui_ttf_param	txt_param;
-	t_ui_win		*explorer;
+	t_ui_folder		*explorer;
 
 	if (!(univ = ui_init_univers()))
 		exit(1);
@@ -176,8 +176,8 @@ int		main()
 	event_id[1] = UI_WINDOWEVENT_CLOSE;
 	if (ui_new_event(univ, event_id, &callback_close, NULL))
 		ui_quit_univers(&univ, 1, "Error while setting up event. eoe.");
-//	sleep(2); // Test the new system of the Splash.
-	explorer = ui_open_folder(univ, "./");
+	// sleep(2); // Test the new system of the Splash.
+	explorer = ui_open_folder(univ, "./", NULL);
 	ui_close_splash(univ, &splash);
 	ui_watch_events(&univ);
 	ui_quit_univers(&univ, 0, NULL);

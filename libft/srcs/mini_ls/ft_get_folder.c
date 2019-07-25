@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 11:35:10 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/25 13:56:21 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/25 16:42:55 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ t_ls_folder				*ft_get_folder(char *path)
 		return (folder);
 	i = 0;
 	folder->files_amount = count_file(path);
+	folder->path = ft_strdup(path);
 	if (!folder->files_amount || !(dir = opendir(path)))
 	{
 		ft_putendl_fd("This folder doesn't exist, or need authorisation", 2);
