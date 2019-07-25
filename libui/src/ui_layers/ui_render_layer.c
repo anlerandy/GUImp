@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 11:18:03 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/23 16:55:52 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/25 11:05:01 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ void					ui_render_layer(t_ui_win **win, t_ui_layer layer)
 	dst = (*win)->surf->pixels;
 	i = 0;
 	limit_w = (*win)->surf->w - layer.x < (int)layer.rescale_w \
-				? (*win)->surf->w \
-				: 2 * (*win)->surf->w - layer.rescale_w - layer.x;
+			? (*win)->surf->w : 2 * (*win)->surf->w - layer.rescale_w - layer.x;
+	limit_w = limit_w > (int)layer.rescale_w ? (int)layer.rescale_w : limit_w;
 	layer.height_inversed = layer.height_inversed >= 0 ? 1 : -1;
 	layer.width_inversed = layer.width_inversed >= 0 ? 1 : -1;
 	if (limit_w < 0)

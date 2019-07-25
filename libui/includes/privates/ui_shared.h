@@ -6,12 +6,14 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 18:03:13 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/24 18:42:11 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/25 10:45:07 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UI_SHARED_H
 # define UI_SHARED_H
+
+# include "libui_layers.h"
 
 char		*get_file_name(char *path);
 void		close_fd(int fd, char *error);
