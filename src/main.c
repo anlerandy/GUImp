@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/25 17:45:51 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/26 01:37:16 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,16 +86,17 @@ int		main()
 	int				flog;
 	unsigned int	event_id[2];
 	t_ui_win		*splash;
-	t_ui_layer		layer;
-	t_ui_layer		alpha_layer;
-	t_ui_layer		alpha_layer2;
+	t_ui_layer		*layer;
+	t_ui_layer		*alpha_layer;
+	t_ui_layer		*alpha_layer2;
 	char			*image;
 	char			*saved_image;
 	char			*alpha;
 	char			*alpha2;
-	t_ui_layer		text;
+	t_ui_layer		*text;
 	t_ui_ttf_param	txt_param;
 	t_ui_folder		*explorer;
+	char			*font;
 
 	if (!(univ = ui_init_univers()))
 		exit(1);
@@ -141,25 +142,25 @@ int		main()
 	layer = ui_image_to_layer(image);
 	alpha_layer = ui_image_to_layer(alpha);
 	alpha_layer2 = ui_image_to_layer(alpha2);
-	ui_layer_into_layer(&layer, &alpha_layer);
-	ui_layer_into_layer(&layer, &alpha_layer2);
+	ui_layer_into_layer(layer, alpha_layer);
+	ui_layer_into_layer(layer, alpha_layer2);
 	ui_render_layer(&win2, layer);
 	ui_layer_to_bmp(layer, saved_image);
-	layer.rescale_w = 0.3 * layer.width;
-	layer.x = 200;
-	layer.y = 200;
-	layer.width_inversed = -1;
+	layer->rescale_w = 0.3 * layer->width;
+	layer->x = 200;
+	layer->y = 200;
+	layer->width_inversed = -1;
 	ui_render_layer(&(wins[2]), layer);
-	layer.rescale_w = 1.2 * layer.width;
-	layer.x = 0;
-	layer.y = 400;
-	layer.width_inversed = 1;
-	layer.height_inversed = -1;
+	layer->rescale_w = 1.2 * layer->width;
+	layer->x = 0;
+	layer->y = 400;
+	layer->width_inversed = 1;
+	layer->height_inversed = -1;
 	ui_render_layer(&(wins[1]), layer);
 	if (!(wins[0] = ui_open_image(univ, saved_image)))
 		ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
 	txt_param = (t_ui_ttf_param){800, 100, 500, 100, -1, 1, 0x9cff0000};
-	text = ui_ttf_to_layer("./assets/8bit.ttf", "Test de texte!", txt_param);
+	text = ui_ttf_to_layer(font, "Test de texte!", txt_param);
 	ui_render_layer(&(wins[0]), text);
 	event_id[0] = UI_EVENT_KEYUP;
 	event_id[1] = UIK_ESCAPE;
