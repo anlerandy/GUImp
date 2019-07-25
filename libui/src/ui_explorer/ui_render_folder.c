@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 16:45:05 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/25 19:32:58 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/25 19:54:53 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	ui_render_folder(t_ui_folder *folder)
 
 	i = -1;
 	if (!folder || !folder->win || !folder->layers || !folder->ls)
-		return ;
+		return (ft_putendl_fd("Echec de rendu Folder.", 2));
 	pixels = folder->win->surf->w * folder->win->surf->h;
-	// ui_memuset(folder->win->surf, 0xff01003b, pixels);
+	ui_memuset(folder->win->surf, 0xff01003b, pixels);
 	// ui_memuset(folder->win->surf, 0xff001aff, folder->win->surf->w * 50 \
 	// 											* sizeof(unsigned));
 	while (++i < folder->ls->files_amount + 1)

@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 12:50:04 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/25 18:08:31 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/25 19:53:32 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ t_ui_folder	*ui_get_folder(char *path, t_ui_win *win)
 	while (folder->ls->files[++i])
 		folder->layers[i + 1] = ui_ttf_to_layer(NULL, folder->ls->files[i], \
 			(t_ui_ttf_param){0, 0, 0, 30, 0, 0, 0xffffffff});
-	(void)win;
-	// folder->win = NULL;
+	if (win)
+		folder->win = NULL;
 	return (folder);
 }
 
@@ -51,13 +51,14 @@ t_ui_folder	*ui_open_folder(t_ui_univers *univers, char *path, t_ui_win *win)
 
 	if (!univers || !path)
 		return (NULL);
+	if (!(folder = ui_get_folder(path, NULL)))
+		return (NULL);
 	if (!win && !(win = ui_new_window(univers, \
 							(t_ui_win_param){0, 0, 800, 600, UI_WINDOW_SHOWN}, \
 								"LIBUI Explorer")))
 		return (NULL);
-	if (!(folder = ui_get_folder(path, win)))
-		return (NULL);
-	folder->win = win;
+	else
+		folder->win = win;
 	ui_render_folder(folder);
 	return (folder);
 }
