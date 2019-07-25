@@ -6,11 +6,12 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/23 17:07:51 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/25 13:56:53 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "guimp.h"
+#include "libui_explorer.h"
 
 void	pt_event_param(t_ui_event_data event)
 {
@@ -94,13 +95,14 @@ int		main()
 	char			*alpha2;
 	t_ui_layer		text;
 	t_ui_ttf_param	txt_param;
+	t_ui_win		*explorer;
 
 	if (!(univ = ui_init_univers()))
 		exit(1);
-	image = "/home/woap-unix/Downloads/sample.bmp";
-	saved_image = "/home/woap-unix/Downloads/test.bmp";
-	alpha2 = "/home/woap-unix/Downloads/alpha2.bmp";
-	alpha = "/home/woap-unix/Downloads/alpha.bmp";
+	image = "/Users/alerandy/Desktop/sample.bmp";
+	saved_image = "/Users/alerandy/Desktop/test.bmp";
+	alpha2 = "/Users/alerandy/Desktop/alpha2.bmp";
+	alpha = "/Users/alerandy/Desktop/alpha.bmp";
 	splash = ui_open_splash(univ, "./assets/splash.bmp", "The GUImp");
 
 	ft_bzero(param, sizeof(param));
@@ -175,6 +177,7 @@ int		main()
 	if (ui_new_event(univ, event_id, &callback_close, NULL))
 		ui_quit_univers(&univ, 1, "Error while setting up event. eoe.");
 //	sleep(2); // Test the new system of the Splash.
+	explorer = ui_open_folder(univ, "./");
 	ui_close_splash(univ, &splash);
 	ui_watch_events(&univ);
 	ui_quit_univers(&univ, 0, NULL);

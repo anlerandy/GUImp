@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 16:47:44 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/24 18:44:46 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/25 13:02:10 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ t_ui_layer					ui_ttf_to_layer(char *path, char *txt, \
 	SDL_Color	color;
 
 	ft_bzero(&layer, sizeof(t_ui_layer));
+	path = !path ? "./assets/8bit.ttf" : path;
 	police = NULL;
 	surface = NULL;
 	if (TTF_Init() == -1)
