@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 16:45:05 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/25 19:54:53 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/26 00:54:31 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,5 @@ void	ui_render_folder(t_ui_folder *folder)
 	// ui_memuset(folder->win->surf, 0xff001aff, folder->win->surf->w * 50 \
 	// 											* sizeof(unsigned));
 	while (++i < folder->ls->files_amount + 1)
-		ui_render_layer(&folder->win, folder->layers[i]);
+		ui_render_layer(&folder->win, &folder->layers[i]);
 }

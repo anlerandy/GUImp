@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 16:47:44 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/25 16:42:35 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/26 01:21:45 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,16 +74,14 @@ static inline void			quit_ttf(TTF_Font *police, SDL_Surface *surface)
 	TTF_Quit();
 }
 
-t_ui_layer					ui_ttf_to_layer(char *path, char *txt, \
+t_ui_layer					*ui_ttf_to_layer(const char *path, char *txt, \
 											t_ui_ttf_param param)
 {
-	t_ui_layer	layer;
+	t_ui_layer	*layer;
 	TTF_Font	*police;
 	SDL_Surface	*surface;
 	SDL_Color	color;
 
-	ft_bzero(&layer, sizeof(t_ui_layer));
-	path = !path ? "./assets/8bit.ttf" : path;
 	police = NULL;
 	surface = NULL;
 	if (TTF_Init() == -1)
@@ -99,7 +97,12 @@ t_ui_layer					ui_ttf_to_layer(char *path, char *txt, \
 		quit_ttf(police, NULL);
 		return (ttf_print_error("Erreur dessin de texte : ", TTF_GetError()));
 	}
-	fill_layer(surface, &layer, param);
+	if (!(layer = ft_memalloc(sizeof(t_ui_layer))))
+	{
+		quit_ttf(police, surface);
+		return (NULL);
+	}
+	fill_layer(surface, layer, param);
 	quit_ttf(police, surface);
 	return (layer);
 }
