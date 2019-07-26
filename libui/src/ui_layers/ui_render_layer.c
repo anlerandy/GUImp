@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 11:18:03 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/26 00:54:01 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/26 13:11:20 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void					ui_render_layer(t_ui_win **win, t_ui_layer *layer)
 	unsigned	*dst;
 
 	if (!layer)
-		return ;
+		return (ft_putendl_fd("Empty layer to render.", 2));
 	src = layer->pixels;
 	dst = (*win)->surf->pixels;
 	i = 0;

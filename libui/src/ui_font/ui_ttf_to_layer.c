@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 16:47:44 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/26 01:21:45 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/26 13:15:32 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,15 +81,17 @@ t_ui_layer					*ui_ttf_to_layer(const char *path, char *txt, \
 	TTF_Font	*police;
 	SDL_Surface	*surface;
 	SDL_Color	color;
+	const char	*font;
 
+	font = path ? path : "./assets/8bit.ttf";
 	police = NULL;
 	surface = NULL;
 	if (TTF_Init() == -1)
 		return (ttf_print_error("Erreur d'initialisation : ", TTF_GetError()));
-	if (!(police = TTF_OpenFont(path, 65)))
+	if (!(police = TTF_OpenFont(font, 65)))
 	{
 		quit_ttf(NULL, NULL);
-		return (ttf_print_error("La font est introuvable : ", path));
+		return (ttf_print_error("La font est introuvable : ", font));
 	}
 	fill_color(&color, param.color);
 	if (!(surface = TTF_RenderText_Blended(police, txt, color)))

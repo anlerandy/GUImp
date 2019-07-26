@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/26 01:37:16 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/26 13:15:55 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ int		main()
 	t_ui_layer		*text;
 	t_ui_ttf_param	txt_param;
 	t_ui_folder		*explorer;
-	char			*font;
 
 	if (!(univ = ui_init_univers()))
 		exit(1);
@@ -160,8 +159,8 @@ int		main()
 	if (!(wins[0] = ui_open_image(univ, saved_image)))
 		ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
 	txt_param = (t_ui_ttf_param){800, 100, 500, 100, -1, 1, 0x9cff0000};
-	text = ui_ttf_to_layer(font, "Test de texte!", txt_param);
-	ui_render_layer(&(wins[0]), text);
+	if((text = ui_ttf_to_layer("./assets/8bit.ttf", "Test de texte!", txt_param)))
+		ui_render_layer(&(wins[0]), text);
 	event_id[0] = UI_EVENT_KEYUP;
 	event_id[1] = UIK_ESCAPE;
 	if (ui_new_event(univ, event_id, &callback_quit, NULL))
