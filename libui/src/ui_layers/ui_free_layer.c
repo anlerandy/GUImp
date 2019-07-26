@@ -6,16 +6,16 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 12:58:08 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/25 13:46:52 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/26 01:04:47 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui_layers.h"
 
-void	ui_free_layer(t_ui_layer *layer)
+void	ui_free_layer(t_ui_layer **layer)
 {
-	if (!layer)
+	if (!layer || !*layer)
 		return ;
-	ft_memdel((void**)&(layer->pixels));
-	ft_bzero(layer, sizeof(t_ui_layer));
+	ft_memdel((void**)&((*layer)->pixels));
+	ft_memdel((void**)layer);
 }

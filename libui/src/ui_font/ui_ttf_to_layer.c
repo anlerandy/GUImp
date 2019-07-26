@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 16:47:44 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/25 16:42:35 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/26 13:15:32 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,24 +74,24 @@ static inline void			quit_ttf(TTF_Font *police, SDL_Surface *surface)
 	TTF_Quit();
 }
 
-t_ui_layer					ui_ttf_to_layer(char *path, char *txt, \
+t_ui_layer					*ui_ttf_to_layer(const char *path, char *txt, \
 											t_ui_ttf_param param)
 {
-	t_ui_layer	layer;
+	t_ui_layer	*layer;
 	TTF_Font	*police;
 	SDL_Surface	*surface;
 	SDL_Color	color;
+	const char	*font;
 
-	ft_bzero(&layer, sizeof(t_ui_layer));
-	path = !path ? "./assets/8bit.ttf" : path;
+	font = path ? path : "./assets/8bit.ttf";
 	police = NULL;
 	surface = NULL;
 	if (TTF_Init() == -1)
 		return (ttf_print_error("Erreur d'initialisation : ", TTF_GetError()));
-	if (!(police = TTF_OpenFont(path, 65)))
+	if (!(police = TTF_OpenFont(font, 65)))
 	{
 		quit_ttf(NULL, NULL);
-		return (ttf_print_error("La font est introuvable : ", path));
+		return (ttf_print_error("La font est introuvable : ", font));
 	}
 	fill_color(&color, param.color);
 	if (!(surface = TTF_RenderText_Blended(police, txt, color)))
@@ -99,7 +99,12 @@ t_ui_layer					ui_ttf_to_layer(char *path, char *txt, \
 		quit_ttf(police, NULL);
 		return (ttf_print_error("Erreur dessin de texte : ", TTF_GetError()));
 	}
-	fill_layer(surface, &layer, param);
+	if (!(layer = ft_memalloc(sizeof(t_ui_layer))))
+	{
+		quit_ttf(police, surface);
+		return (NULL);
+	}
+	fill_layer(surface, layer, param);
 	quit_ttf(police, surface);
 	return (layer);
 }

@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 11:18:03 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/25 11:05:01 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/26 13:11:20 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@
 #include "vectors.h"
 #include "ui_shared.h"
 
-static inline int		pixel_place(t_ui_layer layer, int x, int y)
+static inline int		pixel_place(t_ui_layer *layer, int x, int y)
 {
-	return (((int)(layer.width_inversed
-				* (x - layer.x) / layer.scale.x) + (int)(layer.height_inversed
-				* (y - layer.y) / layer.scale.y) * layer.width));
+	return (((int)(layer->width_inversed
+				* (x - layer->x) / layer->scale.x) + (int)(layer->height_inversed
+				* (y - layer->y) / layer->scale.y) * layer->width));
 }
 
-static inline t_vec2	calc_scale(t_ui_layer layer)
+static inline t_vec2	calc_scale(t_ui_layer *layer)
 {
 	t_vec2 scale;
 
-	scale.x = (double)layer.rescale_w / (double)layer.width;
-	scale.y = (double)layer.rescale_h / (double)layer.height;
+	scale.x = (double)layer->rescale_w / (double)layer->width;
+	scale.y = (double)layer->rescale_h / (double)layer->height;
 	return (scale);
 }
 
@@ -37,8 +37,8 @@ static inline void		handle_transparancy(unsigned *dst, unsigned *src)
 	*dst = merge_pixel(*dst, *src);
 }
 
-static void				ui_render_layer_rescale(t_ui_win **win,
-	t_ui_layer layer)
+static inline void		ui_render_layer_rescale(t_ui_win **win,
+	t_ui_layer *layer)
 {
 	t_ui_win	*tmp;
 	t_isize		l;
@@ -46,50 +46,52 @@ static void				ui_render_layer_rescale(t_ui_win **win,
 
 	tmp = *win;
 	dst = (unsigned *)tmp->surf->pixels;
-	layer.scale = calc_scale(layer);
-	l.x = (layer.x >= 0) ? layer.x : 0;
-	while (l.x < (int)(layer.width * layer.scale.x) + layer.x
-		&& l.x < tmp->surf->w && l.x >= 0 && l.x >= layer.x
-		- (layer.width * layer.scale.x))
+	layer->scale = calc_scale(layer);
+	l.x = (layer->x >= 0) ? layer->x : 0;
+	while (l.x < (int)(layer->width * layer->scale.x) + layer->x
+		&& l.x < tmp->surf->w && l.x >= 0 && l.x >= layer->x
+		- (layer->width * layer->scale.x))
 	{
-		l.y = (layer.y >= 0) ? layer.y : 0;
-		while (l.y < (layer.height * layer.scale.y) + layer.y
-			&& l.y < tmp->surf->h && l.y >= 0 && l.y >= layer.y
-			- (layer.height * layer.scale.y))
+		l.y = (layer->y >= 0) ? layer->y : 0;
+		while (l.y < (layer->height * layer->scale.y) + layer->y
+			&& l.y < tmp->surf->h && l.y >= 0 && l.y >= layer->y
+			- (layer->height * layer->scale.y))
 		{
 			handle_transparancy(&(dst[l.x + l.y * tmp->surf->w]), \
-								&(layer.pixels[pixel_place(layer, \
+								&(layer->pixels[pixel_place(layer, \
 									l.x, l.y)]));
-			l.y += layer.height_inversed;
+			l.y += layer->height_inversed;
 		}
-		l.x += layer.width_inversed;
+		l.x += layer->width_inversed;
 	}
 	SDL_UpdateWindowSurface(tmp->sdl_ptr);
 }
 
-void					ui_render_layer(t_ui_win **win, t_ui_layer layer)
+void					ui_render_layer(t_ui_win **win, t_ui_layer *layer)
 {
 	unsigned	i;
 	int			limit_w;
 	unsigned	*src;
 	unsigned	*dst;
 
-	src = layer.pixels;
+	if (!layer)
+		return (ft_putendl_fd("Empty layer to render.", 2));
+	src = layer->pixels;
 	dst = (*win)->surf->pixels;
 	i = 0;
-	limit_w = (*win)->surf->w - layer.x < (int)layer.rescale_w \
-			? (*win)->surf->w : 2 * (*win)->surf->w - layer.rescale_w - layer.x;
-	limit_w = limit_w > (int)layer.rescale_w ? (int)layer.rescale_w : limit_w;
-	layer.height_inversed = layer.height_inversed >= 0 ? 1 : -1;
-	layer.width_inversed = layer.width_inversed >= 0 ? 1 : -1;
+	limit_w = (*win)->surf->w - layer->x < (int)layer->rescale_w \
+		? (*win)->surf->w : 2 * (*win)->surf->w - layer->rescale_w - layer->x;
+	limit_w = limit_w > (int)layer->rescale_w ? (int)layer->rescale_w : limit_w;
+	layer->height_inversed = layer->height_inversed >= 0 ? 1 : -1;
+	layer->width_inversed = layer->width_inversed >= 0 ? 1 : -1;
 	if (limit_w < 0)
 		return ;
-	if (layer.width != layer.rescale_w || layer.height != layer.rescale_h)
+	if (layer->width != layer->rescale_w || layer->height != layer->rescale_h)
 		return (ui_render_layer_rescale(win, layer));
-	while (layer.rescale_h > i && (*win)->surf->h > (int)i)
+	while (layer->rescale_h > i && (*win)->surf->h > (int)i)
 	{
-		convert_color_lines(dst + layer.x, src, limit_w);
-		src += layer.width;
+		convert_color_lines(dst + layer->x, src, limit_w);
+		src += layer->width;
 		dst += (*win)->surf->w;
 		++i;
 	}

@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 20:27:10 by alerandy          #+#    #+#             */
-/*   Updated: 2019/06/06 13:40:32 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/26 01:02:28 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 #include "libui_layers.h"
 #include "ui_shared.h"
 
-void	layer_to_bmp_header(t_bmp *bmp, t_ui_layer layer)
+void	layer_to_bmp_header(t_bmp *bmp, t_ui_layer *layer)
 {
 	bmp->header.type[0] = 'B';
 	bmp->header.type[1] = 'M';
-	bmp->header.size = 54 + ((layer.rescale_w * layer.rescale_h) \
+	bmp->header.size = 54 + ((layer->rescale_w * layer->rescale_h) \
 						* sizeof(t_bmp_32));
 	bmp->header.offset = 54;
 	bmp->info.header_size = 40;
-	bmp->info.width = layer.rescale_w;
-	bmp->info.height = layer.rescale_h;
+	bmp->info.width = layer->rescale_w;
+	bmp->info.height = layer->rescale_h;
 	bmp->info.planes = 1;
 	bmp->info.color_depth = 32;
 }
@@ -53,30 +53,30 @@ void	write_info(int fd, t_bmp *bmp)
 	write(fd, &bmp->info.important_color, sizeof(bmp->info.important_color));
 }
 
-void	write_pixels(int fd, t_ui_layer layer)
+void	write_pixels(int fd, t_ui_layer *layer)
 {
 	unsigned	*pixels;
 	unsigned	length;
 	unsigned	y;
 
-	length = layer.height * layer.width;
+	length = layer->height * layer->width;
 	if (!(pixels = ft_memalloc(sizeof(unsigned) * length)))
 		return (close_fd(fd, "Allocation failed. Unable to save."));
 	y = 0;
-	while (++y <= layer.height)
-		ft_memcpy(pixels + (layer.width * (layer.height - y)), \
-					layer.pixels + ((y - 1) * layer.width), \
-					sizeof(unsigned) * layer.width);
+	while (++y <= layer->height)
+		ft_memcpy(pixels + (layer->width * (layer->height - y)), \
+					layer->pixels + ((y - 1) * layer->width), \
+					sizeof(unsigned) * layer->width);
 	write(fd, pixels, length * sizeof(t_bmp_32));
 	free(pixels);
 }
 
-void	ui_layer_to_bmp(t_ui_layer layer, char *path)
+void	ui_layer_to_bmp(t_ui_layer *layer, char *path)
 {
 	t_bmp		bmp;
 	int			fd;
 
-	if (!layer.pixels)
+	if (!layer || !layer->pixels)
 		return (ft_putendl_fd("Your layer is empty. Unable to save.", 2));
 	ft_bzero(&bmp, sizeof(t_bmp));
 	if (!(fd = open(path, O_RDWR | O_APPEND | O_CREAT | O_TRUNC, 0666)))

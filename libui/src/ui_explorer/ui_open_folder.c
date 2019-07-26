@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 12:50:04 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/25 19:53:32 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/26 13:14:17 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_ui_folder	*ui_get_folder(char *path, t_ui_win *win)
 	t_ui_folder		*folder;
 
 	i = -1;
-	if (!path || !(folder = ft_memalloc(sizeof(t_ui_folder))))
+	if (!path || !(folder = ft_memalloc(sizeof(t_ui_folder *))))
 		return (NULL);
 	if (!(folder->ls = ft_get_folder(path)))
 	{
