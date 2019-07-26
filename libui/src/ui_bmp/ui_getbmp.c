@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/28 03:54:28 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/31 09:44:23 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/26 14:01:18 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,30 +82,31 @@ void	read_info(int fd, t_bmp *bmp)
 	free(tmp);
 }
 
-t_bmp	ui_getbmp(char *path)
+t_bmp	*ui_getbmp(char *path)
 {
 	int			fd;
-	t_bmp		bmp;
+	t_bmp		*bmp;
 	int			skip;
 	int			error;
 
-	ft_bzero(&bmp, sizeof(bmp));
+	if (!(bmp = ft_memalloc(sizeof(t_bmp))))
+		return (NULL);
 	if ((fd = open(path, O_RDWR)) == -1)
 	{
 		ft_putendl_fd("Le fichier n'existe pas.", 2);
 		close(fd);
-		return (bmp);
+		return (NULL);
 	}
-	read_header(fd, &bmp);
-	read_info(fd, &bmp);
+	read_header(fd, bmp);
+	read_info(fd, bmp);
 	if ((error = validate_bmp(bmp)))
 		return (print_parse_error(error, bmp, path));
-	skip = bmp.header.offset - bmp.info.header_size - sizeof(t_bmp_header);
-	if ((bmp.palette = ft_memalloc(skip)))
-		read(fd, bmp.palette, skip);
-	bmp.pixel_count = bmp.info.width * bmp.info.height;
-	if ((bmp.pixels = ft_memalloc(sizeof(unsigned) * bmp.pixel_count)))
-		read_bmp(fd, &bmp);
+	skip = bmp->header.offset - bmp->info.header_size - sizeof(t_bmp_header);
+	if ((bmp->palette = ft_memalloc(skip)))
+		read(fd, bmp->palette, skip);
+	bmp->pixel_count = bmp->info.width * bmp->info.height;
+	if ((bmp->pixels = ft_memalloc(sizeof(unsigned) * bmp->pixel_count)))
+		read_bmp(fd, bmp);
 	close(fd);
 	return (bmp);
 }

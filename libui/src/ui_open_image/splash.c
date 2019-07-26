@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 21:36:27 by alerandy          #+#    #+#             */
-/*   Updated: 2019/06/07 11:08:26 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/26 13:50:52 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,21 @@ t_ui_win	*ui_open_splash(t_ui_univers *univers, char *path, char *name)
 {
 	t_ui_win		*win;
 	t_ui_win_param	param;
-	t_bmp			bmp;
+	t_bmp			*bmp;
 	SDL_DisplayMode	dm;
 
-	bmp = ui_getbmp(path);
-	if (!bmp.pixels)
+	if (!(bmp = ui_getbmp(path)))
 		return (NULL);
 	if (SDL_GetDesktopDisplayMode(0, &dm))
 		return (NULL);
 	name = !name ? get_file_name(path) : name;
-	param = (t_ui_win_param){dm.w / 2 - bmp.info.width / 2, \
-		dm.h / 2 - bmp.info.height / 2, bmp.info.width, bmp.info.height, \
+	param = (t_ui_win_param){dm.w / 2 - bmp->info.width / 2, \
+		dm.h / 2 - bmp->info.height / 2, bmp->info.width, bmp->info.height, \
 		UI_WINDOW_SHOWN | UI_WINDOW_BORDERLESS | UI_WINDOW_ALWAYS_ON_TOP};
 	if (!(win = ui_new_window(univers, param, name)))
 		return (NULL);
-	ft_memcpy(win->surf->pixels, bmp.pixels, (sizeof(unsigned) \
-				* bmp.pixel_count));
+	ft_memcpy(win->surf->pixels, bmp->pixels, (sizeof(unsigned) \
+				* bmp->pixel_count));
 	SDL_UpdateWindowSurface(win->sdl_ptr);
 	ui_wait_event(&univers);
 	ui_delbmp(&bmp);
