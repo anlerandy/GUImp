@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 12:52:23 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/23 13:01:04 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/26 16:26:28 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void					ui_layer_into_layer(t_ui_layer *dst, t_ui_layer *src)
 	unsigned	limit_w;
 
 	i = 0;
+	if (!dst || !src)
+		return ;
 	psrc = src->pixels;
 	pdst = dst->pixels;
 	limit_w = dst->width - src->x < src->rescale_w \
