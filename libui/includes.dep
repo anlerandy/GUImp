@@ -11,3 +11,4 @@ include src/ui_layers/make.dep
 include src/ui_elem/make.dep
 include src/ui_font/make.dep
 include src/ui_explorer/make.dep
+include src/ui_draw/make.dep

@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 16:47:44 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/26 13:15:32 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/29 22:26:54 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "SDL_surface.h"
 #include "bmp_parser.h"
 #include "ui_shared.h"
+#include "libui_layers.h"
 
 inline static void			fill_color(SDL_Color *color, unsigned user_color)
 {

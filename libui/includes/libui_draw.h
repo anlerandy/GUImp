@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libui_ttf.h                                        :+:      :+:    :+:   */
+/*   libui_draw.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/20 16:50:22 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/29 21:30:47 by alerandy         ###   ########.fr       */
+/*   Created: 2019/07/29 21:29:20 by alerandy          #+#    #+#             */
+/*   Updated: 2019/07/29 22:24:17 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBUI_TTF_H
-# define LIBUI_TTF_H
+#ifndef LIBUI_DRAW_H
+#define LIBUI_DRAW_H
 
 typedef struct s_ui_layer	t_ui_layer;
+typedef struct s_ui_win		t_ui_win;
 
-typedef struct	s_ui_ttf_param
-{
-	unsigned	x;
-	unsigned	y;
-	unsigned	width;
-	unsigned	height;
-	int			inversed_w;
-	int			inversed_h;
-	unsigned	color;
-}				t_ui_ttf_param;
-
-t_ui_layer		*ui_ttf_to_layer(const char *path, char *txt, \
-														t_ui_ttf_param param);
+t_ui_layer		*ui_rect_to_layer(unsigned width, unsigned height, \
+										unsigned x, unsigned y, unsigned color);
+void			ui_rect_in_win(t_ui_win *win, int width, int height, \
+										int x, int y, unsigned color);
 
 #endif
