@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/28 03:54:28 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/26 14:01:18 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/31 00:32:59 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,7 @@ void	read_bmp(int fd, t_bmp *bmpfile)
 	w = bmpfile->info.width;
 	h = bmpfile->info.height;
 	pixels = ft_memalloc(offset * bmpfile->pixel_count);
-	if (!read(fd, pixels, offset * bmpfile->pixel_count))
-	{
-		ft_putendl_fd("Une erreur est survenue lors de la lecture.", 2);
-		return (free(pixels));
-	}
+	read(fd, pixels, offset * bmpfile->pixel_count);
 	if (bmpfile->info.color_depth == 1)
 		fill_pixels_1(bmpfile->pixels, (char*)pixels, w, h);
 	if (bmpfile->info.color_depth == 8 || bmpfile->info.color_depth == 4)
@@ -93,7 +89,6 @@ t_bmp	*ui_getbmp(char *path)
 		return (NULL);
 	if ((fd = open(path, O_RDWR)) == -1)
 	{
-		ft_putendl_fd("Le fichier n'existe pas.", 2);
 		close(fd);
 		return (NULL);
 	}
