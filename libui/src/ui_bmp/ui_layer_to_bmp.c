@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 20:27:10 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/26 01:02:28 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/07/31 00:30:07 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	write_pixels(int fd, t_ui_layer *layer)
 
 	length = layer->height * layer->width;
 	if (!(pixels = ft_memalloc(sizeof(unsigned) * length)))
-		return (close_fd(fd, "Allocation failed. Unable to save."));
+		return (close_fd(fd, "Memory allocation failed. Unable to save BMP."));
 	y = 0;
 	while (++y <= layer->height)
 		ft_memcpy(pixels + (layer->width * (layer->height - y)), \
@@ -80,7 +80,7 @@ void	ui_layer_to_bmp(t_ui_layer *layer, char *path)
 		return (ft_putendl_fd("Your layer is empty. Unable to save.", 2));
 	ft_bzero(&bmp, sizeof(t_bmp));
 	if (!(fd = open(path, O_RDWR | O_APPEND | O_CREAT | O_TRUNC, 0666)))
-		return (close_fd(fd, "Unable to open/create a the file."));
+		return (close_fd(fd, "Unable to open/create the file."));
 	layer_to_bmp_header(&bmp, layer);
 	write_header(fd, &bmp);
 	write_info(fd, &bmp);
