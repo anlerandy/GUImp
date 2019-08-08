@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 11:18:03 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/26 13:11:20 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/08 18:17:49 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 static inline int		pixel_place(t_ui_layer *layer, int x, int y)
 {
 	return (((int)(layer->width_inversed
-				* (x - layer->x) / layer->scale.x) + (int)(layer->height_inversed
+				* (x - layer->x) / layer->scale.x) \
+				+ (int)(layer->height_inversed \
 				* (y - layer->y) / layer->scale.y) * layer->width));
 }
 
@@ -71,14 +72,11 @@ void					ui_render_layer(t_ui_win **win, t_ui_layer *layer)
 {
 	unsigned	i;
 	int			limit_w;
-	unsigned	*src;
 	unsigned	*dst;
 
-	if (!layer)
-		return (ft_putendl_fd("Empty layer to render.", 2));
-	src = layer->pixels;
+	if (!layer || !layer->pixels || !win || !*win)
+		return ;
 	dst = (*win)->surf->pixels;
-	i = 0;
 	limit_w = (*win)->surf->w - layer->x < (int)layer->rescale_w \
 		? (*win)->surf->w : 2 * (*win)->surf->w - layer->rescale_w - layer->x;
 	limit_w = limit_w > (int)layer->rescale_w ? (int)layer->rescale_w : limit_w;
@@ -88,11 +86,11 @@ void					ui_render_layer(t_ui_win **win, t_ui_layer *layer)
 		return ;
 	if (layer->width != layer->rescale_w || layer->height != layer->rescale_h)
 		return (ui_render_layer_rescale(win, layer));
+	i = 0;
 	while (layer->rescale_h > i && (*win)->surf->h > (int)i)
 	{
-		convert_color_lines(dst + layer->x, src, limit_w);
-		src += layer->width;
-		dst += (*win)->surf->w;
+		convert_color_lines((dst + (i * (*win)->surf->w)) + layer->x, \
+								layer->pixels + (i * layer->width), limit_w);
 		++i;
 	}
 	SDL_UpdateWindowSurface((*win)->sdl_ptr);
