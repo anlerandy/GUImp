@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 12:50:04 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/30 23:55:24 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/08 17:02:30 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static inline t_ui_layer	*get_text_layer(char *file, char *path)
 	char		*tmp;
 
 	if (!file || !path)
-		return NULL;
+		return (NULL);
 	tmp = ft_strjoin(path, file);
 	if ((dir = opendir(tmp)))
 	{
@@ -53,14 +53,13 @@ t_ui_folder					*ui_get_folder(char *path, t_ui_win *win)
 		return (NULL);
 	if (!(folder->ls = ft_get_folder(path)))
 	{
-		ft_memdel((void**)&folder);
+		ui_free_folder(&folder);
 		return (NULL);
 	}
 	if (!(folder->layers = ft_memalloc((folder->ls->files_amount + 2) \
 											* sizeof(t_ui_layer *))))
 	{
-		ft_memdel((void**)&folder);
-		ft_free_folder(&folder->ls);
+		ui_free_folder(&folder);
 		return (NULL);
 	}
 	folder->layers[0] = ui_ttf_to_layer(NULL, folder->ls->path, \

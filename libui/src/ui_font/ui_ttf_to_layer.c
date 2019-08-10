@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 16:47:44 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/29 22:26:54 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/08 18:18:04 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,15 @@
 #include "ui_shared.h"
 #include "libui_layers.h"
 
-inline static void			fill_color(SDL_Color *color, unsigned user_color)
+inline static SDL_Color		fill_color(unsigned user_color)
 {
 	t_bmp_32	divided;
+	SDL_Color	color;
 
 	divided = hex_to_bit32_pixel(user_color);
 	divided.a = (1 - divided.a / 255.) * 255;
-	*color = (SDL_Color){divided.r, divided.g, divided.b, divided.a};
+	color = (SDL_Color){divided.r, divided.g, divided.b, divided.a};
+	return (color);
 }
 
 inline static void			set_layer_size(SDL_Surface *surface, \
@@ -66,10 +68,10 @@ inline static void			fill_layer(SDL_Surface *surface, \
 		return (ft_putendl_fd("Erreur lors de la conversion du TTF.", 2));
 }
 
-static inline void			quit_ttf(TTF_Font *police, SDL_Surface *surface)
+static inline void			quit_ttf(TTF_Font *font, SDL_Surface *surface)
 {
-	if (police)
-		TTF_CloseFont(police);
+	if (font)
+		TTF_CloseFont(font);
 	if (surface)
 		SDL_FreeSurface(surface);
 	TTF_Quit();
@@ -79,33 +81,27 @@ t_ui_layer					*ui_ttf_to_layer(const char *path, char *txt, \
 											t_ui_ttf_param param)
 {
 	t_ui_layer	*layer;
-	TTF_Font	*police;
+	TTF_Font	*font;
 	SDL_Surface	*surface;
-	SDL_Color	color;
-	const char	*font;
 
-	font = path ? path : "./assets/8bit.ttf";
-	police = NULL;
-	surface = NULL;
 	if (TTF_Init() == -1)
 		return (ttf_print_error("Erreur d'initialisation : ", TTF_GetError()));
-	if (!(police = TTF_OpenFont(font, 65)))
+	if (!(font = TTF_OpenFont(path ? path : "./assets/8bit.ttf", 65)))
 	{
 		quit_ttf(NULL, NULL);
-		return (ttf_print_error("La font est introuvable : ", font));
+		return (ttf_print_error("La font est introuvable : ", path));
 	}
-	fill_color(&color, param.color);
-	if (!(surface = TTF_RenderText_Blended(police, txt, color)))
+	if (!(surface = TTF_RenderText_Blended(font, txt, fill_color(param.color))))
 	{
-		quit_ttf(police, NULL);
+		quit_ttf(font, NULL);
 		return (ttf_print_error("Erreur dessin de texte : ", TTF_GetError()));
 	}
 	if (!(layer = ft_memalloc(sizeof(t_ui_layer))))
 	{
-		quit_ttf(police, surface);
+		quit_ttf(font, surface);
 		return (NULL);
 	}
 	fill_layer(surface, layer, param);
-	quit_ttf(police, surface);
+	quit_ttf(font, surface);
 	return (layer);
 }

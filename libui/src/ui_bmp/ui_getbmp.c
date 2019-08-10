@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/28 03:54:28 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/31 00:32:59 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/08 17:19:29 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,13 @@ t_bmp	*ui_getbmp(char *path)
 	int			skip;
 	int			error;
 
-	if (!(bmp = ft_memalloc(sizeof(t_bmp))))
-		return (NULL);
 	if ((fd = open(path, O_RDWR)) == -1)
 	{
 		close(fd);
 		return (NULL);
 	}
+	if (!(bmp = ft_memalloc(sizeof(t_bmp))))
+		return (NULL);
 	read_header(fd, bmp);
 	read_info(fd, bmp);
 	if ((error = validate_bmp(bmp)))

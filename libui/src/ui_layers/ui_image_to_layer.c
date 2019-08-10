@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 10:47:50 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/26 13:48:17 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/08 17:09:09 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_ui_layer		*ui_image_to_layer(char *path)
 														* bmp->pixel_count)))
 	{
 		ft_putendl_fd(!bmp ? "BMP Failed." : "Layer allocation failed.", 2);
-		ft_memdel((void**)&layer);
+		ui_free_layer(&layer);
 		return (layer);
 	}
 	ft_memcpy(layer->pixels, bmp->pixels, sizeof(unsigned) * bmp->pixel_count);

@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 13:10:19 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/26 13:05:44 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/08 17:01:36 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ t_ui_folder		*ui_get_folder(char *path, t_ui_win *win);
 t_ui_folder		*ui_open_folder(t_ui_univers *univers, char *path, \
 									t_ui_win *win);
 void			ui_render_folder(t_ui_folder *folder);
+void			ui_free_folder(t_ui_folder **folder);
 
 #endif

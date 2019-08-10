@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 11:35:10 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/31 00:22:45 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/08 16:04:51 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static inline void		fill_folder(t_ls_folder *folder, DIR *dir, char *path)
 	_DIRENT	*fold;
 	int		i;
 
- 	i = 0;
+	i = 0;
 	folder->path = path[ft_strlen(path) - 1] != '/' \
 					? ft_strjoin(path, "/") : ft_strdup(path);
 	while ((fold = readdir(dir)))
