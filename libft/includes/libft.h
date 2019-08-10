@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 14:52:08 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/20 17:28:34 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/11 00:19:32 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ t_list				*ft_lstnew(void const *content, size_t content_size);
 int					ft_isupper(int c);
 char				*ft_strcapitalize(char *s);
 char				*ft_strndup(const char *s1, size_t n);
+void				ft_sortarray(void **array, int size, \
+									int (*cmp)(void *, void *));
 
 unsigned			ft_swap_integer(unsigned nbr);
 
