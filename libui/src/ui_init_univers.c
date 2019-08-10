@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:45:39 by gsmith            #+#    #+#             */
-/*   Updated: 2019/08/10 15:48:51 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/10 15:50:03 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_ui_univers	*ui_init_univers(char **env)
 		ft_putendl_fd(ERR_MALLOC, STDERR_FILENO);
 		return (NULL);
 	}
-	while(env[++i])
+	while(env && env[++i])
 		if (!ft_strcmp(env[i], "PWD="))
 			univers->pwd = ft_strdup(env[i] + 4);
 	ft_putendl(univers->pwd);
