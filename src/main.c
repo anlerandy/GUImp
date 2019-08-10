@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/10 15:39:03 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/11 01:18:53 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ int		main(int ac, char **av, char **env)
 	t_ui_win		*wins[3];
 	int				flag;
 	unsigned int	event_id[2];
-	t_ui_win		*splash;
 	t_ui_layer		*layer;
 	char			*image;
 	char			*saved_image;
@@ -95,7 +94,8 @@ int		main(int ac, char **av, char **env)
 		exit(1);
 	image = "./assets/test/sample.bmp";
 	saved_image = "./assets/test/test.bmp";
-	splash = ui_open_splash(univ, "./assets/splash.bmp", "The GUImp");
+	if (!ui_open_splash(univ, "./assets/splash.bmp", "The GUImp"))
+		ui_quit_univers(&univ, 1, "Could not retrieve splash. eoe.");
 
 	param[0] = (t_ui_win_param){0, 500, 500, 500, UI_WINDOW_RESIZABLE};
 	param[1] = (t_ui_win_param){600, 500, 500, 500, UI_WINDOW_RESIZABLE};
@@ -129,7 +129,7 @@ int		main(int ac, char **av, char **env)
 		ui_quit_univers(&univ, 1, "Error while setting up event. eoe.");
 	// sleep(2); // Test the new system of the Splash.
 	explorer = ui_open_folder(univ, NULL, NULL);
-	ui_close_splash(univ, &splash);
+	ui_close_splash(univ);
 	ui_watch_events(&univ);
 	ui_quit_univers(&univ, 0, NULL);
 }
