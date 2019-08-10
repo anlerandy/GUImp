@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 12:50:04 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/08 17:02:30 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/10 15:44:57 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "libui_ttf.h"
 #include "libui_explorer.h"
 #include <fcntl.h>
+#include "libui_tools.h"
 
 static inline t_ui_layer	*get_text_layer(char *file, char *path)
 {
@@ -77,9 +78,9 @@ t_ui_folder					*ui_open_folder(t_ui_univers *univers, char *path, \
 {
 	t_ui_folder		*folder;
 
-	if (!univers || !path)
+	if (!univers)
 		return (NULL);
-	if (!(folder = ui_get_folder(path, NULL)))
+	if (!(folder = ui_get_folder(path ? path : univers->pwd, NULL)))
 		return (NULL);
 	if (!win && !(win = ui_new_window(univers, \
 							(t_ui_win_param){0, 0, 800, 600, UI_WINDOW_SHOWN}, \

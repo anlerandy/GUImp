@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 11:53:34 by gsmith            #+#    #+#             */
-/*   Updated: 2019/07/20 15:22:53 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/10 15:20:38 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ typedef struct	s_ui_new_elem
 	void			(*callback)(t_ui_univers **uni, t_ui_elem_used *context);
 }				t_ui_new_elem;
 
-t_ui_univers	*ui_init_univers(void);
+t_ui_univers	*ui_init_univers(char **env);
 void			ui_quit_univers(t_ui_univers **univers, int exit_code, \
 					char *msg);
 

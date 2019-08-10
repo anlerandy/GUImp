@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:27:55 by gsmith            #+#    #+#             */
-/*   Updated: 2019/07/20 15:23:00 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/10 15:34:27 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct	s_ui_univers
 	t_ui_theme		*default_theme;
 	t_rb_node		*events;
 	t_ui_win		*splash;
+	char			*pwd;
 	unsigned int	run_event;
 }				t_ui_univers;
 
