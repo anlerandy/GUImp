@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 13:15:11 by gsmith            #+#    #+#             */
-/*   Updated: 2019/08/11 15:42:15 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/11 17:01:53 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,9 @@ int				ui_new_event(t_ui_univers *univers, t_ui_new_event event, \
 							t_ui_event_data), void *config_callback)
 {
 	t_ui_event	*eve;
-	t_rb_node	*events;
 
-	events = event.win ? event.win->events : univers->events;
-	eve = (t_ui_event *)rb_search_infix(events, \
+	eve = (t_ui_event *)rb_search_infix(event.win \
+									? event.win->events : univers->events, \
 					(unsigned *)((unsigned[2]){event.type, event.event}), \
 						&ui_cmp_event_id);
 	if (!eve)
@@ -35,6 +34,7 @@ int				ui_new_event(t_ui_univers *univers, t_ui_new_event event, \
 	eve->id[1] = event.event;
 	eve->callback = callback;
 	eve->config = config_callback;
-	rb_insert(&(univers->events), eve, &ui_cmp_event);
+	rb_insert(event.win \
+			? &(event.win)->events : &(univers)->events, eve, &ui_cmp_event);
 	return (0);
 }

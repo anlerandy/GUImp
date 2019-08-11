@@ -6,14 +6,14 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:45:39 by gsmith            #+#    #+#             */
-/*   Updated: 2019/08/11 15:58:16 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/11 16:17:53 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui_error.h"
 #include "libft.h"
 #include "libui_tools.h"
-# include "libui_events.h"
+#include "libui_events.h"
 
 void	callback_quit(t_ui_univers **uni, void *dummy, t_ui_event_data event)
 {

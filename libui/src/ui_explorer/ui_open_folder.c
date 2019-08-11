@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 12:50:04 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/10 15:44:57 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/11 16:34:37 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "libui_explorer.h"
 #include <fcntl.h>
 #include "libui_tools.h"
+#include "libui_explorer_tools.h"
 
 static inline t_ui_layer	*get_text_layer(char *file, char *path)
 {
@@ -89,5 +90,6 @@ t_ui_folder					*ui_open_folder(t_ui_univers *univers, char *path, \
 	else
 		folder->win = win;
 	ui_render_folder(folder);
+	set_explorer_event(univers, folder);
 	return (folder);
 }
