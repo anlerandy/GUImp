@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_get_window.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 10:09:20 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/10 19:41:47 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/08/11 15:49:40 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,9 @@ t_ui_win	*ui_get_window_by_id(t_ui_univers *univers, int win_id)
 	if (!search_res)
 		return (NULL);
 	return ((t_ui_win *)search_res);
+}
+
+unsigned	ui_get_window_id(t_ui_win *win)
+{
+	return (win->id);
 }

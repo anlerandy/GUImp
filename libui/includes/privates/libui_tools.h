@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:27:55 by gsmith            #+#    #+#             */
-/*   Updated: 2019/08/10 15:34:27 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/11 11:11:30 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct	s_ui_win
 	SDL_Window		*sdl_ptr;
 	t_rb_node		*elements;
 	t_ui_theme		*theme;
+	t_rb_node		*events;
 	unsigned int	mother;
 	unsigned int	blocked;
 }				t_ui_win;

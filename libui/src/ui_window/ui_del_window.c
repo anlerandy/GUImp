@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 13:40:12 by gsmith            #+#    #+#             */
-/*   Updated: 2019/07/20 15:23:12 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/11 15:24:06 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void		ui_del_window(t_ui_univers *univers, int win_id)
 	if (!(win = rb_search_infix(univers->windows, (void *)&win_id, \
 				&ui_cmp_window_id)) || win->blocked != 0)
 		return ;
+	rb_clear_tree(&(win->events), &ui_free_event);
 	clear_child(univers, win_id);
 	clear_block(univers, win_id);
 	rb_remove(&(univers->windows), (void *)&win_id, &ui_cmp_window_id, \

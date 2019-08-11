@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 11:53:34 by gsmith            #+#    #+#             */
-/*   Updated: 2019/08/11 01:17:18 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/11 15:49:45 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,13 @@ typedef struct	s_ui_event_data
 	char			*path;
 }				t_ui_event_data;
 
+typedef struct	s_ui_new_event
+{
+	unsigned	type;
+	unsigned	event;
+	t_ui_win	*win;
+}				t_ui_new_event;
+
 typedef struct	s_ui_elem_used
 {
 	unsigned int	elem_id;
@@ -117,13 +124,14 @@ t_ui_win		*ui_new_blocking_win(t_ui_univers *univers, char *title, \
 						t_ui_win_param param, unsigned int blocked);
 t_ui_win		*ui_get_window_by_id(t_ui_univers *univers, int win_id);
 t_ui_win		*ui_get_focused_window(t_ui_univers *univers);
+unsigned		ui_get_window_id(t_ui_win *win);
 void			ui_del_window(t_ui_univers *univers, int win_id);
 void			ui_clear_all_windows(t_ui_univers *univers);
 
-int				ui_new_event(t_ui_univers *univers, unsigned int event_id[2], \
+int				ui_new_event(t_ui_univers *univers, t_ui_new_event event, \
 					void (*callback)(t_ui_univers **, void *, \
 						t_ui_event_data), void *config_callback);
-void			ui_del_event(t_ui_univers *univers, unsigned int event_id[2]);
+void			ui_del_event(t_ui_univers *univers, t_ui_new_event event);
 void			ui_clear_events(t_ui_univers *univers);
 void			ui_watch_events(t_ui_univers **univers);
 int				ui_wait_event(t_ui_univers **univers);
