@@ -6,22 +6,11 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 14:28:27 by gsmith            #+#    #+#             */
-/*   Updated: 2019/08/11 17:02:02 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/12 10:54:46 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui_tools.h"
-
-// static void			redirect_blocker(t_ui_univers *univers, t_ui_event_data *data)
-// {
-// 	t_ui_win	*win;
-
-// 	if (!(win = ui_get_window_by_id(univers, data->win_id)) || !win->blocked)
-// 		return ;
-// 	while (win->blocked)
-// 		win = ui_get_window_by_id(univers, win->blocked);
-// 	data->win_id = win->id;
-// }
 
 static inline int	ui_block_event(t_ui_univers **uni, unsigned win_id)
 {
@@ -81,7 +70,7 @@ void				ui_watch_events(t_ui_univers **univers)
 			continue ;
 }
 
-void			ui_stop_watch(t_ui_univers *univers)
+void				ui_stop_watch(t_ui_univers *univers)
 {
 	univers->run_event = 0;
 }

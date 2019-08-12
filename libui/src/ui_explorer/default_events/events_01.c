@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 16:15:26 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/11 17:13:22 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/12 10:42:44 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,6 @@
 #include "libui_events.h"
 #include "libui_explorer.h"
 #include "mini_ls.h"
-
-// UIK_DOWN
-// UIK_UP
-// UIK_KP_ENTER
-// UIK_RETURN
 
 void	move_selector(t_ui_univers **univers, void *data, t_ui_event_data event)
 {

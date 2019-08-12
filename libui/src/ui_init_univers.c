@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:45:39 by gsmith            #+#    #+#             */
-/*   Updated: 2019/08/11 16:17:53 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/12 10:56:48 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 #include "libui_tools.h"
 #include "libui_events.h"
 
-void	callback_quit(t_ui_univers **uni, void *dummy, t_ui_event_data event)
+void				callback_quit(t_ui_univers **uni, void *dummy, \
+									t_ui_event_data event)
 {
 	(void)dummy;
 	(void)event;
@@ -23,7 +24,8 @@ void	callback_quit(t_ui_univers **uni, void *dummy, t_ui_event_data event)
 	ft_putendl("Thanks for all the fish!");
 }
 
-void	callback_close(t_ui_univers **uni, void *dummy, t_ui_event_data event)
+void				callback_close(t_ui_univers **uni, void *dummy, \
+										t_ui_event_data event)
 {
 	(void)dummy;
 	ui_del_window(*uni, event.win_id);
@@ -64,7 +66,7 @@ t_ui_univers		*ui_init_univers(char **env)
 		ft_putendl_fd(ERR_MALLOC, STDERR_FILENO);
 		return (NULL);
 	}
-	while(env && env[++i])
+	while (env && env[++i])
 		if (!ft_strcmp(env[i], "PWD="))
 			univers->pwd = ft_strdup(env[i] + 4);
 	set_default_event(univers);
