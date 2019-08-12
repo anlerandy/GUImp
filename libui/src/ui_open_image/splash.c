@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 21:36:27 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/11 01:18:19 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/12 16:50:33 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,8 @@ void		ui_show_windows(void *void_win)
 	win = (t_ui_win*)void_win;
 	flags = SDL_GetWindowFlags(win->sdl_ptr);
 	if (!(flags & SDL_WINDOW_SHOWN))
-	{
 		SDL_ShowWindow(win->sdl_ptr);
-		SDL_UpdateWindowSurface(win->sdl_ptr);
-	}
+	SDL_UpdateWindowSurface(win->sdl_ptr);
 }
 
 void		ui_close_splash(t_ui_univers *univers)

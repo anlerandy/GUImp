@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 10:43:28 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/26 13:09:59 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/12 15:35:35 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 
 typedef struct	s_ui_layer
 {
-	unsigned	*pixels;
 	unsigned	width;
 	unsigned	height;
 	int			index;
@@ -29,6 +28,7 @@ typedef struct	s_ui_layer
 	unsigned	rescale_h;
 	int			height_inversed;
 	t_vec2		scale;
+	unsigned	*pixels;
 }				t_ui_layer;
 
 t_ui_layer		*ui_image_to_layer(char *path);
