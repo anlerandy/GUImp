@@ -6,22 +6,22 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 23:44:23 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/11 00:33:00 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/13 15:27:04 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_sortarray(void **array, int size, int (*cmp)(void *, void *))
+void	ft_sortarray(void **array, unsigned size, int (*cmp)(void *, void *))
 {
 	int		j;
 	int		i;
 	void	*tmp;
 
-	if (size <= 0)
+	if (!size)
 		return ;
 	i = -1;
-	while (++i + 1 < size)
+	while (++i + 1 < (int)size)
 		if (cmp(array[i], array[i + 1]) > 0)
 		{
 			tmp = array[i];

@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 12:50:04 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/11 16:34:37 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/13 13:48:44 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <fcntl.h>
 #include "libui_tools.h"
 #include "libui_explorer_tools.h"
+#include "libui_layers.h"
 
 static inline t_ui_layer	*get_text_layer(char *file, char *path)
 {
@@ -24,25 +25,26 @@ static inline t_ui_layer	*get_text_layer(char *file, char *path)
 	int			fd;
 	DIR			*dir;
 	char		*tmp;
+	t_ui_layer	*layer;
 
 	if (!file || !path)
 		return (NULL);
 	tmp = ft_strjoin(path, file);
-	if ((dir = opendir(tmp)))
-	{
+	if ((dir = opendir(tmp)) && !closedir(dir))
 		color = 0xff00ff00;
-		closedir(dir);
-	}
-	else if ((fd = open(tmp, O_RDONLY)) > 0)
-	{
+	else if ((fd = open(tmp, O_RDONLY)) > 0 && !close(fd))
 		color = 0xff00eaff;
-		close(fd);
-	}
 	else
 		color = 0xffff0000;
 	ft_strdel(&tmp);
-	return (ui_ttf_to_layer(NULL, file, \
-			(t_ui_ttf_param){0, 0, 0, 30, 0, 0, color}));
+	if (!(layer = ui_ttf_to_layer(NULL, file, \
+								(t_ui_ttf_param){0, 0, 0, 30, 0, 0, color})))
+		return (NULL);
+	if (color == 0xff00eaff || color == 0xff00ff00)
+		layer->index = color == 0xff00eaff ? 2 : 1;
+	else
+		layer->index = 3;
+	return (layer);
 }
 
 t_ui_folder					*ui_get_folder(char *path, t_ui_win *win)

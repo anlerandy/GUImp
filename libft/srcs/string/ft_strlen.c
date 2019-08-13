@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alerandy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 10:35:47 by alerandy          #+#    #+#             */
-/*   Updated: 2019/04/10 19:25:47 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/13 14:51:43 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ size_t					ft_strlen(const char *s)
 
 	str = s;
 	i = 0;
-	if (!*s)
+	if (!s || !*s)
 		return (0);
 	while (((unsigned long int)(str + i) & (sizeof(unsigned long) - 1)) != 0)
 		if (str[i++] == '\0')

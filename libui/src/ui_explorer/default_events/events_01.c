@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 16:15:26 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/12 16:51:39 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/13 16:07:26 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "libui_events.h"
 #include "libui_explorer.h"
 #include "mini_ls.h"
+#include "libui_layers.h"
+#include "ui_shared.h"
 
 void	move_selector(t_ui_univers **univers, void *data, t_ui_event_data event)
 {
@@ -27,6 +29,45 @@ void	move_selector(t_ui_univers **univers, void *data, t_ui_event_data event)
 		folder->selected = folder->ls->files_amount;
 	ui_render_folder(folder);
 	(void)univers;
+}
+
+void	open_folder(t_ui_univers *univers, t_ui_folder **folder, char *path)
+{
+	t_ui_folder	*tmp;
+
+	tmp = *folder;
+	ui_open_folder(univers, path, (*folder)->win);
+	ui_free_folder(folder);
+	folder = &tmp;
+}
+
+void	open_selection(t_ui_univers **univers, void *data, \
+								t_ui_event_data event)
+{
+	t_ui_folder		*folder;
+	char			*path;
+	t_ls_folder		*ls;
+	int				selected;
+	char			*file;
+
+	(void)event;
+	folder = (t_ui_folder *)data;
+	if (!(selected = folder->selected))
+		return ;
+	ls = folder->ls;
+	if (folder->layers[selected]->index == 3)
+		return ;
+	path = NULL;
+	file = ls->files[selected - 1];
+	if (!ft_strcmp(file, "..") && ft_strlen(file) == 2)
+		path = get_previous_path(ls->path);
+	else if (!ft_strcmp(file, ".") && ft_strlen(file) == 1)
+		path = ft_strdup(ls->path);
+	else
+		path = ft_strjoin(ls->path, file);
+	if (folder->layers[selected]->index == 1)
+		open_folder(*univers, &folder, path);
+	ft_strdel(&path);
 }
 
 void	set_explorer_event(t_ui_univers *univers, t_ui_folder *folder)
@@ -43,5 +84,9 @@ void	set_explorer_event(t_ui_univers *univers, t_ui_folder *folder)
 		return (ui_del_window(univers, id));
 	eve_param.event = UIK_DOWN;
 	if (ui_new_event(univers, eve_param, &move_selector, folder))
+		return (ui_del_window(univers, id));
+	eve_param.event = UIK_RETURN;
+	eve_param.type = UI_EVENT_KEYUP;
+	if (ui_new_event(univers, eve_param, &open_selection, folder))
 		return (ui_del_window(univers, id));
 }

@@ -1,1 +1,1 @@
-SRCS += get_file_name.c ui_close_fd.c ui_pixscpy.c ui_memuset.c ui_print_errors.c
+SRCS += get_file_name.c ui_close_fd.c ui_pixscpy.c ui_memuset.c ui_print_errors.c get_previous_path.c

@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 11:35:10 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/11 00:33:23 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/13 17:33:37 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ void					ft_refresh_folder(t_ls_folder **folder)
 	ft_strdel(&path);
 }
 
-static inline int		voidcmp(void *s1, void *s2)
-{
-	return (ft_strcmp((char*)s1, (char*)s2));
-}
+// static inline int		voidcmp(void *s1, void *s2)
+// {
+// 	return (ft_strcmp((char*)s1, (char*)s2));
+// }
 
 static inline void		fill_folder(t_ls_folder *folder, DIR *dir, char *path)
 {
@@ -57,7 +57,7 @@ static inline void		fill_folder(t_ls_folder *folder, DIR *dir, char *path)
 					? ft_strjoin(path, "/") : ft_strdup(path);
 	while ((fold = readdir(dir)))
 		(folder->files)[i++] = ft_strdup(fold->d_name);
-	ft_sortarray((void**)folder->files, folder->files_amount, &voidcmp);
+	// ft_sortarray((void**)folder->files, folder->files_amount, &voidcmp);
 	closedir(dir);
 }
 

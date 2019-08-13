@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 12:02:48 by gsmith            #+#    #+#             */
-/*   Updated: 2019/07/23 16:47:55 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/13 17:21:55 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,11 @@ t_ui_win		*ui_new_blocking_win(t_ui_univers *univers, char *title, \
 		while (blocked_wins[i])
 			blocked_wins[i++]->blocked = win->id;
 		win->blocked = 0;
-		univers->splash->blocked = 0;
 		ft_memdel((void **)&blocked_wins);
 		return (win);
 	}
 	blocked_win->blocked = win->id;
 	block_daughter(univers, blocked_win->id, win->id);
 	win->blocked = 0;
-	univers->splash->blocked = 0;
 	return (win);
 }

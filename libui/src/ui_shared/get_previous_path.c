@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_file_name.c                                    :+:      :+:    :+:   */
+/*   get_previous_path.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/26 18:00:11 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/13 17:36:50 by alerandy         ###   ########.fr       */
+/*   Created: 2019/08/13 14:07:51 by alerandy          #+#    #+#             */
+/*   Updated: 2019/08/13 14:56:36 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ui_shared.h"
 #include "libft.h"
 
-char	*get_file_name(char *path)
+char	*get_previous_path(char *path)
 {
-	int		i;
-	int		witness;
+	char	*tmp;
+	char	*previous;
 
-	if (!(i = ft_strlen(path)))
+	if (!path)
 		return (NULL);
-	witness = i;
-	while (i > 0 && (path[i] != '/' || witness - i <= 1))
-		--i;
-	return (path + i + 1);
+	tmp = get_file_name(path);
+	previous = ft_strndup(path, ft_strlen(path) - ft_strlen(tmp));
+	return (previous);
 }
