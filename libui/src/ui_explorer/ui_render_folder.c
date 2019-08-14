@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 16:45:05 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/12 16:25:57 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/14 11:27:45 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,30 +19,52 @@
 #include "SDL_surface.h"
 #include "libui_draw.h"
 
+static inline int	get_scroll_position(t_ui_folder *folder)
+{
+	static int	previous = 0;
+	int			selected;
+	SDL_Surface	*surf;
+
+	selected = (int)folder->selected;
+	surf = folder->win->surf;
+	while (surf->h < (selected - previous) * 35 + 40)
+		++previous;
+	while (selected && 40 >= (selected - previous) \
+										* 35 + 40)
+		--previous;
+	if (!selected)
+		previous = 0;
+	return (previous);
+}
+
 static inline void	render_text(t_ui_folder *folder, t_ui_layer *layer, \
-									unsigned width)
+									unsigned width, t_ui_layer *back)
 {
 	t_ui_layer		*tmp;
 	int				i;
 	t_ui_draw_param	param;
 
-	i = -1;
+	i = 0;
 	param = (t_ui_draw_param){width, 35, 0, 0, 0x80ff0000, 0, 0};
 	while (++i < folder->ls->files_amount + 1)
 	{
-		tmp = folder->layers[i];
-		tmp->x = (!i ? 35 : 15) + (i && i == (int)folder->selected) * 20;
-		tmp->y = !i ? 10 : i * 35 + 10;
-		param.y = tmp->y - 3;
-		if (i && i == (int)folder->selected)
+		param.y = (i - get_scroll_position(folder)) * 35 + 10 - 3;
+		if (i == (int)folder->selected)
 		{
 			tmp = ui_rect_to_layer(param);
 			ui_layer_into_layer(layer, tmp);
 			ui_free_layer(&tmp);
 		}
 		tmp = folder->layers[i];
+		tmp->x = 15 + (i == (int)folder->selected) * 20;
+		tmp->y = param.y + 3;
 		ui_layer_into_layer(layer, tmp);
 	}
+	tmp = folder->layers[0];
+	tmp->x = 35;
+	tmp->y = 10;
+	ui_layer_into_layer(layer, back);
+	ui_layer_into_layer(layer, tmp);
 }
 
 void				ui_render_folder(t_ui_folder *folder)
@@ -62,9 +84,8 @@ void				ui_render_folder(t_ui_folder *folder)
 	param = (t_ui_draw_param){surface->w, 42, 0, 0, 0xff001aff, 0, 0};
 	if (!(tmp = ui_rect_to_layer(param)))
 		return ;
-	ui_layer_into_layer(layer, tmp);
+	render_text(folder, layer, surface->w, tmp);
 	ui_free_layer(&tmp);
-	render_text(folder, layer, surface->w);
 	ui_render_layer(&folder->win, layer);
 	ui_free_layer(&layer);
 }
