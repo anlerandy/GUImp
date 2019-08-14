@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 16:45:05 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/14 11:27:45 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/14 12:06:04 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,12 @@ void				ui_render_folder(t_ui_folder *folder)
 
 	if (!folder || !folder->win || !folder->layers || !folder->ls)
 		return (ft_putendl_fd("Echec de rendu Folder.", 2));
-	ft_bzero(&param, sizeof(t_ui_draw_param));
 	surface = folder->win->surf;
 	param = (t_ui_draw_param){surface->w, surface->h, 0, 0, 0xff01003b, 0, 0};
 	if (!(layer = ui_rect_to_layer(param)))
 		return ;
+	if (folder->background)
+		ui_layer_into_layer(layer, folder->background);
 	param = (t_ui_draw_param){surface->w, 42, 0, 0, 0xff001aff, 0, 0};
 	if (!(tmp = ui_rect_to_layer(param)))
 		return ;

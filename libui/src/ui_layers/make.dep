@@ -1,1 +1,2 @@
-SRCS += ui_image_to_layer.c ui_render_layer.c ui_layer_into_layer.c ui_free_layer.c 
+SRCS += ui_image_to_layer.c ui_render_layer.c ui_layer_into_layer.c \
+			ui_free_layer.c ui_layer_from_window.c

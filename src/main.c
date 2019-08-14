@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/11 16:01:11 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/14 11:46:36 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,6 @@ void	button(t_ui_univers **uni, t_ui_elem_used *context)
 int		main(int ac, char **av, char **env)
 {
 	t_ui_univers	*univ;
-	t_ui_win_param	param;
-	t_ui_new_elem	el;
-	t_ui_win		*win;
-	t_ui_layer		*layer;
 	char			*image;
 	char			*saved_image;
 	t_ui_folder		*explorer;
@@ -71,18 +67,7 @@ int		main(int ac, char **av, char **env)
 	saved_image = "./assets/test/test.bmp";
 	if (!ui_open_splash(univ, "./assets/splash.bmp", "The GUImp"))
 		ui_quit_univers(&univ, 1, "Could not retrieve splash. eoe.");
-
-	param = (t_ui_win_param){0, 500, 500, 500, UI_WINDOW_RESIZABLE};
-	explorer = ui_open_folder(univ, NULL, NULL);
-	win = ui_new_blocking_win(univ, "The Blocker", param, \
-							ui_get_window_id(explorer->win));
-	el = (t_ui_new_elem){0, 0, 100, 100, UI_ELEM_TYPE_BUTTON, \
-		UI_ELEM_STATE_IDLE, "button", NULL, &button};
-	if (!ui_new_elem(win, el))
-		ui_quit_univers(&univ, 1, "Could not add new elem. eoe.");
-	if ((layer = ui_image_to_layer(image)))
-		ui_render_layer(&(win), layer);
-	ui_open_image(univ, saved_image);
+	explorer = ui_open_folder(univ, NULL, ui_open_image(univ, saved_image));
 	ui_close_splash(univ);
 	ui_watch_events(&univ);
 	ui_quit_univers(&univ, 0, NULL);

@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 16:06:38 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/13 13:57:09 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/14 12:03:58 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	ui_free_folder(t_ui_folder **folder)
 	while (i > 0)
 		ft_memdel((void**)&(tmp->layers[i--]));
 	ft_memdel((void**)&tmp->layers);
+	ft_memdel((void**)&tmp->background);
 	ft_memdel((void**)folder);
 }
 

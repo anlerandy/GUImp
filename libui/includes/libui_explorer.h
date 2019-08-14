@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 13:10:19 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/13 13:57:18 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/14 11:58:40 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct	s_ui_folder
 	t_ls_folder	*ls;
 	t_ui_layer	**layers;
 	t_ui_win	*win;
+	t_ui_layer	*background;
 	unsigned	selected;
 }				t_ui_folder;
 

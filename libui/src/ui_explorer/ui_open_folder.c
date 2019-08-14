@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 12:50:04 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/13 13:48:44 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/14 11:59:19 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,13 @@ t_ui_folder					*ui_open_folder(t_ui_univers *univers, char *path, \
 		return (NULL);
 	if (!(folder = ui_get_folder(path ? path : univers->pwd, NULL)))
 		return (NULL);
+	if (win)
+	{
+		if (win->surf->w <= 300 || win->surf->h <= 80)
+			win = NULL;
+		else
+			folder->background = ui_layer_from_window(win);
+	}
 	if (!win && !(win = ui_new_window(univers, \
 							(t_ui_win_param){0, 0, 800, 600, UI_WINDOW_SHOWN}, \
 								"LIBUI Explorer")))
