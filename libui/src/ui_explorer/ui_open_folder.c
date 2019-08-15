@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 12:50:04 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/14 11:59:19 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/15 10:25:37 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 #include "libui_tools.h"
 #include "libui_explorer_tools.h"
 #include "libui_layers.h"
+#include "libui_events.h"
+#include "ui_shared.h"
 
 static inline t_ui_layer	*get_text_layer(char *file, char *path)
 {
@@ -101,4 +103,67 @@ t_ui_folder					*ui_open_folder(t_ui_univers *univers, char *path, \
 	ui_render_folder(folder);
 	set_explorer_event(univers, folder);
 	return (folder);
+}
+
+void						enter_it(t_ui_univers **univers, void *data, \
+								t_ui_event_data event)
+{
+	t_ui_folder		**folder;
+	char			*path;
+	int				selected;
+	char			*file;
+
+	(void)event;
+	folder = (t_ui_folder **)data;
+	selected = (*folder)->selected;
+	if (!selected || (*folder)->layers[selected]->index == 3)
+		return ;
+	path = NULL;
+	file = (*folder)->ls->files[selected - 1];
+	if (!ft_strcmp(file, "..") && ft_strlen(file) == 2)
+		path = get_previous_path((*folder)->ls->path);
+	else if (!ft_strcmp(file, ".") && ft_strlen(file) == 1)
+		path = ft_strdup((*folder)->ls->path);
+	else
+		path = ft_strjoin((*folder)->ls->path, file);
+	if ((*folder)->layers[selected]->index == 1)
+		open_folder(*univers, folder, path);
+	else
+	{
+		ft_strdel(&((*folder)->ls->path));
+		(*folder)->ls->path = ft_strdup(path);
+		ui_stop_watch(*univers);
+	}
+	ft_strdel(&path);
+}
+
+char						*ui_path_from_folder(t_ui_univers *univers, \
+													char *path, t_ui_win *win)
+{
+	t_ui_folder		*folder;
+	t_ui_new_event	event;
+	char			*target;
+
+	folder = ui_open_folder(univers, path, win);
+	event = (t_ui_new_event){UI_EVENT_KEYDOWN, UIK_RETURN, folder->win};
+	ui_new_event(univers, event, &enter_it, &folder);
+	event.type = UI_EVENT_WINDOW;
+	event.event = UI_WINDOWEVENT_CLOSE;
+	ui_new_event(univers, event, &close_and_stop, &folder);
+	if (univers->splash)
+	{
+		SDL_HideWindow(univers->splash->sdl_ptr);
+		SDL_ShowWindow(folder->win->sdl_ptr);
+		SDL_UpdateWindowSurface(folder->win->sdl_ptr);
+	}
+	ui_watch_events(&univers);
+	target = folder->ls->path ? ft_strdup(folder->ls->path) : NULL;
+	if (univers->splash)
+	{
+		SDL_ShowWindow(univers->splash->sdl_ptr);
+		SDL_UpdateWindowSurface(univers->splash->sdl_ptr);
+	}
+	ui_del_window(univers, ui_get_window_id(folder->win));
+	ui_free_folder(&folder);
+	return (target);
 }

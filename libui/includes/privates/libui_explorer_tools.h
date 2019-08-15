@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 16:32:26 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/11 16:33:47 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/15 10:07:40 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,12 @@ typedef struct s_ui_univers	t_ui_univers;
 typedef struct s_ui_folder		t_ui_folder;
 
 void	set_explorer_event(t_ui_univers *univers, t_ui_folder *folder);
+
+void	open_selection(t_ui_univers **univers, void *data, \
+														t_ui_event_data event);
+void	open_folder(t_ui_univers *univers, t_ui_folder **folder, char *path);
+void	close_and_stop(t_ui_univers **univers, void *data, \
+														t_ui_event_data event);
+
 
 #endif

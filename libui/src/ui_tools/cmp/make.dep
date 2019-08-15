@@ -1,1 +1,1 @@
-SRCS += ui_cmp_event.c ui_cmp_window.c ui_cmp_elem.c
+SRCS += ui_cmp_event.c ui_cmp_window.c ui_cmp_elem.c ui_block_window.c

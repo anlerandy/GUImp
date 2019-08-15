@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 14:28:27 by gsmith            #+#    #+#             */
-/*   Updated: 2019/08/12 10:54:46 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/15 10:29:58 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int					ui_wait_event(t_ui_univers **univers)
 	t_ui_event_data	data;
 	t_ui_event		*eve_call;
 
-	if (!univers || !*univers)
+	if (!univers || !*univers || !(*univers)->windows)
 		return (0);
 	eve_call = NULL;
 	if ((res = SDL_PollEvent(&eve)))
@@ -62,7 +62,7 @@ void				ui_watch_events(t_ui_univers **univers)
 {
 	t_ui_univers	*univ;
 
-	if (!univers || !(univ = *univers))
+	if (!univers || !(univ = *univers) || !univ->windows)
 		return ;
 	univ->run_event = 1;
 	while (univ->run_event)

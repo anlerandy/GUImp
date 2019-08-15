@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/28 03:54:28 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/08 17:19:29 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/14 14:42:13 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ t_bmp	*ui_getbmp(char *path)
 	read_header(fd, bmp);
 	read_info(fd, bmp);
 	if ((error = validate_bmp(bmp)))
-		return (print_parse_error(error, bmp, path));
+		return (NULL);
 	skip = bmp->header.offset - bmp->info.header_size - sizeof(t_bmp_header);
 	if ((bmp->palette = ft_memalloc(skip)))
 		read(fd, bmp->palette, skip);

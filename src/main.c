@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/14 11:46:36 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/15 10:21:02 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int		main(int ac, char **av, char **env)
 	t_ui_univers	*univ;
 	char			*image;
 	char			*saved_image;
-	t_ui_folder		*explorer;
+	char			*file;
 
 	(void)ac;
 	(void)av;
@@ -67,8 +67,12 @@ int		main(int ac, char **av, char **env)
 	saved_image = "./assets/test/test.bmp";
 	if (!ui_open_splash(univ, "./assets/splash.bmp", "The GUImp"))
 		ui_quit_univers(&univ, 1, "Could not retrieve splash. eoe.");
-	explorer = ui_open_folder(univ, NULL, ui_open_image(univ, saved_image));
+	file = ui_path_from_folder(univ, NULL, ui_open_image(univ, saved_image));
 	ui_close_splash(univ);
+	if (file)
+		ft_putendl(file);
+	else
+		ft_putendl("No Path.");
 	ui_watch_events(&univ);
 	ui_quit_univers(&univ, 0, NULL);
 }

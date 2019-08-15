@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 12:02:48 by gsmith            #+#    #+#             */
-/*   Updated: 2019/08/13 17:21:55 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/14 13:29:21 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,26 +63,6 @@ t_ui_win		*ui_new_daughter_win(t_ui_univers *univers, char *title, \
 	return (win);
 }
 
-static void		block_daughter(t_ui_univers *univers, unsigned int mother, \
-						unsigned int blocker)
-{
-	t_ui_win		**blocked_wins;
-	unsigned int	i;
-
-	if (!(blocked_wins = (t_ui_win **)rb_search_all(univers->windows, \
-			(void*)&mother, &ui_cmp_mother)))
-		return ;
-	i = -1;
-	while (blocked_wins[++i])
-	{
-		if (blocked_wins[i]->blocked)
-			continue ;
-		blocked_wins[i]->blocked = blocker;
-		block_daughter(univers, blocked_wins[i]->id, blocker);
-	}
-	ft_memdel((void **)&blocked_wins);
-}
-
 t_ui_win		*ui_new_blocking_win(t_ui_univers *univers, char *title, \
 					t_ui_win_param param, unsigned int blocked)
 {
@@ -106,7 +86,7 @@ t_ui_win		*ui_new_blocking_win(t_ui_univers *univers, char *title, \
 		return (win);
 	}
 	blocked_win->blocked = win->id;
-	block_daughter(univers, blocked_win->id, win->id);
+	ui_block_daughter(univers, blocked_win->id, win->id);
 	win->blocked = 0;
 	return (win);
 }

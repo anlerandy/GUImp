@@ -1,2 +1,2 @@
 SRCS += ui_open_folder.c ui_render_folder.c ui_free_folder.c \
-		events_01.c
+		events_01.c ex_open.c

@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:27:55 by gsmith            #+#    #+#             */
-/*   Updated: 2019/08/11 11:11:30 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/14 13:32:10 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int				ui_cmp_window_id(void *ptr_win, void *ptr_id);
 int				ui_cmp_window_flag(void *ptr_win, void *ptr_flag);
 int				ui_cmp_mother(void *ptr_win, void *ptr_mother_id);
 int				ui_cmp_blocker(void *ptr_win, void *ptr_blocker_id);
+void			ui_block_daughter(t_ui_univers *univers, unsigned int mother, \
+									unsigned int blocker);
 
 int				ui_cmp_event(void *ptr_a, void *ptr_b);
 int				ui_cmp_event_id(void *ptr_eve, void *ptr_id);
