@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 12:50:04 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/15 10:25:37 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/15 10:58:52 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,8 @@ char						*ui_path_from_folder(t_ui_univers *univers, \
 	folder = ui_open_folder(univers, path, win);
 	event = (t_ui_new_event){UI_EVENT_KEYDOWN, UIK_RETURN, folder->win};
 	ui_new_event(univers, event, &enter_it, &folder);
+	event.event = UIK_ESCAPE;
+	ui_new_event(univers, event, &close_and_stop, &folder);
 	event.type = UI_EVENT_WINDOW;
 	event.event = UI_WINDOWEVENT_CLOSE;
 	ui_new_event(univers, event, &close_and_stop, &folder);
