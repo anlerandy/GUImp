@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/14 13:09:21 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/15 10:27:09 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/17 23:39:38 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,8 @@ void	open_selection(t_ui_univers **univers, void *data, \
 	if (!folder || !(selected = folder->selected))
 		return ;
 	ls = folder->ls;
-	if (folder->layers[selected]->index == 3)
+	if ((path = NULL) || folder->layers[selected]->index == 3)
 		return ;
-	path = NULL;
 	file = ls->files[selected - 1];
 	if (!ft_strcmp(file, "..") && ft_strlen(file) == 2)
 		path = get_previous_path(ls->path);
