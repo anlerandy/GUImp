@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:45:39 by gsmith            #+#    #+#             */
-/*   Updated: 2019/08/12 10:56:48 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/09/09 14:08:11 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,7 @@
 #include "libft.h"
 #include "libui_tools.h"
 #include "libui_events.h"
-
-void				callback_quit(t_ui_univers **uni, void *dummy, \
-									t_ui_event_data event)
-{
-	(void)dummy;
-	(void)event;
-	ui_stop_watch(*uni);
-	ft_putendl("Thanks for all the fish!");
-}
-
-void				callback_close(t_ui_univers **uni, void *dummy, \
-										t_ui_event_data event)
-{
-	(void)dummy;
-	ui_del_window(*uni, event.win_id);
-	ft_putendl("Closed a window.");
-}
+#include "event_default.h"
 
 static inline void	set_default_event(t_ui_univers *univers)
 {
@@ -46,6 +30,10 @@ static inline void	set_default_event(t_ui_univers *univers)
 	eve_param.type = UI_EVENT_WINDOW;
 	eve_param.event = UI_WINDOWEVENT_CLOSE;
 	if (ui_new_event(univers, eve_param, &callback_close, NULL))
+		ui_quit_univers(&univers, 1, "Error while setting up event. eoe.");
+	eve_param.type = UI_EVENT_MOUSEBUTTONDOWN;
+	eve_param.event = UIM_BUTTON_LEFT;
+	if (ui_new_event(univers, eve_param, &callback_click, NULL))
 		ui_quit_univers(&univers, 1, "Error while setting up event. eoe.");
 }
 

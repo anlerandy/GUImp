@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 11:53:34 by gsmith            #+#    #+#             */
-/*   Updated: 2019/08/11 15:49:45 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/09/09 13:51:28 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,8 @@ unsigned int	ui_new_elem(t_ui_win *win, t_ui_new_elem param);
 void			ui_del_elem(t_ui_win *win, unsigned int id);
 void			ui_clear_elems(t_ui_win *win);
 t_ui_elem		*ui_get_elem_by_id(t_ui_win *win, unsigned int elem_id);
+t_ui_elem		*ui_get_elem_by_position(t_ui_win *win, unsigned x, unsigned y);
+t_ui_elem_used	ui_get_elem_context(t_ui_elem *elem, t_ui_event_data event);
 void			ui_elem_set_state(t_ui_elem *elem, unsigned int new_state);
 void			ui_elem_set_text(t_ui_elem *elem, char *new_text);
 void			ui_elem_set_value(t_ui_elem *elem, void *new_value);

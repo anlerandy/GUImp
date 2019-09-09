@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:59:44 by gsmith            #+#    #+#             */
-/*   Updated: 2019/08/18 12:14:45 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/09/09 14:05:26 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ unsigned int	ui_new_elem(t_ui_win *win, t_ui_new_elem param)
 	new_elem->h = param.h;
 	new_elem->type = param.elem_type;
 	new_elem->state = param.state;
-	rb_insert(&(win->elements), new_elem, &ui_cmp_elem);
 	new_elem->id = win->id_next_elem++;
+	new_elem->callback = param.callback;
+	rb_insert(&(win->elements), new_elem, &ui_cmp_elem);
 	return (new_elem->id);
 }

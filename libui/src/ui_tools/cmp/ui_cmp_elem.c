@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:20:34 by gsmith            #+#    #+#             */
-/*   Updated: 2019/08/18 13:03:46 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/09/09 14:02:04 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,23 @@ int				ui_cmp_elem_id(void *ptr_elem, void *ptr_id)
 	elem = (t_ui_elem *)ptr_elem;
 	id = *(int *)ptr_id;
 	return (elem->id - id);
+}
+
+int				ui_cmp_elem_pos(void *ptr_elem, void *ptr_pos)
+{
+	t_ui_elem	*elem;
+	unsigned	x;
+	unsigned	y;
+
+	if (!ptr_elem && !ptr_pos)
+		return (0);
+	if (!ptr_elem)
+		return (-1);
+	if (!ptr_pos)
+		return (1);
+	elem = (t_ui_elem *)ptr_elem;
+	x = ((unsigned *)ptr_pos)[0];
+	y = ((unsigned *)ptr_pos)[1];
+	return (!(elem->w + elem->x >= x && elem->x <= x \
+				&& elem->h + elem->y >= y && elem->y <= y));
 }
