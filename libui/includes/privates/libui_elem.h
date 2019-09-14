@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 11:43:25 by gsmith            #+#    #+#             */
-/*   Updated: 2019/09/09 13:06:11 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/09/09 18:00:37 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,7 @@ int				ui_cmp_elem_type(void *ptr_elem, void *ptr_type);
 int				ui_cmp_elem_pos(void *ptr_elem, void *ptr_pos);
 
 void			ui_free_elem(void *elem_ptr);
+
+void			elem_draw_button(t_ui_win *win, t_ui_elem *elem);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 16:06:38 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/14 12:03:58 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/09/14 12:58:10 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,15 @@ void	ui_free_folder(t_ui_folder **folder)
 	i = 0;
 	if (tmp->ls)
 	{
-		i = tmp->ls->files_amount;
-		while (i >= 0)
-			ft_strdel(&(tmp->ls->files[i--]));
-		ft_strdel(&(tmp->ls->path));
 		i = tmp->ls->files_amount + 1;
+		ft_free_folder(&tmp->ls);
 		ft_memdel((void**)&tmp->ls);
 	}
 	tmp->win = NULL;
-	while (i > 0)
+	while (i >= 0)
 		ft_memdel((void**)&(tmp->layers[i--]));
-	ft_memdel((void**)&tmp->layers);
-	ft_memdel((void**)&tmp->background);
+	ft_memdel((void**)&(tmp->layers));
+	ft_memdel((void**)&(tmp->background));
 	ft_memdel((void**)folder);
 }
 

@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 00:21:01 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/11 00:21:33 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/09/12 18:20:25 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ void					ft_free_folder(t_ls_folder **folder)
 	i = -1;
 	while ((*folder)->files[++i])
 		ft_strdel(&((*folder)->files[i]));
-	ft_memdel((void**)&(*folder)->files);
+	ft_memdel((void**)&((*folder)->files));
 	ft_memdel((void**)folder);
 }

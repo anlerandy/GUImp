@@ -1,1 +1,3 @@
-SRCS += ui_new_elem.c ui_del_elem.c ui_get_elem.c ui_elem_set.c
+SRCS += ui_new_elem.c ui_del_elem.c ui_get_elem.c ui_elem_set.c 
+
+SRCS += elem_draw_button.c 

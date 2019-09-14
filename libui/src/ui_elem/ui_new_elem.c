@@ -6,12 +6,18 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:59:44 by gsmith            #+#    #+#             */
-/*   Updated: 2019/09/09 14:05:26 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/09/14 12:33:07 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <limits.h>
 #include "libui_tools.h"
+
+void			ui_draw_elem(t_ui_win *win, t_ui_elem *elem)
+{
+	if (elem->type == UI_ELEM_TYPE_BUTTON)
+		elem_draw_button(win, elem);
+}
 
 unsigned int	ui_new_elem(t_ui_win *win, t_ui_new_elem param)
 {
@@ -36,5 +42,6 @@ unsigned int	ui_new_elem(t_ui_win *win, t_ui_new_elem param)
 	new_elem->id = win->id_next_elem++;
 	new_elem->callback = param.callback;
 	rb_insert(&(win->elements), new_elem, &ui_cmp_elem);
+	ui_draw_elem(win, new_elem);
 	return (new_elem->id);
 }
