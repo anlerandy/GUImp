@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 16:47:44 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/08 18:18:04 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/09/16 10:43:32 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ t_ui_layer					*ui_ttf_to_layer(const char *path, char *txt, \
 	if (!(surface = TTF_RenderText_Blended(font, txt, fill_color(param.color))))
 	{
 		quit_ttf(font, NULL);
-		return (ttf_print_error("Erreur dessin de texte : ", TTF_GetError()));
+		return (ttf_print_error("Drawing error: ", TTF_GetError()));
 	}
 	if (!(layer = ft_memalloc(sizeof(t_ui_layer))))
 	{
