@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:59:44 by gsmith            #+#    #+#             */
-/*   Updated: 2019/09/14 12:33:07 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/09/19 19:02:14 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 void			ui_draw_elem(t_ui_win *win, t_ui_elem *elem)
 {
+	if (!elem)
+		return ;
 	if (elem->type == UI_ELEM_TYPE_BUTTON)
 		elem_draw_button(win, elem);
 }

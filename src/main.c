@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
-/*   Updated: 2019/09/14 12:58:41 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/09/19 19:06:46 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,11 @@ int		main(int ac, char **av, char **env)
 	if (!ui_open_splash(univ, "./assets/splash.bmp", "The GUImp"))
 		ui_quit_univers(&univ, 1, "Could not retrieve splash. eoe.");
 	win = ui_new_window(univ, (t_ui_win_param){500, 500, 1000, 1000, 0}, NULL);
-	if (!(ui_new_elem(win, (t_ui_new_elem){0, 0, 500, 200, 1, 0, "Test", NULL, &print_text})))
+	if (!(ui_new_elem(win, (t_ui_new_elem){125, 300, 200, 100, 1, \
+							UI_ELEM_STATE_ACTIVE, "Test", NULL, &print_text})))
+		ft_putendl("Failed to create element.");
+	if (!(ui_new_elem(win, (t_ui_new_elem){0, 0, 300, 150, 1, \
+					UI_ELEM_STATE_DISABLED, "Disabled", NULL, &print_text})))
 		ft_putendl("Failed to create element.");
 	ui_close_splash(univ);
 	// char * path = ui_path_from_folder(univ, NULL, NULL);

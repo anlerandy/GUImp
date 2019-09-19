@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 11:18:03 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/08 18:17:49 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/09/19 17:17:21 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,19 +78,20 @@ void					ui_render_layer(t_ui_win **win, t_ui_layer *layer)
 		return ;
 	dst = (*win)->surf->pixels;
 	limit_w = (*win)->surf->w - layer->x < (int)layer->rescale_w \
-		? (*win)->surf->w : 2 * (*win)->surf->w - layer->rescale_w - layer->x;
+		? (*win)->surf->w - layer->x \
+		: 2 * (*win)->surf->w - layer->rescale_w - layer->x;
 	limit_w = limit_w > (int)layer->rescale_w ? (int)layer->rescale_w : limit_w;
 	layer->height_inversed = layer->height_inversed >= 0 ? 1 : -1;
 	layer->width_inversed = layer->width_inversed >= 0 ? 1 : -1;
-	if (limit_w < 0)
+	if (limit_w <= 0)
 		return ;
 	if (layer->width != layer->rescale_w || layer->height != layer->rescale_h)
 		return (ui_render_layer_rescale(win, layer));
 	i = 0;
-	while (layer->rescale_h > i && (*win)->surf->h > (int)i)
+	while (layer->rescale_h > i && (*win)->surf->h > ((int)i + layer->y))
 	{
-		convert_color_lines((dst + (i * (*win)->surf->w)) + layer->x, \
-								layer->pixels + (i * layer->width), limit_w);
+		convert_color_lines((dst + ((i + layer->y) * (*win)->surf->w)) \
+					+ layer->x, layer->pixels + (i * layer->width), limit_w);
 		++i;
 	}
 	SDL_UpdateWindowSurface((*win)->sdl_ptr);

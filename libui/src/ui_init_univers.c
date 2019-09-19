@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:45:39 by gsmith            #+#    #+#             */
-/*   Updated: 2019/09/09 14:08:11 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/09/19 19:02:31 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ static inline void	set_default_event(t_ui_univers *univers)
 	eve_param.type = UI_EVENT_MOUSEBUTTONDOWN;
 	eve_param.event = UIM_BUTTON_LEFT;
 	if (ui_new_event(univers, eve_param, &callback_click, NULL))
+		ui_quit_univers(&univers, 1, "Error while setting up event. eoe.");
+	eve_param.type = UI_EVENT_MOUSEMOTION;
+	eve_param.event = UIM_MOTION;
+	if (ui_new_event(univers, eve_param, &callback_mouse_motion, NULL))
 		ui_quit_univers(&univers, 1, "Error while setting up event. eoe.");
 }
 
