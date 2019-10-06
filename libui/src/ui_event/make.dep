@@ -1,2 +1,1 @@
-SRCS += ui_del_event.c ui_new_event.c ui_run_event.c ui_generate_event_id.c \
-		ui_clear_events.c
+SRCS += ui_del_event.c ui_new_event.c ui_run_event.c ui_generate_event_id.c

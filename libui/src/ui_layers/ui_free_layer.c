@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_test.c                                        :+:      :+:    :+:   */
+/*   ui_free_layer.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/22 13:31:00 by alerandy          #+#    #+#             */
-/*   Updated: 2019/04/28 04:35:21 by alerandy         ###   ########.fr       */
+/*   Created: 2019/07/25 12:58:08 by alerandy          #+#    #+#             */
+/*   Updated: 2019/07/26 01:04:47 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bmp_parser.h"
+#include "libui_layers.h"
 
-int		main(void)
+void	ui_free_layer(t_ui_layer **layer)
 {
-	t_bmp			bmpfile;
-
-	bmpfile = ui_getbmp("/home/woap-unix/GUImp/libui/src/ui_bmp/test.bmp");
-	return (0);
+	if (!layer || !*layer)
+		return ;
+	ft_memdel((void**)&((*layer)->pixels));
+	ft_memdel((void**)layer);
 }

@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_clear_events.c                                  :+:      :+:    :+:   */
+/*   ft_memdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/06 14:23:19 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/06 15:33:42 by gsmith           ###   ########.fr       */
+/*   Created: 2019/07/20 17:18:23 by alerandy          #+#    #+#             */
+/*   Updated: 2019/07/23 18:04:05 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libui_tools.h"
+#include "libft.h"
 
-void			ui_clear_events(t_ui_univers *univers)
+void	*ft_memdup(void *src, size_t size)
 {
-	rb_clear_tree(&(univers->events), &ui_free_event);
+	void	*dst;
+
+	if (!(dst = ft_memalloc(size)))
+		return (NULL);
+	ft_memcpy(dst, src, size);
+	return (dst);
 }

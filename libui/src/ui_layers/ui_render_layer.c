@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 11:18:03 by alerandy          #+#    #+#             */
-/*   Updated: 2019/06/30 21:00:50 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/10/06 12:57:41 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,64 +14,84 @@
 #include "libui_layers.h"
 #include "libui_tools.h"
 #include "vectors.h"
+#include "ui_shared.h"
 
-static void	ui_render_layer_rescale(t_ui_win **win, t_ui_layer layer)
+static inline int		pixel_place(t_ui_layer *layer, int x, int y)
+{
+	return (((int)(layer->width_inversed
+				* (x - layer->x) / layer->scale.x) \
+				+ (int)(layer->height_inversed \
+				* (y - layer->y) / layer->scale.y) * layer->width));
+}
+
+static inline t_vec2	calc_scale(t_ui_layer *layer)
+{
+	t_vec2 scale;
+
+	scale.x = (double)layer->rescale_w / (double)layer->width;
+	scale.y = (double)layer->rescale_h / (double)layer->height;
+	return (scale);
+}
+
+static inline void		handle_transparancy(unsigned *dst, unsigned *src)
+{
+	*dst = merge_pixel(*dst, *src);
+}
+
+static inline void		ui_render_layer_rescale(t_ui_win **win,
+	t_ui_layer *layer)
 {
 	t_ui_win	*tmp;
-	int			i;
-	int			j;
+	t_isize		l;
 	unsigned	*dst;
-	unsigned	*src;
-	t_vec2		scale;
 
 	tmp = *win;
 	dst = (unsigned *)tmp->surf->pixels;
-	src = (unsigned *)layer.pixels;
-	scale.x = layer.rescale_w / layer.width;
-	scale.y = layer.rescale_h / layer.height;
-	j = (layer.y >= 0) ? layer.y : 0;
-	while (j < layer.height * scale.y + layer.y && j <= tmp->surf->h)
+	layer->scale = calc_scale(layer);
+	l.x = (layer->x >= 0) ? layer->x : 0;
+	while (l.x < (int)(layer->width * layer->scale.x) + layer->x
+		&& l.x < tmp->surf->w && l.x >= 0 && l.x >= layer->x
+		- (layer->width * layer->scale.x))
 	{
-		i = (layer.x >= 0) ? layer.x : 0;
-		while (i < (layer.width * scale.x) + layer.x && i <= tmp->surf->w)
+		l.y = (layer->y >= 0) ? layer->y : 0;
+		while (l.y < (layer->height * layer->scale.y) + layer->y
+			&& l.y < tmp->surf->h && l.y >= 0 && l.y >= layer->y
+			- (layer->height * layer->scale.y))
 		{
-			dst[i + j * tmp->surf->w] = src[((int)((i - layer.x) / scale.x) \
-											+ (int)((j - layer.y) / scale.y) \
-											* tmp->surf->w)];
-			i++;
+			handle_transparancy(&(dst[l.x + l.y * tmp->surf->w]), \
+								&(layer->pixels[pixel_place(layer, \
+									l.x, l.y)]));
+			l.y += layer->height_inversed;
 		}
-		j++;
+		l.x += layer->width_inversed;
 	}
 	SDL_UpdateWindowSurface(tmp->sdl_ptr);
 }
 
-void		ui_render_layer(t_ui_win **win, t_ui_layer layer)
+void					ui_render_layer(t_ui_win **win, t_ui_layer *layer)
 {
-	t_ui_win	*tmp;
 	unsigned	i;
 	int			limit_w;
-	unsigned	*src;
 	unsigned	*dst;
 
-	tmp = *win;
-	src = layer.pixels;
-	dst = (unsigned *)tmp->surf->pixels;
-	i = 0;
-	limit_w = tmp->surf->w - layer.x < (int)layer.rescale_w \
-				? tmp->surf->w : 2 * tmp->surf->w - layer.rescale_w - layer.x;
+	if (!layer || !layer->pixels || !win || !*win)
+		return ;
+	dst = (*win)->surf->pixels;
+	limit_w = (*win)->surf->w - layer->x < (int)layer->rescale_w \
+		? (*win)->surf->w : 2 * (*win)->surf->w - layer->rescale_w - layer->x;
+	limit_w = limit_w > (int)layer->rescale_w ? (int)layer->rescale_w : limit_w;
+	layer->height_inversed = layer->height_inversed >= 0 ? 1 : -1;
+	layer->width_inversed = layer->width_inversed >= 0 ? 1 : -1;
 	if (limit_w < 0)
 		return ;
-	if (layer.width != layer.rescale_w || layer.height != layer.rescale_h)
+	if (layer->width != layer->rescale_w || layer->height != layer->rescale_h)
+		return (ui_render_layer_rescale(win, layer));
+	i = 0;
+	while (layer->rescale_h > i && (*win)->surf->h > (int)i)
 	{
-		ui_render_layer_rescale(win, layer);
-		return ;
-	}
-	while (layer.rescale_h > i && tmp->surf->h > (int)i)
-	{
-		ft_memcpy(dst + layer.x, src, limit_w * sizeof(unsigned));
-		src += layer.width;
-		dst += tmp->surf->w;
+		convert_color_lines((dst + (i * (*win)->surf->w)) + layer->x, \
+								layer->pixels + (i * layer->width), limit_w);
 		++i;
 	}
-	SDL_UpdateWindowSurface(tmp->sdl_ptr);
+	SDL_UpdateWindowSurface((*win)->sdl_ptr);
 }

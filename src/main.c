@@ -6,11 +6,13 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/20 14:02:39 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/10/06 12:59:23 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "guimp.h"
+#include "libui_explorer.h"
+#include "libui_layers.h"
 
 void	pt_event_param(t_ui_event_data event)
 {
@@ -43,88 +45,34 @@ void	pt_event_param(t_ui_event_data event)
 	ft_putchar('\n');
 }
 
-void	callback_quit(t_ui_univers **uni, void *dummy, t_ui_event_data event)
+void	button(t_ui_univers **uni, t_ui_elem_used *context)
 {
-	(void)dummy;
-	pt_event_param(event);
-	ui_stop_watch(*uni);
-	ft_putendl("thanks for the fish!");
-}
-
-void	callback_close(t_ui_univers **uni, void *dummy, t_ui_event_data event)
-{
-	(void)dummy;
-	pt_event_param(event);
-	ui_del_window(*uni, event.win_id);
-	ft_putendl("Closed a window.");
-}
-
-void	callback_enter(t_ui_univers **uni, void *dummy, t_ui_event_data event)
-{
-	(void)dummy;
 	(void)uni;
-	pt_event_param(event);
+	(void)context;
+	ft_putendl("a button was clicked.");
 }
 
-int		main()
+int		main(int ac, char **av, char **env)
 {
 	t_ui_univers	*univ;
-	t_ui_win_param	param[4];
-	t_ui_win		*win;
-	int				flag;
-	unsigned int	event_id[2];
-	t_ui_win		*splash;
-	t_ui_layer		layer;
-	t_ui_layer		alpha_layer;
-	t_ui_layer		alpha_layer2;
 	char			*image;
 	char			*saved_image;
-	char			*alpha;
-	char			*alpha2;
+	char			*file;
 
-	if (!(univ = ui_init_univers()))
+	(void)ac;
+	(void)av;
+	if (!(univ = ui_init_univers(env)))
 		exit(1);
-	image = "/home/woap-unix/Downloads/sample.bmp";
-	saved_image = "/home/woap-unix/Downloads/test.bmp";
-	alpha2 = "/home/woap-unix/Downloads/alpha2.bmp";
-	alpha = "/home/woap-unix/Downloads/alpha.bmp";
-	splash = ui_open_splash(univ, "./assets/splash.bmp", "The GUImp");
-	ft_bzero(param, sizeof(param));
-	param[0] = (t_ui_win_param){0, 500, 500, 500, UI_WINDOW_RESIZABLE};
-	param[1] = (t_ui_win_param){500, 500, 500, 500, UI_WINDOW_RESIZABLE};
-	param[2] = (t_ui_win_param){1000, 500, 500, 500, UI_WINDOW_RESIZABLE};
-	flag = -1;
-	while (++flag < 3)
-		if (!(win = ui_new_window(univ, param[flag], "Hello toast")))
-			ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
-	layer = ui_image_to_layer(image);
-	alpha_layer = ui_image_to_layer(alpha);
-	alpha_layer2 = ui_image_to_layer(alpha2);
-	ui_layer_into_layer(&layer, &alpha_layer);
-	ui_layer_into_layer(&layer, &alpha_layer2);
-	ui_render_layer(&win, layer);
-	ui_layer_to_bmp(layer, saved_image);
-	if (!(win = ui_open_image(univ, saved_image)))
-		ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
-	if (!(win = ui_open_image(univ, "/Users/alerandy/Desktop/8bita.png")))
-		ui_quit_univers(&univ, 1, "Could not retrieve new window. eoe.");
-	event_id[0] = UI_EVENT_KEYUP;
-	event_id[1] = UIK_ESCAPE;
-	if (ui_new_event(univ, event_id, &callback_quit, NULL))
-		ui_quit_univers(&univ, 1, "Error while setting up event. eoe.");
-	event_id[1] = UIK_RETURN;
-	if (ui_new_event(univ, event_id, &callback_enter, NULL))
-		ui_quit_univers(&univ, 1, "Error while setting up event. eoe.");
-	event_id[0] = UI_EVENT_QUIT;
-	event_id[1] = 0;
-	if (ui_new_event(univ, event_id, &callback_quit, NULL))
-		ui_quit_univers(&univ, 1, "Error while setting up event. eoe.");
-	event_id[0] = UI_EVENT_WINDOW;
-	event_id[1] = UI_WINDOWEVENT_CLOSE;
-	if (ui_new_event(univ, event_id, &callback_close, NULL))
-		ui_quit_univers(&univ, 1, "Error while setting up event. eoe.");
-	// sleep(2); // Test the new system of the Splash.
-	ui_close_splash(univ, &splash);
+	image = "./assets/test/sample.bmp";
+	saved_image = "./assets/test/test.bmp";
+	if (!ui_open_splash(univ, "./assets/splash.bmp", "The GUImp"))
+		ui_quit_univers(&univ, 1, "Could not retrieve splash. eoe.");
+	file = ui_path_from_folder(univ, NULL, ui_open_image(univ, saved_image));
+	ui_close_splash(univ);
+	if (file)
+		ft_putendl(file);
+	else
+		ft_putendl("No Path.");
 	ui_watch_events(&univ);
 	ui_quit_univers(&univ, 0, NULL);
 }

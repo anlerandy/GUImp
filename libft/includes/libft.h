@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 14:52:08 by alerandy          #+#    #+#             */
-/*   Updated: 2019/05/20 18:19:42 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/08/13 15:26:47 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void				*ft_memccpy(void *dst, const void *src, int c, size_t n);
 void				*ft_memchr(const void *s, int c, size_t n);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 void				*ft_memcpy(void *dst, const void *src, size_t n);
+void				*ft_memdup(void *src, size_t size);
 void				*ft_memset(void *b, int c, size_t len);
 char				*ft_strcat(char *s1, const char *s2);
 char				*ft_strchr(const char *s, int c);
@@ -96,6 +97,8 @@ t_list				*ft_lstnew(void const *content, size_t content_size);
 int					ft_isupper(int c);
 char				*ft_strcapitalize(char *s);
 char				*ft_strndup(const char *s1, size_t n);
+void				ft_sortarray(void **array, unsigned size, \
+									int (*cmp)(void *, void *));
 
 unsigned			ft_swap_integer(unsigned nbr);
 

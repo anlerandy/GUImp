@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ui_free_window.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:38:38 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/01 19:07:02 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/07/20 15:23:06 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "libui_tools.h"
 #include "libui_tools.h"
 
 void	ui_free_window(void *win_ptr)
@@ -22,9 +21,6 @@ void	ui_free_window(void *win_ptr)
 		return ;
 	win = (t_ui_win *)win_ptr;
 	SDL_DestroyWindow(win->sdl_ptr);
-/*
-** TODO
-** 	rb_clear_tree(&(win->elem), &ui_free_elem);
-*/
+	rb_clear_tree(&(win->elements), &ui_free_elem);
 	ft_memdel(&win_ptr);
 }

@@ -6,11 +6,35 @@
 /*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 17:15:36 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/10 19:06:22 by gsmith           ###   ########.fr       */
+/*   Updated: 2019/06/13 15:35:38 by gsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libui_tools.h"
+
+int		ui_cmp_blocker(void *ptr_win, void *ptr_blocker_id)
+{
+	unsigned int	blocker_id;
+	unsigned int	win_blocker;
+
+	if (!ptr_win || !ptr_blocker_id)
+		return (1);
+	win_blocker = ((t_ui_win *)ptr_win)->blocked;
+	blocker_id = *(int *)ptr_blocker_id;
+	return (blocker_id == win_blocker ? 0 : 1);
+}
+
+int		ui_cmp_mother(void *ptr_win, void *ptr_mother_id)
+{
+	unsigned int	mother_id;
+	unsigned int	win_mother;
+
+	if (!ptr_win || !ptr_mother_id)
+		return (1);
+	win_mother = ((t_ui_win *)ptr_win)->mother;
+	mother_id = *(int *)ptr_mother_id;
+	return (mother_id == win_mother ? 0 : 1);
+}
 
 int		ui_cmp_window_id(void *ptr_win, void *ptr_id)
 {

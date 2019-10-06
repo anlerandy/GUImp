@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/28 03:54:28 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/01 14:33:33 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/10/06 12:56:34 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,7 @@ void	read_bmp(int fd, t_bmp *bmpfile)
 	w = bmpfile->info.width;
 	h = bmpfile->info.height;
 	pixels = ft_memalloc(offset * bmpfile->pixel_count);
-	if (!read(fd, pixels, offset * bmpfile->pixel_count))
-	{
-		ft_putendl_fd("Une erreur est survenue lors de la lecture.", 2);
-		return (free(pixels));
-	}
+	read(fd, pixels, offset * bmpfile->pixel_count);
 	if (bmpfile->info.color_depth == 1)
 		fill_pixels_1(bmpfile->pixels, (char*)pixels, w, h);
 	if (bmpfile->info.color_depth == 8 || bmpfile->info.color_depth == 4)
@@ -82,30 +78,30 @@ void	read_info(int fd, t_bmp *bmp)
 	free(tmp);
 }
 
-t_bmp	ui_getbmp(char *path)
+t_bmp	*ui_getbmp(char *path)
 {
 	int			fd;
-	t_bmp		bmp;
+	t_bmp		*bmp;
 	int			skip;
 	int			error;
 
-	ft_bzero(&bmp, sizeof(bmp));
 	if ((fd = open(path, O_RDWR)) == -1)
 	{
-		ft_putendl_fd("Le fichier n'existe pas.", 2);
 		close(fd);
-		return (bmp);
+		return (NULL);
 	}
-	read_header(fd, &bmp);
-	read_info(fd, &bmp);
+	if (!(bmp = ft_memalloc(sizeof(t_bmp))))
+		return (NULL);
+	read_header(fd, bmp);
+	read_info(fd, bmp);
 	if ((error = validate_bmp(bmp)))
-		return (print_parse_error(error, bmp, path));
-	skip = bmp.header.offset - bmp.info.header_size - sizeof(t_bmp_header);
-	if (skip > 0 && (bmp.palette = ft_memalloc(skip)))
-		read(fd, bmp.palette, skip);
-	bmp.pixel_count = bmp.info.width * bmp.info.height;
-	if ((bmp.pixels = ft_memalloc(sizeof(unsigned) * bmp.pixel_count)))
-		read_bmp(fd, &bmp);
+		return (NULL);
+	skip = bmp->header.offset - bmp->info.header_size - sizeof(t_bmp_header);
+	if ((bmp->palette = ft_memalloc(skip)))
+		read(fd, bmp->palette, skip);
+	bmp->pixel_count = bmp->info.width * bmp->info.height;
+	if ((bmp->pixels = ft_memalloc(sizeof(unsigned) * bmp->pixel_count)))
+		read_bmp(fd, bmp);
 	close(fd);
 	return (bmp);
 }

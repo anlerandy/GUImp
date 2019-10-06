@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_clear_all_windows.c                             :+:      :+:    :+:   */
+/*   ui_memuset.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/27 19:15:13 by gsmith            #+#    #+#             */
-/*   Updated: 2019/04/27 19:22:06 by gsmith           ###   ########.fr       */
+/*   Created: 2019/07/23 16:41:12 by alerandy          #+#    #+#             */
+/*   Updated: 2019/07/23 16:49:09 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libui_tools.h"
+#include <stdlib.h>
 
-void		ui_clear_all_windows(t_ui_univers *univers)
+void	ui_memuset(void *b, unsigned c, size_t len)
 {
-	rb_clear_tree(&(univers->windows), &ui_free_window);
+	size_t		i;
+	unsigned	*dst;
+
+	if (!b)
+		return ;
+	dst = b;
+	i = 0;
+	while (i < len)
+		dst[i++] = c;
 }

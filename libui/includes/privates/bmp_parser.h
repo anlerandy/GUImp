@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 13:31:11 by alerandy          #+#    #+#             */
-/*   Updated: 2019/06/30 18:22:06 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/10/06 13:01:02 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ typedef struct		s_bmp
 	unsigned		pixel_count;
 }					t_bmp;
 
-void				ui_putbmp(t_bmp_header header, t_bmp_file bmp);
-t_bmp				ui_getbmp(char *path);
-void				ui_delbmp(t_bmp *bmp);
+void				ui_putbmp(t_bmp_header *header, t_bmp_file *bmp);
+t_bmp				*ui_getbmp(char *path);
+void				ui_delbmp(t_bmp **bmp);
 
 #endif
