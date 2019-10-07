@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 15:11:25 by alerandy          #+#    #+#              #
-#    Updated: 2019/07/23 13:05:49 by alerandy         ###   ########.fr        #
+#    Updated: 2019/10/07 18:18:03 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,6 @@ include includes.dep
 # Intisialize the main files
 SDL2 = SDL2-2.0.9
 SDL2LINK = https://www.libsdl.org/release/$(SDL2).tar.gz
-SDL2CONF = ${shell pwd}/SDL/sdl2-config --prefix=${shell pwd}/SDL
 FREETP = freetype-2.10.0
 FREELINK = http://ftp.igh.cnrs.fr/pub/nongnu/freetype/${FREETP}.tar.gz
 SDLTTF = SDL2_ttf-2.0.15
@@ -90,11 +89,11 @@ $(SDLTTF): $(SDL2) $(FREETP)
 	printf "\r\033[K""\r\033[K""\033[32m[SDLTTF] \033[0m""Configuring""\n"
 	mkdir -p SDLTTF && cd SDLTTF \
 	&& export LD_LIBRARY_PATH="${shell pwd}/shared/lib" \
-	&& SDL2_CONFIG="${SDL2CONF}" \
-	FT2_CONFIG="$(shell pwd)/freetype2/" \
+	&& SDL2_CONFIG="$(shell pwd)/SDL/sdl2-config" \
+	PKG_CONFIG_PATH=${shell pwd}/SDL/:$(shell pwd)/freetype2/ \
+	FT2_CONFIG="$(shell pwd)/freetype2/freetype-config" \
 	FT2_CFLAGS="-I$(shell pwd)/shared/include/freetype2" \
 	FT2_LIBS="-L$(shell pwd)/shared/lib/ -lfreetype" \
-	PKG_CONFIG_PATH=${shell pwd}/SDL/:$(shell pwd)/freetype2/ \
 	sh ../$(SDLTTF)/configure --prefix=${shell pwd}/shared > /dev/null 2> /dev/null
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[SDLTTF] \033[0m""Installing""\n"
 	make -C SDLTTF -j > /dev/null 2> /dev/null
