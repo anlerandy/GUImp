@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/28 03:16:49 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/05 16:52:37 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/10/08 19:06:12 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ void	put_compression(unsigned char compression)
 		ft_putendl("Strong");
 	if (idat == 5)
 		ft_putendl("gZIP");
+	if (idat > 5)
+		ft_putendl("Other");
 }
 
 void	ui_putpng(t_png png)

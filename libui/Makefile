@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 15:11:25 by alerandy          #+#    #+#              #
-#    Updated: 2019/10/06 12:52:20 by alerandy         ###   ########.fr        #
+#    Updated: 2019/10/08 17:51:02 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ FREELINK = http://ftp.igh.cnrs.fr/pub/nongnu/freetype/${FREETP}.tar.gz
 SDLTTF = SDL2_ttf-2.0.15
 SDLTLINK = https://www.libsdl.org/projects/SDL_ttf/release/$(SDLTTF).tar.gz
 INCLUDES += ./includes ./includes/privates ./shared/include/SDL2 ../libft/includes
-LIBS = -L../libft -lft -L./shared/lib -lSDL2 -lSDL2_ttf
+LIBS = -lm -L../libft -lft -L./shared/lib -lSDL2 -lSDL2_ttf
 SRCS += ui_init_univers.c ui_quit_univers.c
 INCLUDES:=$(addprefix -I, $(INCLUDES))
 

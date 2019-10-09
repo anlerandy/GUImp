@@ -6,29 +6,15 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:01:37 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/20 15:59:56 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/10/08 19:02:11 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ui_png_tools.h"
 #include <zlib.h>
 #include <stdio.h>
-
-// static inline unsigned	merge_pixel(unsigned dst, unsigned src)
-// {
-// 	double		alpha;
-// 	t_bgra		merge;
-// 	t_bgra		source;
-
-// 	merge = hex_to_bit32_pixel(dst);
-// 	source = hex_to_bit32_pixel(src);
-// 	alpha = (255 - source.a) / 255.;
-// 	merge.r = merge.r * alpha + source.r * (1 - alpha);
-// 	merge.g = merge.g * alpha + source.g * (1 - alpha);
-// 	merge.b = merge.b * alpha + source.b * (1 - alpha);
-// 	dst = bit32_pixel_to_hex(merge);
-// 	return (dst);
-// }
+#include "vectors.h"
+#include <math.h>
 
 void		uncompress_data(void *dst, void *src, unsigned in_size, \
 							unsigned out_size)
@@ -47,46 +33,120 @@ void		uncompress_data(void *dst, void *src, unsigned in_size, \
 	inflateEnd(&infstream);
 }
 
-unsigned	char_to_hex(unsigned char c)
+t_argb	png_get_color(t_png *png, unsigned char *data, t_isize pos, int filter)
 {
-	unsigned	pixel;
+	t_argb		color;
+	unsigned	width;
+	t_argb		helper[3];
+	unsigned	predic[3];
+	unsigned	p;
 
-	pixel = c / 3 / 3 / 3;
-	pixel += (c & 0x00110000) / 3 / 3;
-	pixel += (c & 0x00001100) / 3;
-	pixel += (c & 0x00000011);
-	return (pixel);
+	width = png->header.width;
+	color.r = *(data + (pos.x * 4 + 1) + (width * 4 + 1) * pos.y);
+	color.g = *(data + (pos.x * 4 + 1) + (width * 4 + 1) * pos.y + 1);
+	color.b = *(data + (pos.x * 4 + 1) + (width * 4 + 1) * pos.y + 2);
+	color.a = *(data + (pos.x * 4 + 1) + (width * 4 + 1) * pos.y + 3);
+	if (filter == 1 && pos.x != 0)
+	{
+		--pos.x;
+		helper[0] = png_hex_to_bit32_pixel(png->pixels[pos.x + pos.y * width]);
+		color.r += helper[0].r;
+		color.g += helper[0].g;
+		color.b += helper[0].b;
+		color.a += helper[0].a;
+	}
+	if (filter == 2 && pos.y != 0)
+	{
+		--pos.y;
+		helper[0] = png_hex_to_bit32_pixel(png->pixels[pos.x + pos.y * width]);
+		color.r += helper[0].r;
+		color.g += helper[0].g;
+		color.b += helper[0].b;
+		color.a += helper[0].a;
+	}
+	if (filter == 3 || filter == 4)
+	{
+		if (pos.x != 0)
+			helper[0] = png_hex_to_bit32_pixel(png->pixels[pos.x - 1 \
+															+ pos.y * width]);
+		else
+			helper[0] = (t_argb){0, 0, 0, 0};
+		if (pos.y != 0)
+			helper[1] = png_hex_to_bit32_pixel(png->pixels[pos.x \
+														+ (pos.y - 1) * width]);
+		else
+			helper[1] = (t_argb){0, 0, 0, 0};
+		if (filter == 3)
+		{
+			color.r += (unsigned char)floor((double)(helper[0].r + helper[1].r) / 2);
+			color.g += (unsigned char)floor((double)(helper[0].g + helper[1].g) / 2);
+			color.b += (unsigned char)floor((double)(helper[0].b + helper[1].b) / 2);
+			color.a += (unsigned char)floor((double)(helper[0].a + helper[1].a) / 2);
+		}
+		else
+		{
+			if (pos.x != 0 && pos.y != 0)
+				helper[2] = png_hex_to_bit32_pixel(png->pixels[pos.x - 1 \
+														+ (pos.y - 1) * width]);
+			else if (pos.x != 0)
+				helper[2] = helper[0];
+			else
+				helper[2] = helper[1];
+			predic[0] = png_bit32_pixel_to_hex(helper[0]);
+			predic[1] = png_bit32_pixel_to_hex(helper[1]);
+			predic[1] = png_bit32_pixel_to_hex(helper[1]);
+			p = predic[0] + predic[1] - predic[2];
+			predic[0] = abs((int)(p - predic[0]));
+			predic[1] = abs((int)(p - predic[1]));
+			predic[1] = abs((int)(p - predic[2]));
+			if (predic[0] <= predic[1] && predic[0] <= predic[2])
+				return (helper[0]);
+			if (predic[1] <= predic[2])
+				return (helper[1]);
+			return (helper[2]);
+		}
+	}
+	return (color);
 }
 
 void		png_write_rgba(t_png *png, void *data)
 {
 	int			i;
-	unsigned	x;
-	unsigned	y;
+	t_isize		pos;
 	int			filter;
+	t_argb		color;
+	int			cursor;
 
 	i = 0;
-	x = 0;
-	y = 0;
+	pos.y = 0;
+	cursor = 0;
 	if (png->header.bit == 8)
 	{
-		while (y < png->header.height)
+		while ((unsigned)i < (png->header.width * 4 + 1) * png->header.height)
 		{
-			while (x < png->header.width)
+			if (i % (png->header.width * 4 + 1) == 0)
 			{
-				if (x == 0) {
-					filter = *((unsigned char*)data + x + y * png->header.height + y);
-					printf("Filter = %d => ", filter);
-				}
-				// if (x == 0 && y == 0)
-					printf("%x - ", *((unsigned char*)data + ((i % png->header.width) + 1) + x + y * png->header.width));
-				png->pixels[i] = char_to_hex(*((unsigned char*)data + ((i % png->header.width) + 1) + x++ + y * png->header.width));
-				++i;
+				filter = (int)*((unsigned char*)data + i++);
+				i == 1 ? 0 : ++pos.y;
+				pos.x = 0;
+				// ft_putchar('\n');
+				// ft_putnbr(filter);
+				// ft_putchar(' ');
 			}
-			printf("\n");
-			x = 0;
-			++y;
+			color = png_get_color(png, (unsigned char*)data, pos, filter);
+			// ft_putnbr(color.r);
+			// ft_putchar('-');
+			// ft_putnbr(color.g);
+			// ft_putchar('-');
+			// ft_putnbr(color.b);
+			// ft_putchar('-');
+			// ft_putnbr(color.a);
+			// ft_putstr("    ");
+			png->pixels[cursor++] = png_bit32_pixel_to_hex(color);
+			i += 4;
+			++pos.x;
 		}
+		ft_putchar('\n');
 	}
 }
 
@@ -111,11 +171,10 @@ void		png_finalise_reading(t_png *png, t_png_chunk chunk)
 		ui_scanline_to_rgb(png, data);
 	if (png->header.color == PNGRGBA)
 		png_write_rgba(png, data);
-		// while (png->pixel_count - ++i)
-		// 	png->pixels[i] = bit32_pixel_to_hex(*(t_rgba*)(data + i * sizeof(t_rgba)));
 	if (png->header.color == PNGINDEX)
 		while (png->pixel_count - ++i - 1)
-			png->pixels[i] = bit24_pixel_to_hex(png->palette[((unsigned char*)(data + (int)(i / png->header.width)))[i]]) \
-							+ png->opacity[((unsigned char*)data)[i]] * 256 * 256 * 256;
+			png->pixels[i] = bit24_pixel_to_hex(png->palette[((unsigned char*)\
+				(data + (int)(i / png->header.width)))[i]]) \
+					+ png->opacity[((unsigned char*)data)[i]] * 256 * 256 * 256;
 	ft_memdel(&data);
 }
