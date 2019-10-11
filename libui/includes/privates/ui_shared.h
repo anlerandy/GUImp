@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 18:03:13 by alerandy          #+#    #+#             */
-/*   Updated: 2019/10/08 18:30:25 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/10/11 11:46:13 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,10 @@ t_bgra				hex_to_bit32_pixel(unsigned color);
 t_rgb				png_hex_to_bit24_pixel(unsigned color);
 t_argb				png_hex_to_bit32_pixel(unsigned color);
 
+t_argb				ui_argb_addition(t_argb a, t_argb b);
+t_argb				ui_argb_average(t_argb a, t_argb b);
+t_bgra				ui_bgra_addition(t_bgra a, t_bgra b);
+t_bgra				ui_bgra_average(t_bgra a, t_bgra b);
 
 char				*get_file_name(char *path);
 void				close_fd(int fd, char *error);
