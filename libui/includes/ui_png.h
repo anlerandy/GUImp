@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 18:23:59 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/01 14:33:33 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/10/11 23:50:53 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ typedef struct			s_png
 	unsigned		raw_size;
 }						t_png;
 
-t_png					ui_getpng(char *path);
-void					ui_delpng(t_png *png);
-void					ui_putpng(t_png png);
+t_png					*ui_getpng(char *path);
+void					ui_delpng(t_png **png);
+void					ui_putpng(t_png *png);
 
 #endif

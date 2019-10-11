@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/28 03:16:49 by alerandy          #+#    #+#             */
-/*   Updated: 2019/10/08 19:06:12 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/10/11 23:51:22 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,21 +91,21 @@ void	put_compression(unsigned char compression)
 		ft_putendl("Other");
 }
 
-void	ui_putpng(t_png png)
+void	ui_putpng(t_png *png)
 {
-	put_signature(png.signature);
+	put_signature(png->signature);
 	ft_putstr("Width: ");
-	ft_putnbr(png.header.width);
+	ft_putnbr(png->header.width);
 	ft_putstr("\nHeight: ");
-	ft_putnbr(png.header.height);
+	ft_putnbr(png->header.height);
 	ft_putstr("\nBit depth: ");
-	ft_putnbr(png.header.bit);
+	ft_putnbr(png->header.bit);
 	ft_putchar('\n');
-	put_color(png.header.color);
-	put_compression(png.header.compression);
-	put_filter(png.header.filter);
+	put_color(png->header.color);
+	put_compression(png->header.compression);
+	put_filter(png->header.filter);
 	ft_putstr("Interlace: ");
-	ft_putendl(png.header.interlace ? "Adam7" : "None");
-	ft_putendl(png.palette ? "Color palette PNG" : "No color palette");
-	ft_putendl(png.opacity ? "Alpha Channel PNG" : "No Alpha sub channel");
+	ft_putendl(png->header.interlace ? "Adam7" : "None");
+	ft_putendl(png->palette ? "Color palette PNG" : "No color palette");
+	ft_putendl(png->opacity ? "Alpha Channel PNG" : "No Alpha sub channel");
 }

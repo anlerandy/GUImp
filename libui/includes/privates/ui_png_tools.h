@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:33:47 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/01 14:32:22 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/10/11 23:52:04 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct		s_png_funcs
 
 void				read_png(int fd, t_png *png);
 void				put_chunk(t_png *png, t_png_chunk chunk);
-int					validate_png(t_png png);
+int					validate_png(t_png *png);
 
 void				png_write_header(t_png *png, t_png_chunk chunk);
 void				png_write_data(t_png *png, t_png_chunk chunk);

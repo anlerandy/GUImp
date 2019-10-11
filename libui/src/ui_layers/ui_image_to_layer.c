@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 10:47:50 by alerandy          #+#    #+#             */
-/*   Updated: 2019/10/08 22:02:57 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/10/11 23:48:19 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,24 +44,24 @@ t_ui_layer		*ui_bmp_to_layer(char *path)
 
 t_ui_layer		*ui_png_to_layer(char *path)
 {
-	t_png		png;
+	t_png		*png;
 	t_ui_layer	*layer;
 
 	if (!(layer = ft_memalloc(sizeof(t_ui_layer))))
 		return (NULL);
 	png = ui_getpng(path);
-	if (!png.pixels || !(layer->pixels = ft_memalloc(sizeof(unsigned) \
-														* png.pixel_count)))
+	if (!png || !(layer->pixels = ft_memalloc(sizeof(unsigned) \
+														* png->pixel_count)))
 	{
-		ft_putendl_fd(!png.pixels ? "PNG Failed." : "Layer allocation failed.", 2);
+		ft_putendl_fd(!png ? "PNG Failed." : "Layer allocation failed.", 2);
 		ui_free_layer(&layer);
 		return (layer);
 	}
-	ft_memcpy(layer->pixels, png.pixels, sizeof(unsigned) * png.pixel_count);
-	layer->width = png.header.width;
-	layer->height = png.header.height;
-	layer->rescale_w = png.header.width;
-	layer->rescale_h = png.header.height;
+	ft_memcpy(layer->pixels, png->pixels, sizeof(unsigned) * png->pixel_count);
+	layer->width = png->header.width;
+	layer->height = png->header.height;
+	layer->rescale_w = png->header.width;
+	layer->rescale_h = png->header.height;
 	layer->width_inversed = 1;
 	layer->height_inversed = 1;
 	return (layer);
