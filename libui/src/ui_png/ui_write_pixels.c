@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:01:37 by alerandy          #+#    #+#             */
-/*   Updated: 2019/10/11 18:26:46 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/10/12 02:42:59 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,37 +56,28 @@ t_argb	png_get_color(t_png *png, unsigned char *data, t_isize pos, int filter)
 	color.a = *(data + (pos.x * 4 + 1) + (width * 4 + 1) * pos.y + 3);
 	if (filter == 1 && pos.x > 0)
 		return (color = ui_argb_addition(color, \
-			png_hex_to_bit32_pixel(png->pixels[pos.x - 1 + pos.y * width])));
+			ui_hex_to_argb(png->pixels[pos.x - 1 + pos.y * width])));
 	if (filter == 2 && pos.y > 0)
 		return (color = ui_argb_addition(color, \
-			png_hex_to_bit32_pixel(png->pixels[pos.x + (pos.y - 1) * width])));
+			ui_hex_to_argb(png->pixels[pos.x + (pos.y - 1) * width])));
 	if (filter == 3 || filter == 4)
 	{
-		if (pos.x > 0)
-			helper[0] = png_hex_to_bit32_pixel(png->pixels[pos.x - 1 \
-															+ pos.y * width]);
-		else
-			helper[0] = (t_argb){0, 0, 0, 0};
-		if (pos.y > 0)
-			helper[1] = png_hex_to_bit32_pixel(png->pixels[pos.x \
-														+ (pos.y - 1) * width]);
-		else
-			helper[1] = (t_argb){0, 0, 0, 0};
+		helper[0] = pos.x <= 0 ? (t_argb){0, 0, 0, 0} \
+			: ui_hex_to_argb(png->pixels[pos.x - 1 + pos.y * width]);
+		helper[1] = pos.y <= 0 ? (t_argb){0, 0, 0, 0} \
+			: ui_hex_to_argb(png->pixels[pos.x + (pos.y - 1) * width]);
 		if (filter == 3)
 			return (color = ui_argb_average(helper[0], helper[1]));
 		else
 		{
-			if (pos.x > 0 && pos.y > 0)
-				helper[2] = png_hex_to_bit32_pixel(png->pixels[pos.x - 1 \
-														+ (pos.y - 1) * width]);
-			else
-				helper[2] = (t_argb){0, 0, 0, 0};
-			p = (long long)png_bit32_pixel_to_hex(helper[0]) \
-						+ (long long)png_bit32_pixel_to_hex(helper[1]) \
-								- (long long)png_bit32_pixel_to_hex(helper[2]);
-			predic[0] = labs(p - (long long)png_bit32_pixel_to_hex(helper[0]));
-			predic[1] = labs(p - (long long)png_bit32_pixel_to_hex(helper[1]));
-			predic[2] = labs(p - (long long)png_bit32_pixel_to_hex(helper[2]));
+			helper[2] = pos.x <= 0 || pos.y <= 0 ? (t_argb){0, 0, 0, 0} \
+				: ui_hex_to_argb(png->pixels[pos.x - 1 + (pos.y - 1) * width]);
+			p = (long long)ui_argb_to_hex(helper[0]) \
+						+ (long long)ui_argb_to_hex(helper[1]) \
+								- (long long)ui_argb_to_hex(helper[2]);
+			predic[0] = labs(p - (long long)ui_argb_to_hex(helper[0]));
+			predic[1] = labs(p - (long long)ui_argb_to_hex(helper[1]));
+			predic[2] = labs(p - (long long)ui_argb_to_hex(helper[2]));
 			if (predic[0] <= predic[1] && predic[0] <= predic[2])
 				return (ui_argb_addition(color, helper[0]));
 			if (predic[1] <= predic[2])
@@ -130,7 +121,7 @@ void		png_write_rgba(t_png *png, void *data)
 			// ft_putchar('-');
 			// ft_putnbr(color.a);
 			// ft_putstr("    ");
-			png->pixels[cursor++] = png_bit32_pixel_to_hex(color);
+			png->pixels[cursor++] = ui_argb_to_hex(color);
 			i += 4;
 			++pos.x;
 		}
@@ -162,8 +153,8 @@ void		png_finalise_reading(t_png *png, t_png_chunk chunk)
 		png_write_rgba(png, data);
 	if (png->header.color == PNGINDEX)
 		while (png->pixel_count - ++i - 1)
-			png->pixels[i] = bit24_pixel_to_hex(png->palette[((unsigned char*)\
+			png->pixels[i] = ui_bgr_to_hex(png->palette[((unsigned char*)\
 				(data + (int)(i / png->header.width)))[i]]) \
-					+ png->opacity[((unsigned char*)data)[i]] * 256 * 256 * 256;
+					+ (!png->opacity ? 0 : png->opacity[((unsigned char*)data)[i]]) * 256 * 256 * 256;
 	ft_memdel(&data);
 }

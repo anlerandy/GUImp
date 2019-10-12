@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 18:03:13 by alerandy          #+#    #+#             */
-/*   Updated: 2019/10/11 17:40:52 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/10/12 02:39:57 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ typedef struct		s_argb
 
 char				*get_file_name(char *path);
 void				close_fd(int fd, char *error);
-unsigned			bit24_pixel_to_hex(t_bgr pixel);
-unsigned			bit32_pixel_to_hex(t_bgra pixel);
-unsigned			png_bit24_pixel_to_hex(t_rgb pixel);
-unsigned			png_bit32_pixel_to_hex(t_argb pixel);
-t_bgr				hex_to_bit24_pixel(unsigned color);
-t_bgra				hex_to_bit32_pixel(unsigned color);
-t_rgb				png_hex_to_bit24_pixel(unsigned color);
-t_argb				png_hex_to_bit32_pixel(unsigned color);
+unsigned			ui_bgr_to_hex(t_bgr pixel);
+unsigned			ui_bgra_to_hex(t_bgra pixel);
+unsigned			ui_rgb_to_hex(t_rgb pixel);
+unsigned			ui_argb_to_hex(t_argb pixel);
+t_bgr				ui_hex_to_bgr(unsigned color);
+t_bgra				ui_hex_to_bgra(unsigned color);
+t_rgb				ui_hex_to_rgb(unsigned color);
+t_argb				ui_hex_to_argb(unsigned color);
 
 t_argb				ui_argb_addition(t_argb a, t_argb b);
 t_argb				ui_argb_substract(t_argb a, t_argb b);

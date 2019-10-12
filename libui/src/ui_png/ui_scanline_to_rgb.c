@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 13:21:48 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/01 14:33:33 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/10/12 02:37:10 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ui_scanline_to_rgb(t_png *png, void *data)
 	(void)filter;
 	(void)data;
 	// while (png->pixel_count - ++i * sizeof(t_bgr) >= sizeof(t_bgr))
-	// 	png->pixels[i] = bit24_pixel_to_hex(*(t_bgr*)((unsigned char*)data \
+	// 	png->pixels[i] = ui_bgr_to_hex(*(t_bgr*)((unsigned char*)data \
 	// 					+ i * sizeof(t_bgr)));
 	while (y < png->header.height)
 	{

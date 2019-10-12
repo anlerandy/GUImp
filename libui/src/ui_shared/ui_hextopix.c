@@ -6,13 +6,13 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 13:06:52 by alerandy          #+#    #+#             */
-/*   Updated: 2019/10/08 18:29:49 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/10/12 02:39:57 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ui_shared.h"
 
-t_bgr	hex_to_bit24_pixel(unsigned color)
+t_bgr	ui_hex_to_bgr(unsigned color)
 {
 	t_bgr	pixel;
 
@@ -22,7 +22,7 @@ t_bgr	hex_to_bit24_pixel(unsigned color)
 	return (pixel);
 }
 
-t_bgra	hex_to_bit32_pixel(unsigned color)
+t_bgra	ui_hex_to_bgra(unsigned color)
 {
 	t_bgra		pixel;
 
@@ -33,7 +33,7 @@ t_bgra	hex_to_bit32_pixel(unsigned color)
 	return (pixel);
 }
 
-t_rgb	png_hex_to_bit24_pixel(unsigned color)
+t_rgb	ui_hex_to_rgb(unsigned color)
 {
 	t_rgb	pixel;
 
@@ -43,7 +43,7 @@ t_rgb	png_hex_to_bit24_pixel(unsigned color)
 	return (pixel);
 }
 
-t_argb	png_hex_to_bit32_pixel(unsigned color)
+t_argb	ui_hex_to_argb(unsigned color)
 {
 	t_argb		pixel;
 
