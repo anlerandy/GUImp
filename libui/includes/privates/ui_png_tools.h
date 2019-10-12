@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:33:47 by alerandy          #+#    #+#             */
-/*   Updated: 2019/10/11 23:52:04 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/10/12 16:49:26 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,7 @@ void				png_write_transparency(t_png *png, t_png_chunk chunk);
 void				png_finalise_reading(t_png *png, t_png_chunk chunk);
 
 void				ui_scanline_to_rgb(t_png *png, void *data);
+
+void				png_write_rgba(t_png *png, void *data, int alpha);
 
 #endif

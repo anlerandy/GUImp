@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:01:37 by alerandy          #+#    #+#             */
-/*   Updated: 2019/10/12 02:42:59 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/10/12 16:48:18 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,102 +33,6 @@ void		uncompress_data(void *dst, void *src, unsigned in_size, \
 	inflateEnd(&infstream);
 }
 
-long long	contract_self(t_argb a)
-{
-	long long	result;
-
-	result = a.a + a.r + a.g + a.b;
-	return (result);
-}
-
-t_argb	png_get_color(t_png *png, unsigned char *data, t_isize pos, int filter)
-{
-	t_argb		color;
-	unsigned	width;
-	t_argb		helper[3];
-	long long	predic[3];
-	long long	p;
-
-	width = png->header.width;
-	color.r = *(data + (pos.x * 4 + 1) + (width * 4 + 1) * pos.y);
-	color.g = *(data + (pos.x * 4 + 1) + (width * 4 + 1) * pos.y + 1);
-	color.b = *(data + (pos.x * 4 + 1) + (width * 4 + 1) * pos.y + 2);
-	color.a = *(data + (pos.x * 4 + 1) + (width * 4 + 1) * pos.y + 3);
-	if (filter == 1 && pos.x > 0)
-		return (color = ui_argb_addition(color, \
-			ui_hex_to_argb(png->pixels[pos.x - 1 + pos.y * width])));
-	if (filter == 2 && pos.y > 0)
-		return (color = ui_argb_addition(color, \
-			ui_hex_to_argb(png->pixels[pos.x + (pos.y - 1) * width])));
-	if (filter == 3 || filter == 4)
-	{
-		helper[0] = pos.x <= 0 ? (t_argb){0, 0, 0, 0} \
-			: ui_hex_to_argb(png->pixels[pos.x - 1 + pos.y * width]);
-		helper[1] = pos.y <= 0 ? (t_argb){0, 0, 0, 0} \
-			: ui_hex_to_argb(png->pixels[pos.x + (pos.y - 1) * width]);
-		if (filter == 3)
-			return (color = ui_argb_average(helper[0], helper[1]));
-		else
-		{
-			helper[2] = pos.x <= 0 || pos.y <= 0 ? (t_argb){0, 0, 0, 0} \
-				: ui_hex_to_argb(png->pixels[pos.x - 1 + (pos.y - 1) * width]);
-			p = (long long)ui_argb_to_hex(helper[0]) \
-						+ (long long)ui_argb_to_hex(helper[1]) \
-								- (long long)ui_argb_to_hex(helper[2]);
-			predic[0] = labs(p - (long long)ui_argb_to_hex(helper[0]));
-			predic[1] = labs(p - (long long)ui_argb_to_hex(helper[1]));
-			predic[2] = labs(p - (long long)ui_argb_to_hex(helper[2]));
-			if (predic[0] <= predic[1] && predic[0] <= predic[2])
-				return (ui_argb_addition(color, helper[0]));
-			if (predic[1] <= predic[2])
-				return (ui_argb_addition(color, helper[1]));
-			return (ui_argb_addition(color, helper[2]));
-		}
-	}
-	return (color);
-}
-
-void		png_write_rgba(t_png *png, void *data)
-{
-	int			i;
-	t_isize		pos;
-	int			filter;
-	t_argb		color;
-	int			cursor;
-
-	i = 0;
-	pos.y = 0;
-	cursor = 0;
-	if (png->header.bit == 8)
-	{
-		while ((unsigned)i < (png->header.width * 4 + 1) * png->header.height)
-		{
-			if (i % (png->header.width * 4 + 1) == 0)
-			{
-				filter = (int)*((unsigned char*)data + i++);
-				i == 1 ? 0 : ++pos.y;
-				pos.x = 0;
-				// ft_putchar('\n');
-				// ft_putnbr(filter);
-				// ft_putchar(' ');
-			}
-			color = png_get_color(png, (unsigned char*)data, pos, filter);
-			// ft_putnbr(color.r);
-			// ft_putchar('-');
-			// ft_putnbr(color.g);
-			// ft_putchar('-');
-			// ft_putnbr(color.b);
-			// ft_putchar('-');
-			// ft_putnbr(color.a);
-			// ft_putstr("    ");
-			png->pixels[cursor++] = ui_argb_to_hex(color);
-			i += 4;
-			++pos.x;
-		}
-		ft_putchar('\n');
-	}
-}
-
 void		png_finalise_reading(t_png *png, t_png_chunk chunk)
 {
 	int		i;
@@ -139,18 +43,16 @@ void		png_finalise_reading(t_png *png, t_png_chunk chunk)
 	chunk.data = NULL;
 	data = ft_memalloc(png->header.width * png->header.height * 4 \
 						+ png->header.height);
-	uncompress_data(data, png->raw_data, png->raw_size, \
-				png->header.width * png->header.height * 4);
+	uncompress_data(data, png->raw_data, png->raw_size,
+			png->header.width * png->header.height * 4 + png->header.height);
 	png->pixel_count = png->header.width * png->header.height;
 	if (!(png->pixels = ft_memalloc(sizeof(unsigned) * png->pixel_count)))
 	{
 		ft_putendl_fd("Echec d'allocations de memoire.", 2);
 		return ;
 	}
-	if (png->header.color == PNGRGB)
-		ui_scanline_to_rgb(png, data);
-	if (png->header.color == PNGRGBA)
-		png_write_rgba(png, data);
+	if (png->header.color == PNGRGB || png->header.color == PNGRGBA)
+		png_write_rgba(png, data, png->header.color == PNGRGBA);
 	if (png->header.color == PNGINDEX)
 		while (png->pixel_count - ++i - 1)
 			png->pixels[i] = ui_bgr_to_hex(png->palette[((unsigned char*)\
