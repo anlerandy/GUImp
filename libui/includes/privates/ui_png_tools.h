@@ -39,8 +39,6 @@ void				png_write_palette(t_png *png, t_png_chunk chunk);
 void				png_write_transparency(t_png *png, t_png_chunk chunk);
 void				png_finalise_reading(t_png *png, t_png_chunk chunk);
 
-void				ui_scanline_to_rgb(t_png *png, void *data);
-
 void				png_write_rgba(t_png *png, void *data, int alpha);
 
 #endif

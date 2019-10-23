@@ -23,7 +23,7 @@ SDL2 = SDL2-2.0.9
 SDLTTF = SDL2_ttf-2.0.15
 INCLUDES += ./includes ./libui/shared/include/SDL2 ./libft/includes \
 			./libui/includes ./libui/includes/privates
-LIBS = -lm -lz -L./libui -lui -L./libft -lft -L./libui/shared/lib -lSDL2 -lSDL2_ttf
+LIBS = -lm -L./libui -lui -L./libft -lft -L./libui/shared/lib -lSDL2 -lSDL2_ttf -lz
 
 SRCS += main.c
 INCLUDES:=$(addprefix -I, $(INCLUDES))
