@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 16:42:20 by alerandy          #+#    #+#             */
-/*   Updated: 2019/11/04 18:52:15 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/11/04 19:14:40 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,20 @@ t_argb	eight_bit_get_color(t_png *png, t_argb color, t_isize pos, int filter)
 	t_argb		prior;
 
 	width = png->header.width;
-	if (filter == 1 && pos.x > 0)
-		return (ui_argb_addition(color,
-					ui_hex_to_argb(png->pixels[pos.x - 1 + pos.y * width])));
-	if (filter == 2 && pos.y > 0)
-		return (ui_argb_addition(color,
-					ui_hex_to_argb(png->pixels[pos.x + (pos.y - 1) * width])));
+	before = pos.x <= 0 ? (t_argb){0, 0, 0, 0}
+				: ui_hex_to_argb(png->pixels[pos.x - 1 + pos.y * width]);
+	prior = pos.y <= 0 ? (t_argb){0, 0, 0, 0}
+				: ui_hex_to_argb(png->pixels[pos.x + (pos.y - 1) * width]);
+	if (filter == 1)
+		return (ui_argb_addition(color, before));
+	if (filter == 2)
+		return (ui_argb_addition(color, prior));
 	if (filter == 3 || filter == 4)
 	{
-		before = pos.x <= 0 ? (t_argb){0, 0, 0, 0}
-					: ui_hex_to_argb(png->pixels[pos.x - 1 + pos.y * width]);
-		prior = pos.y <= 0 ? (t_argb){0, 0, 0, 0}
-					: ui_hex_to_argb(png->pixels[pos.x + (pos.y - 1) * width]);
 		if (filter == 3)
-			return (ui_argb_average(before, prior));
-		else
-			return (ui_argb_addition(color, \
-						ui_hex_to_argb((unsigned)color_filter_4(png, pos))));
+			return (ui_argb_addition(color, ui_argb_average(before, prior)));
+		return (ui_argb_addition(color, \
+					ui_hex_to_argb((unsigned)color_filter_4(png, pos))));
 	}
 	return (color);
 }
