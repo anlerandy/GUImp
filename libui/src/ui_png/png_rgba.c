@@ -6,51 +6,60 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 16:42:20 by alerandy          #+#    #+#             */
-/*   Updated: 2019/10/12 17:23:38 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/11/04 18:52:15 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ui_png_tools.h"
 #include "vectors.h"
 
+long		color_filter_4(t_png *png, t_isize pos)
+{
+	long		a;
+	long		b;
+	long		c;
+	long		pn[3];
+	long		p;
+
+	a = pos.x == 0 ? 0 : png->pixels[(pos.x - 1) + pos.y * png->header.width];
+	b = pos.y == 0 ? 0 : png->pixels[pos.x + (pos.y - 1) * png->header.width];
+	c = pos.x == 0 || pos.y == 0 \
+				? 0 : png->pixels[(pos.x - 1) + (pos.y - 1) * png->header.width];
+	p = a + b - c;
+	pn[0] = labs(p - a);
+	pn[1] = labs(p - b);
+	pn[2] = labs(p - c);
+	if (pn[0] <= pn[1] && pn[0] <= pn[2])
+		return (a);
+	if (pn[1] <= pn[2])
+		return (b);
+	return (c);
+}
+
 t_argb	eight_bit_get_color(t_png *png, t_argb color, t_isize pos, int filter)
 {
 	unsigned	width;
-	t_argb		helper[3];
-	long long	predic[3];
-	long long	p;
+	t_argb		before;
+	t_argb		prior;
 
 	width = png->header.width;
 	if (filter == 1 && pos.x > 0)
-		return (color = ui_argb_addition(color,
+		return (ui_argb_addition(color,
 					ui_hex_to_argb(png->pixels[pos.x - 1 + pos.y * width])));
 	if (filter == 2 && pos.y > 0)
-		return (color = ui_argb_addition(color,
+		return (ui_argb_addition(color,
 					ui_hex_to_argb(png->pixels[pos.x + (pos.y - 1) * width])));
 	if (filter == 3 || filter == 4)
 	{
-		helper[0] = pos.x <= 0 ? (t_argb){0, 0, 0, 0}
+		before = pos.x <= 0 ? (t_argb){0, 0, 0, 0}
 					: ui_hex_to_argb(png->pixels[pos.x - 1 + pos.y * width]);
-		helper[1] = pos.y <= 0 ? (t_argb){0, 0, 0, 0}
+		prior = pos.y <= 0 ? (t_argb){0, 0, 0, 0}
 					: ui_hex_to_argb(png->pixels[pos.x + (pos.y - 1) * width]);
 		if (filter == 3)
-			return (color = ui_argb_average(helper[0], helper[1]));
+			return (ui_argb_average(before, prior));
 		else
-		{
-			helper[2] = pos.x <= 0 || pos.y <= 0 ? (t_argb){0, 0, 0, 0}
-				: ui_hex_to_argb(png->pixels[pos.x - 1 + (pos.y - 1) * width]);
-			p = (long long)ui_argb_to_hex(helper[0]) \
-				+ (long long)ui_argb_to_hex(helper[1]) \
-					- (long long)ui_argb_to_hex(helper[2]);
-			predic[0] = labs(p - (long long)ui_argb_to_hex(helper[0]));
-			predic[1] = labs(p - (long long)ui_argb_to_hex(helper[1]));
-			predic[2] = labs(p - (long long)ui_argb_to_hex(helper[2]));
-			if (predic[0] <= predic[1] && predic[0] <= predic[2])
-				return (ui_argb_addition(color, helper[0]));
-			if (predic[1] <= predic[2])
-				return (ui_argb_addition(color, helper[1]));
-			return (ui_argb_addition(color, helper[2]));
-		}
+			return (ui_argb_addition(color, \
+						ui_hex_to_argb((unsigned)color_filter_4(png, pos))));
 	}
 	return (color);
 }
