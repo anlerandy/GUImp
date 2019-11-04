@@ -6,13 +6,13 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/28 03:16:49 by alerandy          #+#    #+#             */
-/*   Updated: 2019/10/11 23:51:22 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/11/04 12:03:49 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ui_png.h"
 
-void	put_signature(unsigned char *signature)
+void			put_signature(unsigned char *signature)
 {
 	ft_putstr("Signature: ");
 	ft_putnbr(signature[0]);
@@ -33,7 +33,7 @@ void	put_signature(unsigned char *signature)
 	ft_putendl("");
 }
 
-void	put_color(unsigned char color)
+void			put_color(unsigned char color)
 {
 	ft_putstr("Color format: ");
 	if (color == PNGGRAY)
@@ -52,7 +52,7 @@ void	put_color(unsigned char color)
 		ft_putendl("ARGB");
 }
 
-void	put_filter(unsigned char filter)
+void			put_filter(unsigned char filter)
 {
 	ft_putstr("Filter: ");
 	if (!filter)
@@ -67,7 +67,7 @@ void	put_filter(unsigned char filter)
 		ft_putendl("Paeth");
 }
 
-void	put_compression(unsigned char compression)
+static void		put_compression(unsigned char compression)
 {
 	int		idat;
 	int		ihdr;
@@ -91,7 +91,7 @@ void	put_compression(unsigned char compression)
 		ft_putendl("Other");
 }
 
-void	ui_putpng(t_png *png)
+void			ui_putpng(t_png *png)
 {
 	put_signature(png->signature);
 	ft_putstr("Width: ");
