@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 18:03:13 by alerandy          #+#    #+#             */
-/*   Updated: 2019/10/12 02:39:57 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/11/04 07:24:34 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stddef.h>
 
 typedef struct s_ui_layer	t_ui_layer;
+typedef struct s_vec2		t_pos;
 
 typedef struct		s_bgr
 {
@@ -63,6 +64,8 @@ t_argb				ui_argb_substract(t_argb a, t_argb b);
 t_argb				ui_argb_average(t_argb a, t_argb b);
 t_bgra				ui_bgra_addition(t_bgra a, t_bgra b);
 t_bgra				ui_bgra_substract(t_bgra a, t_bgra b);
+
+t_pos		       	get_adaptative_size(unsigned width, unsigned height);
 
 char				*get_file_name(char *path);
 void				close_fd(int fd, char *error);
