@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 06:45:36 by anlerandy         #+#    #+#             */
-/*   Updated: 2019/11/04 07:18:47 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/11/04 07:49:17 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,18 @@ t_pos       get_adaptative_size(unsigned width, unsigned height)
     {
         size.y = dm.h - 200;
         size.x = size.y * 100. / height / 100. * width;
+        return get_adaptative_size((unsigned)size.x, (unsigned)size.y);
+    }
+    if (height <= 500)
+    {
+        size.y = 600;
+        size.x = size.y * 100. / height / 100. * width;
+        return get_adaptative_size((unsigned)size.x, (unsigned)size.y);
+    }
+    if (width <= 500)
+    {
+        size.x = 600;
+        size.y = size.x * 100. / width / 100. * height;
         return get_adaptative_size((unsigned)size.x, (unsigned)size.y);
     }
     return ((t_pos){(unsigned)width, (unsigned)height});
