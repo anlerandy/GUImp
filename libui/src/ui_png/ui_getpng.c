@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 18:23:03 by alerandy          #+#    #+#             */
-/*   Updated: 2019/10/11 23:53:52 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/11/04 10:04:07 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,14 @@ t_png		*ui_getpng(char *path)
 	}
 	if ((fd = open(path, O_RDWR)) == -1)
 	{
+		ft_memdel((void**)&png);
 		ft_putendl_fd("Le fichier n'existe pas.", 2);
 		return (png);
 	}
 	read(fd, png, 8);
 	if (!validate_png(png))
 	{
+		ft_memdel((void**)&png);
 		ft_putendl_fd("Ceci n'est pas un fichier PNG.", 2);
 		return (png);
 	}
