@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 18:09:24 by alerandy          #+#    #+#             */
-/*   Updated: 2019/10/12 02:37:10 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/11/04 11:08:36 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	fill_pixels_16(unsigned *bmp_pixels, unsigned short *pixels, \
 			converted.g = (pix & 0b01111100000) / 0b0100000 / 31.0 * 255;
 			converted.b = (pix & 0b011111) / 0b01 / 31.0 * 255;
 			converted.a = (pix & 0b100000000000000) / 0b100000000000000 == 1 \
-				? 255 : 0;
+				? 255 : 255;
 			bmp_pixels[i++] = ui_bgra_to_hex(converted);
 		}
 	}
