@@ -6,25 +6,28 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 16:42:20 by alerandy          #+#    #+#             */
-/*   Updated: 2019/11/04 19:14:40 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/11/05 16:00:21 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ui_png_tools.h"
 #include "vectors.h"
 
-long		color_filter_4(t_png *png, t_isize pos)
+unsigned		color_filter_4(t_png *png, t_isize pos)
 {
-	long		a;
-	long		b;
-	long		c;
+	unsigned		a;
+	unsigned		b;
+	unsigned		c;
 	long		pn[3];
 	long		p;
 
 	a = pos.x == 0 ? 0 : png->pixels[(pos.x - 1) + pos.y * png->header.width];
 	b = pos.y == 0 ? 0 : png->pixels[pos.x + (pos.y - 1) * png->header.width];
-	c = pos.x == 0 || pos.y == 0 \
-				? 0 : png->pixels[(pos.x - 1) + (pos.y - 1) * png->header.width];
+	c = pos.x == 0 || pos.y == 0 ? 0 \
+			: png->pixels[(pos.x - 1) + (pos.y - 1) * png->header.width];
+	// a = (a & 0b00000000111111111111111111111111);
+	// b = (b & 0b00000000111111111111111111111111);
+	// c = (c & 0b00000000111111111111111111111111);
 	p = a + b - c;
 	pn[0] = labs(p - a);
 	pn[1] = labs(p - b);
@@ -56,7 +59,7 @@ t_argb	eight_bit_get_color(t_png *png, t_argb color, t_isize pos, int filter)
 		if (filter == 3)
 			return (ui_argb_addition(color, ui_argb_average(before, prior)));
 		return (ui_argb_addition(color, \
-					ui_hex_to_argb((unsigned)color_filter_4(png, pos))));
+					ui_hex_to_argb(color_filter_4(png, pos))));
 	}
 	return (color);
 }
@@ -88,10 +91,11 @@ void	png_write_rgba(t_png *png, void *data, int alpha)
 							+ (png->header.width * alpha + 1) * pos.y + 1);
 			color.b = *(unsigned char *)(data + (pos.x * alpha + 1) \
 							+ (png->header.width * alpha + 1) * pos.y + 2);
-			color.a = alpha == 3 ? 0 \
+			color.a = alpha == 3 ? 255 \
 				: *(unsigned char *)(data + (pos.x * alpha + 1) \
 					+ (png->header.width * alpha + 1) * pos.y + 3);
 			color = eight_bit_get_color(png, color, pos, filter);
+			color.a = alpha == 3 ? 255 : color.a;
 			png->pixels[cursor++] = ui_argb_to_hex(color);
 			i += alpha;
 			++pos.x;
