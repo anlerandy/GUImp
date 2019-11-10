@@ -6,28 +6,28 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 16:42:20 by alerandy          #+#    #+#             */
-/*   Updated: 2019/11/07 13:19:55 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/11/10 17:57:08 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ui_png_tools.h"
 #include "vectors.h"
 
-unsigned		color_filter_4(t_png *png, t_isize pos)
+t_argb		color_filter_4(t_png *png, t_isize pos)
 {
-	unsigned		a;
-	unsigned		b;
-	unsigned		c;
+	t_argb		a;
+	t_argb		b;
+	t_argb		c;
 	long		pn[3];
 	long		p;
 
-	a = !pos.x ? 0 : png->pixels[(pos.x - 1) + pos.y * png->header.width];
-	b = !pos.y ? 0 : png->pixels[pos.x + (pos.y - 1) * png->header.width];
-	c = !pos.x || !pos.y ? 0 : png->pixels[(pos.x - 1) + (pos.y - 1) * png->header.width];
-	p = (long)a + (long)b - (long)c;
-	pn[0] = labs(p - a);
-	pn[1] = labs(p - b);
-	pn[2] = labs(p - c);
+	a = ui_hex_to_argb(!pos.x ? 0 : png->pixels[(pos.x - 1) + pos.y * png->header.width]);
+	b = ui_hex_to_argb(!pos.y ? 0 : png->pixels[pos.x + (pos.y - 1) * png->header.width]);
+	c = ui_hex_to_argb(!pos.x || !pos.y ? 0 : png->pixels[(pos.x - 1) + (pos.y - 1) * png->header.width]);
+	p = ui_argb_to_hex(ui_argb_substract(ui_argb_addition(a, b), c));
+	pn[0] = labs(p - ui_argb_to_hex(a));
+	pn[1] = labs(p - ui_argb_to_hex(b));
+	pn[2] = labs(p - ui_argb_to_hex(c));
 	if (pn[0] <= pn[1] && pn[0] <= pn[2])
 		return (a);
 	if (pn[1] <= pn[2])
@@ -54,8 +54,7 @@ t_argb	eight_bit_get_color(t_png *png, t_argb color, t_isize pos, int filter)
 	{
 		if (filter == 3)
 			return (ui_argb_addition(color, ui_argb_average(before, prior)));
-		return (ui_argb_addition(color, \
-					ui_hex_to_argb(color_filter_4(png, pos))));
+		return (ui_argb_addition(color, color_filter_4(png, pos)));
 	}
 	return (color);
 }
