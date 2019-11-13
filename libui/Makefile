@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 15:11:25 by alerandy          #+#    #+#              #
-#    Updated: 2019/10/08 17:51:02 by alerandy         ###   ########.fr        #
+#    Updated: 2019/11/13 10:54:36 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -120,7 +120,7 @@ $(ZLIB):
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[ZLIB] \033[0m""Installing""\n"
 	make -C ZLIB > /dev/null 2> /dev/null
 	mkdir -p shared shared/include
-	cp -rf ./ZLIB/*.so* ./shared/lib/
+	cp -rf ./ZLIB/* ./shared/lib/
 	mkdir -p ./shared/include/ZLIB/
 	cp -rf ./$(ZLIB)/*.h ./shared/include/ZLIB/
 	rm -rf $(ZLIB)
