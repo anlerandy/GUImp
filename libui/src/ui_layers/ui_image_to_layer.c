@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 10:47:50 by alerandy          #+#    #+#             */
-/*   Updated: 2019/10/11 23:48:19 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/11/13 13:47:09 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,3 @@ t_ui_layer		*ui_image_to_layer(char *path)
 	ft_putendl_fd(file_type ? file_type + 1 : path, 2);
 	return (NULL);
 }
-
-

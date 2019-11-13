@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 16:47:44 by alerandy          #+#    #+#             */
-/*   Updated: 2019/10/12 02:39:41 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/11/13 13:46:48 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 inline static SDL_Color		fill_color(unsigned user_color)
 {
-	t_bgra	divided;
+	t_bgra		divided;
 	SDL_Color	color;
 
 	divided = ui_hex_to_bgra(user_color);

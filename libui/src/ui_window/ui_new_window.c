@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 12:02:48 by gsmith            #+#    #+#             */
-/*   Updated: 2019/10/06 12:59:11 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/11/13 14:31:06 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ t_ui_win		*ui_new_window(t_ui_univers *univers, t_ui_win_param param, \
 {
 	t_ui_win	*win;
 
-	// if (param.w < 90 || param.h < 90)
-	// 	return (abort_new_window("Min width & height size: 90.", NULL, NULL));
+	if (param.w < 90 || param.h < 90)
+		return (abort_new_window("Min width & height size: 90.", NULL, NULL));
 	if (!(win = ft_memalloc(sizeof(t_ui_win))))
 		return (abort_new_window(ERR_MALLOC, NULL, NULL));
 	if (univers->splash)

@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 18:03:13 by alerandy          #+#    #+#             */
-/*   Updated: 2019/11/07 13:16:11 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/11/13 14:32:06 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_argb				ui_argb_average(t_argb a, t_argb b);
 t_bgra				ui_bgra_addition(t_bgra a, t_bgra b);
 t_bgra				ui_bgra_substract(t_bgra a, t_bgra b);
 
-t_pos		       	get_adaptative_size(unsigned width, unsigned height);
+t_pos				get_adaptative_size(unsigned width, unsigned height);
 
 char				*get_file_name(char *path);
 void				close_fd(int fd, char *error);

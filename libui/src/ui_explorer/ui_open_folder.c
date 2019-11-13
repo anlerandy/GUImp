@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 12:50:04 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/15 10:58:52 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/11/13 14:09:04 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,64 +108,59 @@ t_ui_folder					*ui_open_folder(t_ui_univers *univers, char *path, \
 void						enter_it(t_ui_univers **univers, void *data, \
 								t_ui_event_data event)
 {
-	t_ui_folder		**folder;
+	t_ui_folder		**fld;
 	char			*path;
-	int				selected;
-	char			*file;
+	int				slc;
+	char			*f;
 
 	(void)event;
-	folder = (t_ui_folder **)data;
-	selected = (*folder)->selected;
-	if (!selected || (*folder)->layers[selected]->index == 3)
+	fld = (t_ui_folder **)data;
+	slc = (*fld)->selected;
+	if (!!(path = NULL) || !slc || (*fld)->layers[slc]->index == 3)
 		return ;
-	path = NULL;
-	file = (*folder)->ls->files[selected - 1];
-	if (!ft_strcmp(file, "..") && ft_strlen(file) == 2)
-		path = get_previous_path((*folder)->ls->path);
-	else if (!ft_strcmp(file, ".") && ft_strlen(file) == 1)
-		path = ft_strdup((*folder)->ls->path);
+	if (!ft_strcmp((f = (*fld)->ls->files[slc - 1]), "..") && ft_strlen(f) == 2)
+		path = get_previous_path((*fld)->ls->path);
+	else if (!ft_strcmp(f, ".") && ft_strlen(f) == 1)
+		path = ft_strdup((*fld)->ls->path);
 	else
-		path = ft_strjoin((*folder)->ls->path, file);
-	if ((*folder)->layers[selected]->index == 1)
-		open_folder(*univers, folder, path);
+		path = ft_strjoin((*fld)->ls->path, f);
+	if ((*fld)->layers[slc]->index == 1)
+		open_folder(*univers, fld, path);
 	else
 	{
-		ft_strdel(&((*folder)->ls->path));
-		(*folder)->ls->path = ft_strdup(path);
+		ft_strdel(&((*fld)->ls->path));
+		(*fld)->ls->path = ft_strdup(path);
 		ui_stop_watch(*univers);
 	}
 	ft_strdel(&path);
 }
 
-char						*ui_path_from_folder(t_ui_univers *univers, \
+char						*ui_path_from_folder(t_ui_univers *univ, \
 													char *path, t_ui_win *win)
 {
-	t_ui_folder		*folder;
-	t_ui_new_event	event;
+	t_ui_folder		*fld;
+	t_ui_win		*w;
 	char			*target;
 
-	folder = ui_open_folder(univers, path, win);
-	event = (t_ui_new_event){UI_EVENT_KEYDOWN, UIK_RETURN, folder->win};
-	ui_new_event(univers, event, &enter_it, &folder);
-	event.event = UIK_ESCAPE;
-	ui_new_event(univers, event, &close_and_stop, &folder);
-	event.type = UI_EVENT_WINDOW;
-	event.event = UI_WINDOWEVENT_CLOSE;
-	ui_new_event(univers, event, &close_and_stop, &folder);
-	if (univers->splash)
+	fld = ui_open_folder(univ, path, win);
+	w = fld->win;
+	ui_new_event(univ, (t_ui_new_event){0x300, '\r', w}, &enter_it, &fld);
+	ui_new_event(univ, (t_ui_new_event){0x300, '\033', w}, &close_n_stop, &fld);
+	ui_new_event(univ, (t_ui_new_event){0x200, 14, w}, &close_n_stop, &fld);
+	if (univ->splash)
 	{
-		SDL_HideWindow(univers->splash->sdl_ptr);
-		SDL_ShowWindow(folder->win->sdl_ptr);
-		SDL_UpdateWindowSurface(folder->win->sdl_ptr);
+		SDL_HideWindow(univ->splash->sdl_ptr);
+		SDL_ShowWindow(w->sdl_ptr);
+		SDL_UpdateWindowSurface(w->sdl_ptr);
 	}
-	ui_watch_events(&univers);
-	target = folder->ls->path ? ft_strdup(folder->ls->path) : NULL;
-	if (univers->splash)
+	ui_watch_events(&univ);
+	target = fld->ls->path ? ft_strdup(fld->ls->path) : NULL;
+	if (univ->splash)
 	{
-		SDL_ShowWindow(univers->splash->sdl_ptr);
-		SDL_UpdateWindowSurface(univers->splash->sdl_ptr);
+		SDL_ShowWindow(univ->splash->sdl_ptr);
+		SDL_UpdateWindowSurface(univ->splash->sdl_ptr);
 	}
-	ui_del_window(univers, ui_get_window_id(folder->win));
-	ui_free_folder(&folder);
+	ui_del_window(univ, ui_get_window_id(w));
+	ui_free_folder(&fld);
 	return (target);
 }
