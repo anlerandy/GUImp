@@ -6,33 +6,50 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 16:42:20 by alerandy          #+#    #+#             */
-/*   Updated: 2019/11/10 17:57:08 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/11/13 09:14:49 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ui_png_tools.h"
 #include "vectors.h"
 
+unsigned char each_byte_compare(unsigned char a, unsigned char b, \
+															unsigned char c)
+{
+	int		p;
+	int		pa;
+	int		pb;
+	int		pc;
+
+	p = (int)a + (int)b - (int)c;
+	pa = abs(p - (int)a);
+	pb = abs(p - (int)b);
+	pc = abs(p - (int)c);
+	if (pa <= pb && pa <= pc)
+		return (a);
+	if (pb <= pc)
+		return (b);
+	return (c);
+}
+
 t_argb		color_filter_4(t_png *png, t_isize pos)
 {
 	t_argb		a;
 	t_argb		b;
 	t_argb		c;
-	long		pn[3];
-	long		p;
+	t_argb		res;
 
-	a = ui_hex_to_argb(!pos.x ? 0 : png->pixels[(pos.x - 1) + pos.y * png->header.width]);
-	b = ui_hex_to_argb(!pos.y ? 0 : png->pixels[pos.x + (pos.y - 1) * png->header.width]);
-	c = ui_hex_to_argb(!pos.x || !pos.y ? 0 : png->pixels[(pos.x - 1) + (pos.y - 1) * png->header.width]);
-	p = ui_argb_to_hex(ui_argb_substract(ui_argb_addition(a, b), c));
-	pn[0] = labs(p - ui_argb_to_hex(a));
-	pn[1] = labs(p - ui_argb_to_hex(b));
-	pn[2] = labs(p - ui_argb_to_hex(c));
-	if (pn[0] <= pn[1] && pn[0] <= pn[2])
-		return (a);
-	if (pn[1] <= pn[2])
-		return (b);
-	return (c);
+	a = ui_hex_to_argb(!pos.x ? 0 : png->pixels[(pos.x - 1) \
+											+ pos.y * png->header.width]);
+	b = ui_hex_to_argb(!pos.y ? 0 : png->pixels[pos.x + (pos.y - 1) \
+													* png->header.width]);
+	c = ui_hex_to_argb(!pos.x || !pos.y ? 0 : png->pixels[(pos.x - 1) \
+										+ (pos.y - 1) * png->header.width]);
+	res.a = each_byte_compare(a.a, b.a, c.a);
+	res.r = each_byte_compare(a.r, b.r, c.r);
+	res.g = each_byte_compare(a.g, b.g, c.g);
+	res.b = each_byte_compare(a.b, b.b, c.b);
+	return (res);
 }
 
 t_argb	eight_bit_get_color(t_png *png, t_argb color, t_isize pos, int filter)
