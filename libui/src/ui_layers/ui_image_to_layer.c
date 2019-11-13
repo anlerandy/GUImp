@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 10:47:50 by alerandy          #+#    #+#             */
-/*   Updated: 2019/11/13 13:47:09 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/11/13 15:36:28 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ t_ui_layer		*ui_png_to_layer(char *path)
 	layer->rescale_h = png->header.height;
 	layer->width_inversed = 1;
 	layer->height_inversed = 1;
+	ui_delpng(&png);
 	return (layer);
 }
 

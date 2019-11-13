@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 12:50:04 by alerandy          #+#    #+#             */
-/*   Updated: 2019/11/13 14:09:04 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/11/13 16:38:59 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,7 @@ t_ui_folder					*ui_open_folder(t_ui_univers *univers, char *path, \
 							(t_ui_win_param){0, 0, 800, 600, UI_WINDOW_SHOWN}, \
 								"LIBUI Explorer")))
 		return (NULL);
-	else
-		folder->win = win;
+	folder->win = win;
 	ui_render_folder(folder);
 	set_explorer_event(univers, folder);
 	return (folder);
