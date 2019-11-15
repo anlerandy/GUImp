@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 12:50:04 by alerandy          #+#    #+#             */
-/*   Updated: 2019/11/13 16:38:59 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/11/15 10:43:25 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include "libui_layers.h"
 #include "libui_events.h"
 #include "ui_shared.h"
+#include "libui_draw.h"
 
 static inline t_ui_layer	*get_text_layer(char *file, char *path)
 {
@@ -83,21 +84,15 @@ t_ui_folder					*ui_open_folder(t_ui_univers *univers, char *path, \
 {
 	t_ui_folder		*folder;
 
-	if (!univers)
+	if (!univers || !(folder = ui_get_folder(path ? path : univers->pwd, NULL)))
 		return (NULL);
-	if (!(folder = ui_get_folder(path ? path : univers->pwd, NULL)))
+	if ((!win || (win->surf->w <= 300 || win->surf->h <= 80)) \
+			&& !(win = ui_new_window(univers, \
+				(t_ui_win_param){0, 0, 800, 600, UI_WINDOW_SHOWN}, "Explorer")))
 		return (NULL);
-	if (win)
-	{
-		if (win->surf->w <= 300 || win->surf->h <= 80)
-			win = NULL;
-		else
-			folder->background = ui_layer_from_window(win);
-	}
-	if (!win && !(win = ui_new_window(univers, \
-							(t_ui_win_param){0, 0, 800, 600, UI_WINDOW_SHOWN}, \
-								"LIBUI Explorer")))
-		return (NULL);
+	folder->background = ui_rect_to_layer((t_ui_draw_param){win->surf->w, \
+										win->surf->h, 0, 0, 0xff01003b, 0, 0});
+	ui_layer_into_layer(folder->background, ui_layer_from_window(win));
 	folder->win = win;
 	ui_render_folder(folder);
 	set_explorer_event(univers, folder);
