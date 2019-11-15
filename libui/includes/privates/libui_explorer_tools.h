@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 16:32:26 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/18 11:52:30 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/11/15 19:58:18 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	set_explorer_event(t_ui_univers *univers, t_ui_folder *folder);
 void	open_selection(t_ui_univers **univers, void *data, \
 														t_ui_event_data event);
 void	open_folder(t_ui_univers *univers, t_ui_folder **folder, char *path);
-void	close_and_stop(t_ui_univers **univers, void *data, \
+void	close_n_stop(t_ui_univers **univers, void *data, \
 														t_ui_event_data event);
 
 #endif

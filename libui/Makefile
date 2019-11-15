@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 15:11:25 by alerandy          #+#    #+#              #
-#    Updated: 2019/10/07 18:18:03 by alerandy         ###   ########.fr        #
+#    Updated: 2019/11/15 19:58:09 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,10 @@ FREETP = freetype-2.10.0
 FREELINK = http://ftp.igh.cnrs.fr/pub/nongnu/freetype/${FREETP}.tar.gz
 SDLTTF = SDL2_ttf-2.0.15
 SDLTLINK = https://www.libsdl.org/projects/SDL_ttf/release/$(SDLTTF).tar.gz
-INCLUDES += ./includes ./includes/privates ./shared/include/SDL2 ../libft/includes
-LIBS = -L../libft -lft -L./shared/lib -lSDL2 -lSDL2_ttf
+ZLIB = zlib-1.2.11
+ZLINK = https://zlib.net/$(ZLIB).tar.gz
+INCLUDES += ./includes ./includes/privates ./shared/include/SDL2 ./shared/include/ZLIB ../libft/includes
+LIBS = -lm -L../libft -lft -L./shared/lib -lSDL2 -lSDL2_ttf -lz
 SRCS += ui_init_univers.c ui_quit_univers.c
 INCLUDES:=$(addprefix -I, $(INCLUDES))
 
@@ -46,7 +48,7 @@ N = 0
 C = $(words $N)$(eval N := x $N)
 ECHO = "[`expr $C  '*' 100 / $T`%]"
 
-all: $(SDL2) $(SDLTTF) $(NAME)
+all: $(SDL2) $(SDLTTF) $(ZLIB) $(NAME)
 
 $(SDL2):
 	printf "\r\033[K""\033[32m[SDL2] \033[0m""Downloading""\n"
@@ -106,6 +108,25 @@ $(SDLTTF): $(SDL2) $(FREETP)
 	touch $(SDL2)
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[SDLTTF] \033[0m""Ready""\n"
 
+$(ZLIB):
+	printf "\r\033[K""\033[32m[ZLIB] \033[0m""Downloading""\n"
+	curl $(ZLINK) > ZLIB.tar.gz
+	tar -xf ZLIB.tar.gz
+	rm -rf ZLIB.tar.gz
+	printf '\033[K\033[1A\033[K\033[1A\033[K\033[1A\033[K\033[1A'
+	printf "\r\033[K""\r\033[K""\033[32m[ZLIB] \033[0m""Configuring""\n"
+	mkdir ZLIB && cd ZLIB && sh ../$(ZLIB)/configure --prefix=${shell pwd}/shared > /dev/null 2> /dev/null
+	printf "\033[1A\r\033[K""\r\033[K""\033[32m[ZLIB] \033[0m""Installing""\n"
+	make -C ZLIB > /dev/null 2> /dev/null
+	mkdir -p shared shared/include
+	cp -rf ./ZLIB/* ./shared/lib/
+	mkdir -p ./shared/include/ZLIB/
+	cp -rf ./$(ZLIB)/*.h ./shared/include/ZLIB/
+	rm -rf $(ZLIB)
+	touch $(ZLIB)
+	printf "\033[1A\r\033[K""\r\033[K""\033[32m[ZLIB] \033[0m""Ready""\n"
+
+
 $(NAME): $(OBJS)
 	ar rc $(NAME) $(PATH_OBJ)
 	ranlib $(NAME)
@@ -135,6 +156,8 @@ hardclean: fclean
 	echo "\033[0;31m[SDLTTF]\033[0m Deleted"
 	rm -rf $(FREETP) freetype2
 	echo "\033[0;31m[FREETYPE]\033[0m Deleted"
+	rm -rf $(ZLIB) ZLIB
+	echo "\033[0;31m[ZLIB]\033[0m Deleted"
 	rm -rf shared
 
 hardre: hardclean all

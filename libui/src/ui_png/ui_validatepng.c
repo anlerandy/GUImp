@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_hextopix.c                                      :+:      :+:    :+:   */
+/*   ui_validatepng.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/03 13:06:52 by alerandy          #+#    #+#             */
-/*   Updated: 2019/06/11 13:19:01 by alerandy         ###   ########.fr       */
+/*   Created: 2019/05/07 19:18:53 by alerandy          #+#    #+#             */
+/*   Updated: 2019/10/11 23:52:52 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bmp_parser.h"
+#include "ui_png.h"
 
-t_bmp_24	hex_to_bit24_pixel(unsigned color)
+int		validate_signature(unsigned char *signature)
 {
-	t_bmp_24	pixel;
-
-	pixel.r = color >> 16 & 0x000000FF;
-	pixel.g = color >> 8 & 0x000000FF;
-	pixel.b = color & 0x000000FF;
-	return (pixel);
+	return (signature[0] == 137 \
+	&& signature[1] == 'P' \
+	&& signature[2] == 'N' \
+	&& signature[3] == 'G' \
+	&& signature[4] == 13 \
+	&& signature[5] == 10 \
+	&& signature[6] == 26 \
+	&& signature[7] == 10);
 }
 
-t_bmp_32	hex_to_bit32_pixel(unsigned color)
+int		validate_png(t_png *png)
 {
-	t_bmp_32		pixel;
-
-	pixel.a = color >> 24;
-	pixel.r = color >> 16 & 0x000000FF;
-	pixel.g = color >> 8 & 0x000000FF;
-	pixel.b = color & 0x000000FF;
-	return (pixel);
+	return (validate_signature(png->signature));
 }

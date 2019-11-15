@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_folder.c                                   :+:      :+:    :+:   */
+/*   ui_putpngchunk.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/11 00:21:01 by alerandy          #+#    #+#             */
-/*   Updated: 2019/11/15 19:57:58 by alerandy         ###   ########.fr       */
+/*   Created: 2019/05/08 23:33:09 by alerandy          #+#    #+#             */
+/*   Updated: 2019/05/10 15:53:28 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini_ls.h"
-#include "libft.h"
+#include "ui_png_tools.h"
 
-void					ft_free_folder(t_ls_folder **folder)
+void	put_chunktype(unsigned type)
 {
-	int		i;
+	ft_putnstr((char*)&type, 4);
+	ft_putstr(" ID: ");
+	ft_putnbr(type);
+	ft_putstr("");
+}
 
-	i = -1;
-	while ((*folder)->files[++i])
-		ft_strdel(&((*folder)->files[i]));
-	ft_memdel((void**)&(*folder)->files);
-	ft_strdel(&((*folder)->path));
-	ft_memdel((void**)folder);
+void	put_chunk(t_png *png, t_png_chunk chunk)
+{
+	(void)png;
+	ft_putstr("Ignored chunk: ");
+	put_chunktype(chunk.type);
+	ft_putstr(" \033[32m(");
+	ft_putnbr(chunk.length);
+	ft_putstr(" octects)\033[0m\n");
+	free(chunk.data);
+	chunk.data = NULL;
 }

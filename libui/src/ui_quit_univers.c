@@ -6,12 +6,17 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:09:27 by gsmith            #+#    #+#             */
-/*   Updated: 2019/08/10 15:34:31 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/11/13 14:09:23 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "libui_tools.h"
+
+/*
+** TODO
+** 	ui_clear_all_themes(todie);
+*/
 
 void	ui_quit_univers(t_ui_univers **univers, int exit_code, char *msg)
 {
@@ -23,10 +28,6 @@ void	ui_quit_univers(t_ui_univers **univers, int exit_code, char *msg)
 	ui_clear_events(todie);
 	ui_clear_all_windows(todie);
 	ft_strdel(&todie->pwd);
-/*
-** TODO
-** 	ui_clear_all_themes(todie);
-*/
 	ft_memdel((void**)univers);
 	SDL_Quit();
 	if (msg)

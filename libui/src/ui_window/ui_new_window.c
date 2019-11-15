@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 12:02:48 by gsmith            #+#    #+#             */
-/*   Updated: 2019/08/14 13:29:21 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/11/15 10:43:58 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ t_ui_win		*ui_new_window(t_ui_univers *univers, t_ui_win_param param, \
 {
 	t_ui_win	*win;
 
+	if (param.w < 90 || param.h < 90)
+		return (abort_new_window("Min width & height size: 90.", NULL, NULL));
 	if (!(win = ft_memalloc(sizeof(t_ui_win))))
 		return (abort_new_window(ERR_MALLOC, NULL, NULL));
 	if (univers->splash)
@@ -43,7 +45,7 @@ t_ui_win		*ui_new_window(t_ui_univers *univers, t_ui_win_param param, \
 		return (abort_new_window(ERR_SDL_SURF, (void **)&win, win->sdl_ptr));
 	if (!(win->id = SDL_GetWindowID(win->sdl_ptr)))
 		return (abort_new_window(ERR_SDL_WIN_ID, (void **)&win, win->sdl_ptr));
-	ui_memuset(win->surf->pixels, 0xff000000, win->surf->h * win->surf->w);
+	ui_memuset(win->surf->pixels, 0x00000000, win->surf->h * win->surf->w);
 	SDL_UpdateWindowSurface(win->sdl_ptr);
 	rb_insert(&(univers->windows), (void *)win, &ui_cmp_window);
 	win->id_next_elem = 1;

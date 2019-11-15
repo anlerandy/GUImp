@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:59:51 by alerandy          #+#    #+#              #
-#    Updated: 2019/07/25 10:45:40 by alerandy         ###   ########.fr        #
+#    Updated: 2019/10/08 17:52:46 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,13 +23,13 @@ SDL2 = SDL2-2.0.9
 SDLTTF = SDL2_ttf-2.0.15
 INCLUDES += ./includes ./libui/shared/include/SDL2 ./libft/includes \
 			./libui/includes ./libui/includes/privates
-LIBS = -L./libui -lui -L./libft -lft -L./libui/shared/lib -lSDL2 -lSDL2_ttf
+LIBS = -lm -L./libui -lui -L./libft -lft -L./libui/shared/lib -lSDL2 -lSDL2_ttf -lz
 
 SRCS += main.c
 INCLUDES:=$(addprefix -I, $(INCLUDES))
 
 # Updating the VPATH
-VPATH =.:obj:$(shell find src -type d | tr '\n' ':'):shared/lib
+VPATH =.:obj:$(shell find src -type d | tr '\n' ':'):libui/shared/lib
 
 # Insert .o files
 OBJS = $(SRCS:%.c=%.o)
