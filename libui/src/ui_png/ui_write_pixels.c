@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:01:37 by alerandy          #+#    #+#             */
-/*   Updated: 2019/11/15 18:54:23 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/11/15 19:37:04 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,15 @@ void		uncompress_data(void *dst, void *src, unsigned in_size, \
 
 void		png_finalise_reading(t_png *png, t_png_chunk chunk)
 {
-	int		i;
-	void	*data;
+	int			i;
+	void		*data;
+	unsigned	size;
 
 	ft_memdel(&(chunk.data));
-	if (!(data = ft_memalloc(png->header.width * png->header.height * 8 \
-						+ png->header.height)))
+	size = png->header.width * png->header.height * 8 + png->header.height;
+	if (!(data = ft_memalloc(size)))
 		return ;
-	uncompress_data(data, png->raw_data, png->raw_size,
-			png->header.width * png->header.height * 8 + png->header.height);
+	uncompress_data(data, png->raw_data, png->raw_size, size);
 	png->pixel_count = png->header.width * png->header.height;
 	if (!(png->pixels = ft_memalloc(sizeof(unsigned) * png->pixel_count)))
 	{
