@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:01:37 by alerandy          #+#    #+#             */
-/*   Updated: 2019/11/15 19:37:04 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/11/15 19:45:43 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,7 @@ void		png_finalise_reading(t_png *png, t_png_chunk chunk)
 				(data + (int)(i / png->header.width)))[i]]) \
 				+ (!png->opacity ? 0 \
 				: png->opacity[((unsigned char*)data)[i]]) * 256 * 256 * 256;
+	if (png->header.color == PNGGRAY || png->header.color == PNGGRAYA)
+		ft_putendl_fd("PNG might be empty due to unsupported color format.", 2);
 	ft_memdel(&data);
 }

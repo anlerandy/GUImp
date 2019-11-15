@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 18:23:03 by alerandy          #+#    #+#             */
-/*   Updated: 2019/11/04 10:04:07 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/11/15 19:47:08 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ t_png		*ui_getpng(char *path)
 		return (png);
 	}
 	read_png(fd, png);
-	ui_putpng(png);
 	close(fd);
 	return (png);
 }
