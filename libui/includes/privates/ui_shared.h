@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 18:03:13 by alerandy          #+#    #+#             */
-/*   Updated: 2019/11/13 14:32:06 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/11/15 18:57:43 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ t_bgra				ui_hex_to_bgra(unsigned color);
 t_rgb				ui_hex_to_rgb(unsigned color);
 t_argb				ui_hex_to_argb(unsigned color);
 t_argb				ui_hex_to_abgr(unsigned color);
+t_argb				ui_hex_to_abgr_16(unsigned long color);
 
 t_argb				ui_argb_addition(t_argb a, t_argb b);
 t_argb				ui_argb_substract(t_argb a, t_argb b);

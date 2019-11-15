@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 16:42:20 by alerandy          #+#    #+#             */
-/*   Updated: 2019/11/13 14:29:36 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/11/15 19:18:01 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,23 +85,23 @@ void			png_write_rgba(t_png *png, void *data, int alpha)
 	t_argb	c;
 
 	i = 0;
-	p.y = 0;
-	alpha = alpha ? 4 : 3;
-	if (png->header.bit == 8)
-		while (i < (int)((png->header.width * alpha + 1) * png->header.height))
+	alpha = (alpha ? 4 : 3) * (png->header.bit == 8 ? 1 : 2);
+	while (i < (int)((png->header.width * alpha + 1) * png->header.height))
+	{
+		if (i % (png->header.width * alpha + 1) == 0)
 		{
-			if (i % (png->header.width * alpha + 1) == 0)
-			{
-				filter = (int)*((unsigned char *)data + i++);
-				p = i == 1 ? (t_isize){0, p.y} : (t_isize){0, ++p.y};
-			}
-			c = ui_hex_to_abgr(*(unsigned *)(data + (p.x * alpha + 1) \
-							+ (png->header.width * alpha + 1) * p.y));
-			c.a = alpha == 3 ? 255 : c.a;
-			c = eight_bit_get_color(png, c, p, filter);
-			c.a = alpha == 3 ? 255 : c.a;
-			png->pixels[p.x + (p.y * png->header.width)] = ui_argb_to_hex(c);
-			i += alpha;
-			++p.x;
+			filter = (int)*((unsigned char *)data + i++);
+			p = i == 1 ? (t_isize){0, 0} : (t_isize){0, ++p.y};
 		}
+		if (alpha > 4)
+			c = ui_hex_to_abgr_16(*(unsigned long*)(data + (p.x * alpha + 1) \
+						+ (png->header.width * alpha + 1) * p.y));
+		else
+			c = ui_hex_to_abgr(*(unsigned *)(data + (p.x * alpha + 1) \
+						+ (png->header.width * alpha + 1) * p.y));
+		c = eight_bit_get_color(png, c, p, filter);
+		c.a = alpha == 3 || alpha == 6 ? 255 : c.a;
+		png->pixels[p.x++ + (p.y * png->header.width)] = ui_argb_to_hex(c);
+		i += alpha;
+	}
 }
