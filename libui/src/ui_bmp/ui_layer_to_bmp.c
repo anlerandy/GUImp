@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 20:27:10 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/31 00:30:07 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/10/06 12:56:20 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	layer_to_bmp_header(t_bmp *bmp, t_ui_layer *layer)
 	bmp->header.type[0] = 'B';
 	bmp->header.type[1] = 'M';
 	bmp->header.size = 54 + ((layer->rescale_w * layer->rescale_h) \
-						* sizeof(t_bmp_32));
+						* sizeof(t_bgra));
 	bmp->header.offset = 54;
 	bmp->info.header_size = 40;
 	bmp->info.width = layer->rescale_w;
@@ -67,7 +67,7 @@ void	write_pixels(int fd, t_ui_layer *layer)
 		ft_memcpy(pixels + (layer->width * (layer->height - y)), \
 					layer->pixels + ((y - 1) * layer->width), \
 					sizeof(unsigned) * layer->width);
-	write(fd, pixels, length * sizeof(t_bmp_32));
+	write(fd, pixels, length * sizeof(t_bgra));
 	free(pixels);
 }
 

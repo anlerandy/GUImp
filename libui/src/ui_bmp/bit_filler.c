@@ -6,21 +6,22 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 18:09:24 by alerandy          #+#    #+#             */
-/*   Updated: 2019/06/06 14:48:59 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/11/04 11:08:36 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bmp_parser.h"
+#include "ui_shared.h"
 
-void	fill_buffer(t_bmp_24 *buff, char c)
+void	fill_buffer(t_bgr *buff, char c)
 {
-	char		a;
-	t_bmp_24	white;
-	t_bmp_24	black;
-	int			i;
+	char	a;
+	t_bgr	white;
+	t_bgr	black;
+	int		i;
 
-	white = (t_bmp_24){255, 255, 255};
-	black = (t_bmp_24){0, 0, 0};
+	white = (t_bgr){255, 255, 255};
+	black = (t_bgr){0, 0, 0};
 	a = 1;
 	i = -1;
 	while (++i <= 7)
@@ -30,10 +31,10 @@ void	fill_buffer(t_bmp_24 *buff, char c)
 void	fill_pixels_1(unsigned *bmp_pixels, char *pixels, int width, \
 						int height)
 {
-	int			x;
-	int			y;
-	t_bmp_24	buff[8];
-	int			cursor;
+	int		x;
+	int		y;
+	t_bgr	buff[8];
+	int		cursor;
 
 	y = -1;
 	width /= 8;
@@ -44,14 +45,14 @@ void	fill_pixels_1(unsigned *bmp_pixels, char *pixels, int width, \
 		{
 			cursor = x + (height - y - 1) * width;
 			fill_buffer(buff, pixels[cursor]);
-			*bmp_pixels++ = bit24_pixel_to_hex(buff[0]);
-			*bmp_pixels++ = bit24_pixel_to_hex(buff[1]);
-			*bmp_pixels++ = bit24_pixel_to_hex(buff[2]);
-			*bmp_pixels++ = bit24_pixel_to_hex(buff[3]);
-			*bmp_pixels++ = bit24_pixel_to_hex(buff[4]);
-			*bmp_pixels++ = bit24_pixel_to_hex(buff[5]);
-			*bmp_pixels++ = bit24_pixel_to_hex(buff[6]);
-			*bmp_pixels++ = bit24_pixel_to_hex(buff[7]);
+			*bmp_pixels++ = ui_bgr_to_hex(buff[0]);
+			*bmp_pixels++ = ui_bgr_to_hex(buff[1]);
+			*bmp_pixels++ = ui_bgr_to_hex(buff[2]);
+			*bmp_pixels++ = ui_bgr_to_hex(buff[3]);
+			*bmp_pixels++ = ui_bgr_to_hex(buff[4]);
+			*bmp_pixels++ = ui_bgr_to_hex(buff[5]);
+			*bmp_pixels++ = ui_bgr_to_hex(buff[6]);
+			*bmp_pixels++ = ui_bgr_to_hex(buff[7]);
 		}
 	}
 }
@@ -62,7 +63,7 @@ void	fill_pixels_16(unsigned *bmp_pixels, unsigned short *pixels, \
 	int			x;
 	int			y;
 	int			i;
-	t_bmp_32	converted;
+	t_bgra		converted;
 	int			pix;
 
 	y = 0;
@@ -78,13 +79,13 @@ void	fill_pixels_16(unsigned *bmp_pixels, unsigned short *pixels, \
 			converted.g = (pix & 0b01111100000) / 0b0100000 / 31.0 * 255;
 			converted.b = (pix & 0b011111) / 0b01 / 31.0 * 255;
 			converted.a = (pix & 0b100000000000000) / 0b100000000000000 == 1 \
-				? 255 : 0;
-			bmp_pixels[i++] = bit32_pixel_to_hex(converted);
+				? 255 : 255;
+			bmp_pixels[i++] = ui_bgra_to_hex(converted);
 		}
 	}
 }
 
-void	fill_pixels_24(unsigned *bmp_pixels, t_bmp_24 *pixels, int width, \
+void	fill_pixels_24(unsigned *bmp_pixels, t_bgr *pixels, int width, \
 						int height)
 {
 	int		x;
@@ -97,12 +98,12 @@ void	fill_pixels_24(unsigned *bmp_pixels, t_bmp_24 *pixels, int width, \
 	{
 		x = -1;
 		while (++x < width)
-			bmp_pixels[i++] = bit24_pixel_to_hex(pixels[x + (height - y - 1) \
+			bmp_pixels[i++] = ui_bgr_to_hex(pixels[x + (height - y - 1) \
 													* width]);
 	}
 }
 
-void	fill_pixels_32(unsigned *bmp_pixels, t_bmp_32 *pixels, int width, \
+void	fill_pixels_32(unsigned *bmp_pixels, t_bgra *pixels, int width, \
 						int height)
 {
 	int		x;
@@ -115,7 +116,7 @@ void	fill_pixels_32(unsigned *bmp_pixels, t_bmp_32 *pixels, int width, \
 	{
 		x = -1;
 		while (++x < width)
-			bmp_pixels[i++] = bit32_pixel_to_hex(pixels[x \
+			bmp_pixels[i++] = ui_bgra_to_hex(pixels[x \
 													+ (height - y) * width]);
 	}
 }

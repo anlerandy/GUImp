@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 16:06:38 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/14 12:03:58 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/11/13 16:57:20 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "mini_ls.h"
 #include "libft.h"
 #include "libui.h"
+#include "libui_layers.h"
 
 void	ui_free_folder(t_ui_folder **folder)
 {
@@ -23,19 +24,12 @@ void	ui_free_folder(t_ui_folder **folder)
 	if (!folder || !*folder)
 		return ;
 	tmp = *folder;
-	i = 0;
+	i = tmp->ls->files_amount ? tmp->ls->files_amount + 1 : 0;
 	if (tmp->ls)
-	{
-		i = tmp->ls->files_amount;
-		while (i >= 0)
-			ft_strdel(&(tmp->ls->files[i--]));
-		ft_strdel(&(tmp->ls->path));
-		i = tmp->ls->files_amount + 1;
-		ft_memdel((void**)&tmp->ls);
-	}
+		ft_free_folder(&(tmp->ls));
 	tmp->win = NULL;
-	while (i > 0)
-		ft_memdel((void**)&(tmp->layers[i--]));
+	while (i >= 0)
+		ui_free_layer(&(tmp->layers[i--]));
 	ft_memdel((void**)&tmp->layers);
 	ft_memdel((void**)&tmp->background);
 	ft_memdel((void**)folder);

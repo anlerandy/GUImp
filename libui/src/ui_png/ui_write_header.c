@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_folder.c                                   :+:      :+:    :+:   */
+/*   ui_write_header.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/11 00:21:01 by alerandy          #+#    #+#             */
-/*   Updated: 2019/11/13 17:02:39 by alerandy         ###   ########.fr       */
+/*   Created: 2019/05/08 23:37:19 by alerandy          #+#    #+#             */
+/*   Updated: 2019/07/20 14:02:27 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini_ls.h"
-#include "libft.h"
+#include "ui_png_tools.h"
 
-void					ft_free_folder(t_ls_folder **folder)
+void	png_write_header(t_png *png, t_png_chunk chunk)
 {
-	int		i;
+	t_png_header	*header;
 
-	i = -1;
-	while ((*folder)->files[++i])
-		ft_strdel(&((*folder)->files[i]));
-	ft_memdel((void**)&(*folder)->files);
-	ft_strdel(&((*folder)->path));
-	ft_memdel((void**)folder);
+	header = &png->header;
+	ft_memcpy((void *)header, (const void *)chunk.data, sizeof(t_png_header));
+	header->width = ft_swap_integer(header->width);
+	header->height = ft_swap_integer(header->height);
+	free(chunk.data);
+	chunk.data = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/14 11:47:52 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/14 11:54:23 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/11/15 10:30:25 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_ui_layer	*ui_layer_from_window(t_ui_win *win)
 	SDL_Surface	*surf;
 	t_ui_layer	*layer;
 
-	if (!(layer = ft_memalloc(sizeof(t_ui_layer))))
+	if (!win || !(layer = ft_memalloc(sizeof(t_ui_layer))))
 		return (NULL);
 	surf = win->surf;
 	if (!(layer->pixels = ft_memdup(surf->pixels, surf->w * surf->h \

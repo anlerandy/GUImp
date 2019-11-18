@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_folder.c                                   :+:      :+:    :+:   */
+/*   main_test.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/11 00:21:01 by alerandy          #+#    #+#             */
-/*   Updated: 2019/11/13 17:02:39 by alerandy         ###   ########.fr       */
+/*   Created: 2019/04/22 13:31:00 by alerandy          #+#    #+#             */
+/*   Updated: 2019/10/11 23:50:21 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini_ls.h"
-#include "libft.h"
+#include "ui_png.h"
 
-void					ft_free_folder(t_ls_folder **folder)
+int		main(void)
 {
-	int		i;
+	t_png	*png;
 
-	i = -1;
-	while ((*folder)->files[++i])
-		ft_strdel(&((*folder)->files[i]));
-	ft_memdel((void**)&(*folder)->files);
-	ft_strdel(&((*folder)->path));
-	ft_memdel((void**)folder);
+	png = ui_getpng("/Users/alerandy/Desktop/8bit.png");
+	ft_putendl("\n");
+	return (0);
 }

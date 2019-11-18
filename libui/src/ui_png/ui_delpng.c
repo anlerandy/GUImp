@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_folder.c                                   :+:      :+:    :+:   */
+/*   ui_delpng.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/11 00:21:01 by alerandy          #+#    #+#             */
-/*   Updated: 2019/11/13 17:02:39 by alerandy         ###   ########.fr       */
+/*   Created: 2019/06/30 18:49:06 by alerandy          #+#    #+#             */
+/*   Updated: 2019/11/13 15:37:26 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini_ls.h"
-#include "libft.h"
+#include "ui_png.h"
 
-void					ft_free_folder(t_ls_folder **folder)
+void	ui_delpng(t_png **png)
 {
-	int		i;
-
-	i = -1;
-	while ((*folder)->files[++i])
-		ft_strdel(&((*folder)->files[i]));
-	ft_memdel((void**)&(*folder)->files);
-	ft_strdel(&((*folder)->path));
-	ft_memdel((void**)folder);
+	free((*png)->palette);
+	free((*png)->opacity);
+	free((*png)->pixels);
+	free((*png)->raw_data);
+	free(*png);
+	*png = NULL;
 }
