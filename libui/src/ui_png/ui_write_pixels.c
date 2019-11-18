@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:01:37 by alerandy          #+#    #+#             */
-/*   Updated: 2019/11/15 19:45:43 by alerandy         ###   ########.fr       */
+/*   Updated: 2019/11/18 14:35:51 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,16 @@ void		png_finalise_reading(t_png *png, t_png_chunk chunk)
 	png->pixel_count = png->header.width * png->header.height;
 	if (!(png->pixels = ft_memalloc(sizeof(unsigned) * png->pixel_count)))
 	{
-		ft_memdel(&data);
 		ft_putendl_fd("Echec d'allocations de memoire.", 2);
-		return ;
+		return (ft_memdel(&data));
 	}
 	if (png->header.color == PNGRGB || png->header.color == PNGRGBA)
 		png_write_rgba(png, data, png->header.color == PNGRGBA);
 	if (png->header.color == PNGINDEX && (i = -1))
 		while (png->pixel_count - ++i - 1)
-			png->pixels[i] = ui_bgr_to_hex(png->palette[((unsigned char*)\
-				(data + (int)(i / png->header.width)))[i]]) \
-				+ (!png->opacity ? 0 \
-				: png->opacity[((unsigned char*)data)[i]]) * 256 * 256 * 256;
+			png->pixels[i] = ui_bgr_to_hex(png->palette[((unsigned char *)\
+				(data + (int)(i / png->header.width)))[i]]) + (!png->opacity \
+				? 0 : png->opacity[((unsigned char *)data)[i]]) * 16777216;
 	if (png->header.color == PNGGRAY || png->header.color == PNGGRAYA)
 		ft_putendl_fd("PNG might be empty due to unsupported color format.", 2);
 	ft_memdel(&data);
