@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/08 12:38:11 by alerandy          #+#    #+#              #
-#    Updated: 2019/08/11 00:22:04 by alerandy         ###   ########.fr        #
+#    Updated: 2019/12/14 01:06:56 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ SRC_NAME = ft_putchar.c ft_putstr.c ft_putcharerr.c ft_putstrerr.c ft_memset.c \
 		   rb_level_count.c rb_parenting.c rb_remove.c rb_rotation.c \
 		   rb_search_infix.c rb_search_all.c rb_validate_tree.c \
 		   vec_add.c vec_rot.c vec_init.c vec_mult_mat.c vec_mult.c vec_norm.c \
-		   vec_print.c vec_free.c vec_scale.c vec_spe_mat.c vec_sub.c
+		   vec_print.c vec_free.c vec_scale.c vec_spe_mat.c vec_sub.c \
+		   ft_bracket.c ft_brackdel.c
 NAME = libft.a
 FLAG = -Wall -Wextra -Werror -O2 -funroll-loops -g3
 OBJ_NAME = $(SRC_NAME:.c=.o)

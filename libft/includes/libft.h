@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 14:52:08 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/13 15:26:47 by alerandy         ###   ########.fr       */
+/*   Updated: 2020/02/03 08:22:26 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,23 @@ typedef struct		s_list
 	size_t			content_size;
 	struct s_list	*next;
 }					t_list;
+
+typedef				enum
+{
+	STRING,
+	INT,
+	FLOAT,
+	BRACKET
+}					e_type;
+
+typedef struct		s_brack
+{
+	char		*id;
+	e_type		type;
+	void		*data;
+	unsigned	size;
+	void		*parent;
+}					t_brack;
 
 void				ft_putcharerr(char c);
 void				ft_putchar(char c);
@@ -54,8 +71,8 @@ size_t				ft_strlcat(char *dst, const char *src, size_t size);
 int					ft_toupper(int c);
 char				*ft_strstr(const char *haystack, const char *needle);
 char				*ft_strrchr(const char *s, int c);
-char				*ft_strnstr(const char *haystack,
-		const char *needle, size_t len);
+char				*ft_strnstr(const char *haystack, \
+											const char *needle, size_t len);
 char				*ft_strncpy(char *dst, const char *src, size_t len);
 size_t				ft_strlen(const char *s);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -98,7 +115,9 @@ int					ft_isupper(int c);
 char				*ft_strcapitalize(char *s);
 char				*ft_strndup(const char *s1, size_t n);
 void				ft_sortarray(void **array, unsigned size, \
-									int (*cmp)(void *, void *));
+											int (*cmp)(void *, void *));
+t_brack				*ft_bracket(char *path);
+void				ft_brackdel(t_brack **bracket);
 
 unsigned			ft_swap_integer(unsigned nbr);
 
