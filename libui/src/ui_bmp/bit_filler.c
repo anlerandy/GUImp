@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 18:09:24 by alerandy          #+#    #+#             */
-/*   Updated: 2019/11/04 11:08:36 by alerandy         ###   ########.fr       */
+/*   Updated: 2020/02/02 19:47:31 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,22 @@ void	fill_pixels_24(unsigned *bmp_pixels, t_bgr *pixels, int width, \
 void	fill_pixels_32(unsigned *bmp_pixels, t_bgra *pixels, int width, \
 						int height)
 {
-	int		x;
-	int		y;
-	int		i;
+	int			x;
+	int			y;
+	int			i;
+	unsigned	alpha;
 
+	y = 0;
+	i = 0;
+	alpha = 255 << 24;
+	while (alpha && ++y <= height)
+	{
+		x = -1;
+		while (alpha && ++x < width)
+			if (((ui_bgra_to_hex(pixels[x + (height - y) * width]) \
+					& 0xff000000) >> 24) > 0)
+				alpha = 0;
+	}
 	y = 0;
 	i = 0;
 	while (++y <= height)
@@ -117,6 +129,6 @@ void	fill_pixels_32(unsigned *bmp_pixels, t_bgra *pixels, int width, \
 		x = -1;
 		while (++x < width)
 			bmp_pixels[i++] = ui_bgra_to_hex(pixels[x \
-													+ (height - y) * width]);
+											+ (height - y) * width]) + alpha;
 	}
 }
