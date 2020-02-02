@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_hextopix.c                                      :+:      :+:    :+:   */
+/*   ui_hexconv16.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/03 13:06:52 by alerandy          #+#    #+#             */
-/*   Updated: 2019/06/11 13:19:01 by alerandy         ###   ########.fr       */
+/*   Created: 2019/11/15 18:56:48 by alerandy          #+#    #+#             */
+/*   Updated: 2019/11/18 14:23:56 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bmp_parser.h"
+#include "ui_shared.h"
 
-t_bmp_24	hex_to_bit24_pixel(unsigned color)
+t_argb	ui_hex_to_abgr_16(unsigned long color)
 {
-	t_bmp_24	pixel;
+	t_argb		pixel;
 
-	pixel.r = color >> 16 & 0x000000FF;
-	pixel.g = color >> 8 & 0x000000FF;
-	pixel.b = color & 0x000000FF;
-	return (pixel);
-}
-
-t_bmp_32	hex_to_bit32_pixel(unsigned color)
-{
-	t_bmp_32		pixel;
-
-	pixel.a = color >> 24;
-	pixel.r = color >> 16 & 0x000000FF;
-	pixel.g = color >> 8 & 0x000000FF;
-	pixel.b = color & 0x000000FF;
+	pixel.a = ((color >> 32) >> 16);
+	pixel.b = (color >> 32 & 0x000000000000FFFF);
+	pixel.g = (color >> 16 & 0x000000000000FFFF);
+	pixel.r = (color & 0x000000000000FFFF);
 	return (pixel);
 }

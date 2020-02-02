@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:45:39 by gsmith            #+#    #+#             */
-/*   Updated: 2019/09/19 19:02:31 by alerandy         ###   ########.fr       */
+/*   Updated: 2020/02/02 16:34:59 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static inline void	set_default_event(t_ui_univers *univers)
 	t_ui_new_event	eve_param;
 
 	eve_param = (t_ui_new_event){UI_EVENT_KEYUP, UIK_ESCAPE, NULL};
-	if (ui_new_event(univers, eve_param, &callback_quit, NULL))
+	if (ui_new_event(univers, eve_param, &callback_close, NULL))
 		ui_quit_univers(&univers, 1, "Error while setting up event. eoe.");
 	eve_param.type = UI_EVENT_QUIT;
 	eve_param.event = 0;

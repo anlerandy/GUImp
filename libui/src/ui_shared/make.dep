@@ -1,1 +1,3 @@
-SRCS += get_file_name.c ui_close_fd.c ui_pixscpy.c ui_memuset.c ui_print_errors.c get_previous_path.c
+SRCS += get_file_name.c ui_close_fd.c ui_pixtohex.c ui_hextopix.c ui_pixscpy.c \
+		ui_memuset.c ui_print_errors.c get_previous_path.c ui_pix_calc.c get_adaptative_size.c \
+		ui_hexconv16.c 

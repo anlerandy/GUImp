@@ -6,23 +6,22 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 16:47:44 by alerandy          #+#    #+#             */
-/*   Updated: 2019/09/16 10:43:32 by alerandy         ###   ########.fr       */
+/*   Updated: 2020/02/02 16:37:25 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "SDL_ttf.h"
 #include "libui_ttf.h"
 #include "SDL_surface.h"
-#include "bmp_parser.h"
 #include "ui_shared.h"
 #include "libui_layers.h"
 
 inline static SDL_Color		fill_color(unsigned user_color)
 {
-	t_bmp_32	divided;
+	t_bgra		divided;
 	SDL_Color	color;
 
-	divided = hex_to_bit32_pixel(user_color);
+	divided = ui_hex_to_bgra(user_color);
 	divided.a = (1 - divided.a / 255.) * 255;
 	color = (SDL_Color){divided.r, divided.g, divided.b, divided.a};
 	return (color);

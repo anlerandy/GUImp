@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 12:50:04 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/18 11:52:10 by alerandy         ###   ########.fr       */
+/*   Updated: 2020/02/02 16:37:00 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include "libui_layers.h"
 #include "libui_events.h"
 #include "ui_shared.h"
+#include "libui_draw.h"
 
 static inline t_ui_layer	*get_text_layer(char *file, char *path)
 {
@@ -83,23 +84,16 @@ t_ui_folder					*ui_open_folder(t_ui_univers *univers, char *path, \
 {
 	t_ui_folder		*folder;
 
-	if (!univers)
+	if (!univers || !(folder = ui_get_folder(path ? path : univers->pwd, NULL)))
 		return (NULL);
-	if (!(folder = ui_get_folder(path ? path : univers->pwd, NULL)))
+	if ((!win || (win->surf->w <= 300 || win->surf->h <= 80)) \
+			&& !(win = ui_new_window(univers, \
+				(t_ui_win_param){0, 0, 800, 600, UI_WINDOW_SHOWN}, "Explorer")))
 		return (NULL);
-	if (win)
-	{
-		if (win->surf->w <= 300 || win->surf->h <= 80)
-			win = NULL;
-		else
-			folder->background = ui_layer_from_window(win);
-	}
-	if (!win && !(win = ui_new_window(univers, \
-							(t_ui_win_param){0, 0, 800, 600, UI_WINDOW_SHOWN}, \
-								"LIBUI Explorer")))
-		return (NULL);
-	else
-		folder->win = win;
+	folder->background = ui_rect_to_layer((t_ui_draw_param){win->surf->w, \
+										win->surf->h, 0, 0, 0xff01003b, 0, 0});
+	ui_layer_into_layer(folder->background, ui_layer_from_window(win));
+	folder->win = win;
 	ui_render_folder(folder);
 	set_explorer_event(univers, folder);
 	return (folder);
@@ -108,59 +102,59 @@ t_ui_folder					*ui_open_folder(t_ui_univers *univers, char *path, \
 void						enter_it(t_ui_univers **univers, void *data, \
 								t_ui_event_data event)
 {
-	t_ui_folder		**folder;
+	t_ui_folder		**fld;
 	char			*path;
-	int				slct;
-	char			*file;
+	int				slc;
+	char			*f;
 
 	(void)event;
-	folder = (t_ui_folder **)data;
-	if (!(slct = (*folder)->selected) || (*folder)->layers[slct]->index == 3)
+	fld = (t_ui_folder **)data;
+	slc = (*fld)->selected;
+	if (!!(path = NULL) || !slc || (*fld)->layers[slc]->index == 3)
 		return ;
-	file = (*folder)->ls->files[slct - 1];
-	if (!(path = NULL) && !ft_strcmp(file, "..") && ft_strlen(file) == 2)
-		path = get_previous_path((*folder)->ls->path);
-	else if (!ft_strcmp(file, ".") && ft_strlen(file) == 1)
-		path = ft_strdup((*folder)->ls->path);
+	if (!ft_strcmp((f = (*fld)->ls->files[slc - 1]), "..") && ft_strlen(f) == 2)
+		path = get_previous_path((*fld)->ls->path);
+	else if (!ft_strcmp(f, ".") && ft_strlen(f) == 1)
+		path = ft_strdup((*fld)->ls->path);
 	else
-		path = ft_strjoin((*folder)->ls->path, file);
-	if ((*folder)->layers[slct]->index == 1)
-		open_folder(*univers, folder, path);
+		path = ft_strjoin((*fld)->ls->path, f);
+	if ((*fld)->layers[slc]->index == 1)
+		open_folder(*univers, fld, path);
 	else
 	{
-		ft_strdel(&((*folder)->ls->path));
-		(*folder)->ls->path = ft_strdup(path);
+		ft_strdel(&((*fld)->ls->path));
+		(*fld)->ls->path = ft_strdup(path);
 		ui_stop_watch(*univers);
 	}
 	ft_strdel(&path);
 }
 
-char						*ui_path_from_folder(t_ui_univers *univers, \
+char						*ui_path_from_folder(t_ui_univers *univ, \
 													char *path, t_ui_win *win)
 {
-	t_ui_folder		*folder;
+	t_ui_folder		*fld;
+	t_ui_win		*w;
 	char			*target;
 
-	if ((folder = ui_open_folder(univers, path, win)) && univers->splash)
+	fld = ui_open_folder(univ, path, win);
+	w = fld->win;
+	ui_new_event(univ, (t_ui_new_event){0x300, '\r', w}, &enter_it, &fld);
+	ui_new_event(univ, (t_ui_new_event){0x300, '\033', w}, &close_n_stop, &fld);
+	ui_new_event(univ, (t_ui_new_event){0x200, 14, w}, &close_n_stop, &fld);
+	if (univ->splash)
 	{
-		SDL_HideWindow(univers->splash->sdl_ptr);
-		SDL_ShowWindow(folder->win->sdl_ptr);
-		SDL_UpdateWindowSurface(folder->win->sdl_ptr);
+		SDL_HideWindow(univ->splash->sdl_ptr);
+		SDL_ShowWindow(w->sdl_ptr);
+		SDL_UpdateWindowSurface(w->sdl_ptr);
 	}
-	ui_new_event(univers, (t_ui_new_event){UI_EVENT_KEYDOWN, UIK_RETURN, \
-											folder->win}, &enter_it, &folder);
-	ui_new_event(univers, (t_ui_new_event){UI_EVENT_KEYDOWN, UIK_ESCAPE, \
-										folder->win}, &close_and_stop, &folder);
-	ui_new_event(univers, (t_ui_new_event){UI_EVENT_WINDOW, \
-				UI_WINDOWEVENT_CLOSE, folder->win}, &close_and_stop, &folder);
-	ui_watch_events(&univers);
-	target = folder->ls->path ? ft_strdup(folder->ls->path) : NULL;
-	if (univers->splash)
+	ui_watch_events(&univ);
+	target = fld->ls->path ? ft_strdup(fld->ls->path) : NULL;
+	if (univ->splash)
 	{
-		SDL_ShowWindow(univers->splash->sdl_ptr);
-		SDL_UpdateWindowSurface(univers->splash->sdl_ptr);
+		SDL_ShowWindow(univ->splash->sdl_ptr);
+		SDL_UpdateWindowSurface(univ->splash->sdl_ptr);
 	}
-	ui_del_window(univers, ui_get_window_id(folder->win));
-	ui_free_folder(&folder);
+	ui_del_window(univ, ui_get_window_id(w));
+	ui_free_folder(&fld);
 	return (target);
 }
