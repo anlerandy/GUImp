@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 12:50:04 by alerandy          #+#    #+#             */
-/*   Updated: 2019/11/15 10:43:25 by alerandy         ###   ########.fr       */
+/*   Updated: 2020/02/02 17:49:13 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ t_ui_folder					*ui_open_folder(t_ui_univers *univers, char *path, \
 																t_ui_win *win)
 {
 	t_ui_folder		*folder;
+	t_ui_layer		*layer;
 
 	if (!univers || !(folder = ui_get_folder(path ? path : univers->pwd, NULL)))
 		return (NULL);
@@ -92,7 +93,9 @@ t_ui_folder					*ui_open_folder(t_ui_univers *univers, char *path, \
 		return (NULL);
 	folder->background = ui_rect_to_layer((t_ui_draw_param){win->surf->w, \
 										win->surf->h, 0, 0, 0xff01003b, 0, 0});
-	ui_layer_into_layer(folder->background, ui_layer_from_window(win));
+	layer = ui_layer_from_window(win);
+	ui_layer_into_layer(folder->background, layer);
+	ui_free_layer(&layer);
 	folder->win = win;
 	ui_render_folder(folder);
 	set_explorer_event(univers, folder);

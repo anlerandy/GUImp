@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 15:11:25 by alerandy          #+#    #+#              #
-#    Updated: 2019/11/13 10:54:36 by alerandy         ###   ########.fr        #
+#    Updated: 2020/02/02 18:07:11 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ COMPILE=$(CC) $(CFLAGS)
 include includes.dep
 
 # Intisialize the main files
-SDL2 = SDL2-2.0.9
+SDL2 = SDL2-2.0.10
 SDL2LINK = https://www.libsdl.org/release/$(SDL2).tar.gz
 SDL2CONF = ${shell pwd}/SDL/sdl2-config --prefix=${shell pwd}/SDL
 FREETP = freetype-2.10.0
