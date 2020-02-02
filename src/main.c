@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
-/*   Updated: 2020/02/02 16:44:02 by alerandy         ###   ########.fr       */
+/*   Updated: 2020/02/02 16:50:31 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ void	print_text(t_ui_univers **uni, t_ui_elem_used *context)
 int		main(int ac, char **av, char **env)
 {
 	t_ui_univers	*univ;
-	// char			*image;
-	// char			*saved_image;
 	t_ui_win		*win;
 
 	(void)ac;
@@ -63,7 +61,6 @@ int		main(int ac, char **av, char **env)
 	if (!(ui_new_elem(win, (t_ui_new_elem){0, 0, 300, 150, 1, \
 					UI_ELEM_STATE_DISABLED, "Disabled", NULL, &print_text})))
 		ft_putendl("Failed to create element.");
-	// ui_close_splash(univ);
 	// char * path = ui_path_from_folder(univ, NULL, NULL);
 	// ft_putendl(path);
 	// ft_strdel(&path);
