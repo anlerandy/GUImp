@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 11:35:10 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/14 10:35:17 by alerandy         ###   ########.fr       */
+/*   Updated: 2020/02/03 13:35:43 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static inline int		count_file(char *path)
 {
-	_DIRENT			*fold;
+	struct dirent	*fold;
 	int				i;
 	DIR				*dir;
 
@@ -61,8 +61,8 @@ static inline int		voidcmp(void *s1, void *s2)
 
 static inline void		fill_folder(t_ls_folder *folder, DIR *dir, char *path)
 {
-	_DIRENT	*fold;
-	int		i;
+	struct dirent	*fold;
+	int				i;
 
 	i = 0;
 	folder->path = path[ft_strlen(path) - 1] != '/' \

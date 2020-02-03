@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libui_mouse.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 15:22:20 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/15 14:43:24 by gsmith           ###   ########.fr       */
+/*   Updated: 2020/02/03 13:34:50 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@
 # define UIM_BUTTON_X1       4
 # define UIM_BUTTON_X2       5
 
-# define UIM_BUTTON_LMASK    0b00001
-# define UIM_BUTTON_MMASK    0b00010
-# define UIM_BUTTON_RMASK    0b00100
-# define UIM_BUTTON_X1MASK   0b01000
-# define UIM_BUTTON_X2MASK   0b10000
+# define UIM_BUTTON_LMASK    1
+# define UIM_BUTTON_MMASK    2
+# define UIM_BUTTON_RMASK    4
+# define UIM_BUTTON_X1MASK   8
+# define UIM_BUTTON_X2MASK   16
 
 #endif

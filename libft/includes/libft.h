@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 14:52:08 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/13 15:26:47 by alerandy         ###   ########.fr       */
+/*   Updated: 2020/02/03 13:39:34 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
-
-# define OP_SIZE sizeof(long)
 
 typedef struct		s_list
 {
