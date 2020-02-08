@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 15:38:38 by gsmith            #+#    #+#             */
-/*   Updated: 2019/07/20 15:23:06 by alerandy         ###   ########.fr       */
+/*   Updated: 2020/02/02 18:16:43 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ui_free_window(void *win_ptr)
 	if (!win_ptr)
 		return ;
 	win = (t_ui_win *)win_ptr;
+	SDL_FreeSurface(win->surf);
 	SDL_DestroyWindow(win->sdl_ptr);
 	rb_clear_tree(&(win->elements), &ui_free_elem);
 	ft_memdel(&win_ptr);

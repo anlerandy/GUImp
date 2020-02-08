@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alerandy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 15:28:09 by alerandy          #+#    #+#             */
-/*   Updated: 2019/04/08 14:14:36 by alerandy         ###   ########.fr       */
+/*   Updated: 2020/02/03 13:36:22 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static inline void	ft_memfill(unsigned long *dstp, unsigned long c, size_t len)
 		source[5] = c;
 		source[6] = c;
 		source[7] = c;
-		*dstp += 8 * OP_SIZE;
+		*dstp += 8 * sizeof(long);
 	}
 }
 
@@ -37,7 +37,7 @@ static inline void	ft_memfillrest(unsigned long *dstp, unsigned long c, \
 	while (--len > 0)
 	{
 		*((unsigned long *)*dstp) = c;
-		*dstp += OP_SIZE;
+		*dstp += sizeof(long);
 	}
 }
 
@@ -53,12 +53,12 @@ void				*ft_memset(void *b, int c, size_t len)
 		cccc |= cccc << 8;
 		cccc |= cccc << 16;
 		cccc |= (cccc << 16) << 16;
-		while (dstp % OP_SIZE != 0 && len--)
+		while (dstp % sizeof(long) != 0 && len--)
 			*((unsigned char *)dstp++) = c;
-		ft_memfill(&dstp, cccc, len / (OP_SIZE * 8) + 1);
-		len %= OP_SIZE * 8;
-		ft_memfillrest(&dstp, cccc, len / OP_SIZE + 1);
-		len %= OP_SIZE;
+		ft_memfill(&dstp, cccc, len / (sizeof(long) * 8) + 1);
+		len %= sizeof(long) * 8;
+		ft_memfillrest(&dstp, cccc, len / sizeof(long) + 1);
+		len %= sizeof(long);
 	}
 	while (len-- > 0)
 		*((unsigned char *)dstp++) = c;

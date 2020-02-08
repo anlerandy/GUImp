@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alerandy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 17:16:38 by alerandy          #+#    #+#             */
-/*   Updated: 2019/04/10 19:30:30 by alerandy         ###   ########.fr       */
+/*   Updated: 2020/02/03 13:36:22 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ static inline void	ft_memfill(unsigned long *dstp, unsigned long *srcp, \
 		destination[5] = source[5];
 		destination[6] = source[6];
 		destination[7] = source[7];
-		*dstp += 8 * OP_SIZE;
-		*srcp += 8 * OP_SIZE;
+		*dstp += 8 * sizeof(long);
+		*srcp += 8 * sizeof(long);
 	}
 }
 
@@ -41,8 +41,8 @@ static inline void	ft_memfillrest(unsigned long *dstp, unsigned long *srcp, \
 	while (--len > 0)
 	{
 		*((unsigned long *)*dstp) = *((unsigned long *)*srcp);
-		*dstp += OP_SIZE;
-		*srcp += OP_SIZE;
+		*dstp += sizeof(long);
+		*srcp += sizeof(long);
 	}
 }
 
@@ -55,12 +55,12 @@ void				*ft_memcpy(void *dst, const void *src, size_t len)
 	srcp = (unsigned long)src;
 	if (len >= 8)
 	{
-		while (dstp % OP_SIZE != 0 && len--)
+		while (dstp % sizeof(long) != 0 && len--)
 			*((unsigned char *)dstp++) = *((unsigned char *)srcp++);
-		ft_memfill(&dstp, &srcp, len / (OP_SIZE * 8) + 1);
-		len %= OP_SIZE * 8;
-		ft_memfillrest(&dstp, &srcp, len / OP_SIZE + 1);
-		len %= OP_SIZE;
+		ft_memfill(&dstp, &srcp, len / (sizeof(long) * 8) + 1);
+		len %= sizeof(long) * 8;
+		ft_memfillrest(&dstp, &srcp, len / sizeof(long) + 1);
+		len %= sizeof(long);
 	}
 	while (len-- > 0)
 		*((unsigned char *)dstp++) = *((unsigned char *)srcp++);
