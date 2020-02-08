@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 16:15:26 by alerandy          #+#    #+#             */
-/*   Updated: 2019/11/13 13:57:55 by alerandy         ###   ########.fr       */
+/*   Updated: 2020/02/08 18:37:33 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,9 @@ void	set_explorer_event(t_ui_univers *univers, t_ui_folder *folder)
 	ui_new_event(univers, eve_param, &close_explorer, folder);
 	eve_param.type = UI_EVENT_QUIT;
 	eve_param.event = 0;
+	ui_new_event(univers, eve_param, &close_explorer, folder);
+	eve_param.type = UI_EVENT_WINDOW;
+	eve_param.event = UI_WINDOWEVENT_CLOSE;
 	ui_new_event(univers, eve_param, &close_explorer, folder);
 }
 
