@@ -8,3 +8,18 @@ then
 	rm -rf tmpico.rsrc
 	printf "\033[1A\r\033[K\033[1A\r\033[K"
 fi
+if [ $(uname -s) = "Linux" ]
+then
+	echo "[Desktop Entry]
+Encoding=UTF-8
+Terminal=0
+Exec="$(pwd)"/guimp
+Path="$(pwd)"
+Icon="$(pwd)"/assets/ico.png
+Type=Application
+Categories=Graphics;
+StartupNotify=true
+Name=Guimp
+GenericName=Graphic User Interface 'MP'" > Guimp.desktop && \
+	chmod +x Guimp.desktop
+fi
