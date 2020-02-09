@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/25 16:22:11 by alerandy          #+#    #+#             */
-/*   Updated: 2019/07/25 13:49:12 by alerandy         ###   ########.fr       */
+/*   Updated: 2020/02/03 14:09:21 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 # include <sys/types.h>
 # include <sys/dir.h>
 # include <sys/stat.h>
-
-# define _DIRENT struct dirent
 
 typedef struct	s_ls_folder
 {

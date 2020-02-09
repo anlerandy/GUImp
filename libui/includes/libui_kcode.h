@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libui_kcode.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsmith <gsmith@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 14:03:56 by gsmith            #+#    #+#             */
-/*   Updated: 2019/05/15 16:39:13 by gsmith           ###   ########.fr       */
+/*   Updated: 2020/02/02 19:51:07 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@
 # define UIK_INSERT               1073741897
 # define UIK_HOME                 1073741898
 # define UIK_PAGEUP               1073741899
-# define UIK_DELETE              '\177';
+# define UIK_DELETE               '\177'
 
 # define UIK_END                  1073741901
 # define UIK_PAGEDOWN             1073741902
