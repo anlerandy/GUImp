@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:54:17 by alerandy          #+#    #+#             */
-/*   Updated: 2020/02/09 18:56:19 by alerandy         ###   ########.fr       */
+/*   Updated: 2020/02/10 19:17:51 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,12 @@ t_brack			*create_bracket(char *json)
 	i += get_id(json + i, bracket);
 	if (!bracket->id)
 		ft_brackdel(&bracket);
-	while (ft_isspace(json[++i]));
-	if (json[i] != ':')
+	while (bracket && ft_isspace(json[++i]));
+	if (bracket && json[i] != ':')
 		ft_brackdel(&bracket);
-	while (ft_isspace(json[++i]));
+	while (bracket && ft_isspace(json[++i]));
 	i += get_value(json + i, bracket);
-	if (!bracket->data)
+	if (bracket && !bracket->data)
 		ft_brackdel(&bracket);
 	if (bracket) // To DELETE
 	{ // To DELETE
