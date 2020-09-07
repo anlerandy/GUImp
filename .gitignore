@@ -12,9 +12,13 @@ obj
 # temporary file from IDE and TE
 .vscode
 *.swp
+*.tmp
 
 # debug dir
 *.dSYM
 
 # editor file
 .clang_complete
+
+# Linux Files
+*.desktop

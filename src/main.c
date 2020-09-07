@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
-/*   Updated: 2020/02/02 16:54:38 by alerandy         ###   ########.fr       */
+/*   Updated: 2020/09/07 18:28:07 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,7 @@ int		main(int ac, char **av, char **env)
 	if (!(ui_new_elem(win, (t_ui_new_elem){125, 300, 200, 100, 1, \
 							UI_ELEM_STATE_ACTIVE, "Test", NULL, &print_text})))
 		ft_putendl("Failed to create element.");
-	if (!(ui_new_elem(win, (t_ui_new_elem){350, 300, 200, 100, 1, \
-							UI_ELEM_STATE_ACTIVE, "Test", NULL, &print_text})))
-		ft_putendl("Failed to create element.");
-	if (!(ui_new_elem(win, (t_ui_new_elem){125, 600, 200, 100, 1, \
-							UI_ELEM_STATE_ACTIVE, "Test", NULL, &print_text})))
-		ft_putendl("Failed to create element.");
-	if (!(ui_new_elem(win, (t_ui_new_elem){0, 0, 300, 150, 1, \
-					UI_ELEM_STATE_DISABLED, "Disabled", NULL, &print_text})))
-		ft_putendl("Failed to create element.");
-	// char * path = ui_path_from_folder(univ, NULL, NULL);
-	// ft_putendl(path);
-	// ft_strdel(&path);
-	ui_open_folder(univ, NULL, NULL);
+	ui_open_folder(univ, NULL, win);
 	ui_close_splash(univ);
 	ui_watch_events(&univ);
 	ui_quit_univers(&univ, 0, NULL);
