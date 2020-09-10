@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 15:11:25 by alerandy          #+#    #+#              #
-#    Updated: 2020/02/08 17:14:17 by alerandy         ###   ########.fr        #
+#    Updated: 2020/09/10 16:59:17 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,12 +57,14 @@ $(SDL2):
 	rm -rf SDL2.tar.gz
 	printf '\033[K\033[1A\033[K\033[1A\033[K\033[1A\033[K\033[1A'
 	printf "\r\033[K""\r\033[K""\033[32m[SDL2] \033[0m""Configuring""\n"
-	mkdir SDL && cd SDL && sh ../$(SDL2)/configure --prefix=${shell pwd}/shared > /dev/null 2> /dev/null
+	mkdir -p shared shared/vendor
+	mkdir shared/vendor/SDL && cd shared/vendor/SDL && sh ${shell pwd}/$(SDL2)/configure \
+		--prefix=${shell pwd}/shared > /dev/null 2> /dev/null
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[SDL2] \033[0m""Installing""\n"
-	make -C SDL > /dev/null 2> /dev/null
+	make -j -C shared/vendor/SDL > /dev/null 2> /dev/null
 	mkdir -p shared shared/include
-	cp -rf ./SDL/build/.libs/ ./shared/lib/ \
-	&& cp -rf ./$(SDL2)/include/ ./shared/include/SDL2/
+	cp -rf ${shell pwd}/shared/vendor/SDL/build/.libs/ ./shared/lib/ \
+		&& cp -rf ${shell pwd}/$(SDL2)/include/ ./shared/include/SDL2/
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[SDL2] \033[0m""Ready""\n"
 
 $(FREETP):
@@ -72,36 +74,43 @@ $(FREETP):
 	rm -rf freetype2.tar.gz
 	printf '\033[K\033[1A\033[K\033[1A\033[K\033[1A\033[K\033[1A'
 	printf "\r\033[K""\r\033[K""\033[32m[FREETYPE] \033[0m""Configuring""\n"
-	mkdir -p freetype2 && cd freetype2 && ../$(FREETP)/configure --prefix=${shell pwd}/shared > /dev/null 2> /dev/null
+	mkdir -p shared shared/vendor
+	mkdir -p shared/vendor/freetype2 && cd shared/vendor/freetype2 \
+		&& ${shell pwd}/$(FREETP)/configure --prefix=${shell pwd}/shared > /dev/null 2> /dev/null
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[FREETYPE] \033[0m""Installing""\n"
-	make -C freetype2 -j > /dev/null 2> /dev/null
-	mkdir -p shared shared/include
-	cp -rf ./freetype2/.libs/* ./shared/lib/ \
-	&& cp -fR ./$(FREETP)/include/ ./shared/include/freetype2/
+	make -C shared/vendor/freetype2 -j > /dev/null 2> /dev/null
+	mkdir -p shared/include
+	cp -rf shared/vendor/freetype2/.libs/* ./shared/lib/ \
+		&& cp -fR ./$(FREETP)/include/ ./shared/include/freetype2/
 	rm -rf $(FREETP)
 	touch $(FREETP)
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[FREETYPE] \033[0m""Ready""\n"
 
-$(SDLTTF): $(SDL2) $(FREETP)
+$(SDLTTF): $(FREETP)
+	if ! [ $(wildcard ${SDL2}) ]; then \
+		echo $(wildcard ${SDL2}) is not compiled yet; \
+		exit 1; \
+	fi
 	printf "\r\033[K""\033[32m[SDLTTF] \033[0m""Downloading""\n"
 	curl $(SDLTLINK) > SDLTTF.tar.gz
 	tar -xf SDLTTF.tar.gz
 	rm -rf SDLTTF.tar.gz
 	printf '\033[K\033[1A\033[K\033[1A\033[K\033[1A\033[K\033[1A'
 	printf "\r\033[K""\r\033[K""\033[32m[SDLTTF] \033[0m""Configuring""\n"
-	mkdir -p SDLTTF && cd SDLTTF \
-	&& export LD_LIBRARY_PATH="${shell pwd}/shared/lib" \
-	&& SDL2_CONFIG="$(shell pwd)/SDL/sdl2-config" \
-	PKG_CONFIG_PATH=${shell pwd}/SDL/:$(shell pwd)/freetype2/ \
-	FT2_CONFIG="$(shell pwd)/freetype2/freetype-config" \
-	FT2_CFLAGS="-I$(shell pwd)/shared/include/freetype2" \
-	FT2_LIBS="-L$(shell pwd)/shared/lib/ -lfreetype" \
-	sh ../$(SDLTTF)/configure --prefix=${shell pwd}/shared > /dev/null 2> /dev/null
+	mkdir -p shared shared/vendor
+	mkdir -p shared/vendor/SDLTTF && cd shared/vendor/SDLTTF \
+		&& export LD_LIBRARY_PATH="${shell pwd}/shared/lib" \
+		&& SDL2_CONFIG="$(shell pwd)/shared/vendor/SDL/sdl2-config" \
+		PKG_CONFIG_PATH=${shell pwd}/shared/vendor/SDL/:$(shell pwd)/shared/vendor/freetype2/ \
+		FT2_CONFIG="$(shell pwd)/shared/vendor/freetype2/freetype-config" \
+		FT2_CFLAGS="-I$(shell pwd)/shared/include/freetype2" \
+		FT2_LIBS="-L$(shell pwd)/shared/lib/ -lfreetype" \
+		sh $(shell pwd)/$(SDLTTF)/configure --prefix=${shell pwd}/shared > /dev/null 2> /dev/null
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[SDLTTF] \033[0m""Installing""\n"
-	make -C SDLTTF -j > /dev/null 2> /dev/null
-	mkdir -p shared shared/include
-	cp -rf ./SDLTTF/.libs/* ./shared/lib/ \
-	&& cp -rf ./$(SDLTTF)/SDL_ttf.h ./shared/include/SDL2/SDL_ttf.h
+	make -C shared/vendor/SDLTTF -j > /dev/null 2> /dev/null
+	mkdir -p shared/include
+	cp -rf shared/vendor/SDLTTF/.libs/* ./shared/lib/ \
+		&& cp -rf ./$(SDLTTF)/SDL_ttf.h ./shared/include/SDL2/SDL_ttf.h
 	rm -rf $(SDLTTF)
 	touch $(SDLTTF)
 	rm -rf $(SDL2)
@@ -115,17 +124,18 @@ $(ZLIB):
 	rm -rf ZLIB.tar.gz
 	printf '\033[K\033[1A\033[K\033[1A\033[K\033[1A\033[K\033[1A'
 	printf "\r\033[K""\r\033[K""\033[32m[ZLIB] \033[0m""Configuring""\n"
-	mkdir ZLIB && cd ZLIB && sh ../$(ZLIB)/configure --prefix=${shell pwd}/shared > /dev/null 2> /dev/null
+	mkdir -p shared shared/vendor
+	mkdir shared/vendor/ZLIB && cd shared/vendor/ZLIB && sh ${shell pwd}/$(ZLIB)/configure \
+		--prefix=${shell pwd}/shared > /dev/null 2> /dev/null
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[ZLIB] \033[0m""Installing""\n"
-	make -C ZLIB > /dev/null 2> /dev/null
-	mkdir -p shared shared/include
-	cp -rf ./ZLIB/* ./shared/lib/
+	make -C ${shell pwd}/shared/vendor/ZLIB > /dev/null 2> /dev/null
+	mkdir -p shared/include
+	cp -rf ${shell pwd}/shared/vendor/ZLIB/* ./shared/lib/
 	mkdir -p ./shared/include/ZLIB/
 	cp -rf ./$(ZLIB)/*.h ./shared/include/ZLIB/
 	rm -rf $(ZLIB)
 	touch $(ZLIB)
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[ZLIB] \033[0m""Ready""\n"
-
 
 $(NAME): $(OBJS)
 	ar rc $(NAME) $(PATH_OBJ)
