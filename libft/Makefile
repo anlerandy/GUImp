@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/08 12:38:11 by alerandy          #+#    #+#              #
-#    Updated: 2019/08/11 00:22:04 by alerandy         ###   ########.fr        #
+#    Updated: 2020/09/10 13:59:08 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRC_NAME = ft_putchar.c ft_putstr.c ft_putcharerr.c ft_putstrerr.c ft_memset.c \
 		   vec_add.c vec_rot.c vec_init.c vec_mult_mat.c vec_mult.c vec_norm.c \
 		   vec_print.c vec_free.c vec_scale.c vec_spe_mat.c vec_sub.c
 NAME = libft.a
+NAMESO = $(NAME:%.a=%.so)
 FLAG = -Wall -Wextra -Werror -O2 -funroll-loops -g3
 OBJ_NAME = $(SRC_NAME:.c=.o)
 CC = clang $(FLAG)
@@ -78,6 +79,7 @@ clean :
 
 fclean : clean dclean
 	@rm -f $(NAME)
+	@rm -f $(NAMESO)
 	@echo "\033[0;31m[LIBFT]\033[0m Deleted"
 
 dclean:

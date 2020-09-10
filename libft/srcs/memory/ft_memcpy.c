@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 17:16:38 by alerandy          #+#    #+#             */
-/*   Updated: 2020/02/03 13:36:22 by alerandy         ###   ########.fr       */
+/*   Updated: 2020/09/09 20:07:45 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void				*ft_memcpy(void *dst, const void *src, size_t len)
 	unsigned long	dstp;
 	unsigned long	srcp;
 
+	if (!dst || !src) return NULL;
 	dstp = (unsigned long)dst;
 	srcp = (unsigned long)src;
 	if (len >= 8)

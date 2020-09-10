@@ -6,14 +6,14 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:59:51 by alerandy          #+#    #+#              #
-#    Updated: 2019/10/08 17:52:46 by alerandy         ###   ########.fr        #
+#    Updated: 2020/09/10 14:44:06 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = guimp
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g3
 CC = clang
-COMPILE= $(CC) -g3 $(CFLAGS)
+COMPILE= $(CC) $(CFLAGS)
 
 # Get all dependances
 include includes.dep

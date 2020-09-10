@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alerandy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/12 15:23:20 by alerandy          #+#    #+#             */
-/*   Updated: 2018/03/06 14:55:08 by acourtin         ###   ########.fr       */
+/*   Updated: 2020/09/10 14:42:28 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ static size_t	ft_count_word(char const *str, char c)
 		{
 			if (s == 0)
 			{
-				i++;
-				s++;
+				++i;
+				++s;
 			}
-			a++;
+			++a;
 		}
 		else
 		{
-			a++;
+			++a;
 			s = 0;
 		}
 	}
@@ -81,9 +81,8 @@ static char		**ft_tab_addr(char *nstr, char const *str, char c)
 	while (j < a)
 	{
 		tab[j] = ft_strnew(ft_strlen(nstr + i) + 1);
-		ft_strcpy(tab[j], nstr + i);
+		ft_strcpy(tab[j++], nstr + i);
 		i = i + ft_strlen(nstr + i) + 1;
-		j++;
 	}
 	tab[j] = 0;
 	free(nstr);
@@ -103,14 +102,11 @@ static char		*ft_n_long_str(char const *s, char *nstr, char c)
 		{
 			nstr[j++] = s[i++];
 			if (s[i] == c)
-			{
-				nstr[j] = '\0';
-				j++;
-			}
+				nstr[j++] = '\0';
 			nstr[j] = '\0';
 		}
 		else
-			i++;
+			++i;
 	}
 	return (nstr);
 }
@@ -123,7 +119,7 @@ char			**ft_strsplit(char const *s, char c)
 	if (!s)
 		return (0);
 	j = ft_count(s, c) + ft_count_word(s, c);
-	if (!(nstr = ft_memalloc(sizeof(char) * j + 1)))
+	if (!(nstr = ft_memalloc(sizeof(char) * (j + 1))))
 		return (NULL);
 	j = 0;
 	nstr = ft_n_long_str(s, nstr, c);

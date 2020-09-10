@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 10:35:47 by alerandy          #+#    #+#             */
-/*   Updated: 2019/08/13 14:51:43 by alerandy         ###   ########.fr       */
+/*   Updated: 2020/09/10 14:27:49 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static inline size_t	per_eight_checker(const char **s, const char **str)
 	unsigned long int	himagic;
 	unsigned long int	lomagic;
 	unsigned long int	*tmp;
-	unsigned long int	cast;
 	size_t				len;
 
 	himagic = 0x80808080L;
@@ -48,8 +47,7 @@ static inline size_t	per_eight_checker(const char **s, const char **str)
 	tmp = (unsigned long int *)*str;
 	while (1)
 	{
-		cast = *tmp++;
-		if (((cast - lomagic) & ~lomagic & himagic) != 0)
+		if (((*tmp++ - lomagic) & ~lomagic & himagic) != 0)
 		{
 			*str = (const char *)(tmp - 1);
 			if ((len = single_checker(s, str)) != 0)
