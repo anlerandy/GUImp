@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:43:32 by alerandy          #+#    #+#             */
-/*   Updated: 2020/09/07 18:28:07 by alerandy         ###   ########.fr       */
+/*   Updated: 2021/04/16 04:35:04 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int		main(int ac, char **av, char **env)
 	if (!(ui_new_elem(win, (t_ui_new_elem){125, 300, 200, 100, 1, \
 							UI_ELEM_STATE_ACTIVE, "Test", NULL, &print_text})))
 		ft_putendl("Failed to create element.");
-	ui_open_folder(univ, NULL, win);
 	ui_close_splash(univ);
 	ui_watch_events(&univ);
 	ui_quit_univers(&univ, 0, NULL);

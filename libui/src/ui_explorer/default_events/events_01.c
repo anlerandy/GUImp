@@ -6,7 +6,7 @@
 /*   By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 16:15:26 by alerandy          #+#    #+#             */
-/*   Updated: 2020/02/08 18:37:33 by alerandy         ###   ########.fr       */
+/*   Updated: 2020/11/03 10:49:44 by alerandy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	move_selector(t_ui_univers **univers, void *data, t_ui_event_data event)
 {
 	t_ui_folder		*folder;
 
-	if (!(folder = (t_ui_folder *)data))
+	if (!(folder = (t_ui_folder *)data)->ls)
 		return ;
 	folder->selected += event.keycode == UIK_DOWN ? 1 : -1;
 	if ((int)folder->selected > folder->ls->files_amount)
