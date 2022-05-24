@@ -23,10 +23,10 @@ SDL2 = SDL2-2.0.10
 SDL2LINK = https://www.libsdl.org/release/$(SDL2).tar.gz
 SDL2CONF = ${shell pwd}/SDL/sdl2-config --prefix=${shell pwd}/SDL
 FREETP = freetype-2.10.0
-FREELINK = http://ftp.igh.cnrs.fr/pub/nongnu/freetype/${FREETP}.tar.gz
+FREELINK = https://bigsearcher.com/mirrors/nongnu/freetype/${FREETP}.tar.gz
 SDLTTF = SDL2_ttf-2.0.15
 SDLTLINK = https://www.libsdl.org/projects/SDL_ttf/release/$(SDLTTF).tar.gz
-ZLIB = zlib-1.2.11
+ZLIB = zlib-1.2.12
 ZLINK = https://zlib.net/$(ZLIB).tar.gz
 INCLUDES += ./includes ./includes/privates ./shared/include/SDL2 ./shared/include/ZLIB ../libft/includes
 LIBS = -lm -L../libft -lft -L./shared/lib -lSDL2 -lSDL2_ttf -lz
@@ -67,7 +67,7 @@ $(SDL2):
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[SDL2] \033[0m""Ready""\n"
 
 $(FREETP):
-	printf "\r\033[K""\033[32m[FREETYPE] \033[0m""Downloading""\n"
+	printf "\r\033[K""\033[32m[FREETYPE] \033[0m""Downloading $(FREELINK)""\n"
 	curl -0 $(FREELINK) -o freetype2.tar.gz
 	tar -xf freetype2.tar.gz
 	rm -rf freetype2.tar.gz
@@ -110,7 +110,7 @@ $(SDLTTF): $(SDL2) $(FREETP)
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[SDLTTF] \033[0m""Ready""\n"
 
 $(ZLIB):
-	printf "\r\033[K""\033[32m[ZLIB] \033[0m""Downloading""\n"
+	printf "\r\033[K""\033[32m[ZLIB] \033[0m""Downloading $(ZLINK)""\n"
 	curl $(ZLINK) > ZLIB.tar.gz
 	tar -xf ZLIB.tar.gz
 	rm -rf ZLIB.tar.gz
