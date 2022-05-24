@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:59:51 by alerandy          #+#    #+#              #
-#    Updated: 2019/10/08 17:52:46 by alerandy         ###   ########.fr        #
+#    Updated: 2022/05/25 01:53:37 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,20 +89,20 @@ hardre: hardclean all
 
 norm:
 	printf "\033[32mC files:\033[0m\n"
-	norminette $(shell find src -regex ".\{1,200\}\.c" | xargs) > .norm.tmp
+	norminette $(shell find src | grep --regex '\.c$$' | xargs) > .norm.tmp || true
 	grep "Error" -B 1 .norm.tmp || echo "\033[1;32mNo error found\033[0m\n"
 	rm .norm.tmp
 	printf "\033[32mH files:\033[0m\n"
-	norminette $(shell find includes -regex ".\{1,200\}\.h" | xargs) > .norm.tmp
+	norminette $(shell find includes | grep --regex '\.h$$' | xargs) > .norm.tmp || true
 	grep "Error" -B 1 .norm.tmp || echo "\033[1;32mNo error found\033[0m\n"
 	rm .norm.tmp
 
 norm-raw:
 	printf "\033[32m[GUIMP]\033[0m Norm:\n"
 	printf "\033[32mC files:\033[0m\n"
-	norminette $(shell find src -regex ".\{1,200\}\.c" | xargs)
+	norminette $(shell find src | grep --regex '\.c$$' | xargs)
 	printf "\033[32mH files:\033[0m\n"
-	norminette $(shell find includes -regex ".\{1,200\}\.h" | xargs)
+	norminette $(shell find includes | grep --regex '\.h$$' | xargs)
 	printf "\033[32m[LIBUI]\033[0m Norm:\n"
 	make -s -C libui norm-raw
 	printf "\033[32m[LIBFT]\033[0m Norm:\n"

@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/08 12:38:11 by alerandy          #+#    #+#              #
-#    Updated: 2019/08/11 00:22:04 by alerandy         ###   ########.fr        #
+#    Updated: 2022/05/25 01:55:25 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,19 +87,19 @@ re : fclean $(NAME)
 
 norm:
 	@printf "\033[32mC files:\033[0m\n"
-	@norminette $(shell find srcs -regex ".\{1,200\}\.c" | xargs) > .norm.tmp
+	@norminette $(shell find srcs | grep --regex '\.c$$" | xargs) > .norm.tmp || true
 	@grep "Error" -B 1 .norm.tmp || echo "\033[1;32mNo error found\033[0m\n"
 	@rm .norm.tmp
 	@printf "\033[32mH files:\033[0m\n"
-	@norminette $(shell find includes -regex ".\{1,200\}\.h" | xargs) > .norm.tmp
+	@norminette $(shell find includes | grep --regex '\.h$$" | xargs) > .norm.tmp || true
 	@grep "Error" -B 1 .norm.tmp || echo "\033[1;32mNo error found\033[0m\n"
 	@rm .norm.tmp
 
 norm-raw:
 	@printf "\033[32mC files:\033[0m\n"
-	@norminette $(shell find srcs -regex ".\{1,200\}\.c" | xargs)
+	@norminette $(shell find srcs | grep --regex '\.c$$" | xargs)
 	@printf "\033[32mH files:\033[0m\n"
-	@norminette $(shell find includes -regex ".\{1,200\}\.h" | xargs)
+	norminette $(shell find includes | grep --regex '\.h$$' | xargs)
 
 .PHONY: re fclean clean all so
 

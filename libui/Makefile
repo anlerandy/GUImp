@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 15:11:25 by alerandy          #+#    #+#              #
-#    Updated: 2020/02/02 18:07:11 by alerandy         ###   ########.fr        #
+#    Updated: 2022/05/25 01:54:02 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -170,19 +170,19 @@ re: fclean all
 
 norm:
 	printf "\033[32mC files:\033[0m\n"
-	norminette $(shell find src -regex ".\{1,200\}\.c" | xargs) > .norm.tmp
+	norminette $(shell find src | grep --regex '\.c$$' | xargs) > .norm.tmp || true
 	grep "Error" -B 1 .norm.tmp || echo "\033[1;32mNo error found\033[0m\n"
 	rm .norm.tmp
 	printf "\033[32mH files:\033[0m\n"
-	norminette $(shell find includes -regex ".\{1,200\}\.h" | xargs) > .norm.tmp
+	norminette $(shell find includes | grep --regex '\.h$$' | xargs) > .norm.tmp || true
 	grep "Error" -B 1 .norm.tmp || echo "\033[1;32mNo error found\033[0m\n"
 	rm .norm.tmp
 
 norm-raw:
 	printf "\033[32mC files:\033[0m\n"
-	norminette $(shell find src -regex ".\{1,200\}\.c" | xargs)
+	norminette $(shell find src | grep --regex '\.c$$' | xargs)
 	printf "\033[32mH files:\033[0m\n"
-	norminette $(shell find includes -regex ".\{1,200\}\.h" | xargs)
+	norminette $(shell find includes | grep --regex '\.h$$' | xargs)
 
 .PHONY: re fclean hardre hardclean clean all
 .SILENT: $(SDL2) all $(NAME) clean fclean re hardclean hardre $(OBJS) norm $(DPDS) dclean norm-raw
