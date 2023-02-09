@@ -1,5 +1,5 @@
-SDL2-2.0.*
-SDL2_ttf-2.0.*
+SDL2-2.*.*
+SDL2_ttf-2.*.*
 freetype-2.10.0
 SDL
 SDLTTF
