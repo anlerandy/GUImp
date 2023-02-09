@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 15:11:25 by alerandy          #+#    #+#              #
-#    Updated: 2020/02/08 17:14:17 by alerandy         ###   ########.fr        #
+#    Updated: 2022/05/25 01:54:02 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,14 +19,15 @@ COMPILE=$(CC) $(CFLAGS)
 include includes.dep
 
 # Intisialize the main files
-SDL2 = SDL2-2.0.10
+SDLVERSION = 2.26.1
+SDL2 = SDL2-${SDLVERSION}
 SDL2LINK = https://www.libsdl.org/release/$(SDL2).tar.gz
 FREETP = freetype-2.10.0
-FREELINK = http://ftp.igh.cnrs.fr/pub/nongnu/freetype/${FREETP}.tar.gz
+FREELINK = https://bigsearcher.com/mirrors/nongnu/freetype/${FREETP}.tar.gz
 SDLTTF = SDL2_ttf-2.0.15
 SDLTLINK = https://www.libsdl.org/projects/SDL_ttf/release/$(SDLTTF).tar.gz
-ZLIB = zlib-1.2.11
-ZLINK = https://zlib.net/$(ZLIB).tar.gz
+ZLIB = zlib-1.2.13
+ZLINK = https://zlib.net/fossils/$(ZLIB).tar.gz
 INCLUDES += ./includes ./includes/privates ./shared/include/SDL2 ./shared/include/ZLIB ../libft/includes
 LIBS = -lm -L../libft -lft -L./shared/lib -lSDL2 -lSDL2_ttf -lz
 SRCS += ui_init_univers.c ui_quit_univers.c
@@ -60,13 +61,13 @@ $(SDL2):
 	mkdir SDL && cd SDL && sh ../$(SDL2)/configure --prefix=${shell pwd}/shared > /dev/null 2> /dev/null
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[SDL2] \033[0m""Installing""\n"
 	make -C SDL > /dev/null 2> /dev/null
-	mkdir -p shared shared/include
+	mkdir -p shared shared/include shared/lib
 	cp -rf ./SDL/build/.libs/ ./shared/lib/ \
 	&& cp -rf ./$(SDL2)/include/ ./shared/include/SDL2/
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[SDL2] \033[0m""Ready""\n"
 
 $(FREETP):
-	printf "\r\033[K""\033[32m[FREETYPE] \033[0m""Downloading""\n"
+	printf "\r\033[K""\033[32m[FREETYPE] \033[0m""Downloading $(FREELINK)""\n"
 	curl -0 $(FREELINK) -o freetype2.tar.gz
 	tar -xf freetype2.tar.gz
 	rm -rf freetype2.tar.gz
@@ -75,7 +76,7 @@ $(FREETP):
 	mkdir -p freetype2 && cd freetype2 && ../$(FREETP)/configure --prefix=${shell pwd}/shared > /dev/null 2> /dev/null
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[FREETYPE] \033[0m""Installing""\n"
 	make -C freetype2 -j > /dev/null 2> /dev/null
-	mkdir -p shared shared/include
+	mkdir -p shared shared/include shared/lib
 	cp -rf ./freetype2/.libs/* ./shared/lib/ \
 	&& cp -fR ./$(FREETP)/include/ ./shared/include/freetype2/
 	rm -rf $(FREETP)
@@ -99,7 +100,7 @@ $(SDLTTF): $(SDL2) $(FREETP)
 	sh ../$(SDLTTF)/configure --prefix=${shell pwd}/shared > /dev/null 2> /dev/null
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[SDLTTF] \033[0m""Installing""\n"
 	make -C SDLTTF -j > /dev/null 2> /dev/null
-	mkdir -p shared shared/include
+	mkdir -p shared shared/include shared/lib
 	cp -rf ./SDLTTF/.libs/* ./shared/lib/ \
 	&& cp -rf ./$(SDLTTF)/SDL_ttf.h ./shared/include/SDL2/SDL_ttf.h
 	rm -rf $(SDLTTF)
@@ -109,7 +110,7 @@ $(SDLTTF): $(SDL2) $(FREETP)
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[SDLTTF] \033[0m""Ready""\n"
 
 $(ZLIB):
-	printf "\r\033[K""\033[32m[ZLIB] \033[0m""Downloading""\n"
+	printf "\r\033[K""\033[32m[ZLIB] \033[0m""Downloading $(ZLINK)""\n"
 	curl $(ZLINK) > ZLIB.tar.gz
 	tar -xf ZLIB.tar.gz
 	rm -rf ZLIB.tar.gz
@@ -118,7 +119,7 @@ $(ZLIB):
 	mkdir ZLIB && cd ZLIB && sh ../$(ZLIB)/configure --prefix=${shell pwd}/shared > /dev/null 2> /dev/null
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[ZLIB] \033[0m""Installing""\n"
 	make -C ZLIB > /dev/null 2> /dev/null
-	mkdir -p shared shared/include
+	mkdir -p shared shared/include shared/lib
 	cp -rf ./ZLIB/* ./shared/lib/
 	mkdir -p ./shared/include/ZLIB/
 	cp -rf ./$(ZLIB)/*.h ./shared/include/ZLIB/
@@ -169,19 +170,19 @@ re: fclean all
 
 norm:
 	printf "\033[32mC files:\033[0m\n"
-	norminette $(shell find src -regex ".\{1,200\}\.c" | xargs) > .norm.tmp
+	norminette $(shell find src | grep --regex '\.c$$' | xargs) > .norm.tmp || true
 	grep "Error" -B 1 .norm.tmp || echo "\033[1;32mNo error found\033[0m\n"
 	rm .norm.tmp
 	printf "\033[32mH files:\033[0m\n"
-	norminette $(shell find includes -regex ".\{1,200\}\.h" | xargs) > .norm.tmp
+	norminette $(shell find includes | grep --regex '\.h$$' | xargs) > .norm.tmp || true
 	grep "Error" -B 1 .norm.tmp || echo "\033[1;32mNo error found\033[0m\n"
 	rm .norm.tmp
 
 norm-raw:
 	printf "\033[32mC files:\033[0m\n"
-	norminette $(shell find src -regex ".\{1,200\}\.c" | xargs)
+	norminette $(shell find src | grep --regex '\.c$$' | xargs)
 	printf "\033[32mH files:\033[0m\n"
-	norminette $(shell find includes -regex ".\{1,200\}\.h" | xargs)
+	norminette $(shell find includes | grep --regex '\.h$$' | xargs)
 
 .PHONY: re fclean hardre hardclean clean all
 .SILENT: $(SDL2) all $(NAME) clean fclean re hardclean hardre $(OBJS) norm $(DPDS) dclean norm-raw

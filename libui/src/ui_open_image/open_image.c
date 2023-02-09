@@ -48,10 +48,8 @@ t_ui_win	*ui_layer_to_window(t_ui_univers *univers, char *path)
 
 t_ui_win	*ui_open_image(t_ui_univers *univers, char *path)
 {
-	int		len;
 	char	*file_type;
 
-	len = ft_strlen(path);
 	if ((file_type = ft_strrchr(path, '.')))
 	{
 		if (!ft_strncmp(file_type + 1, "bmp", 3) \

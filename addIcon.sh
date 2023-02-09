@@ -10,9 +10,10 @@ then
 fi
 if [ $(uname -s) = "Linux" ]
 then
-	echo "[Desktop Entry]
+	echo "#!/usr/bin/env xdg-open
+[Desktop Entry]
 Encoding=UTF-8
-Terminal=0
+Terminal=false
 Exec="$(pwd)"/guimp
 Path="$(pwd)"
 Icon="$(pwd)"/assets/ico.png
@@ -20,6 +21,6 @@ Type=Application
 Categories=Graphics;
 StartupNotify=true
 Name=Guimp
-GenericName=Graphic User Interface 'MP'" > Guimp.desktop && \
-	chmod +x Guimp.desktop
+GenericName=Graphic User Interface 'MP'" > ~/.local/share/applications/Guimp.desktop && \
+	chmod +x ~/.local/share/applications/Guimp.desktop
 fi

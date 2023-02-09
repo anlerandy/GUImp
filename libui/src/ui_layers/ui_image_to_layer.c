@@ -70,10 +70,8 @@ t_ui_layer		*ui_png_to_layer(char *path)
 
 t_ui_layer		*ui_image_to_layer(char *path)
 {
-	int		len;
 	char	*file_type;
 
-	len = ft_strlen(path);
 	if ((file_type = ft_strrchr(path, '.')))
 	{
 		if (!ft_strncmp(file_type + 1, "bmp", 3))
