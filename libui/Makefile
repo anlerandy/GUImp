@@ -6,7 +6,7 @@
 #    By: alerandy <alerandy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 15:11:25 by alerandy          #+#    #+#              #
-#    Updated: 2022/05/25 01:54:02 by alerandy         ###   ########.fr        #
+#    Updated: 2023/03/17 21:22:49 by alerandy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,6 +65,8 @@ $(SDL2):
 	mkdir -p shared shared/include shared/lib
 	cp -rf ./SDL/build/.libs/ ./shared/lib/ \
 	&& cp -rf ./$(SDL2)/include/ ./shared/include/SDL2/
+	rm -rf $(SDL2)
+	touch $(SDL2)
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[SDL2] \033[0m""Ready""\n"
 
 $(FREETP):
@@ -106,8 +108,6 @@ $(SDLTTF): $(SDL2) $(FREETP)
 	&& cp -rf ./$(SDLTTF)/SDL_ttf.h ./shared/include/SDL2/SDL_ttf.h
 	rm -rf $(SDLTTF)
 	touch $(SDLTTF)
-	rm -rf $(SDL2)
-	touch $(SDL2)
 	printf "\033[1A\r\033[K""\r\033[K""\033[32m[SDLTTF] \033[0m""Ready""\n"
 
 $(ZLIB):
